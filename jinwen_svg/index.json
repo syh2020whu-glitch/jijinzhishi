@@ -1,0 +1,11832 @@
+{
+ "王": {
+  "cp": "U+738B",
+  "file": "王.svg",
+  "variants": 5,
+  "src": "成周鈴",
+  "period": "商"
+ },
+ "周": {
+  "cp": "U+5468",
+  "file": "周.svg",
+  "variants": 5,
+  "src": "[〇]甗",
+  "period": "西周早期"
+ },
+ "殷": {
+  "cp": "U+6BB7",
+  "file": "殷.svg",
+  "variants": 5,
+  "src": "史[〇]鼎",
+  "period": "西周早期"
+ },
+ "吴": {
+  "cp": "U+5434",
+  "file": "吴.svg",
+  "variants": 1,
+  "src": "同𣪕蓋",
+  "period": "西周中期"
+ },
+ "楚": {
+  "cp": "U+695A",
+  "file": "楚.svg",
+  "variants": 5,
+  "src": "季楚𣪕",
+  "period": "西周中期"
+ },
+ "秦": {
+  "cp": "U+79E6",
+  "file": "秦.svg",
+  "variants": 5,
+  "src": "秦公鐘",
+  "period": "春秋早期"
+ },
+ "宋": {
+  "cp": "U+5B8B",
+  "file": "宋.svg",
+  "variants": 5,
+  "src": "宋公戌鎛",
+  "period": "春秋晚期"
+ },
+ "曹": {
+  "cp": "U+66F9",
+  "file": "曹.svg",
+  "variants": 4,
+  "src": "七年趞曹鼎",
+  "period": "西周中期"
+ },
+ "蔡": {
+  "cp": "U+8521",
+  "file": "蔡.svg",
+  "variants": 5,
+  "src": "",
+  "period": ""
+ },
+ "虢": {
+  "cp": "U+8662",
+  "file": "虢.svg",
+  "variants": 5,
+  "src": "虢仲鬲",
+  "period": "西周中期"
+ },
+ "散": {
+  "cp": "U+6563",
+  "file": "散.svg",
+  "variants": 5,
+  "src": "散白𣪕",
+  "period": "西周晚期"
+ },
+ "毛": {
+  "cp": "U+6BDB",
+  "file": "毛.svg",
+  "variants": 5,
+  "src": "毛乍寶鼎",
+  "period": "西周中期"
+ },
+ "虞": {
+  "cp": "U+865E",
+  "file": "虞.svg",
+  "variants": 5,
+  "src": "虞𤔲寇壺",
+  "period": "西周晚期"
+ },
+ "曾": {
+  "cp": "U+66FE",
+  "file": "曾.svg",
+  "variants": 5,
+  "src": "曾白宫父穆鬲",
+  "period": "西周晚期"
+ },
+ "黄": {
+  "cp": "U+9EC4",
+  "file": "黄.svg",
+  "variants": 5,
+  "src": "",
+  "period": ""
+ },
+ "朱": {
+  "cp": "U+6731",
+  "file": "朱.svg",
+  "variants": 5,
+  "src": "[〇]方鼎",
+  "period": "西周中期"
+ },
+ "林": {
+  "cp": "U+6797",
+  "file": "林.svg",
+  "variants": 5,
+  "src": "尹姞鬲",
+  "period": "西周中期"
+ },
+ "方": {
+  "cp": "U+65B9",
+  "file": "方.svg",
+  "variants": 5,
+  "src": "中甗",
+  "period": "西周早期"
+ },
+ "金": {
+  "cp": "U+91D1",
+  "file": "金.svg",
+  "variants": 5,
+  "src": "",
+  "period": ""
+ },
+ "白": {
+  "cp": "U+767D",
+  "file": "白.svg",
+  "variants": 5,
+  "src": "白乍鬲",
+  "period": "西周早期"
+ },
+ "㐁": {
+  "cp": "U+3401",
+  "file": "㐁.svg",
+  "variants": 1,
+  "src": "",
+  "period": ""
+ },
+ "㐭": {
+  "cp": "U+342D",
+  "file": "㐭.svg",
+  "variants": 4,
+  "src": "",
+  "period": ""
+ },
+ "㐰": {
+  "cp": "U+3430",
+  "file": "㐰.svg",
+  "variants": 5,
+  "src": "㝬弔鼎",
+  "period": "西周中期"
+ },
+ "㐱": {
+  "cp": "U+3431",
+  "file": "㐱.svg",
+  "variants": 2,
+  "src": "",
+  "period": ""
+ },
+ "㐺": {
+  "cp": "U+343A",
+  "file": "㐺.svg",
+  "variants": 1,
+  "src": "乍[〇]㐺彝方鼎",
+  "period": "商或西周早期"
+ },
+ "㑄": {
+  "cp": "U+3444",
+  "file": "㑄.svg",
+  "variants": 1,
+  "src": "中山王[〇]鼎",
+  "period": "戰國晚期"
+ },
+ "㑞": {
+  "cp": "U+345E",
+  "file": "㑞.svg",
+  "variants": 2,
+  "src": "",
+  "period": ""
+ },
+ "㑱": {
+  "cp": "U+3471",
+  "file": "㑱.svg",
+  "variants": 1,
+  "src": "",
+  "period": ""
+ },
+ "㑴": {
+  "cp": "U+3474",
+  "file": "㑴.svg",
+  "variants": 1,
+  "src": "",
+  "period": ""
+ },
+ "㒀": {
+  "cp": "U+3480",
+  "file": "㒀.svg",
+  "variants": 2,
+  "src": "中山王[〇]方壺",
+  "period": "戰國早期"
+ },
+ "㒳": {
+  "cp": "U+34B3",
+  "file": "㒳.svg",
+  "variants": 5,
+  "src": "",
+  "period": ""
+ },
+ "㒼": {
+  "cp": "U+34BC",
+  "file": "㒼.svg",
+  "variants": 2,
+  "src": "㒼𣪕",
+  "period": "西周中期"
+ },
+ "㓝": {
+  "cp": "U+34DD",
+  "file": "㓝.svg",
+  "variants": 3,
+  "src": "",
+  "period": ""
+ },
+ "㓞": {
+  "cp": "U+34DE",
+  "file": "㓞.svg",
+  "variants": 1,
+  "src": "㓞鼎",
+  "period": "商"
+ },
+ "㓷": {
+  "cp": "U+34F7",
+  "file": "㓷.svg",
+  "variants": 1,
+  "src": "",
+  "period": ""
+ },
+ "㔬": {
+  "cp": "U+352C",
+  "file": "㔬.svg",
+  "variants": 2,
+  "src": "",
+  "period": ""
+ },
+ "㕇": {
+  "cp": "U+3547",
+  "file": "㕇.svg",
+  "variants": 5,
+  "src": "",
+  "period": ""
+ },
+ "㕖": {
+  "cp": "U+3556",
+  "file": "㕖.svg",
+  "variants": 1,
+  "src": "",
+  "period": ""
+ },
+ "㕚": {
+  "cp": "U+355A",
+  "file": "㕚.svg",
+  "variants": 2,
+  "src": "",
+  "period": ""
+ },
+ "㕛": {
+  "cp": "U+355B",
+  "file": "㕛.svg",
+  "variants": 5,
+  "src": "",
+  "period": ""
+ },
+ "㕜": {
+  "cp": "U+355C",
+  "file": "㕜.svg",
+  "variants": 5,
+  "src": "",
+  "period": ""
+ },
+ "㕢": {
+  "cp": "U+3562",
+  "file": "㕢.svg",
+  "variants": 2,
+  "src": "",
+  "period": ""
+ },
+ "㕻": {
+  "cp": "U+357B",
+  "file": "㕻.svg",
+  "variants": 1,
+  "src": "",
+  "period": ""
+ },
+ "㖟": {
+  "cp": "U+359F",
+  "file": "㖟.svg",
+  "variants": 5,
+  "src": "",
+  "period": ""
+ },
+ "㗘": {
+  "cp": "U+35D8",
+  "file": "㗘.svg",
+  "variants": 1,
+  "src": "",
+  "period": ""
+ },
+ "㗬": {
+  "cp": "U+35EC",
+  "file": "㗬.svg",
+  "variants": 2,
+  "src": "",
+  "period": ""
+ },
+ "㙩": {
+  "cp": "U+3669",
+  "file": "㙩.svg",
+  "variants": 1,
+  "src": "麥方鼎",
+  "period": "西周早期"
+ },
+ "㚔": {
+  "cp": "U+3694",
+  "file": "㚔.svg",
+  "variants": 5,
+  "src": "",
+  "period": ""
+ },
+ "㚢": {
+  "cp": "U+36A2",
+  "file": "㚢.svg",
+  "variants": 1,
+  "src": "",
+  "period": ""
+ },
+ "㚤": {
+  "cp": "U+36A4",
+  "file": "㚤.svg",
+  "variants": 4,
+  "src": "",
+  "period": ""
+ },
+ "㚶": {
+  "cp": "U+36B6",
+  "file": "㚶.svg",
+  "variants": 5,
+  "src": "",
+  "period": ""
+ },
+ "㚸": {
+  "cp": "U+36B8",
+  "file": "㚸.svg",
+  "variants": 5,
+  "src": "者㚸方尊",
+  "period": "商"
+ },
+ "㛙": {
+  "cp": "U+36D9",
+  "file": "㛙.svg",
+  "variants": 2,
+  "src": "",
+  "period": ""
+ },
+ "㝅": {
+  "cp": "U+3745",
+  "file": "㝅.svg",
+  "variants": 5,
+  "src": "",
+  "period": ""
+ },
+ "㝨": {
+  "cp": "U+3768",
+  "file": "㝨.svg",
+  "variants": 4,
+  "src": "㝨鼎",
+  "period": "西周晚期"
+ },
+ "㝩": {
+  "cp": "U+3769",
+  "file": "㝩.svg",
+  "variants": 2,
+  "src": "",
+  "period": ""
+ },
+ "㝬": {
+  "cp": "U+376C",
+  "file": "㝬.svg",
+  "variants": 5,
+  "src": "",
+  "period": ""
+ },
+ "㞢": {
+  "cp": "U+37A2",
+  "file": "㞢.svg",
+  "variants": 2,
+  "src": "",
+  "period": ""
+ },
+ "㠯": {
+  "cp": "U+382F",
+  "file": "㠯.svg",
+  "variants": 5,
+  "src": "公䏭右㠯鼎",
+  "period": "戰國晚期"
+ },
+ "㠱": {
+  "cp": "U+3831",
+  "file": "㠱.svg",
+  "variants": 5,
+  "src": "亞㠱𠤕[〇]乍母癸鼎",
+  "period": "商"
+ },
+ "㡴": {
+  "cp": "U+3874",
+  "file": "㡴.svg",
+  "variants": 5,
+  "src": "元年師[〇]𣪕",
+  "period": "西周晚期"
+ },
+ "㢭": {
+  "cp": "U+38AD",
+  "file": "㢭.svg",
+  "variants": 4,
+  "src": "",
+  "period": ""
+ },
+ "㣽": {
+  "cp": "U+38FD",
+  "file": "㣽.svg",
+  "variants": 1,
+  "src": "[〇]𧊒壺",
+  "period": "戰國晚期"
+ },
+ "㤅": {
+  "cp": "U+3905",
+  "file": "㤅.svg",
+  "variants": 2,
+  "src": "",
+  "period": ""
+ },
+ "㦴": {
+  "cp": "U+39B4",
+  "file": "㦴.svg",
+  "variants": 5,
+  "src": "",
+  "period": ""
+ },
+ "㪵": {
+  "cp": "U+3AB5",
+  "file": "㪵.svg",
+  "variants": 5,
+  "src": "",
+  "period": ""
+ },
+ "㫷": {
+  "cp": "U+3AF7",
+  "file": "㫷.svg",
+  "variants": 5,
+  "src": "蔡𥎦紐鐘",
+  "period": "春秋晚期"
+ },
+ "㬎": {
+  "cp": "U+3B0E",
+  "file": "㬎.svg",
+  "variants": 4,
+  "src": "左使車工豆",
+  "period": "戰國晚期"
+ },
+ "㬜": {
+  "cp": "U+3B1C",
+  "file": "㬜.svg",
+  "variants": 5,
+  "src": "",
+  "period": ""
+ },
+ "㮛": {
+  "cp": "U+3B9B",
+  "file": "㮛.svg",
+  "variants": 1,
+  "src": "",
+  "period": ""
+ },
+ "㱃": {
+  "cp": "U+3C43",
+  "file": "㱃.svg",
+  "variants": 5,
+  "src": "[〇]㱃父辛卣",
+  "period": "商"
+ },
+ "㱙": {
+  "cp": "U+3C59",
+  "file": "㱙.svg",
+  "variants": 1,
+  "src": "",
+  "period": ""
+ },
+ "㲋": {
+  "cp": "U+3C8B",
+  "file": "㲋.svg",
+  "variants": 1,
+  "src": "",
+  "period": ""
+ },
+ "㳄": {
+  "cp": "U+3CC4",
+  "file": "㳄.svg",
+  "variants": 2,
+  "src": "",
+  "period": ""
+ },
+ "㺇": {
+  "cp": "U+3E87",
+  "file": "㺇.svg",
+  "variants": 4,
+  "src": "魯𥎦㺇鬲",
+  "period": "西周早期"
+ },
+ "㽙": {
+  "cp": "U+3F59",
+  "file": "㽙.svg",
+  "variants": 5,
+  "src": "南宫乎鐘",
+  "period": "西周晚期"
+ },
+ "䀏": {
+  "cp": "U+400F",
+  "file": "䀏.svg",
+  "variants": 2,
+  "src": "白䀏鼎",
+  "period": "西周中晚期"
+ },
+ "䀠": {
+  "cp": "U+4020",
+  "file": "䀠.svg",
+  "variants": 4,
+  "src": "",
+  "period": ""
+ },
+ "䄢": {
+  "cp": "U+4122",
+  "file": "䄢.svg",
+  "variants": 5,
+  "src": "",
+  "period": ""
+ },
+ "䋣": {
+  "cp": "U+42E3",
+  "file": "䋣.svg",
+  "variants": 5,
+  "src": "庚兒鼎",
+  "period": "春秋中期"
+ },
+ "䍩": {
+  "cp": "U+4369",
+  "file": "䍩.svg",
+  "variants": 5,
+  "src": "䍩鬲",
+  "period": "商"
+ },
+ "䜌": {
+  "cp": "U+470C",
+  "file": "䜌.svg",
+  "variants": 5,
+  "src": "[〇]季鼎",
+  "period": "西周中期"
+ },
+ "䢔": {
+  "cp": "U+4894",
+  "file": "䢔.svg",
+  "variants": 3,
+  "src": "保卣",
+  "period": "西周早期"
+ },
+ "䢦": {
+  "cp": "U+48A6",
+  "file": "䢦.svg",
+  "variants": 5,
+  "src": "多友鼎",
+  "period": "西周晚期"
+ },
+ "䢽": {
+  "cp": "U+48BD",
+  "file": "䢽.svg",
+  "variants": 1,
+  "src": "",
+  "period": ""
+ },
+ "䣄": {
+  "cp": "U+48C4",
+  "file": "䣄.svg",
+  "variants": 5,
+  "src": "徐王子[〇]鐘",
+  "period": "春秋"
+ },
+ "䣚": {
+  "cp": "U+48DA",
+  "file": "䣚.svg",
+  "variants": 2,
+  "src": "井南白𣪕",
+  "period": "西周中期"
+ },
+ "䧹": {
+  "cp": "U+49F9",
+  "file": "䧹.svg",
+  "variants": 5,
+  "src": "",
+  "period": ""
+ },
+ "䫌": {
+  "cp": "U+4ACC",
+  "file": "䫌.svg",
+  "variants": 1,
+  "src": "晉公盆",
+  "period": "春秋"
+ },
+ "䬦": {
+  "cp": "U+4B26",
+  "file": "䬦.svg",
+  "variants": 5,
+  "src": "",
+  "period": ""
+ },
+ "䱷": {
+  "cp": "U+4C77",
+  "file": "䱷.svg",
+  "variants": 5,
+  "src": "",
+  "period": ""
+ },
+ "䵼": {
+  "cp": "U+4D7C",
+  "file": "䵼.svg",
+  "variants": 5,
+  "src": "魯𥎦㺇鬲",
+  "period": "西周早期"
+ },
+ "一": {
+  "cp": "U+4E00",
+  "file": "一.svg",
+  "variants": 5,
+  "src": "六六一六六一甗",
+  "period": "西周早期"
+ },
+ "丁": {
+  "cp": "U+4E01",
+  "file": "丁.svg",
+  "variants": 5,
+  "src": "[〇]丏父丁鬲",
+  "period": "商"
+ },
+ "丂": {
+  "cp": "U+4E02",
+  "file": "丂.svg",
+  "variants": 5,
+  "src": "仲柟父鬲",
+  "period": "西周中期"
+ },
+ "七": {
+  "cp": "U+4E03",
+  "file": "七.svg",
+  "variants": 5,
+  "src": "者[〇]鼎",
+  "period": "西周早期"
+ },
+ "万": {
+  "cp": "U+4E07",
+  "file": "万.svg",
+  "variants": 5,
+  "src": "單諎討戈",
+  "period": "戰國早期"
+ },
+ "三": {
+  "cp": "U+4E09",
+  "file": "三.svg",
+  "variants": 5,
+  "src": "中乍且癸鼎",
+  "period": "西周早期"
+ },
+ "上": {
+  "cp": "U+4E0A",
+  "file": "上.svg",
+  "variants": 5,
+  "src": "師艅鼎",
+  "period": "西周早期"
+ },
+ "下": {
+  "cp": "U+4E0B",
+  "file": "下.svg",
+  "variants": 5,
+  "src": "鮮鐘",
+  "period": "西周晚期"
+ },
+ "丌": {
+  "cp": "U+4E0C",
+  "file": "丌.svg",
+  "variants": 5,
+  "src": "曾𥎦乙鐘中三—二",
+  "period": "戰國早期"
+ },
+ "不": {
+  "cp": "U+4E0D",
+  "file": "不.svg",
+  "variants": 5,
+  "src": "史獸鼎",
+  "period": "西周早期"
+ },
+ "丑": {
+  "cp": "U+4E11",
+  "file": "丑.svg",
+  "variants": 5,
+  "src": "乍册大方鼎",
+  "period": "西周早期"
+ },
+ "且": {
+  "cp": "U+4E14",
+  "file": "且.svg",
+  "variants": 5,
+  "src": "[〇]且癸鬲",
+  "period": "商"
+ },
+ "世": {
+  "cp": "U+4E16",
+  "file": "世.svg",
+  "variants": 5,
+  "src": "師䢅鼎",
+  "period": "西周中期"
+ },
+ "丘": {
+  "cp": "U+4E18",
+  "file": "丘.svg",
+  "variants": 5,
+  "src": "子禾子釜",
+  "period": "戰國"
+ },
+ "丙": {
+  "cp": "U+4E19",
+  "file": "丙.svg",
+  "variants": 5,
+  "src": "重父丙鬲",
+  "period": "商"
+ },
+ "丞": {
+  "cp": "U+4E1E",
+  "file": "丞.svg",
+  "variants": 3,
+  "src": "寺工師初壺",
+  "period": "戰國"
+ },
+ "並": {
+  "cp": "U+4E26",
+  "file": "並.svg",
+  "variants": 4,
+  "src": "亞並父己𣪕",
+  "period": "商"
+ },
+ "丩": {
+  "cp": "U+4E29",
+  "file": "丩.svg",
+  "variants": 2,
+  "src": "",
+  "period": ""
+ },
+ "中": {
+  "cp": "U+4E2D",
+  "file": "中.svg",
+  "variants": 5,
+  "src": "中鐃",
+  "period": "商"
+ },
+ "丮": {
+  "cp": "U+4E2E",
+  "file": "丮.svg",
+  "variants": 3,
+  "src": "",
+  "period": ""
+ },
+ "丯": {
+  "cp": "U+4E2F",
+  "file": "丯.svg",
+  "variants": 2,
+  "src": "",
+  "period": ""
+ },
+ "串": {
+  "cp": "U+4E32",
+  "file": "串.svg",
+  "variants": 5,
+  "src": "串父癸鼎",
+  "period": "商"
+ },
+ "丹": {
+  "cp": "U+4E39",
+  "file": "丹.svg",
+  "variants": 1,
+  "src": "庚嬴卣",
+  "period": "西周早期"
+ },
+ "丼": {
+  "cp": "U+4E3C",
+  "file": "丼.svg",
+  "variants": 5,
+  "src": "",
+  "period": ""
+ },
+ "乃": {
+  "cp": "U+4E43",
+  "file": "乃.svg",
+  "variants": 5,
+  "src": "乃子乍父辛甗",
+  "period": "西周早期"
+ },
+ "乇": {
+  "cp": "U+4E47",
+  "file": "乇.svg",
+  "variants": 1,
+  "src": "乇庫矛",
+  "period": "戰國"
+ },
+ "之": {
+  "cp": "U+4E4B",
+  "file": "之.svg",
+  "variants": 5,
+  "src": "師望鼎",
+  "period": "西周中期"
+ },
+ "乍": {
+  "cp": "U+4E4D",
+  "file": "乍.svg",
+  "variants": 5,
+  "src": "[〇]鬲",
+  "period": "商"
+ },
+ "乎": {
+  "cp": "U+4E4E",
+  "file": "乎.svg",
+  "variants": 5,
+  "src": "𤼈鼎",
+  "period": "西周中期"
+ },
+ "乕": {
+  "cp": "U+4E55",
+  "file": "乕.svg",
+  "variants": 5,
+  "src": "",
+  "period": ""
+ },
+ "乘": {
+  "cp": "U+4E58",
+  "file": "乘.svg",
+  "variants": 5,
+  "src": "克鐘",
+  "period": "西周晚期"
+ },
+ "乙": {
+  "cp": "U+4E59",
+  "file": "乙.svg",
+  "variants": 5,
+  "src": "魚正乙鐃",
+  "period": "商"
+ },
+ "九": {
+  "cp": "U+4E5D",
+  "file": "九.svg",
+  "variants": 5,
+  "src": "𡩜鼎",
+  "period": "西周早期"
+ },
+ "也": {
+  "cp": "U+4E5F",
+  "file": "也.svg",
+  "variants": 1,
+  "src": "鳧弔匜",
+  "period": "西周晚期"
+ },
+ "予": {
+  "cp": "U+4E88",
+  "file": "予.svg",
+  "variants": 2,
+  "src": "乍予弔嬴鬲",
+  "period": "西周晚期"
+ },
+ "事": {
+  "cp": "U+4E8B",
+  "file": "事.svg",
+  "variants": 5,
+  "src": "白矩鼎",
+  "period": "西周早期"
+ },
+ "二": {
+  "cp": "U+4E8C",
+  "file": "二.svg",
+  "variants": 5,
+  "src": "豊乍父丁鼎",
+  "period": "商"
+ },
+ "于": {
+  "cp": "U+4E8E",
+  "file": "于.svg",
+  "variants": 5,
+  "src": "[〇]婦未于方鼎",
+  "period": "商"
+ },
+ "云": {
+  "cp": "U+4E91",
+  "file": "云.svg",
+  "variants": 1,
+  "src": "姑發[〇]反劍",
+  "period": "春秋晚期"
+ },
+ "亓": {
+  "cp": "U+4E93",
+  "file": "亓.svg",
+  "variants": 5,
+  "src": "",
+  "period": ""
+ },
+ "五": {
+  "cp": "U+4E94",
+  "file": "五.svg",
+  "variants": 5,
+  "src": "小臣[〇]方鼎",
+  "period": "商"
+ },
+ "井": {
+  "cp": "U+4E95",
+  "file": "井.svg",
+  "variants": 5,
+  "src": "𢐗白甗",
+  "period": "西周早期"
+ },
+ "亖": {
+  "cp": "U+4E96",
+  "file": "亖.svg",
+  "variants": 5,
+  "src": "",
+  "period": ""
+ },
+ "亘": {
+  "cp": "U+4E98",
+  "file": "亘.svg",
+  "variants": 2,
+  "src": "高卣",
+  "period": "西周早期"
+ },
+ "亙": {
+  "cp": "U+4E99",
+  "file": "亙.svg",
+  "variants": 4,
+  "src": "",
+  "period": ""
+ },
+ "亚": {
+  "cp": "U+4E9A",
+  "file": "亚.svg",
+  "variants": 5,
+  "src": "",
+  "period": ""
+ },
+ "亞": {
+  "cp": "U+4E9E",
+  "file": "亞.svg",
+  "variants": 5,
+  "src": "亞𠤕鐃",
+  "period": "商"
+ },
+ "亟": {
+  "cp": "U+4E9F",
+  "file": "亟.svg",
+  "variants": 5,
+  "src": "毛公鼎",
+  "period": "西周晚期"
+ },
+ "亡": {
+  "cp": "U+4EA1",
+  "file": "亡.svg",
+  "variants": 5,
+  "src": "辛鼎",
+  "period": "西周早期"
+ },
+ "亢": {
+  "cp": "U+4EA2",
+  "file": "亢.svg",
+  "variants": 5,
+  "src": "亞高乍父癸𣪕",
+  "period": "西周早期"
+ },
+ "交": {
+  "cp": "U+4EA4",
+  "file": "交.svg",
+  "variants": 4,
+  "src": "琱伐父𣪕",
+  "period": "西周晚期"
+ },
+ "亥": {
+  "cp": "U+4EA5",
+  "file": "亥.svg",
+  "variants": 5,
+  "src": "小子[〇]鼎",
+  "period": "商"
+ },
+ "亦": {
+  "cp": "U+4EA6",
+  "file": "亦.svg",
+  "variants": 5,
+  "src": "亦車觚",
+  "period": "商"
+ },
+ "享": {
+  "cp": "U+4EAB",
+  "file": "享.svg",
+  "variants": 5,
+  "src": "晉侯簋𣪕",
+  "period": "西周晚期"
+ },
+ "京": {
+  "cp": "U+4EAC",
+  "file": "京.svg",
+  "variants": 5,
+  "src": "[〇]鼎",
+  "period": "西周早期"
+ },
+ "亭": {
+  "cp": "U+4EAD",
+  "file": "亭.svg",
+  "variants": 1,
+  "src": "[〇]純釜",
+  "period": "戰國"
+ },
+ "亯": {
+  "cp": "U+4EAF",
+  "file": "亯.svg",
+  "variants": 5,
+  "src": "犬且辛且癸鼎",
+  "period": "商"
+ },
+ "亲": {
+  "cp": "U+4EB2",
+  "file": "亲.svg",
+  "variants": 1,
+  "src": "中白壺蓋",
+  "period": "西周中期"
+ },
+ "亳": {
+  "cp": "U+4EB3",
+  "file": "亳.svg",
+  "variants": 2,
+  "src": "戈亳册𣪕",
+  "period": "商"
+ },
+ "人": {
+  "cp": "U+4EBA",
+  "file": "人.svg",
+  "variants": 5,
+  "src": "[〇]人守鬲",
+  "period": "西周早期"
+ },
+ "仁": {
+  "cp": "U+4EC1",
+  "file": "仁.svg",
+  "variants": 1,
+  "src": "中山王[〇]鼎",
+  "period": "戰國晚期"
+ },
+ "今": {
+  "cp": "U+4ECA",
+  "file": "今.svg",
+  "variants": 5,
+  "src": "𤼈鐘",
+  "period": "西周中期"
+ },
+ "从": {
+  "cp": "U+4ECE",
+  "file": "从.svg",
+  "variants": 5,
+  "src": "乍从彝甗",
+  "period": "西周早期"
+ },
+ "付": {
+  "cp": "U+4ED8",
+  "file": "付.svg",
+  "variants": 5,
+  "src": "蟎鼎",
+  "period": "西周中期"
+ },
+ "令": {
+  "cp": "U+4EE4",
+  "file": "令.svg",
+  "variants": 5,
+  "src": "成周鈴",
+  "period": "商"
+ },
+ "仲": {
+  "cp": "U+4EF2",
+  "file": "仲.svg",
+  "variants": 1,
+  "src": "仲乍寶彝鬲",
+  "period": "西周早期"
+ },
+ "任": {
+  "cp": "U+4EFB",
+  "file": "任.svg",
+  "variants": 3,
+  "src": "乍任氏𣪕",
+  "period": "西周早期"
+ },
+ "伊": {
+  "cp": "U+4F0A",
+  "file": "伊.svg",
+  "variants": 3,
+  "src": "及[〇]生𣪕",
+  "period": "西周晚期"
+ },
+ "伏": {
+  "cp": "U+4F0F",
+  "file": "伏.svg",
+  "variants": 1,
+  "src": "史伏乍父乙尊",
+  "period": "西周早期"
+ },
+ "伐": {
+  "cp": "U+4F10",
+  "file": "伐.svg",
+  "variants": 5,
+  "src": "旅鼎",
+  "period": "西周早期"
+ },
+ "休": {
+  "cp": "U+4F11",
+  "file": "休.svg",
+  "variants": 5,
+  "src": "瀕史鬲",
+  "period": "西周早期"
+ },
+ "伕": {
+  "cp": "U+4F15",
+  "file": "伕.svg",
+  "variants": 5,
+  "src": "吁戈",
+  "period": "春秋晚期"
+ },
+ "伯": {
+  "cp": "U+4F2F",
+  "file": "伯.svg",
+  "variants": 1,
+  "src": "",
+  "period": ""
+ },
+ "佃": {
+  "cp": "U+4F43",
+  "file": "佃.svg",
+  "variants": 5,
+  "src": "南宫柳鼎",
+  "period": "西周晚期"
+ },
+ "位": {
+  "cp": "U+4F4D",
+  "file": "位.svg",
+  "variants": 1,
+  "src": "輔師𠭰𣪕",
+  "period": "西周晚期"
+ },
+ "何": {
+  "cp": "U+4F55",
+  "file": "何.svg",
+  "variants": 5,
+  "src": "何父丁方鼎",
+  "period": "商"
+ },
+ "余": {
+  "cp": "U+4F59",
+  "file": "余.svg",
+  "variants": 5,
+  "src": "中甗",
+  "period": "西周早期"
+ },
+ "作": {
+  "cp": "U+4F5C",
+  "file": "作.svg",
+  "variants": 5,
+  "src": "",
+  "period": ""
+ },
+ "佩": {
+  "cp": "U+4F69",
+  "file": "佩.svg",
+  "variants": 5,
+  "src": "𤼈鐘",
+  "period": "西周中期"
+ },
+ "佪": {
+  "cp": "U+4F6A",
+  "file": "佪.svg",
+  "variants": 1,
+  "src": "",
+  "period": ""
+ },
+ "使": {
+  "cp": "U+4F7F",
+  "file": "使.svg",
+  "variants": 4,
+  "src": "十一年盉",
+  "period": "戰國早期"
+ },
+ "侃": {
+  "cp": "U+4F83",
+  "file": "侃.svg",
+  "variants": 5,
+  "src": "兮仲鐘",
+  "period": "西周晚期"
+ },
+ "侄": {
+  "cp": "U+4F84",
+  "file": "侄.svg",
+  "variants": 1,
+  "src": "𠫑羌鐘",
+  "period": "戰國早期"
+ },
+ "來": {
+  "cp": "U+4F86",
+  "file": "來.svg",
+  "variants": 5,
+  "src": "來父己鼎",
+  "period": "西周早期"
+ },
+ "侖": {
+  "cp": "U+4F96",
+  "file": "侖.svg",
+  "variants": 1,
+  "src": "七年侖氏戈",
+  "period": "戰國"
+ },
+ "侯": {
+  "cp": "U+4FAF",
+  "file": "侯.svg",
+  "variants": 5,
+  "src": "晉侯蘇編鐘",
+  "period": "西周晚期"
+ },
+ "便": {
+  "cp": "U+4FBF",
+  "file": "便.svg",
+  "variants": 1,
+  "src": "",
+  "period": ""
+ },
+ "係": {
+  "cp": "U+4FC2",
+  "file": "係.svg",
+  "variants": 1,
+  "src": "",
+  "period": ""
+ },
+ "俌": {
+  "cp": "U+4FCC",
+  "file": "俌.svg",
+  "variants": 5,
+  "src": "中山王[〇]鼎",
+  "period": "戰國晚期"
+ },
+ "俎": {
+  "cp": "U+4FCE",
+  "file": "俎.svg",
+  "variants": 2,
+  "src": "三年𤼈壺",
+  "period": "西周中期"
+ },
+ "俗": {
+  "cp": "U+4FD7",
+  "file": "俗.svg",
+  "variants": 5,
+  "src": "[〇]季鼎",
+  "period": "西周中期"
+ },
+ "保": {
+  "cp": "U+4FDD",
+  "file": "保.svg",
+  "variants": 5,
+  "src": "保鼎",
+  "period": "商"
+ },
+ "俞": {
+  "cp": "U+4FDE",
+  "file": "俞.svg",
+  "variants": 5,
+  "src": "龏乍厥母辛鬲",
+  "period": "西周早期"
+ },
+ "信": {
+  "cp": "U+4FE1",
+  "file": "信.svg",
+  "variants": 5,
+  "src": "十四年銅牛",
+  "period": "戰國晚期"
+ },
+ "倉": {
+  "cp": "U+5009",
+  "file": "倉.svg",
+  "variants": 3,
+  "src": "",
+  "period": ""
+ },
+ "倗": {
+  "cp": "U+5017",
+  "file": "倗.svg",
+  "variants": 5,
+  "src": "倗仲鼎",
+  "period": "西周中期"
+ },
+ "倝": {
+  "cp": "U+501D",
+  "file": "倝.svg",
+  "variants": 2,
+  "src": "曾子斿鼎",
+  "period": "春秋早期"
+ },
+ "偃": {
+  "cp": "U+5043",
+  "file": "偃.svg",
+  "variants": 1,
+  "src": "",
+  "period": ""
+ },
+ "傅": {
+  "cp": "U+5085",
+  "file": "傅.svg",
+  "variants": 1,
+  "src": "",
+  "period": ""
+ },
+ "備": {
+  "cp": "U+5099",
+  "file": "備.svg",
+  "variants": 5,
+  "src": "弔向父為備𣪕",
+  "period": "西周晚期"
+ },
+ "傳": {
+  "cp": "U+50B3",
+  "file": "傳.svg",
+  "variants": 5,
+  "src": "",
+  "period": ""
+ },
+ "僉": {
+  "cp": "U+50C9",
+  "file": "僉.svg",
+  "variants": 3,
+  "src": "戉王州句劍",
+  "period": "戰國早期"
+ },
+ "僕": {
+  "cp": "U+50D5",
+  "file": "僕.svg",
+  "variants": 5,
+  "src": "逆鐘",
+  "period": "西周晚期"
+ },
+ "僪": {
+  "cp": "U+50EA",
+  "file": "僪.svg",
+  "variants": 1,
+  "src": "",
+  "period": ""
+ },
+ "僰": {
+  "cp": "U+50F0",
+  "file": "僰.svg",
+  "variants": 1,
+  "src": "師㝨𣪕",
+  "period": "西周晚期"
+ },
+ "億": {
+  "cp": "U+5104",
+  "file": "億.svg",
+  "variants": 1,
+  "src": "晉侯簋𣪕",
+  "period": "西周晚期"
+ },
+ "償": {
+  "cp": "U+511F",
+  "file": "償.svg",
+  "variants": 1,
+  "src": "",
+  "period": ""
+ },
+ "兀": {
+  "cp": "U+5140",
+  "file": "兀.svg",
+  "variants": 2,
+  "src": "",
+  "period": ""
+ },
+ "允": {
+  "cp": "U+5141",
+  "file": "允.svg",
+  "variants": 4,
+  "src": "秦公鐘",
+  "period": "春秋早期"
+ },
+ "元": {
+  "cp": "U+5143",
+  "file": "元.svg",
+  "variants": 5,
+  "src": "曶鼎",
+  "period": "西周中期"
+ },
+ "兄": {
+  "cp": "U+5144",
+  "file": "兄.svg",
+  "variants": 5,
+  "src": "[〇]兄戊父癸鼎",
+  "period": "商"
+ },
+ "先": {
+  "cp": "U+5148",
+  "file": "先.svg",
+  "variants": 5,
+  "src": "中甗",
+  "period": "西周早期"
+ },
+ "光": {
+  "cp": "U+5149",
+  "file": "光.svg",
+  "variants": 5,
+  "src": "[〇]鬲",
+  "period": "商"
+ },
+ "克": {
+  "cp": "U+514B",
+  "file": "克.svg",
+  "variants": 5,
+  "src": "乃子克鼎",
+  "period": "西周早期"
+ },
+ "兌": {
+  "cp": "U+514C",
+  "file": "兌.svg",
+  "variants": 3,
+  "src": "兌𣪕",
+  "period": "西周晚期"
+ },
+ "免": {
+  "cp": "U+514D",
+  "file": "免.svg",
+  "variants": 5,
+  "src": "免𣪕",
+  "period": "西周中期"
+ },
+ "兑": {
+  "cp": "U+5151",
+  "file": "兑.svg",
+  "variants": 3,
+  "src": "",
+  "period": ""
+ },
+ "兒": {
+  "cp": "U+5152",
+  "file": "兒.svg",
+  "variants": 5,
+  "src": "余贎[〇]兒鐘（楚余義鐘、[〇]兒）",
+  "period": "春秋晚期"
+ },
+ "兓": {
+  "cp": "U+5153",
+  "file": "兓.svg",
+  "variants": 1,
+  "src": "子兓鼎",
+  "period": "商"
+ },
+ "兔": {
+  "cp": "U+5154",
+  "file": "兔.svg",
+  "variants": 1,
+  "src": "亞兔鴞尊",
+  "period": "商"
+ },
+ "入": {
+  "cp": "U+5165",
+  "file": "入.svg",
+  "variants": 5,
+  "src": "龏乍厥母辛鬲",
+  "period": "西周早期"
+ },
+ "內": {
+  "cp": "U+5167",
+  "file": "內.svg",
+  "variants": 5,
+  "src": "",
+  "period": ""
+ },
+ "兩": {
+  "cp": "U+5169",
+  "file": "兩.svg",
+  "variants": 4,
+  "src": "圅皇父鼎",
+  "period": "西周晚期"
+ },
+ "八": {
+  "cp": "U+516B",
+  "file": "八.svg",
+  "variants": 5,
+  "src": "者[〇]鼎",
+  "period": "西周早期"
+ },
+ "公": {
+  "cp": "U+516C",
+  "file": "公.svg",
+  "variants": 5,
+  "src": "吾乍[〇]公鬲",
+  "period": "西周早期"
+ },
+ "六": {
+  "cp": "U+516D",
+  "file": "六.svg",
+  "variants": 5,
+  "src": "丩毌六六六父戊卣",
+  "period": "商"
+ },
+ "兮": {
+  "cp": "U+516E",
+  "file": "兮.svg",
+  "variants": 5,
+  "src": "兮仲鐘",
+  "period": "西周晚期"
+ },
+ "共": {
+  "cp": "U+5171",
+  "file": "共.svg",
+  "variants": 5,
+  "src": "共鼎",
+  "period": "商"
+ },
+ "兵": {
+  "cp": "U+5175",
+  "file": "兵.svg",
+  "variants": 5,
+  "src": "楚王酓[〇]鼎",
+  "period": "戰國晚期"
+ },
+ "其": {
+  "cp": "U+5176",
+  "file": "其.svg",
+  "variants": 5,
+  "src": "亞■其鬲",
+  "period": "商"
+ },
+ "具": {
+  "cp": "U+5177",
+  "file": "具.svg",
+  "variants": 5,
+  "src": "㝬鐘（宗周鐘）",
+  "period": "西周晚期"
+ },
+ "典": {
+  "cp": "U+5178",
+  "file": "典.svg",
+  "variants": 5,
+  "src": "韋典鼎",
+  "period": "商"
+ },
+ "兹": {
+  "cp": "U+5179",
+  "file": "兹.svg",
+  "variants": 5,
+  "src": "",
+  "period": ""
+ },
+ "兼": {
+  "cp": "U+517C",
+  "file": "兼.svg",
+  "variants": 1,
+  "src": "父丙卣",
+  "period": "商"
+ },
+ "冀": {
+  "cp": "U+5180",
+  "file": "冀.svg",
+  "variants": 3,
+  "src": "[〇][〇]冀乍父癸𣪕",
+  "period": "西周早期"
+ },
+ "内": {
+  "cp": "U+5185",
+  "file": "内.svg",
+  "variants": 5,
+  "src": "",
+  "period": ""
+ },
+ "冉": {
+  "cp": "U+5189",
+  "file": "冉.svg",
+  "variants": 2,
+  "src": "冉癸鬲",
+  "period": "商"
+ },
+ "冊": {
+  "cp": "U+518A",
+  "file": "冊.svg",
+  "variants": 5,
+  "src": "亢鼎",
+  "period": "西周早期"
+ },
+ "冋": {
+  "cp": "U+518B",
+  "file": "冋.svg",
+  "variants": 5,
+  "src": "",
+  "period": ""
+ },
+ "再": {
+  "cp": "U+518D",
+  "file": "再.svg",
+  "variants": 3,
+  "src": "𠫑羌鐘",
+  "period": "戰國早期"
+ },
+ "冎": {
+  "cp": "U+518E",
+  "file": "冎.svg",
+  "variants": 1,
+  "src": "酉冎爵",
+  "period": "商"
+ },
+ "冏": {
+  "cp": "U+518F",
+  "file": "冏.svg",
+  "variants": 1,
+  "src": "",
+  "period": ""
+ },
+ "冑": {
+  "cp": "U+5191",
+  "file": "冑.svg",
+  "variants": 5,
+  "src": "十五年趞曹鼎",
+  "period": "西周中期"
+ },
+ "冒": {
+  "cp": "U+5192",
+  "file": "冒.svg",
+  "variants": 1,
+  "src": "九年衛鼎",
+  "period": "西周中期"
+ },
+ "冡": {
+  "cp": "U+51A1",
+  "file": "冡.svg",
+  "variants": 2,
+  "src": "",
+  "period": ""
+ },
+ "冢": {
+  "cp": "U+51A2",
+  "file": "冢.svg",
+  "variants": 5,
+  "src": "筡鼎",
+  "period": "戰國"
+ },
+ "冰": {
+  "cp": "U+51B0",
+  "file": "冰.svg",
+  "variants": 1,
+  "src": "嗇夫戈",
+  "period": "戰國晚期"
+ },
+ "冶": {
+  "cp": "U+51B6",
+  "file": "冶.svg",
+  "variants": 5,
+  "src": "十七年平陰鼎蓋",
+  "period": "戰國"
+ },
+ "凡": {
+  "cp": "U+51E1",
+  "file": "凡.svg",
+  "variants": 5,
+  "src": "多友鼎",
+  "period": "西周晚期"
+ },
+ "凰": {
+  "cp": "U+51F0",
+  "file": "凰.svg",
+  "variants": 5,
+  "src": "",
+  "period": ""
+ },
+ "出": {
+  "cp": "U+51FA",
+  "file": "出.svg",
+  "variants": 5,
+  "src": "白矩鼎",
+  "period": "西周早期"
+ },
+ "函": {
+  "cp": "U+51FD",
+  "file": "函.svg",
+  "variants": 5,
+  "src": "",
+  "period": ""
+ },
+ "刀": {
+  "cp": "U+5200",
+  "file": "刀.svg",
+  "variants": 2,
+  "src": "子刀父乙方鼎",
+  "period": "商"
+ },
+ "分": {
+  "cp": "U+5206",
+  "file": "分.svg",
+  "variants": 5,
+  "src": "四分鼎",
+  "period": "戰國晚期"
+ },
+ "刑": {
+  "cp": "U+5211",
+  "file": "刑.svg",
+  "variants": 1,
+  "src": "散氏盤",
+  "period": "西周晚期"
+ },
+ "列": {
+  "cp": "U+5217",
+  "file": "列.svg",
+  "variants": 1,
+  "src": "晉侯蘇編鐘",
+  "period": "西周晚期"
+ },
+ "刜": {
+  "cp": "U+521C",
+  "file": "刜.svg",
+  "variants": 2,
+  "src": "乍册益卣",
+  "period": "西周中期"
+ },
+ "初": {
+  "cp": "U+521D",
+  "file": "初.svg",
+  "variants": 5,
+  "src": "匽𥎦旨鼎",
+  "period": "西周早期"
+ },
+ "利": {
+  "cp": "U+5229",
+  "file": "利.svg",
+  "variants": 5,
+  "src": "利鼎",
+  "period": "西周中期"
+ },
+ "到": {
+  "cp": "U+5230",
+  "file": "到.svg",
+  "variants": 4,
+  "src": "",
+  "period": ""
+ },
+ "刱": {
+  "cp": "U+5231",
+  "file": "刱.svg",
+  "variants": 1,
+  "src": "",
+  "period": ""
+ },
+ "制": {
+  "cp": "U+5236",
+  "file": "制.svg",
+  "variants": 1,
+  "src": "制父辛𣪕",
+  "period": "商"
+ },
+ "則": {
+  "cp": "U+5247",
+  "file": "則.svg",
+  "variants": 5,
+  "src": "𤼈鐘",
+  "period": "西周中期"
+ },
+ "剌": {
+  "cp": "U+524C",
+  "file": "剌.svg",
+  "variants": 5,
+  "src": "𤼈鐘",
+  "period": "西周中期"
+ },
+ "前": {
+  "cp": "U+524D",
+  "file": "前.svg",
+  "variants": 5,
+  "src": "兮仲鐘",
+  "period": "西周晚期"
+ },
+ "剛": {
+  "cp": "U+525B",
+  "file": "剛.svg",
+  "variants": 4,
+  "src": "散氏盤",
+  "period": "西周晚期"
+ },
+ "割": {
+  "cp": "U+5272",
+  "file": "割.svg",
+  "variants": 5,
+  "src": "曾𥎦乙鐘下一—一",
+  "period": "戰國早期"
+ },
+ "剸": {
+  "cp": "U+5278",
+  "file": "剸.svg",
+  "variants": 1,
+  "src": "",
+  "period": ""
+ },
+ "劍": {
+  "cp": "U+528D",
+  "file": "劍.svg",
+  "variants": 5,
+  "src": "楚王酓章劍",
+  "period": "戰國早期"
+ },
+ "力": {
+  "cp": "U+529B",
+  "file": "力.svg",
+  "variants": 2,
+  "src": "𠫑羌鐘",
+  "period": "戰國早期"
+ },
+ "功": {
+  "cp": "U+529F",
+  "file": "功.svg",
+  "variants": 1,
+  "src": "嘉賓鐘",
+  "period": "春秋晚期"
+ },
+ "加": {
+  "cp": "U+52A0",
+  "file": "加.svg",
+  "variants": 3,
+  "src": "弔加𣪕",
+  "period": "西周早期"
+ },
+ "勅": {
+  "cp": "U+52C5",
+  "file": "勅.svg",
+  "variants": 2,
+  "src": "勅[〇]乍丁𥎦鼎",
+  "period": "西周早期"
+ },
+ "勇": {
+  "cp": "U+52C7",
+  "file": "勇.svg",
+  "variants": 3,
+  "src": "中央勇矛",
+  "period": "春秋晚期或戰國早期"
+ },
+ "勉": {
+  "cp": "U+52C9",
+  "file": "勉.svg",
+  "variants": 1,
+  "src": "",
+  "period": ""
+ },
+ "勒": {
+  "cp": "U+52D2",
+  "file": "勒.svg",
+  "variants": 5,
+  "src": "白䢅鼎",
+  "period": "西周中期"
+ },
+ "勝": {
+  "cp": "U+52DD",
+  "file": "勝.svg",
+  "variants": 2,
+  "src": "勝方壺",
+  "period": "戰國"
+ },
+ "勺": {
+  "cp": "U+52FA",
+  "file": "勺.svg",
+  "variants": 1,
+  "src": "勺鼎",
+  "period": "商"
+ },
+ "勿": {
+  "cp": "U+52FF",
+  "file": "勿.svg",
+  "variants": 5,
+  "src": "白䢅鼎",
+  "period": "西周中期"
+ },
+ "匀": {
+  "cp": "U+5300",
+  "file": "匀.svg",
+  "variants": 4,
+  "src": "",
+  "period": ""
+ },
+ "匃": {
+  "cp": "U+5303",
+  "file": "匃.svg",
+  "variants": 5,
+  "src": "",
+  "period": ""
+ },
+ "匍": {
+  "cp": "U+530D",
+  "file": "匍.svg",
+  "variants": 5,
+  "src": "五祀㝬鐘",
+  "period": "西周晚期"
+ },
+ "匕": {
+  "cp": "U+5315",
+  "file": "匕.svg",
+  "variants": 5,
+  "src": "匕辛鐃",
+  "period": "商"
+ },
+ "北": {
+  "cp": "U+5317",
+  "file": "北.svg",
+  "variants": 5,
+  "src": "北單鐃",
+  "period": "商"
+ },
+ "匜": {
+  "cp": "U+531C",
+  "file": "匜.svg",
+  "variants": 5,
+  "src": "",
+  "period": ""
+ },
+ "匹": {
+  "cp": "U+5339",
+  "file": "匹.svg",
+  "variants": 5,
+  "src": "尹姞鬲",
+  "period": "西周中期"
+ },
+ "匽": {
+  "cp": "U+533D",
+  "file": "匽.svg",
+  "variants": 5,
+  "src": "白矩鬲",
+  "period": "西周早期"
+ },
+ "匿": {
+  "cp": "U+533F",
+  "file": "匿.svg",
+  "variants": 2,
+  "src": "匿鐃",
+  "period": "商"
+ },
+ "十": {
+  "cp": "U+5341",
+  "file": "十.svg",
+  "variants": 5,
+  "src": "白士父鼎",
+  "period": "西周早期"
+ },
+ "千": {
+  "cp": "U+5343",
+  "file": "千.svg",
+  "variants": 5,
+  "src": "[〇]其鼎",
+  "period": "西周晚期"
+ },
+ "卅": {
+  "cp": "U+5345",
+  "file": "卅.svg",
+  "variants": 5,
+  "src": "從鼎",
+  "period": "西周中期"
+ },
+ "升": {
+  "cp": "U+5347",
+  "file": "升.svg",
+  "variants": 4,
+  "src": "王后中官錡甗",
+  "period": "戰國"
+ },
+ "午": {
+  "cp": "U+5348",
+  "file": "午.svg",
+  "variants": 5,
+  "src": "公[〇]鼎",
+  "period": "西周中期"
+ },
+ "半": {
+  "cp": "U+534A",
+  "file": "半.svg",
+  "variants": 1,
+  "src": "半𪔉鼎",
+  "period": "戰國"
+ },
+ "卌": {
+  "cp": "U+534C",
+  "file": "卌.svg",
+  "variants": 2,
+  "src": "四十年上郡守起戈",
+  "period": "戰國晚期"
+ },
+ "卑": {
+  "cp": "U+5351",
+  "file": "卑.svg",
+  "variants": 5,
+  "src": "師𩛥鼎",
+  "period": "西周中期"
+ },
+ "卒": {
+  "cp": "U+5352",
+  "file": "卒.svg",
+  "variants": 5,
+  "src": "郾王職矛",
+  "period": "戰國晚期"
+ },
+ "南": {
+  "cp": "U+5357",
+  "file": "南.svg",
+  "variants": 5,
+  "src": "中甗",
+  "period": "西周早期"
+ },
+ "博": {
+  "cp": "U+535A",
+  "file": "博.svg",
+  "variants": 3,
+  "src": "子犯編鐘",
+  "period": "春秋晚期"
+ },
+ "卜": {
+  "cp": "U+535C",
+  "file": "卜.svg",
+  "variants": 2,
+  "src": "卜[〇]觚",
+  "period": "商"
+ },
+ "卣": {
+  "cp": "U+5363",
+  "file": "卣.svg",
+  "variants": 5,
+  "src": "大盂鼎",
+  "period": "西周早期"
+ },
+ "卯": {
+  "cp": "U+536F",
+  "file": "卯.svg",
+  "variants": 5,
+  "src": "𠨘乍母戊甗",
+  "period": "西周早期"
+ },
+ "印": {
+  "cp": "U+5370",
+  "file": "印.svg",
+  "variants": 2,
+  "src": "左周弩牙",
+  "period": "戰國"
+ },
+ "卲": {
+  "cp": "U+5372",
+  "file": "卲.svg",
+  "variants": 5,
+  "src": "虘鐘",
+  "period": "西周中期"
+ },
+ "即": {
+  "cp": "U+5373",
+  "file": "即.svg",
+  "variants": 5,
+  "src": "中甗",
+  "period": "西周中期"
+ },
+ "卹": {
+  "cp": "U+5379",
+  "file": "卹.svg",
+  "variants": 5,
+  "src": "",
+  "period": ""
+ },
+ "卿": {
+  "cp": "U+537F",
+  "file": "卿.svg",
+  "variants": 5,
+  "src": "白卿鼎",
+  "period": "西周早期"
+ },
+ "厚": {
+  "cp": "U+539A",
+  "file": "厚.svg",
+  "variants": 5,
+  "src": "𤼈鐘",
+  "period": "西周中期"
+ },
+ "原": {
+  "cp": "U+539F",
+  "file": "原.svg",
+  "variants": 4,
+  "src": "雍白原鼎",
+  "period": "西周晚期"
+ },
+ "厭": {
+  "cp": "U+53AD",
+  "file": "厭.svg",
+  "variants": 1,
+  "src": "",
+  "period": ""
+ },
+ "厲": {
+  "cp": "U+53B2",
+  "file": "厲.svg",
+  "variants": 4,
+  "src": "",
+  "period": ""
+ },
+ "去": {
+  "cp": "U+53BB",
+  "file": "去.svg",
+  "variants": 3,
+  "src": "哀成弔鼎",
+  "period": "戰國"
+ },
+ "厽": {
+  "cp": "U+53BD",
+  "file": "厽.svg",
+  "variants": 5,
+  "src": "上樂[〇]鼎",
+  "period": "戰國晚期"
+ },
+ "叀": {
+  "cp": "U+53C0",
+  "file": "叀.svg",
+  "variants": 5,
+  "src": "史惠鼎",
+  "period": "西周中期"
+ },
+ "又": {
+  "cp": "U+53C8",
+  "file": "又.svg",
+  "variants": 5,
+  "src": "又𢼝父己鼎",
+  "period": "商"
+ },
+ "及": {
+  "cp": "U+53CA",
+  "file": "及.svg",
+  "variants": 5,
+  "src": "齊𩍂氏鐘",
+  "period": "春秋晚期"
+ },
+ "友": {
+  "cp": "U+53CB",
+  "file": "友.svg",
+  "variants": 5,
+  "src": "大史友甗",
+  "period": "西周早期"
+ },
+ "反": {
+  "cp": "U+53CD",
+  "file": "反.svg",
+  "variants": 5,
+  "src": "頌鼎",
+  "period": "西周晚期"
+ },
+ "叔": {
+  "cp": "U+53D4",
+  "file": "叔.svg",
+  "variants": 5,
+  "src": "大克鼎",
+  "period": "西周晚期"
+ },
+ "取": {
+  "cp": "U+53D6",
+  "file": "取.svg",
+  "variants": 5,
+  "src": "大鼎",
+  "period": "西周中期"
+ },
+ "受": {
+  "cp": "U+53D7",
+  "file": "受.svg",
+  "variants": 5,
+  "src": "受鐃",
+  "period": "商"
+ },
+ "叚": {
+  "cp": "U+53DA",
+  "file": "叚.svg",
+  "variants": 5,
+  "src": "克鐘",
+  "period": "西周晚期"
+ },
+ "口": {
+  "cp": "U+53E3",
+  "file": "口.svg",
+  "variants": 4,
+  "src": "口尊",
+  "period": "商"
+ },
+ "古": {
+  "cp": "U+53E4",
+  "file": "古.svg",
+  "variants": 5,
+  "src": "𤼈鐘",
+  "period": "西周中期"
+ },
+ "句": {
+  "cp": "U+53E5",
+  "file": "句.svg",
+  "variants": 5,
+  "src": "其次句鑃",
+  "period": "春秋晚期"
+ },
+ "只": {
+  "cp": "U+53EA",
+  "file": "只.svg",
+  "variants": 5,
+  "src": "",
+  "period": ""
+ },
+ "召": {
+  "cp": "U+53EC",
+  "file": "召.svg",
+  "variants": 5,
+  "src": "𤼈鼎",
+  "period": "西周中期"
+ },
+ "可": {
+  "cp": "U+53EF",
+  "file": "可.svg",
+  "variants": 5,
+  "src": "師𠭰𣪕",
+  "period": "西周晚期"
+ },
+ "台": {
+  "cp": "U+53F0",
+  "file": "台.svg",
+  "variants": 5,
+  "src": "其台鐘",
+  "period": "春秋晚期"
+ },
+ "史": {
+  "cp": "U+53F2",
+  "file": "史.svg",
+  "variants": 5,
+  "src": "史鐃",
+  "period": "商"
+ },
+ "右": {
+  "cp": "U+53F3",
+  "file": "右.svg",
+  "variants": 5,
+  "src": "[〇]季鼎",
+  "period": "西周中期"
+ },
+ "叴": {
+  "cp": "U+53F4",
+  "file": "叴.svg",
+  "variants": 1,
+  "src": "",
+  "period": ""
+ },
+ "司": {
+  "cp": "U+53F8",
+  "file": "司.svg",
+  "variants": 5,
+  "src": "司[〇]母甗",
+  "period": "商"
+ },
+ "吁": {
+  "cp": "U+5401",
+  "file": "吁.svg",
+  "variants": 1,
+  "src": "蔡𥎦墓殘鐘四十七片",
+  "period": "春秋晚期"
+ },
+ "各": {
+  "cp": "U+5404",
+  "file": "各.svg",
+  "variants": 5,
+  "src": "[〇]鬲",
+  "period": "西周早期"
+ },
+ "合": {
+  "cp": "U+5408",
+  "file": "合.svg",
+  "variants": 3,
+  "src": "合冑",
+  "period": "商"
+ },
+ "吉": {
+  "cp": "U+5409",
+  "file": "吉.svg",
+  "variants": 5,
+  "src": "旂鼎",
+  "period": "西周早期"
+ },
+ "同": {
+  "cp": "U+540C",
+  "file": "同.svg",
+  "variants": 5,
+  "src": "同𠂤𣪕",
+  "period": "西周中期"
+ },
+ "名": {
+  "cp": "U+540D",
+  "file": "名.svg",
+  "variants": 5,
+  "src": "楚公逆鎛",
+  "period": "西周晚期"
+ },
+ "后": {
+  "cp": "U+540E",
+  "file": "后.svg",
+  "variants": 2,
+  "src": "叔尸鐘",
+  "period": "春秋晚期"
+ },
+ "吏": {
+  "cp": "U+540F",
+  "file": "吏.svg",
+  "variants": 1,
+  "src": "師㝨𣪕",
+  "period": "西周晚期"
+ },
+ "向": {
+  "cp": "U+5411",
+  "file": "向.svg",
+  "variants": 5,
+  "src": "多友鼎",
+  "period": "西周晚期"
+ },
+ "君": {
+  "cp": "U+541B",
+  "file": "君.svg",
+  "variants": 5,
+  "src": "[〇]方鼎",
+  "period": "西周早期"
+ },
+ "吝": {
+  "cp": "U+541D",
+  "file": "吝.svg",
+  "variants": 1,
+  "src": "",
+  "period": ""
+ },
+ "否": {
+  "cp": "U+5426",
+  "file": "否.svg",
+  "variants": 3,
+  "src": "否叔卣",
+  "period": "西周早期"
+ },
+ "含": {
+  "cp": "U+542B",
+  "file": "含.svg",
+  "variants": 5,
+  "src": "中山王[〇]鼎",
+  "period": "戰國晚期"
+ },
+ "吳": {
+  "cp": "U+5433",
+  "file": "吳.svg",
+  "variants": 5,
+  "src": "九年衛鼎",
+  "period": "西周中期"
+ },
+ "吹": {
+  "cp": "U+5439",
+  "file": "吹.svg",
+  "variants": 4,
+  "src": "吹乍楷妊鼎",
+  "period": "西周早期"
+ },
+ "吾": {
+  "cp": "U+543E",
+  "file": "吾.svg",
+  "variants": 4,
+  "src": "吾乍[〇]公鬲",
+  "period": "西周早期"
+ },
+ "呂": {
+  "cp": "U+5442",
+  "file": "呂.svg",
+  "variants": 5,
+  "src": "",
+  "period": ""
+ },
+ "呆": {
+  "cp": "U+5446",
+  "file": "呆.svg",
+  "variants": 1,
+  "src": "",
+  "period": ""
+ },
+ "告": {
+  "cp": "U+544A",
+  "file": "告.svg",
+  "variants": 5,
+  "src": "告宁鼎",
+  "period": "商"
+ },
+ "呚": {
+  "cp": "U+545A",
+  "file": "呚.svg",
+  "variants": 1,
+  "src": "",
+  "period": ""
+ },
+ "命": {
+  "cp": "U+547D",
+  "file": "命.svg",
+  "variants": 5,
+  "src": "利鼎",
+  "period": "西周中期"
+ },
+ "和": {
+  "cp": "U+548C",
+  "file": "和.svg",
+  "variants": 3,
+  "src": "子犯編鐘",
+  "period": "春秋晚期"
+ },
+ "咎": {
+  "cp": "U+548E",
+  "file": "咎.svg",
+  "variants": 1,
+  "src": "",
+  "period": ""
+ },
+ "咸": {
+  "cp": "U+54B8",
+  "file": "咸.svg",
+  "variants": 5,
+  "src": "咸父甲鼎",
+  "period": "西周早期"
+ },
+ "品": {
+  "cp": "U+54C1",
+  "file": "品.svg",
+  "variants": 3,
+  "src": "[〇]乍周公𣪕（周公𣪕、井[〇]𣪕）",
+  "period": "西周早期"
+ },
+ "哉": {
+  "cp": "U+54C9",
+  "file": "哉.svg",
+  "variants": 5,
+  "src": "者[〇]鐘",
+  "period": "戰國早期"
+ },
+ "員": {
+  "cp": "U+54E1",
+  "file": "員.svg",
+  "variants": 5,
+  "src": "",
+  "period": ""
+ },
+ "哴": {
+  "cp": "U+54F4",
+  "file": "哴.svg",
+  "variants": 2,
+  "src": "",
+  "period": ""
+ },
+ "唐": {
+  "cp": "U+5510",
+  "file": "唐.svg",
+  "variants": 2,
+  "src": "唐子且乙觶",
+  "period": "商"
+ },
+ "唯": {
+  "cp": "U+552F",
+  "file": "唯.svg",
+  "variants": 5,
+  "src": "䲨叔鼎",
+  "period": "西周早期"
+ },
+ "商": {
+  "cp": "U+5546",
+  "file": "商.svg",
+  "variants": 5,
+  "src": "子商甗",
+  "period": "商"
+ },
+ "啓": {
+  "cp": "U+5553",
+  "file": "啓.svg",
+  "variants": 5,
+  "src": "",
+  "period": ""
+ },
+ "啔": {
+  "cp": "U+5554",
+  "file": "啔.svg",
+  "variants": 5,
+  "src": "",
+  "period": ""
+ },
+ "啻": {
+  "cp": "U+557B",
+  "file": "啻.svg",
+  "variants": 5,
+  "src": "剌鼎",
+  "period": "西周中期"
+ },
+ "善": {
+  "cp": "U+5584",
+  "file": "善.svg",
+  "variants": 5,
+  "src": "善吉父鬲",
+  "period": "西周晚期"
+ },
+ "喜": {
+  "cp": "U+559C",
+  "file": "喜.svg",
+  "variants": 5,
+  "src": "兮仲鐘",
+  "period": "西周晚期"
+ },
+ "喪": {
+  "cp": "U+55AA",
+  "file": "喪.svg",
+  "variants": 5,
+  "src": "敶大喪史仲高鐘",
+  "period": "春秋中期"
+ },
+ "喬": {
+  "cp": "U+55AC",
+  "file": "喬.svg",
+  "variants": 5,
+  "src": "郘[〇]鐘",
+  "period": "春秋晚期"
+ },
+ "單": {
+  "cp": "U+55AE",
+  "file": "單.svg",
+  "variants": 5,
+  "src": "",
+  "period": ""
+ },
+ "喿": {
+  "cp": "U+55BF",
+  "file": "喿.svg",
+  "variants": 1,
+  "src": "",
+  "period": ""
+ },
+ "嗇": {
+  "cp": "U+55C7",
+  "file": "嗇.svg",
+  "variants": 5,
+  "src": "",
+  "period": ""
+ },
+ "嗣": {
+  "cp": "U+55E3",
+  "file": "嗣.svg",
+  "variants": 5,
+  "src": "中山王[〇]方壺",
+  "period": "戰國早期"
+ },
+ "嘉": {
+  "cp": "U+5609",
+  "file": "嘉.svg",
+  "variants": 5,
+  "src": "邾公[〇]鐘",
+  "period": "春秋"
+ },
+ "嘗": {
+  "cp": "U+5617",
+  "file": "嘗.svg",
+  "variants": 5,
+  "src": "十四年[〇]𥎦午敦",
+  "period": "戰國晚期"
+ },
+ "器": {
+  "cp": "U+5668",
+  "file": "器.svg",
+  "variants": 5,
+  "src": "聾乍寶器鼎",
+  "period": "西周中期"
+ },
+ "噩": {
+  "cp": "U+5669",
+  "file": "噩.svg",
+  "variants": 5,
+  "src": "噩𥎦鼎",
+  "period": "西周晚期"
+ },
+ "嚴": {
+  "cp": "U+56B4",
+  "file": "嚴.svg",
+  "variants": 5,
+  "src": "",
+  "period": ""
+ },
+ "囂": {
+  "cp": "U+56C2",
+  "file": "囂.svg",
+  "variants": 2,
+  "src": "",
+  "period": ""
+ },
+ "四": {
+  "cp": "U+56DB",
+  "file": "四.svg",
+  "variants": 5,
+  "src": "新邑鼎（柬鼎）",
+  "period": "西周早期"
+ },
+ "囝": {
+  "cp": "U+56DD",
+  "file": "囝.svg",
+  "variants": 4,
+  "src": "囝鼎",
+  "period": "商"
+ },
+ "囟": {
+  "cp": "U+56DF",
+  "file": "囟.svg",
+  "variants": 2,
+  "src": "師訇𣪕",
+  "period": "西周晚期"
+ },
+ "因": {
+  "cp": "U+56E0",
+  "file": "因.svg",
+  "variants": 3,
+  "src": "[〇]𥎦因[〇]戈",
+  "period": "戰國"
+ },
+ "固": {
+  "cp": "U+56FA",
+  "file": "固.svg",
+  "variants": 1,
+  "src": "左使車嗇夫帳桿母扣",
+  "period": "戰國中晚期"
+ },
+ "圂": {
+  "cp": "U+5702",
+  "file": "圂.svg",
+  "variants": 2,
+  "src": "",
+  "period": ""
+ },
+ "圅": {
+  "cp": "U+5705",
+  "file": "圅.svg",
+  "variants": 5,
+  "src": "",
+  "period": ""
+ },
+ "圉": {
+  "cp": "U+5709",
+  "file": "圉.svg",
+  "variants": 1,
+  "src": "[〇]方鼎",
+  "period": "西周早期"
+ },
+ "國": {
+  "cp": "U+570B",
+  "file": "國.svg",
+  "variants": 5,
+  "src": "蔡𥎦紐鐘",
+  "period": "春秋晚期"
+ },
+ "圍": {
+  "cp": "U+570D",
+  "file": "圍.svg",
+  "variants": 1,
+  "src": "",
+  "period": ""
+ },
+ "圖": {
+  "cp": "U+5716",
+  "file": "圖.svg",
+  "variants": 5,
+  "src": "",
+  "period": ""
+ },
+ "土": {
+  "cp": "U+571F",
+  "file": "土.svg",
+  "variants": 5,
+  "src": "亳鼎",
+  "period": "西周早期"
+ },
+ "圥": {
+  "cp": "U+5725",
+  "file": "圥.svg",
+  "variants": 3,
+  "src": "",
+  "period": ""
+ },
+ "在": {
+  "cp": "U+5728",
+  "file": "在.svg",
+  "variants": 5,
+  "src": "中方鼎",
+  "period": "西周早期"
+ },
+ "圭": {
+  "cp": "U+572D",
+  "file": "圭.svg",
+  "variants": 4,
+  "src": "多友鼎",
+  "period": "西周晚期"
+ },
+ "地": {
+  "cp": "U+5730",
+  "file": "地.svg",
+  "variants": 3,
+  "src": "",
+  "period": ""
+ },
+ "址": {
+  "cp": "U+5740",
+  "file": "址.svg",
+  "variants": 3,
+  "src": "中乍匕己觶",
+  "period": "西周早期"
+ },
+ "均": {
+  "cp": "U+5747",
+  "file": "均.svg",
+  "variants": 1,
+  "src": "蔡𥎦紐鐘",
+  "period": "春秋晚期"
+ },
+ "坏": {
+  "cp": "U+574F",
+  "file": "坏.svg",
+  "variants": 3,
+  "src": "秦公𣪕",
+  "period": "春秋早期"
+ },
+ "坓": {
+  "cp": "U+5753",
+  "file": "坓.svg",
+  "variants": 3,
+  "src": "",
+  "period": ""
+ },
+ "坙": {
+  "cp": "U+5759",
+  "file": "坙.svg",
+  "variants": 5,
+  "src": "",
+  "period": ""
+ },
+ "坪": {
+  "cp": "U+576A",
+  "file": "坪.svg",
+  "variants": 5,
+  "src": "曾𥎦乙鐘下一—一",
+  "period": "戰國早期"
+ },
+ "坿": {
+  "cp": "U+577F",
+  "file": "坿.svg",
+  "variants": 2,
+  "src": "",
+  "period": ""
+ },
+ "垔": {
+  "cp": "U+5794",
+  "file": "垔.svg",
+  "variants": 1,
+  "src": "大垔公戟",
+  "period": "戰國"
+ },
+ "垣": {
+  "cp": "U+57A3",
+  "file": "垣.svg",
+  "variants": 1,
+  "src": "垣上官鼎",
+  "period": "戰國"
+ },
+ "城": {
+  "cp": "U+57CE",
+  "file": "城.svg",
+  "variants": 5,
+  "src": "方城睘小器",
+  "period": "戰國"
+ },
+ "埜": {
+  "cp": "U+57DC",
+  "file": "埜.svg",
+  "variants": 3,
+  "src": "",
+  "period": ""
+ },
+ "埶": {
+  "cp": "U+57F6",
+  "file": "埶.svg",
+  "variants": 5,
+  "src": "埶𣪕",
+  "period": "商"
+ },
+ "執": {
+  "cp": "U+57F7",
+  "file": "執.svg",
+  "variants": 5,
+  "src": "師同鼎",
+  "period": "西周晚期"
+ },
+ "基": {
+  "cp": "U+57FA",
+  "file": "基.svg",
+  "variants": 2,
+  "src": "子璋鐘",
+  "period": "春秋晚期"
+ },
+ "堂": {
+  "cp": "U+5802",
+  "file": "堂.svg",
+  "variants": 2,
+  "src": "噩君啟車節",
+  "period": "戰國"
+ },
+ "堇": {
+  "cp": "U+5807",
+  "file": "堇.svg",
+  "variants": 5,
+  "src": "善夫山鼎",
+  "period": "西周晚期"
+ },
+ "堯": {
+  "cp": "U+582F",
+  "file": "堯.svg",
+  "variants": 3,
+  "src": "",
+  "period": ""
+ },
+ "報": {
+  "cp": "U+5831",
+  "file": "報.svg",
+  "variants": 4,
+  "src": "乍册[〇]令𣪕",
+  "period": "西周早期"
+ },
+ "堵": {
+  "cp": "U+5835",
+  "file": "堵.svg",
+  "variants": 2,
+  "src": "郘[〇]鐘",
+  "period": "春秋晚期"
+ },
+ "塍": {
+  "cp": "U+584D",
+  "file": "塍.svg",
+  "variants": 5,
+  "src": "敶𥎦乍王仲媯[〇]簠",
+  "period": "春秋"
+ },
+ "塚": {
+  "cp": "U+585A",
+  "file": "塚.svg",
+  "variants": 5,
+  "src": "",
+  "period": ""
+ },
+ "墨": {
+  "cp": "U+58A8",
+  "file": "墨.svg",
+  "variants": 1,
+  "src": "即墨華戈",
+  "period": "戰國"
+ },
+ "士": {
+  "cp": "U+58EB",
+  "file": "士.svg",
+  "variants": 5,
+  "src": "士乍父乙方鼎",
+  "period": "西周早期"
+ },
+ "壬": {
+  "cp": "U+58EC",
+  "file": "壬.svg",
+  "variants": 5,
+  "src": "壬父鼎",
+  "period": "商"
+ },
+ "壯": {
+  "cp": "U+58EF",
+  "file": "壯.svg",
+  "variants": 2,
+  "src": "中山王[〇]鼎",
+  "period": "戰國晚期"
+ },
+ "壴": {
+  "cp": "U+58F4",
+  "file": "壴.svg",
+  "variants": 2,
+  "src": "曾𥎦乙鐘中一—三",
+  "period": "戰國早期"
+ },
+ "壺": {
+  "cp": "U+58FA",
+  "file": "壺.svg",
+  "variants": 5,
+  "src": "長隹壺尊",
+  "period": "西周早期"
+ },
+ "壽": {
+  "cp": "U+58FD",
+  "file": "壽.svg",
+  "variants": 5,
+  "src": "𤼈鐘",
+  "period": "西周中期"
+ },
+ "夆": {
+  "cp": "U+5906",
+  "file": "夆.svg",
+  "variants": 5,
+  "src": "夆乍甗",
+  "period": "西周早期"
+ },
+ "复": {
+  "cp": "U+590D",
+  "file": "复.svg",
+  "variants": 2,
+  "src": "黃子盤",
+  "period": "春秋早期"
+ },
+ "夏": {
+  "cp": "U+590F",
+  "file": "夏.svg",
+  "variants": 5,
+  "src": "白夏父鬲",
+  "period": "西周晚期"
+ },
+ "夒": {
+  "cp": "U+5912",
+  "file": "夒.svg",
+  "variants": 1,
+  "src": "",
+  "period": ""
+ },
+ "夔": {
+  "cp": "U+5914",
+  "file": "夔.svg",
+  "variants": 1,
+  "src": "",
+  "period": ""
+ },
+ "夕": {
+  "cp": "U+5915",
+  "file": "夕.svg",
+  "variants": 5,
+  "src": "雁公鼎",
+  "period": "西周早期"
+ },
+ "外": {
+  "cp": "U+5916",
+  "file": "外.svg",
+  "variants": 5,
+  "src": "敬事天王鐘",
+  "period": "春秋晚期"
+ },
+ "夙": {
+  "cp": "U+5919",
+  "file": "夙.svg",
+  "variants": 5,
+  "src": "虎簋蓋",
+  "period": "西周中期"
+ },
+ "多": {
+  "cp": "U+591A",
+  "file": "多.svg",
+  "variants": 5,
+  "src": "中甗",
+  "period": "西周早期"
+ },
+ "夜": {
+  "cp": "U+591C",
+  "file": "夜.svg",
+  "variants": 5,
+  "src": "[〇]方鼎",
+  "period": "西周中期"
+ },
+ "夢": {
+  "cp": "U+5922",
+  "file": "夢.svg",
+  "variants": 1,
+  "src": "卯𣪕蓋",
+  "period": "西周中期"
+ },
+ "大": {
+  "cp": "U+5927",
+  "file": "大.svg",
+  "variants": 5,
+  "src": "大禾方鼎",
+  "period": "商"
+ },
+ "夨": {
+  "cp": "U+5928",
+  "file": "夨.svg",
+  "variants": 5,
+  "src": "夨叔簋",
+  "period": "西周中期"
+ },
+ "天": {
+  "cp": "U+5929",
+  "file": "天.svg",
+  "variants": 5,
+  "src": "天鼎",
+  "period": "商"
+ },
+ "夫": {
+  "cp": "U+592B",
+  "file": "夫.svg",
+  "variants": 5,
+  "src": "[〇]夫乍且丁甗",
+  "period": "西周早期"
+ },
+ "夭": {
+  "cp": "U+592D",
+  "file": "夭.svg",
+  "variants": 1,
+  "src": "夭乍彝觚",
+  "period": "西周早期"
+ },
+ "央": {
+  "cp": "U+592E",
+  "file": "央.svg",
+  "variants": 2,
+  "src": "央乍寶𣪕",
+  "period": "西周早期"
+ },
+ "失": {
+  "cp": "U+5931",
+  "file": "失.svg",
+  "variants": 5,
+  "src": "",
+  "period": ""
+ },
+ "夷": {
+  "cp": "U+5937",
+  "file": "夷.svg",
+  "variants": 4,
+  "src": "旅鼎",
+  "period": "西周早期"
+ },
+ "夸": {
+  "cp": "U+5938",
+  "file": "夸.svg",
+  "variants": 5,
+  "src": "",
+  "period": ""
+ },
+ "夾": {
+  "cp": "U+593E",
+  "file": "夾.svg",
+  "variants": 4,
+  "src": "大盂鼎",
+  "period": "西周早期"
+ },
+ "奉": {
+  "cp": "U+5949",
+  "file": "奉.svg",
+  "variants": 3,
+  "src": "",
+  "period": ""
+ },
+ "奏": {
+  "cp": "U+594F",
+  "file": "奏.svg",
+  "variants": 4,
+  "src": "",
+  "period": ""
+ },
+ "奐": {
+  "cp": "U+5950",
+  "file": "奐.svg",
+  "variants": 1,
+  "src": "師奐父盨",
+  "period": "西周晚期"
+ },
+ "奔": {
+  "cp": "U+5954",
+  "file": "奔.svg",
+  "variants": 5,
+  "src": "大盂鼎",
+  "period": "西周早期"
+ },
+ "奚": {
+  "cp": "U+595A",
+  "file": "奚.svg",
+  "variants": 5,
+  "src": "亞奚𣪕",
+  "period": "商"
+ },
+ "奞": {
+  "cp": "U+595E",
+  "file": "奞.svg",
+  "variants": 1,
+  "src": "",
+  "period": ""
+ },
+ "奠": {
+  "cp": "U+5960",
+  "file": "奠.svg",
+  "variants": 5,
+  "src": "[〇]鼎",
+  "period": "西周中期"
+ },
+ "女": {
+  "cp": "U+5973",
+  "file": "女.svg",
+  "variants": 5,
+  "src": "彭女甗",
+  "period": "商"
+ },
+ "奴": {
+  "cp": "U+5974",
+  "file": "奴.svg",
+  "variants": 3,
+  "src": "高奴禾石權",
+  "period": "戰國"
+ },
+ "奻": {
+  "cp": "U+597B",
+  "file": "奻.svg",
+  "variants": 2,
+  "src": "奻乍乙公觚",
+  "period": "西周早期"
+ },
+ "好": {
+  "cp": "U+597D",
+  "file": "好.svg",
+  "variants": 5,
+  "src": "好甗",
+  "period": "商"
+ },
+ "妀": {
+  "cp": "U+5980",
+  "file": "妀.svg",
+  "variants": 5,
+  "src": "",
+  "period": ""
+ },
+ "如": {
+  "cp": "U+5982",
+  "file": "如.svg",
+  "variants": 1,
+  "src": "",
+  "period": ""
+ },
+ "妊": {
+  "cp": "U+598A",
+  "file": "妊.svg",
+  "variants": 5,
+  "src": "姬妊旅鬲",
+  "period": "西周中期"
+ },
+ "妟": {
+  "cp": "U+599F",
+  "file": "妟.svg",
+  "variants": 1,
+  "src": "者[〇]鐘",
+  "period": "戰國早期"
+ },
+ "妥": {
+  "cp": "U+59A5",
+  "file": "妥.svg",
+  "variants": 5,
+  "src": "𤼈鐘",
+  "period": "西周中期"
+ },
+ "妹": {
+  "cp": "U+59B9",
+  "file": "妹.svg",
+  "variants": 5,
+  "src": "大盂鼎",
+  "period": "西周早期"
+ },
+ "妻": {
+  "cp": "U+59BB",
+  "file": "妻.svg",
+  "variants": 3,
+  "src": "冉父丁罍",
+  "period": "西周早期"
+ },
+ "妾": {
+  "cp": "U+59BE",
+  "file": "妾.svg",
+  "variants": 3,
+  "src": "逆鐘",
+  "period": "西周晚期"
+ },
+ "姊": {
+  "cp": "U+59CA",
+  "file": "姊.svg",
+  "variants": 2,
+  "src": "季宫父簠",
+  "period": "西周晚期"
+ },
+ "始": {
+  "cp": "U+59CB",
+  "file": "始.svg",
+  "variants": 5,
+  "src": "會始鬲",
+  "period": "西周晚期"
+ },
+ "姑": {
+  "cp": "U+59D1",
+  "file": "姑.svg",
+  "variants": 5,
+  "src": "白庶父𣪕",
+  "period": "西周晚期"
+ },
+ "姓": {
+  "cp": "U+59D3",
+  "file": "姓.svg",
+  "variants": 2,
+  "src": "士上盉",
+  "period": "西周早期"
+ },
+ "姚": {
+  "cp": "U+59DA",
+  "file": "姚.svg",
+  "variants": 4,
+  "src": "毛白𣪕",
+  "period": "西周晚期"
+ },
+ "姜": {
+  "cp": "U+59DC",
+  "file": "姜.svg",
+  "variants": 5,
+  "src": "齊姜鼎",
+  "period": "西周早期"
+ },
+ "姞": {
+  "cp": "U+59DE",
+  "file": "姞.svg",
+  "variants": 5,
+  "src": "虢仲鬲",
+  "period": "西周中期"
+ },
+ "姬": {
+  "cp": "U+59EC",
+  "file": "姬.svg",
+  "variants": 5,
+  "src": "凌姬鬲",
+  "period": "西周早期"
+ },
+ "威": {
+  "cp": "U+5A01",
+  "file": "威.svg",
+  "variants": 5,
+  "src": "𤼈鐘",
+  "period": "西周中期"
+ },
+ "娊": {
+  "cp": "U+5A0A",
+  "file": "娊.svg",
+  "variants": 3,
+  "src": "庚姬鬲",
+  "period": "西周中期"
+ },
+ "婁": {
+  "cp": "U+5A41",
+  "file": "婁.svg",
+  "variants": 2,
+  "src": "是婁𣪕",
+  "period": "西周中期"
+ },
+ "婦": {
+  "cp": "U+5A66",
+  "file": "婦.svg",
+  "variants": 5,
+  "src": "齊婦鬲",
+  "period": "商"
+ },
+ "媚": {
+  "cp": "U+5A9A",
+  "file": "媚.svg",
+  "variants": 4,
+  "src": "子媚鼎",
+  "period": "商"
+ },
+ "媿": {
+  "cp": "U+5ABF",
+  "file": "媿.svg",
+  "variants": 5,
+  "src": "毳𣪕",
+  "period": "西周晚期"
+ },
+ "嬭": {
+  "cp": "U+5B2D",
+  "file": "嬭.svg",
+  "variants": 5,
+  "src": "",
+  "period": ""
+ },
+ "嬰": {
+  "cp": "U+5B30",
+  "file": "嬰.svg",
+  "variants": 1,
+  "src": "",
+  "period": ""
+ },
+ "嬴": {
+  "cp": "U+5B34",
+  "file": "嬴.svg",
+  "variants": 5,
+  "src": "乍予弔嬴鬲",
+  "period": "西周晚期"
+ },
+ "子": {
+  "cp": "U+5B50",
+  "file": "子.svg",
+  "variants": 5,
+  "src": "眉工鬲",
+  "period": "商"
+ },
+ "孔": {
+  "cp": "U+5B54",
+  "file": "孔.svg",
+  "variants": 5,
+  "src": "沇兒鎛",
+  "period": "春秋晚期"
+ },
+ "字": {
+  "cp": "U+5B57",
+  "file": "字.svg",
+  "variants": 3,
+  "src": "善夫[〇]其𣪕",
+  "period": "西周晚期"
+ },
+ "孚": {
+  "cp": "U+5B5A",
+  "file": "孚.svg",
+  "variants": 5,
+  "src": "師同鼎",
+  "period": "西周晚期"
+ },
+ "孝": {
+  "cp": "U+5B5D",
+  "file": "孝.svg",
+  "variants": 5,
+  "src": "虘鐘",
+  "period": "西周中期"
+ },
+ "孟": {
+  "cp": "U+5B5F",
+  "file": "孟.svg",
+  "variants": 5,
+  "src": "[〇]白鬲",
+  "period": "西周中期"
+ },
+ "季": {
+  "cp": "U+5B63",
+  "file": "季.svg",
+  "variants": 5,
+  "src": "[〇]季乍鬲",
+  "period": "西周早期"
+ },
+ "孫": {
+  "cp": "U+5B6B",
+  "file": "孫.svg",
+  "variants": 5,
+  "src": "",
+  "period": ""
+ },
+ "孰": {
+  "cp": "U+5B70",
+  "file": "孰.svg",
+  "variants": 2,
+  "src": "白致𣪕",
+  "period": "西周中期"
+ },
+ "孱": {
+  "cp": "U+5B71",
+  "file": "孱.svg",
+  "variants": 1,
+  "src": "孱陵矛",
+  "period": "戰國"
+ },
+ "學": {
+  "cp": "U+5B78",
+  "file": "學.svg",
+  "variants": 5,
+  "src": "師𠭰𣪕",
+  "period": "西周晚期"
+ },
+ "它": {
+  "cp": "U+5B83",
+  "file": "它.svg",
+  "variants": 5,
+  "src": "仲[〇]鬲",
+  "period": "西周晚期"
+ },
+ "宅": {
+  "cp": "U+5B85",
+  "file": "宅.svg",
+  "variants": 5,
+  "src": "秦公鐘",
+  "period": "春秋早期"
+ },
+ "宇": {
+  "cp": "U+5B87",
+  "file": "宇.svg",
+  "variants": 5,
+  "src": "𤕌公彭宇簠",
+  "period": "春秋"
+ },
+ "守": {
+  "cp": "U+5B88",
+  "file": "守.svg",
+  "variants": 5,
+  "src": "守父丁甗",
+  "period": "商"
+ },
+ "安": {
+  "cp": "U+5B89",
+  "file": "安.svg",
+  "variants": 5,
+  "src": "安父鼎",
+  "period": "西周早期"
+ },
+ "宔": {
+  "cp": "U+5B94",
+  "file": "宔.svg",
+  "variants": 5,
+  "src": "",
+  "period": ""
+ },
+ "宕": {
+  "cp": "U+5B95",
+  "file": "宕.svg",
+  "variants": 5,
+  "src": "五年召白虎𣪕",
+  "period": "西周晚期"
+ },
+ "宖": {
+  "cp": "U+5B96",
+  "file": "宖.svg",
+  "variants": 1,
+  "src": "",
+  "period": ""
+ },
+ "宗": {
+  "cp": "U+5B97",
+  "file": "宗.svg",
+  "variants": 5,
+  "src": "大保黹乍宗室方鼎",
+  "period": "西周早期"
+ },
+ "官": {
+  "cp": "U+5B98",
+  "file": "官.svg",
+  "variants": 5,
+  "src": "師𡘇父鼎",
+  "period": "西周中期"
+ },
+ "定": {
+  "cp": "U+5B9A",
+  "file": "定.svg",
+  "variants": 5,
+  "src": "秦王鐘",
+  "period": "春秋晚期"
+ },
+ "宛": {
+  "cp": "U+5B9B",
+  "file": "宛.svg",
+  "variants": 5,
+  "src": "",
+  "period": ""
+ },
+ "宜": {
+  "cp": "U+5B9C",
+  "file": "宜.svg",
+  "variants": 5,
+  "src": "天亡𣪕",
+  "period": "西周早期"
+ },
+ "客": {
+  "cp": "U+5BA2",
+  "file": "客.svg",
+  "variants": 5,
+  "src": "利鼎",
+  "period": "西周中期"
+ },
+ "宣": {
+  "cp": "U+5BA3",
+  "file": "宣.svg",
+  "variants": 2,
+  "src": "虢宣公子白鼎",
+  "period": "西周晚期"
+ },
+ "室": {
+  "cp": "U+5BA4",
+  "file": "室.svg",
+  "variants": 5,
+  "src": "尹姞鬲",
+  "period": "西周中期"
+ },
+ "宦": {
+  "cp": "U+5BA6",
+  "file": "宦.svg",
+  "variants": 1,
+  "src": "叔尸鐘",
+  "period": "春秋晚期"
+ },
+ "宫": {
+  "cp": "U+5BAB",
+  "file": "宫.svg",
+  "variants": 5,
+  "src": "戒乍[〇]官鬲",
+  "period": "西周早期"
+ },
+ "宰": {
+  "cp": "U+5BB0",
+  "file": "宰.svg",
+  "variants": 5,
+  "src": "師湯父鼎",
+  "period": "西周中期"
+ },
+ "害": {
+  "cp": "U+5BB3",
+  "file": "害.svg",
+  "variants": 5,
+  "src": "毛公鼎",
+  "period": "西周晚期"
+ },
+ "宴": {
+  "cp": "U+5BB4",
+  "file": "宴.svg",
+  "variants": 4,
+  "src": "噩𥎦鼎",
+  "period": "西周晚期"
+ },
+ "家": {
+  "cp": "U+5BB6",
+  "file": "家.svg",
+  "variants": 5,
+  "src": "辛鼎",
+  "period": "西周早期"
+ },
+ "容": {
+  "cp": "U+5BB9",
+  "file": "容.svg",
+  "variants": 2,
+  "src": "四分鼎",
+  "period": "戰國晚期"
+ },
+ "宿": {
+  "cp": "U+5BBF",
+  "file": "宿.svg",
+  "variants": 2,
+  "src": "[〇]子宿車盆",
+  "period": "春秋"
+ },
+ "寅": {
+  "cp": "U+5BC5",
+  "file": "寅.svg",
+  "variants": 5,
+  "src": "[〇][〇]方鼎",
+  "period": "西周早期"
+ },
+ "密": {
+  "cp": "U+5BC6",
+  "file": "密.svg",
+  "variants": 2,
+  "src": "𧽊𣪕＊",
+  "period": "西周中期"
+ },
+ "寇": {
+  "cp": "U+5BC7",
+  "file": "寇.svg",
+  "variants": 5,
+  "src": "[〇]御寇戈",
+  "period": "戰國"
+ },
+ "富": {
+  "cp": "U+5BCC",
+  "file": "富.svg",
+  "variants": 3,
+  "src": "上官豆（富子登）",
+  "period": "戰國"
+ },
+ "寍": {
+  "cp": "U+5BCD",
+  "file": "寍.svg",
+  "variants": 5,
+  "src": "蔡𥎦紐鐘",
+  "period": "春秋晚期"
+ },
+ "寏": {
+  "cp": "U+5BCF",
+  "file": "寏.svg",
+  "variants": 4,
+  "src": "師寏父乍季姞鼎",
+  "period": "西周晚期"
+ },
+ "寒": {
+  "cp": "U+5BD2",
+  "file": "寒.svg",
+  "variants": 2,
+  "src": "小子[〇]鼎（寒[〇]鼎）",
+  "period": "西周晚期"
+ },
+ "寓": {
+  "cp": "U+5BD3",
+  "file": "寓.svg",
+  "variants": 3,
+  "src": "寓鼎",
+  "period": "西周中期"
+ },
+ "察": {
+  "cp": "U+5BDF",
+  "file": "察.svg",
+  "variants": 1,
+  "src": "弭弔師𡨃𣪕",
+  "period": "西周晚期"
+ },
+ "實": {
+  "cp": "U+5BE6",
+  "file": "實.svg",
+  "variants": 3,
+  "src": "㝬𣪕",
+  "period": "西周晚期"
+ },
+ "寧": {
+  "cp": "U+5BE7",
+  "file": "寧.svg",
+  "variants": 5,
+  "src": "",
+  "period": ""
+ },
+ "寳": {
+  "cp": "U+5BF3",
+  "file": "寳.svg",
+  "variants": 5,
+  "src": "",
+  "period": ""
+ },
+ "寴": {
+  "cp": "U+5BF4",
+  "file": "寴.svg",
+  "variants": 5,
+  "src": "噩𥎦鼎",
+  "period": "西周晚期"
+ },
+ "寵": {
+  "cp": "U+5BF5",
+  "file": "寵.svg",
+  "variants": 2,
+  "src": "",
+  "period": ""
+ },
+ "寶": {
+  "cp": "U+5BF6",
+  "file": "寶.svg",
+  "variants": 5,
+  "src": "無[〇]鼎",
+  "period": "商"
+ },
+ "寺": {
+  "cp": "U+5BFA",
+  "file": "寺.svg",
+  "variants": 5,
+  "src": "鼄公牼鐘",
+  "period": "春秋晚期"
+ },
+ "寽": {
+  "cp": "U+5BFD",
+  "file": "寽.svg",
+  "variants": 5,
+  "src": "師旂鼎",
+  "period": "西周中期"
+ },
+ "封": {
+  "cp": "U+5C01",
+  "file": "封.svg",
+  "variants": 5,
+  "src": "伊𣪕",
+  "period": "西周晚期"
+ },
+ "尃": {
+  "cp": "U+5C03",
+  "file": "尃.svg",
+  "variants": 5,
+  "src": "克鐘",
+  "period": "西周晚期"
+ },
+ "射": {
+  "cp": "U+5C04",
+  "file": "射.svg",
+  "variants": 5,
+  "src": "[〇]射乍[〇]甗",
+  "period": "西周早期"
+ },
+ "將": {
+  "cp": "U+5C07",
+  "file": "將.svg",
+  "variants": 2,
+  "src": "章弔將𣪕",
+  "period": "西周晚期"
+ },
+ "專": {
+  "cp": "U+5C08",
+  "file": "專.svg",
+  "variants": 2,
+  "src": "專鐃",
+  "period": "商"
+ },
+ "尊": {
+  "cp": "U+5C0A",
+  "file": "尊.svg",
+  "variants": 5,
+  "src": "無[〇]鼎",
+  "period": "商"
+ },
+ "對": {
+  "cp": "U+5C0D",
+  "file": "對.svg",
+  "variants": 5,
+  "src": "𤯍方鼎",
+  "period": "西周早期"
+ },
+ "小": {
+  "cp": "U+5C0F",
+  "file": "小.svg",
+  "variants": 5,
+  "src": "小子父己方鼎",
+  "period": "商"
+ },
+ "少": {
+  "cp": "U+5C11",
+  "file": "少.svg",
+  "variants": 5,
+  "src": "蔡𥎦紐鐘",
+  "period": "春秋晚期"
+ },
+ "尔": {
+  "cp": "U+5C14",
+  "file": "尔.svg",
+  "variants": 2,
+  "src": "中山王[〇]鼎",
+  "period": "戰國晚期"
+ },
+ "尚": {
+  "cp": "U+5C1A",
+  "file": "尚.svg",
+  "variants": 5,
+  "src": "者[〇]鐘",
+  "period": "春秋"
+ },
+ "尤": {
+  "cp": "U+5C24",
+  "file": "尤.svg",
+  "variants": 1,
+  "src": "獻𣪕",
+  "period": "西周早期"
+ },
+ "尸": {
+  "cp": "U+5C38",
+  "file": "尸.svg",
+  "variants": 5,
+  "src": "叔尸鐘",
+  "period": "春秋晚期"
+ },
+ "尹": {
+  "cp": "U+5C39",
+  "file": "尹.svg",
+  "variants": 5,
+  "src": "匕辛鐃",
+  "period": "商"
+ },
+ "尺": {
+  "cp": "U+5C3A",
+  "file": "尺.svg",
+  "variants": 1,
+  "src": "",
+  "period": ""
+ },
+ "居": {
+  "cp": "U+5C45",
+  "file": "居.svg",
+  "variants": 2,
+  "src": "王子中[〇]鼎（秦王子鼎）",
+  "period": "戰國"
+ },
+ "屈": {
+  "cp": "U+5C48",
+  "file": "屈.svg",
+  "variants": 2,
+  "src": "楚屈弔佗戈",
+  "period": "春秋早期"
+ },
+ "屖": {
+  "cp": "U+5C56",
+  "file": "屖.svg",
+  "variants": 5,
+  "src": "屖甗",
+  "period": "西周中期"
+ },
+ "屬": {
+  "cp": "U+5C6C",
+  "file": "屬.svg",
+  "variants": 2,
+  "src": "",
+  "period": ""
+ },
+ "屮": {
+  "cp": "U+5C6E",
+  "file": "屮.svg",
+  "variants": 2,
+  "src": "屮乍從彝𣪕",
+  "period": "西周早期"
+ },
+ "屯": {
+  "cp": "U+5C6F",
+  "file": "屯.svg",
+  "variants": 5,
+  "src": "𤼈鐘",
+  "period": "西周中期"
+ },
+ "屰": {
+  "cp": "U+5C70",
+  "file": "屰.svg",
+  "variants": 5,
+  "src": "屰鼎",
+  "period": "商"
+ },
+ "山": {
+  "cp": "U+5C71",
+  "file": "山.svg",
+  "variants": 5,
+  "src": "[〇]母鼎",
+  "period": "商"
+ },
+ "巛": {
+  "cp": "U+5DDB",
+  "file": "巛.svg",
+  "variants": 3,
+  "src": "",
+  "period": ""
+ },
+ "川": {
+  "cp": "U+5DDD",
+  "file": "川.svg",
+  "variants": 3,
+  "src": "奠義白𦉢",
+  "period": "春秋"
+ },
+ "州": {
+  "cp": "U+5DDE",
+  "file": "州.svg",
+  "variants": 5,
+  "src": "二十九年戈",
+  "period": "戰國早期"
+ },
+ "巠": {
+  "cp": "U+5DE0",
+  "file": "巠.svg",
+  "variants": 5,
+  "src": "大克鼎",
+  "period": "西周晚期"
+ },
+ "巡": {
+  "cp": "U+5DE1",
+  "file": "巡.svg",
+  "variants": 1,
+  "src": "卅年鼎",
+  "period": "戰國晚期"
+ },
+ "工": {
+  "cp": "U+5DE5",
+  "file": "工.svg",
+  "variants": 5,
+  "src": "未工册乍匕戊鼎",
+  "period": "西周早期"
+ },
+ "左": {
+  "cp": "U+5DE6",
+  "file": "左.svg",
+  "variants": 5,
+  "src": "𤼈鐘",
+  "period": "西周中期"
+ },
+ "巨": {
+  "cp": "U+5DE8",
+  "file": "巨.svg",
+  "variants": 5,
+  "src": "巨荁十九鼎",
+  "period": "戰國晚期"
+ },
+ "巩": {
+  "cp": "U+5DE9",
+  "file": "巩.svg",
+  "variants": 3,
+  "src": "師𠭰𣪕",
+  "period": "西周晚期"
+ },
+ "差": {
+  "cp": "U+5DEE",
+  "file": "差.svg",
+  "variants": 5,
+  "src": "叔尸鐘",
+  "period": "春秋晚期"
+ },
+ "己": {
+  "cp": "U+5DF1",
+  "file": "己.svg",
+  "variants": 5,
+  "src": "亞萬父己鐃",
+  "period": "商"
+ },
+ "已": {
+  "cp": "U+5DF2",
+  "file": "已.svg",
+  "variants": 1,
+  "src": "巂[〇]乍兄癸卣",
+  "period": "西周早期"
+ },
+ "巳": {
+  "cp": "U+5DF3",
+  "file": "巳.svg",
+  "variants": 5,
+  "src": "麗𣪕",
+  "period": "商"
+ },
+ "巸": {
+  "cp": "U+5DF8",
+  "file": "巸.svg",
+  "variants": 4,
+  "src": "",
+  "period": ""
+ },
+ "巽": {
+  "cp": "U+5DFD",
+  "file": "巽.svg",
+  "variants": 5,
+  "src": "曾𥎦乙鐘中一—三",
+  "period": "戰國早期"
+ },
+ "巾": {
+  "cp": "U+5DFE",
+  "file": "巾.svg",
+  "variants": 2,
+  "src": "",
+  "period": ""
+ },
+ "巿": {
+  "cp": "U+5DFF",
+  "file": "巿.svg",
+  "variants": 5,
+  "src": "[〇]季鼎",
+  "period": "西周中期"
+ },
+ "帀": {
+  "cp": "U+5E00",
+  "file": "帀.svg",
+  "variants": 5,
+  "src": "十七年平陰鼎蓋",
+  "period": "戰國"
+ },
+ "市": {
+  "cp": "U+5E02",
+  "file": "市.svg",
+  "variants": 3,
+  "src": "七年趞曹鼎",
+  "period": "西周中期"
+ },
+ "布": {
+  "cp": "U+5E03",
+  "file": "布.svg",
+  "variants": 3,
+  "src": "乍册睘卣",
+  "period": "西周早期"
+ },
+ "帚": {
+  "cp": "U+5E1A",
+  "file": "帚.svg",
+  "variants": 5,
+  "src": "婦[〇]鬲",
+  "period": "商"
+ },
+ "帛": {
+  "cp": "U+5E1B",
+  "file": "帛.svg",
+  "variants": 5,
+  "src": "帛女鬲",
+  "period": "西周晚期"
+ },
+ "帝": {
+  "cp": "U+5E1D",
+  "file": "帝.svg",
+  "variants": 5,
+  "src": "𤼈鐘",
+  "period": "西周中期"
+ },
+ "帥": {
+  "cp": "U+5E25",
+  "file": "帥.svg",
+  "variants": 5,
+  "src": "𤼈鐘",
+  "period": "西周中期"
+ },
+ "師": {
+  "cp": "U+5E2B",
+  "file": "師.svg",
+  "variants": 5,
+  "src": "師[〇]甗",
+  "period": "西周早期"
+ },
+ "帶": {
+  "cp": "U+5E36",
+  "file": "帶.svg",
+  "variants": 5,
+  "src": "",
+  "period": ""
+ },
+ "常": {
+  "cp": "U+5E38",
+  "file": "常.svg",
+  "variants": 1,
+  "src": "子犯編鐘",
+  "period": "春秋晚期"
+ },
+ "干": {
+  "cp": "U+5E72",
+  "file": "干.svg",
+  "variants": 4,
+  "src": "師訇𣪕",
+  "period": "西周晚期"
+ },
+ "平": {
+  "cp": "U+5E73",
+  "file": "平.svg",
+  "variants": 5,
+  "src": "[〇]弔之仲子平鐘",
+  "period": "春秋晚期"
+ },
+ "年": {
+  "cp": "U+5E74",
+  "file": "年.svg",
+  "variants": 5,
+  "src": "[〇]鬲",
+  "period": "西周早期"
+ },
+ "并": {
+  "cp": "U+5E76",
+  "file": "并.svg",
+  "variants": 1,
+  "src": "商鞅量",
+  "period": "戰國"
+ },
+ "幸": {
+  "cp": "U+5E78",
+  "file": "幸.svg",
+  "variants": 5,
+  "src": "嗇夫戈",
+  "period": "戰國晚期"
+ },
+ "幺": {
+  "cp": "U+5E7A",
+  "file": "幺.svg",
+  "variants": 5,
+  "src": "",
+  "period": ""
+ },
+ "幽": {
+  "cp": "U+5E7D",
+  "file": "幽.svg",
+  "variants": 5,
+  "src": "白䢅鼎",
+  "period": "西周中期"
+ },
+ "幾": {
+  "cp": "U+5E7E",
+  "file": "幾.svg",
+  "variants": 3,
+  "src": "白幾父𣪕",
+  "period": "西周中期"
+ },
+ "庀": {
+  "cp": "U+5E80",
+  "file": "庀.svg",
+  "variants": 5,
+  "src": "郾𥎦𨊦乍戎戈",
+  "period": "戰國晚期"
+ },
+ "序": {
+  "cp": "U+5E8F",
+  "file": "序.svg",
+  "variants": 1,
+  "src": "",
+  "period": ""
+ },
+ "庚": {
+  "cp": "U+5E9A",
+  "file": "庚.svg",
+  "variants": 5,
+  "src": "[〇]鬲",
+  "period": "商"
+ },
+ "府": {
+  "cp": "U+5E9C",
+  "file": "府.svg",
+  "variants": 5,
+  "src": "右府[〇]象尊",
+  "period": "戰國"
+ },
+ "度": {
+  "cp": "U+5EA6",
+  "file": "度.svg",
+  "variants": 1,
+  "src": "商鞅量",
+  "period": "戰國"
+ },
+ "庫": {
+  "cp": "U+5EAB",
+  "file": "庫.svg",
+  "variants": 2,
+  "src": "",
+  "period": ""
+ },
+ "庭": {
+  "cp": "U+5EAD",
+  "file": "庭.svg",
+  "variants": 1,
+  "src": "",
+  "period": ""
+ },
+ "庶": {
+  "cp": "U+5EB6",
+  "file": "庶.svg",
+  "variants": 5,
+  "src": "毛公鼎",
+  "period": "西周晚期"
+ },
+ "康": {
+  "cp": "U+5EB7",
+  "file": "康.svg",
+  "variants": 5,
+  "src": "康𥎦鬲",
+  "period": "西周早期"
+ },
+ "庸": {
+  "cp": "U+5EB8",
+  "file": "庸.svg",
+  "variants": 3,
+  "src": "中山王[〇]鼎",
+  "period": "戰國晚期"
+ },
+ "廌": {
+  "cp": "U+5ECC",
+  "file": "廌.svg",
+  "variants": 1,
+  "src": "亞廌父丁觚",
+  "period": "商"
+ },
+ "廚": {
+  "cp": "U+5EDA",
+  "file": "廚.svg",
+  "variants": 5,
+  "src": "右卜䏭鼎",
+  "period": "戰國晚期"
+ },
+ "廟": {
+  "cp": "U+5EDF",
+  "file": "廟.svg",
+  "variants": 5,
+  "src": "師秦宫鼎",
+  "period": "西周中期"
+ },
+ "廣": {
+  "cp": "U+5EE3",
+  "file": "廣.svg",
+  "variants": 5,
+  "src": "",
+  "period": ""
+ },
+ "廦": {
+  "cp": "U+5EE6",
+  "file": "廦.svg",
+  "variants": 1,
+  "src": "",
+  "period": ""
+ },
+ "廩": {
+  "cp": "U+5EE9",
+  "file": "廩.svg",
+  "variants": 4,
+  "src": "右廩鐵斧範",
+  "period": "戰國"
+ },
+ "延": {
+  "cp": "U+5EF6",
+  "file": "延.svg",
+  "variants": 1,
+  "src": "德方鼎",
+  "period": "西周早期"
+ },
+ "廷": {
+  "cp": "U+5EF7",
+  "file": "廷.svg",
+  "variants": 5,
+  "src": "七年趞曹鼎",
+  "period": "西周中期"
+ },
+ "建": {
+  "cp": "U+5EFA",
+  "file": "建.svg",
+  "variants": 5,
+  "src": "蔡𥎦紐鐘",
+  "period": "春秋晚期"
+ },
+ "廼": {
+  "cp": "U+5EFC",
+  "file": "廼.svg",
+  "variants": 5,
+  "src": "師旂鼎",
+  "period": "西周中期"
+ },
+ "廿": {
+  "cp": "U+5EFF",
+  "file": "廿.svg",
+  "variants": 5,
+  "src": "中甗",
+  "period": "西周早期"
+ },
+ "弁": {
+  "cp": "U+5F01",
+  "file": "弁.svg",
+  "variants": 2,
+  "src": "師酉𣪕",
+  "period": "西周中期"
+ },
+ "弄": {
+  "cp": "U+5F04",
+  "file": "弄.svg",
+  "variants": 5,
+  "src": "君子之弄鼎",
+  "period": "春秋晚期"
+ },
+ "弇": {
+  "cp": "U+5F07",
+  "file": "弇.svg",
+  "variants": 1,
+  "src": "中山王[〇]鼎",
+  "period": "戰國晚期"
+ },
+ "弋": {
+  "cp": "U+5F0B",
+  "file": "弋.svg",
+  "variants": 5,
+  "src": "𤼈鐘",
+  "period": "西周中期"
+ },
+ "弓": {
+  "cp": "U+5F13",
+  "file": "弓.svg",
+  "variants": 5,
+  "src": "弓𦎫方鼎",
+  "period": "商"
+ },
+ "弔": {
+  "cp": "U+5F14",
+  "file": "弔.svg",
+  "variants": 5,
+  "src": "",
+  "period": ""
+ },
+ "引": {
+  "cp": "U+5F15",
+  "file": "引.svg",
+  "variants": 5,
+  "src": "頌鼎",
+  "period": "西周晚期"
+ },
+ "弗": {
+  "cp": "U+5F17",
+  "file": "弗.svg",
+  "variants": 5,
+  "src": "𤼈鐘",
+  "period": "西周中期"
+ },
+ "弘": {
+  "cp": "U+5F18",
+  "file": "弘.svg",
+  "variants": 3,
+  "src": "晉姜鼎",
+  "period": "春秋早期"
+ },
+ "弜": {
+  "cp": "U+5F1C",
+  "file": "弜.svg",
+  "variants": 5,
+  "src": "亞弜鐃",
+  "period": "商"
+ },
+ "弟": {
+  "cp": "U+5F1F",
+  "file": "弟.svg",
+  "variants": 5,
+  "src": "雁公鼎",
+  "period": "西周早期"
+ },
+ "弭": {
+  "cp": "U+5F2D",
+  "file": "弭.svg",
+  "variants": 5,
+  "src": "弭弔師𡨃𣪕",
+  "period": "西周晚期"
+ },
+ "張": {
+  "cp": "U+5F35",
+  "file": "張.svg",
+  "variants": 1,
+  "src": "二十年奠令戈",
+  "period": "戰國"
+ },
+ "强": {
+  "cp": "U+5F3A",
+  "file": "强.svg",
+  "variants": 3,
+  "src": "",
+  "period": ""
+ },
+ "彊": {
+  "cp": "U+5F4A",
+  "file": "彊.svg",
+  "variants": 1,
+  "src": "𤼈鐘",
+  "period": "西周中期"
+ },
+ "彔": {
+  "cp": "U+5F54",
+  "file": "彔.svg",
+  "variants": 5,
+  "src": "",
+  "period": ""
+ },
+ "录": {
+  "cp": "U+5F55",
+  "file": "录.svg",
+  "variants": 5,
+  "src": "",
+  "period": ""
+ },
+ "彖": {
+  "cp": "U+5F56",
+  "file": "彖.svg",
+  "variants": 5,
+  "src": "逆鐘",
+  "period": "西周晚期"
+ },
+ "彘": {
+  "cp": "U+5F58",
+  "file": "彘.svg",
+  "variants": 2,
+  "src": "裘衛盉",
+  "period": "西周中期"
+ },
+ "彜": {
+  "cp": "U+5F5C",
+  "file": "彜.svg",
+  "variants": 5,
+  "src": "",
+  "period": ""
+ },
+ "彝": {
+  "cp": "U+5F5D",
+  "file": "彝.svg",
+  "variants": 5,
+  "src": "[〇]鬲",
+  "period": "商"
+ },
+ "彤": {
+  "cp": "U+5F64",
+  "file": "彤.svg",
+  "variants": 5,
+  "src": "逆鐘",
+  "period": "西周晚期"
+ },
+ "彪": {
+  "cp": "U+5F6A",
+  "file": "彪.svg",
+  "variants": 2,
+  "src": "毛弔盤",
+  "period": "春秋早期"
+ },
+ "彭": {
+  "cp": "U+5F6D",
+  "file": "彭.svg",
+  "variants": 5,
+  "src": "彭女彝鼎",
+  "period": "西周早期"
+ },
+ "彶": {
+  "cp": "U+5F76",
+  "file": "彶.svg",
+  "variants": 3,
+  "src": "曶鼎",
+  "period": "西周中期"
+ },
+ "往": {
+  "cp": "U+5F80",
+  "file": "往.svg",
+  "variants": 1,
+  "src": "者[〇]鐘",
+  "period": "戰國早期"
+ },
+ "征": {
+  "cp": "U+5F81",
+  "file": "征.svg",
+  "variants": 5,
+  "src": "䲨叔鼎",
+  "period": "西周早期"
+ },
+ "律": {
+  "cp": "U+5F8B",
+  "file": "律.svg",
+  "variants": 1,
+  "src": "",
+  "period": ""
+ },
+ "後": {
+  "cp": "U+5F8C",
+  "file": "後.svg",
+  "variants": 5,
+  "src": "𡩝鼎",
+  "period": "西周早期"
+ },
+ "徏": {
+  "cp": "U+5F8F",
+  "file": "徏.svg",
+  "variants": 5,
+  "src": "",
+  "period": ""
+ },
+ "徐": {
+  "cp": "U+5F90",
+  "file": "徐.svg",
+  "variants": 1,
+  "src": "䣄王𠂔又觶",
+  "period": "春秋晚期"
+ },
+ "徒": {
+  "cp": "U+5F92",
+  "file": "徒.svg",
+  "variants": 5,
+  "src": "白𨜴父鼎",
+  "period": "西周晚期"
+ },
+ "従": {
+  "cp": "U+5F93",
+  "file": "従.svg",
+  "variants": 5,
+  "src": "",
+  "period": ""
+ },
+ "得": {
+  "cp": "U+5F97",
+  "file": "得.svg",
+  "variants": 5,
+  "src": "得父己甗",
+  "period": "商"
+ },
+ "徙": {
+  "cp": "U+5F99",
+  "file": "徙.svg",
+  "variants": 5,
+  "src": "",
+  "period": ""
+ },
+ "從": {
+  "cp": "U+5F9E",
+  "file": "從.svg",
+  "variants": 5,
+  "src": "遽從甗",
+  "period": "西周早期"
+ },
+ "御": {
+  "cp": "U+5FA1",
+  "file": "御.svg",
+  "variants": 5,
+  "src": "虢弔旅鐘",
+  "period": "西周晚期"
+ },
+ "復": {
+  "cp": "U+5FA9",
+  "file": "復.svg",
+  "variants": 5,
+  "src": "",
+  "period": ""
+ },
+ "德": {
+  "cp": "U+5FB7",
+  "file": "德.svg",
+  "variants": 5,
+  "src": "𤼈鐘",
+  "period": "西周中期"
+ },
+ "心": {
+  "cp": "U+5FC3",
+  "file": "心.svg",
+  "variants": 5,
+  "src": "𤼈鐘",
+  "period": "西周中期"
+ },
+ "必": {
+  "cp": "U+5FC5",
+  "file": "必.svg",
+  "variants": 5,
+  "src": "南宫乎鐘",
+  "period": "西周晚期"
+ },
+ "忌": {
+  "cp": "U+5FCC",
+  "file": "忌.svg",
+  "variants": 3,
+  "src": "鼄公牼鐘",
+  "period": "春秋晚期"
+ },
+ "志": {
+  "cp": "U+5FD7",
+  "file": "志.svg",
+  "variants": 1,
+  "src": "之利鐘",
+  "period": "戰國早期"
+ },
+ "忘": {
+  "cp": "U+5FD8",
+  "file": "忘.svg",
+  "variants": 5,
+  "src": "蔡𥎦紐鐘",
+  "period": "春秋晚期"
+ },
+ "忠": {
+  "cp": "U+5FE0",
+  "file": "忠.svg",
+  "variants": 2,
+  "src": "中山王[〇]方壺",
+  "period": "戰國早期"
+ },
+ "念": {
+  "cp": "U+5FF5",
+  "file": "念.svg",
+  "variants": 5,
+  "src": "帥隹鼎",
+  "period": "西周中期"
+ },
+ "忽": {
+  "cp": "U+5FFD",
+  "file": "忽.svg",
+  "variants": 1,
+  "src": "中山王[〇]鼎",
+  "period": "戰國晚期"
+ },
+ "思": {
+  "cp": "U+601D",
+  "file": "思.svg",
+  "variants": 1,
+  "src": "匽𥎦載器",
+  "period": "戰國"
+ },
+ "恃": {
+  "cp": "U+6043",
+  "file": "恃.svg",
+  "variants": 1,
+  "src": "",
+  "period": ""
+ },
+ "恐": {
+  "cp": "U+6050",
+  "file": "恐.svg",
+  "variants": 1,
+  "src": "",
+  "period": ""
+ },
+ "恒": {
+  "cp": "U+6052",
+  "file": "恒.svg",
+  "variants": 4,
+  "src": "曶鼎",
+  "period": "西周中期"
+ },
+ "息": {
+  "cp": "U+606F",
+  "file": "息.svg",
+  "variants": 5,
+  "src": "息鼎",
+  "period": "商"
+ },
+ "悆": {
+  "cp": "U+6086",
+  "file": "悆.svg",
+  "variants": 3,
+  "src": "魯白悆盨",
+  "period": "春秋"
+ },
+ "悤": {
+  "cp": "U+60A4",
+  "file": "悤.svg",
+  "variants": 5,
+  "src": "",
+  "period": ""
+ },
+ "惕": {
+  "cp": "U+60D5",
+  "file": "惕.svg",
+  "variants": 3,
+  "src": "蔡𥎦尊",
+  "period": "春秋晚期"
+ },
+ "惠": {
+  "cp": "U+60E0",
+  "file": "惠.svg",
+  "variants": 5,
+  "src": "無[〇]鼎",
+  "period": "西周晚期"
+ },
+ "想": {
+  "cp": "U+60F3",
+  "file": "想.svg",
+  "variants": 1,
+  "src": "",
+  "period": ""
+ },
+ "愈": {
+  "cp": "U+6108",
+  "file": "愈.svg",
+  "variants": 4,
+  "src": "魯白愈父鬲",
+  "period": "春秋早期"
+ },
+ "意": {
+  "cp": "U+610F",
+  "file": "意.svg",
+  "variants": 5,
+  "src": "九年衛鼎",
+  "period": "西周中期"
+ },
+ "愻": {
+  "cp": "U+613B",
+  "file": "愻.svg",
+  "variants": 2,
+  "src": "者[〇]鐘",
+  "period": "戰國早期"
+ },
+ "慍": {
+  "cp": "U+614D",
+  "file": "慍.svg",
+  "variants": 1,
+  "src": "",
+  "period": ""
+ },
+ "慎": {
+  "cp": "U+614E",
+  "file": "慎.svg",
+  "variants": 5,
+  "src": "",
+  "period": ""
+ },
+ "慕": {
+  "cp": "U+6155",
+  "file": "慕.svg",
+  "variants": 4,
+  "src": "禹鼎",
+  "period": "西周晚期"
+ },
+ "慶": {
+  "cp": "U+6176",
+  "file": "慶.svg",
+  "variants": 5,
+  "src": "蔡𥎦紐鐘",
+  "period": "春秋晚期"
+ },
+ "憂": {
+  "cp": "U+6182",
+  "file": "憂.svg",
+  "variants": 3,
+  "src": "",
+  "period": ""
+ },
+ "憙": {
+  "cp": "U+6199",
+  "file": "憙.svg",
+  "variants": 2,
+  "src": "卅二年坪安君鼎",
+  "period": "戰國晚期"
+ },
+ "憲": {
+  "cp": "U+61B2",
+  "file": "憲.svg",
+  "variants": 5,
+  "src": "秦公鐘",
+  "period": "春秋早期"
+ },
+ "應": {
+  "cp": "U+61C9",
+  "file": "應.svg",
+  "variants": 1,
+  "src": "",
+  "period": ""
+ },
+ "懋": {
+  "cp": "U+61CB",
+  "file": "懋.svg",
+  "variants": 5,
+  "src": "小臣[〇]𣪕（白懋父𣪕）",
+  "period": "西周早期"
+ },
+ "懷": {
+  "cp": "U+61F7",
+  "file": "懷.svg",
+  "variants": 1,
+  "src": "",
+  "period": ""
+ },
+ "懿": {
+  "cp": "U+61FF",
+  "file": "懿.svg",
+  "variants": 5,
+  "src": "𤼈鐘",
+  "period": "西周中期"
+ },
+ "戈": {
+  "cp": "U+6208",
+  "file": "戈.svg",
+  "variants": 5,
+  "src": "戈甗",
+  "period": "商"
+ },
+ "戉": {
+  "cp": "U+6209",
+  "file": "戉.svg",
+  "variants": 5,
+  "src": "𤰈戉父癸甗",
+  "period": "商"
+ },
+ "戊": {
+  "cp": "U+620A",
+  "file": "戊.svg",
+  "variants": 5,
+  "src": "亞牧父戊鬲",
+  "period": "商"
+ },
+ "戌": {
+  "cp": "U+620C",
+  "file": "戌.svg",
+  "variants": 5,
+  "src": "呂方鼎",
+  "period": "西周中期"
+ },
+ "戍": {
+  "cp": "U+620D",
+  "file": "戍.svg",
+  "variants": 5,
+  "src": "[〇]甗",
+  "period": "西周中期"
+ },
+ "戎": {
+  "cp": "U+620E",
+  "file": "戎.svg",
+  "variants": 5,
+  "src": "[〇]方鼎",
+  "period": "西周中期"
+ },
+ "成": {
+  "cp": "U+6210",
+  "file": "成.svg",
+  "variants": 5,
+  "src": "[〇]甗",
+  "period": "西周早期"
+ },
+ "我": {
+  "cp": "U+6211",
+  "file": "我.svg",
+  "variants": 5,
+  "src": "弔我鼎",
+  "period": "西周早期"
+ },
+ "戔": {
+  "cp": "U+6214",
+  "file": "戔.svg",
+  "variants": 2,
+  "src": "[〇]戔父丁觚",
+  "period": "商"
+ },
+ "戕": {
+  "cp": "U+6215",
+  "file": "戕.svg",
+  "variants": 5,
+  "src": "戕孫鐘",
+  "period": "春秋晚期"
+ },
+ "或": {
+  "cp": "U+6216",
+  "file": "或.svg",
+  "variants": 5,
+  "src": "中甗",
+  "period": "西周早期"
+ },
+ "戚": {
+  "cp": "U+621A",
+  "file": "戚.svg",
+  "variants": 5,
+  "src": "戚姬𣪕",
+  "period": "西周中期"
+ },
+ "戟": {
+  "cp": "U+621F",
+  "file": "戟.svg",
+  "variants": 5,
+  "src": "虞之戟",
+  "period": "戰國晚期"
+ },
+ "戠": {
+  "cp": "U+6220",
+  "file": "戠.svg",
+  "variants": 5,
+  "src": "格白𣪕",
+  "period": "西周中期"
+ },
+ "戮": {
+  "cp": "U+622E",
+  "file": "戮.svg",
+  "variants": 1,
+  "src": "",
+  "period": ""
+ },
+ "戰": {
+  "cp": "U+6230",
+  "file": "戰.svg",
+  "variants": 4,
+  "src": "楚王酓[〇]鼎",
+  "period": "戰國晚期"
+ },
+ "戲": {
+  "cp": "U+6232",
+  "file": "戲.svg",
+  "variants": 5,
+  "src": "豆閉𣪕",
+  "period": "西周中期"
+ },
+ "戶": {
+  "cp": "U+6236",
+  "file": "戶.svg",
+  "variants": 1,
+  "src": "",
+  "period": ""
+ },
+ "所": {
+  "cp": "U+6240",
+  "file": "所.svg",
+  "variants": 5,
+  "src": "叔尸鐘",
+  "period": "春秋晚期"
+ },
+ "手": {
+  "cp": "U+624B",
+  "file": "手.svg",
+  "variants": 5,
+  "src": "逆鐘",
+  "period": "西周晚期"
+ },
+ "才": {
+  "cp": "U+624D",
+  "file": "才.svg",
+  "variants": 5,
+  "src": "[〇]鬲",
+  "period": "商"
+ },
+ "扶": {
+  "cp": "U+6276",
+  "file": "扶.svg",
+  "variants": 3,
+  "src": "二十年奠令戈",
+  "period": "戰國"
+ },
+ "承": {
+  "cp": "U+627F",
+  "file": "承.svg",
+  "variants": 5,
+  "src": "匽𥎦𣪕",
+  "period": "西周早期"
+ },
+ "折": {
+  "cp": "U+6298",
+  "file": "折.svg",
+  "variants": 5,
+  "src": "師同鼎",
+  "period": "西周晚期"
+ },
+ "拜": {
+  "cp": "U+62DC",
+  "file": "拜.svg",
+  "variants": 5,
+  "src": "公姞鬲",
+  "period": "西周中期"
+ },
+ "持": {
+  "cp": "U+6301",
+  "file": "持.svg",
+  "variants": 1,
+  "src": "楚王酓章鐘",
+  "period": "戰國早期"
+ },
+ "揚": {
+  "cp": "U+63DA",
+  "file": "揚.svg",
+  "variants": 5,
+  "src": "小臣[〇]鼎",
+  "period": "西周早期"
+ },
+ "擇": {
+  "cp": "U+64C7",
+  "file": "擇.svg",
+  "variants": 1,
+  "src": "邕子良人甗",
+  "period": "春秋早期"
+ },
+ "攴": {
+  "cp": "U+6534",
+  "file": "攴.svg",
+  "variants": 5,
+  "src": "攴鼎",
+  "period": "商"
+ },
+ "攵": {
+  "cp": "U+6535",
+  "file": "攵.svg",
+  "variants": 5,
+  "src": "",
+  "period": ""
+ },
+ "攸": {
+  "cp": "U+6538",
+  "file": "攸.svg",
+  "variants": 5,
+  "src": "大矢始鼎（大夫始鼎）",
+  "period": "西周中期"
+ },
+ "攺": {
+  "cp": "U+653A",
+  "file": "攺.svg",
+  "variants": 1,
+  "src": "",
+  "period": ""
+ },
+ "攻": {
+  "cp": "U+653B",
+  "file": "攻.svg",
+  "variants": 5,
+  "src": "[〇]孫鐘",
+  "period": "春秋晚期"
+ },
+ "攼": {
+  "cp": "U+653C",
+  "file": "攼.svg",
+  "variants": 3,
+  "src": "余王劍",
+  "period": "戰國早期"
+ },
+ "放": {
+  "cp": "U+653E",
+  "file": "放.svg",
+  "variants": 2,
+  "src": "多友鼎",
+  "period": "西周晚期"
+ },
+ "政": {
+  "cp": "U+653F",
+  "file": "政.svg",
+  "variants": 5,
+  "src": "逆鐘",
+  "period": "西周晚期"
+ },
+ "敃": {
+  "cp": "U+6543",
+  "file": "敃.svg",
+  "variants": 5,
+  "src": "",
+  "period": ""
+ },
+ "敄": {
+  "cp": "U+6544",
+  "file": "敄.svg",
+  "variants": 5,
+  "src": "乍册般甗",
+  "period": "商"
+ },
+ "故": {
+  "cp": "U+6545",
+  "file": "故.svg",
+  "variants": 5,
+  "src": "寺季故公𣪕",
+  "period": "西周晚期"
+ },
+ "效": {
+  "cp": "U+6548",
+  "file": "效.svg",
+  "variants": 5,
+  "src": "曶鼎",
+  "period": "西周中期"
+ },
+ "敏": {
+  "cp": "U+654F",
+  "file": "敏.svg",
+  "variants": 5,
+  "src": "",
+  "period": ""
+ },
+ "救": {
+  "cp": "U+6551",
+  "file": "救.svg",
+  "variants": 5,
+  "src": "[〇]𣪕蓋",
+  "period": "西周中期"
+ },
+ "敓": {
+  "cp": "U+6553",
+  "file": "敓.svg",
+  "variants": 2,
+  "src": "𠫑羌鐘",
+  "period": "戰國早期"
+ },
+ "敔": {
+  "cp": "U+6554",
+  "file": "敔.svg",
+  "variants": 5,
+  "src": "[〇]孫鐘",
+  "period": "春秋晚期"
+ },
+ "敖": {
+  "cp": "U+6556",
+  "file": "敖.svg",
+  "variants": 4,
+  "src": "敖弔𣪕蓋",
+  "period": "西周晚期"
+ },
+ "敗": {
+  "cp": "U+6557",
+  "file": "敗.svg",
+  "variants": 3,
+  "src": "",
+  "period": ""
+ },
+ "敝": {
+  "cp": "U+655D",
+  "file": "敝.svg",
+  "variants": 1,
+  "src": "",
+  "period": ""
+ },
+ "敢": {
+  "cp": "U+6562",
+  "file": "敢.svg",
+  "variants": 5,
+  "src": "旂鼎",
+  "period": "西周早期"
+ },
+ "敬": {
+  "cp": "U+656C",
+  "file": "敬.svg",
+  "variants": 5,
+  "src": "𤼈鐘",
+  "period": "西周中期"
+ },
+ "整": {
+  "cp": "U+6574",
+  "file": "整.svg",
+  "variants": 1,
+  "src": "蔡𥎦尊",
+  "period": "春秋晚期"
+ },
+ "敶": {
+  "cp": "U+6576",
+  "file": "敶.svg",
+  "variants": 5,
+  "src": "敶大喪史仲高鐘",
+  "period": "春秋中期"
+ },
+ "數": {
+  "cp": "U+6578",
+  "file": "數.svg",
+  "variants": 2,
+  "src": "",
+  "period": ""
+ },
+ "斄": {
+  "cp": "U+6584",
+  "file": "斄.svg",
+  "variants": 1,
+  "src": "",
+  "period": ""
+ },
+ "文": {
+  "cp": "U+6587",
+  "file": "文.svg",
+  "variants": 5,
+  "src": "婦𨷼甗",
+  "period": "商"
+ },
+ "斗": {
+  "cp": "U+6597",
+  "file": "斗.svg",
+  "variants": 3,
+  "src": "王后中官錡甗",
+  "period": "戰國"
+ },
+ "斛": {
+  "cp": "U+659B",
+  "file": "斛.svg",
+  "variants": 1,
+  "src": "公朱左𠂤鼎",
+  "period": "戰國晚期"
+ },
+ "斤": {
+  "cp": "U+65A4",
+  "file": "斤.svg",
+  "variants": 2,
+  "src": "王子中[〇]鼎（秦王子鼎）",
+  "period": "戰國"
+ },
+ "斪": {
+  "cp": "U+65AA",
+  "file": "斪.svg",
+  "variants": 1,
+  "src": "卅二年坪安君鼎",
+  "period": "戰國晚期"
+ },
+ "斯": {
+  "cp": "U+65AF",
+  "file": "斯.svg",
+  "variants": 3,
+  "src": "余贎[〇]兒鐘（楚余義鐘、[〇]兒）",
+  "period": "春秋晚期"
+ },
+ "新": {
+  "cp": "U+65B0",
+  "file": "新.svg",
+  "variants": 5,
+  "src": "弔碩父鼎",
+  "period": "西周中期"
+ },
+ "於": {
+  "cp": "U+65BC",
+  "file": "於.svg",
+  "variants": 5,
+  "src": "於殘鐘",
+  "period": "春秋晚期"
+ },
+ "斿": {
+  "cp": "U+65BF",
+  "file": "斿.svg",
+  "variants": 5,
+  "src": "曾仲斿父𥮉",
+  "period": "春秋早期"
+ },
+ "旁": {
+  "cp": "U+65C1",
+  "file": "旁.svg",
+  "variants": 5,
+  "src": "㚤[〇]𣪕",
+  "period": "西周晚期"
+ },
+ "旂": {
+  "cp": "U+65C2",
+  "file": "旂.svg",
+  "variants": 5,
+  "src": "旂姬鬲",
+  "period": "西周中期"
+ },
+ "旅": {
+  "cp": "U+65C5",
+  "file": "旅.svg",
+  "variants": 5,
+  "src": "亞若癸鼎",
+  "period": "商"
+ },
+ "族": {
+  "cp": "U+65CF",
+  "file": "族.svg",
+  "variants": 5,
+  "src": "師酉𣪕",
+  "period": "西周中期"
+ },
+ "旟": {
+  "cp": "U+65DF",
+  "file": "旟.svg",
+  "variants": 1,
+  "src": "",
+  "period": ""
+ },
+ "无": {
+  "cp": "U+65E0",
+  "file": "无.svg",
+  "variants": 5,
+  "src": "",
+  "period": ""
+ },
+ "既": {
+  "cp": "U+65E2",
+  "file": "既.svg",
+  "variants": 5,
+  "src": "庚嬴鼎",
+  "period": "西周早期"
+ },
+ "日": {
+  "cp": "U+65E5",
+  "file": "日.svg",
+  "variants": 5,
+  "src": "婦𨷼甗",
+  "period": "商"
+ },
+ "旦": {
+  "cp": "U+65E6",
+  "file": "旦.svg",
+  "variants": 5,
+  "src": "七年趞曹鼎",
+  "period": "西周中期"
+ },
+ "旨": {
+  "cp": "U+65E8",
+  "file": "旨.svg",
+  "variants": 5,
+  "src": "越王者旨於賜鐘",
+  "period": "戰國早期"
+ },
+ "早": {
+  "cp": "U+65E9",
+  "file": "早.svg",
+  "variants": 1,
+  "src": "敔𣪕",
+  "period": "西周晚期"
+ },
+ "旬": {
+  "cp": "U+65EC",
+  "file": "旬.svg",
+  "variants": 2,
+  "src": "繁卣",
+  "period": "西周中期"
+ },
+ "昆": {
+  "cp": "U+6606",
+  "file": "昆.svg",
+  "variants": 1,
+  "src": "",
+  "period": ""
+ },
+ "昇": {
+  "cp": "U+6607",
+  "file": "昇.svg",
+  "variants": 4,
+  "src": "",
+  "period": ""
+ },
+ "昊": {
+  "cp": "U+660A",
+  "file": "昊.svg",
+  "variants": 1,
+  "src": "史牆盤",
+  "period": "西周中期"
+ },
+ "昌": {
+  "cp": "U+660C",
+  "file": "昌.svg",
+  "variants": 1,
+  "src": "廿三年[〇]朝鼎",
+  "period": "戰國"
+ },
+ "明": {
+  "cp": "U+660E",
+  "file": "明.svg",
+  "variants": 5,
+  "src": "戒乍[〇]官鬲",
+  "period": "西周早期"
+ },
+ "昏": {
+  "cp": "U+660F",
+  "file": "昏.svg",
+  "variants": 1,
+  "src": "",
+  "period": ""
+ },
+ "易": {
+  "cp": "U+6613",
+  "file": "易.svg",
+  "variants": 5,
+  "src": "戊寅乍父丁方鼎",
+  "period": "商"
+ },
+ "昔": {
+  "cp": "U+6614",
+  "file": "昔.svg",
+  "variants": 5,
+  "src": "大克鼎",
+  "period": "西周晚期"
+ },
+ "昜": {
+  "cp": "U+661C",
+  "file": "昜.svg",
+  "variants": 5,
+  "src": "昜乍父辛鼎",
+  "period": "西周早期"
+ },
+ "星": {
+  "cp": "U+661F",
+  "file": "星.svg",
+  "variants": 1,
+  "src": "王立事鈹",
+  "period": "戰國"
+ },
+ "春": {
+  "cp": "U+6625",
+  "file": "春.svg",
+  "variants": 5,
+  "src": "壽春鼎",
+  "period": "戰國晚期"
+ },
+ "昧": {
+  "cp": "U+6627",
+  "file": "昧.svg",
+  "variants": 1,
+  "src": "小盂鼎",
+  "period": "西周早期"
+ },
+ "是": {
+  "cp": "U+662F",
+  "file": "是.svg",
+  "variants": 5,
+  "src": "是婁𣪕",
+  "period": "西周中期"
+ },
+ "昶": {
+  "cp": "U+6636",
+  "file": "昶.svg",
+  "variants": 5,
+  "src": "昶仲鬲",
+  "period": "春秋早期"
+ },
+ "時": {
+  "cp": "U+6642",
+  "file": "時.svg",
+  "variants": 1,
+  "src": "",
+  "period": ""
+ },
+ "晉": {
+  "cp": "U+6649",
+  "file": "晉.svg",
+  "variants": 5,
+  "src": "白𨜴父鼎",
+  "period": "西周晚期"
+ },
+ "智": {
+  "cp": "U+667A",
+  "file": "智.svg",
+  "variants": 5,
+  "src": "[〇]弔之仲子平鐘",
+  "period": "春秋晚期"
+ },
+ "暊": {
+  "cp": "U+668A",
+  "file": "暊.svg",
+  "variants": 5,
+  "src": "文暊父丁𣪕",
+  "period": "商"
+ },
+ "暲": {
+  "cp": "U+66B2",
+  "file": "暲.svg",
+  "variants": 5,
+  "src": "",
+  "period": ""
+ },
+ "曰": {
+  "cp": "U+66F0",
+  "file": "曰.svg",
+  "variants": 5,
+  "src": "中甗",
+  "period": "西周早期"
+ },
+ "曲": {
+  "cp": "U+66F2",
+  "file": "曲.svg",
+  "variants": 2,
+  "src": "襄公上[〇]鼎",
+  "period": "戰國晚期"
+ },
+ "更": {
+  "cp": "U+66F4",
+  "file": "更.svg",
+  "variants": 5,
+  "src": "曶鼎",
+  "period": "西周中期"
+ },
+ "曶": {
+  "cp": "U+66F6",
+  "file": "曶.svg",
+  "variants": 5,
+  "src": "曶鼎",
+  "period": "西周中期"
+ },
+ "書": {
+  "cp": "U+66F8",
+  "file": "書.svg",
+  "variants": 5,
+  "src": "𧽙鼎",
+  "period": "西周晚期"
+ },
+ "替": {
+  "cp": "U+66FF",
+  "file": "替.svg",
+  "variants": 1,
+  "src": "",
+  "period": ""
+ },
+ "朁": {
+  "cp": "U+6701",
+  "file": "朁.svg",
+  "variants": 1,
+  "src": "",
+  "period": ""
+ },
+ "會": {
+  "cp": "U+6703",
+  "file": "會.svg",
+  "variants": 4,
+  "src": "𠫑羌鐘",
+  "period": "戰國早期"
+ },
+ "月": {
+  "cp": "U+6708",
+  "file": "月.svg",
+  "variants": 5,
+  "src": "戍嗣子鼎（戍嗣子鼎）",
+  "period": "商"
+ },
+ "有": {
+  "cp": "U+6709",
+  "file": "有.svg",
+  "variants": 5,
+  "src": "中甗",
+  "period": "西周早期"
+ },
+ "朋": {
+  "cp": "U+670B",
+  "file": "朋.svg",
+  "variants": 5,
+  "src": "豊乍父丁鼎",
+  "period": "商"
+ },
+ "服": {
+  "cp": "U+670D",
+  "file": "服.svg",
+  "variants": 5,
+  "src": "臣諫𣪕",
+  "period": "西周中期"
+ },
+ "朔": {
+  "cp": "U+6714",
+  "file": "朔.svg",
+  "variants": 1,
+  "src": "[〇]十九年亡智鼎",
+  "period": "戰國"
+ },
+ "朕": {
+  "cp": "U+6715",
+  "file": "朕.svg",
+  "variants": 5,
+  "src": "[〇]𥎦方鼎",
+  "period": "西周早期"
+ },
+ "朙": {
+  "cp": "U+6719",
+  "file": "朙.svg",
+  "variants": 5,
+  "src": "",
+  "period": ""
+ },
+ "望": {
+  "cp": "U+671B",
+  "file": "望.svg",
+  "variants": 2,
+  "src": "獻𣪕",
+  "period": "西周早期"
+ },
+ "朝": {
+  "cp": "U+671D",
+  "file": "朝.svg",
+  "variants": 5,
+  "src": "仲殷父𣪕",
+  "period": "西周晚期"
+ },
+ "期": {
+  "cp": "U+671F",
+  "file": "期.svg",
+  "variants": 5,
+  "src": "吳王光鑑",
+  "period": "春秋晚期"
+ },
+ "朢": {
+  "cp": "U+6722",
+  "file": "朢.svg",
+  "variants": 5,
+  "src": "員方鼎",
+  "period": "西周中期"
+ },
+ "木": {
+  "cp": "U+6728",
+  "file": "木.svg",
+  "variants": 5,
+  "src": "木甗",
+  "period": "商"
+ },
+ "未": {
+  "cp": "U+672A",
+  "file": "未.svg",
+  "variants": 5,
+  "src": "[〇]婦未于方鼎",
+  "period": "商"
+ },
+ "末": {
+  "cp": "U+672B",
+  "file": "末.svg",
+  "variants": 2,
+  "src": "蔡𥎦紐鐘",
+  "period": "春秋晚期"
+ },
+ "本": {
+  "cp": "U+672C",
+  "file": "本.svg",
+  "variants": 1,
+  "src": "",
+  "period": ""
+ },
+ "朿": {
+  "cp": "U+673F",
+  "file": "朿.svg",
+  "variants": 5,
+  "src": "乍且己甗",
+  "period": "西周早期"
+ },
+ "李": {
+  "cp": "U+674E",
+  "file": "李.svg",
+  "variants": 3,
+  "src": "散氏盤",
+  "period": "西周晚期"
+ },
+ "杜": {
+  "cp": "U+675C",
+  "file": "杜.svg",
+  "variants": 5,
+  "src": "杜白鬲",
+  "period": "西周晚期"
+ },
+ "杞": {
+  "cp": "U+675E",
+  "file": "杞.svg",
+  "variants": 5,
+  "src": "杞白每氏鼎",
+  "period": "春秋早期"
+ },
+ "束": {
+  "cp": "U+675F",
+  "file": "束.svg",
+  "variants": 5,
+  "src": "曶鼎",
+  "period": "西周中期"
+ },
+ "東": {
+  "cp": "U+6771",
+  "file": "東.svg",
+  "variants": 5,
+  "src": "東宫方鼎",
+  "period": "西周早期"
+ },
+ "松": {
+  "cp": "U+677E",
+  "file": "松.svg",
+  "variants": 1,
+  "src": "噩君啟舟節",
+  "period": "戰國"
+ },
+ "析": {
+  "cp": "U+6790",
+  "file": "析.svg",
+  "variants": 4,
+  "src": "格白𣪕",
+  "period": "西周中期"
+ },
+ "果": {
+  "cp": "U+679C",
+  "file": "果.svg",
+  "variants": 3,
+  "src": "亞果父辛觶",
+  "period": "西周早期"
+ },
+ "枼": {
+  "cp": "U+67BC",
+  "file": "枼.svg",
+  "variants": 5,
+  "src": "越王者旨於賜鐘",
+  "period": "戰國早期"
+ },
+ "柏": {
+  "cp": "U+67CF",
+  "file": "柏.svg",
+  "variants": 3,
+  "src": "",
+  "period": ""
+ },
+ "某": {
+  "cp": "U+67D0",
+  "file": "某.svg",
+  "variants": 2,
+  "src": "諫𣪕",
+  "period": "西周晚期"
+ },
+ "柬": {
+  "cp": "U+67EC",
+  "file": "柬.svg",
+  "variants": 2,
+  "src": "令狐君[〇]子壺",
+  "period": "戰國中期"
+ },
+ "柳": {
+  "cp": "U+67F3",
+  "file": "柳.svg",
+  "variants": 2,
+  "src": "南宫柳鼎",
+  "period": "西周晚期"
+ },
+ "柴": {
+  "cp": "U+67F4",
+  "file": "柴.svg",
+  "variants": 1,
+  "src": "",
+  "period": ""
+ },
+ "栕": {
+  "cp": "U+6815",
+  "file": "栕.svg",
+  "variants": 1,
+  "src": "栕父乙卣",
+  "period": "商"
+ },
+ "校": {
+  "cp": "U+6821",
+  "file": "校.svg",
+  "variants": 1,
+  "src": "",
+  "period": ""
+ },
+ "格": {
+  "cp": "U+683C",
+  "file": "格.svg",
+  "variants": 5,
+  "src": "格白乍晉姬𣪕",
+  "period": "西周中期"
+ },
+ "桐": {
+  "cp": "U+6850",
+  "file": "桐.svg",
+  "variants": 3,
+  "src": "翏生盨",
+  "period": "西周晚期"
+ },
+ "桼": {
+  "cp": "U+687C",
+  "file": "桼.svg",
+  "variants": 1,
+  "src": "",
+  "period": ""
+ },
+ "梁": {
+  "cp": "U+6881",
+  "file": "梁.svg",
+  "variants": 5,
+  "src": "[〇]十九年亡智鼎",
+  "period": "戰國"
+ },
+ "棄": {
+  "cp": "U+68C4",
+  "file": "棄.svg",
+  "variants": 2,
+  "src": "散氏盤",
+  "period": "西周晚期"
+ },
+ "棗": {
+  "cp": "U+68D7",
+  "file": "棗.svg",
+  "variants": 1,
+  "src": "",
+  "period": ""
+ },
+ "棘": {
+  "cp": "U+68D8",
+  "file": "棘.svg",
+  "variants": 1,
+  "src": "不降戈",
+  "period": "戰國"
+ },
+ "椃": {
+  "cp": "U+6903",
+  "file": "椃.svg",
+  "variants": 4,
+  "src": "白椃虘𣪕",
+  "period": "西周晚期"
+ },
+ "楊": {
+  "cp": "U+694A",
+  "file": "楊.svg",
+  "variants": 1,
+  "src": "多友鼎",
+  "period": "西周晚期"
+ },
+ "楙": {
+  "cp": "U+6959",
+  "file": "楙.svg",
+  "variants": 4,
+  "src": "",
+  "period": ""
+ },
+ "業": {
+  "cp": "U+696D",
+  "file": "業.svg",
+  "variants": 5,
+  "src": "郾王喜劍",
+  "period": "戰國晚期"
+ },
+ "榦": {
+  "cp": "U+69A6",
+  "file": "榦.svg",
+  "variants": 1,
+  "src": "",
+  "period": ""
+ },
+ "榮": {
+  "cp": "U+69AE",
+  "file": "榮.svg",
+  "variants": 3,
+  "src": "[〇]子方尊",
+  "period": "西周早期"
+ },
+ "槃": {
+  "cp": "U+69C3",
+  "file": "槃.svg",
+  "variants": 5,
+  "src": "",
+  "period": ""
+ },
+ "槐": {
+  "cp": "U+69D0",
+  "file": "槐.svg",
+  "variants": 1,
+  "src": "",
+  "period": ""
+ },
+ "樂": {
+  "cp": "U+6A02",
+  "file": "樂.svg",
+  "variants": 5,
+  "src": "",
+  "period": ""
+ },
+ "樊": {
+  "cp": "U+6A0A",
+  "file": "樊.svg",
+  "variants": 5,
+  "src": "樊夫人龍嬴鬲",
+  "period": "春秋早期"
+ },
+ "橐": {
+  "cp": "U+6A50",
+  "file": "橐.svg",
+  "variants": 1,
+  "src": "",
+  "period": ""
+ },
+ "櫓": {
+  "cp": "U+6AD3",
+  "file": "櫓.svg",
+  "variants": 2,
+  "src": "",
+  "period": ""
+ },
+ "次": {
+  "cp": "U+6B21",
+  "file": "次.svg",
+  "variants": 5,
+  "src": "次卣",
+  "period": "西周中期"
+ },
+ "欶": {
+  "cp": "U+6B36",
+  "file": "欶.svg",
+  "variants": 1,
+  "src": "",
+  "period": ""
+ },
+ "欼": {
+  "cp": "U+6B3C",
+  "file": "欼.svg",
+  "variants": 1,
+  "src": "欼尊",
+  "period": "西周中期"
+ },
+ "欽": {
+  "cp": "U+6B3D",
+  "file": "欽.svg",
+  "variants": 1,
+  "src": "魚鼎匕",
+  "period": "戰國"
+ },
+ "止": {
+  "cp": "U+6B62",
+  "file": "止.svg",
+  "variants": 3,
+  "src": "亞[〇]止鼎",
+  "period": "商"
+ },
+ "正": {
+  "cp": "U+6B63",
+  "file": "正.svg",
+  "variants": 5,
+  "src": "魚正乙鐃",
+  "period": "商"
+ },
+ "此": {
+  "cp": "U+6B64",
+  "file": "此.svg",
+  "variants": 5,
+  "src": "此鼎",
+  "period": "西周晚期"
+ },
+ "步": {
+  "cp": "U+6B65",
+  "file": "步.svg",
+  "variants": 5,
+  "src": "步方鼎",
+  "period": "商"
+ },
+ "武": {
+  "cp": "U+6B66",
+  "file": "武.svg",
+  "variants": 5,
+  "src": "𤼈鐘",
+  "period": "西周中期"
+ },
+ "歬": {
+  "cp": "U+6B6C",
+  "file": "歬.svg",
+  "variants": 5,
+  "src": "兮仲鐘",
+  "period": "西周晚期"
+ },
+ "歲": {
+  "cp": "U+6B72",
+  "file": "歲.svg",
+  "variants": 5,
+  "src": "",
+  "period": ""
+ },
+ "歷": {
+  "cp": "U+6B77",
+  "file": "歷.svg",
+  "variants": 2,
+  "src": "",
+  "period": ""
+ },
+ "歸": {
+  "cp": "U+6B78",
+  "file": "歸.svg",
+  "variants": 5,
+  "src": "䲨叔鼎",
+  "period": "西周早期"
+ },
+ "死": {
+  "cp": "U+6B7B",
+  "file": "死.svg",
+  "variants": 5,
+  "src": "𤼈鐘",
+  "period": "西周中期"
+ },
+ "殳": {
+  "cp": "U+6BB3",
+  "file": "殳.svg",
+  "variants": 1,
+  "src": "相𥎦𣪕",
+  "period": "西周早期"
+ },
+ "段": {
+  "cp": "U+6BB5",
+  "file": "段.svg",
+  "variants": 3,
+  "src": "段金[〇]𣪕",
+  "period": "西周中期"
+ },
+ "殹": {
+  "cp": "U+6BB9",
+  "file": "殹.svg",
+  "variants": 4,
+  "src": "格白𣪕",
+  "period": "西周中期"
+ },
+ "毋": {
+  "cp": "U+6BCB",
+  "file": "毋.svg",
+  "variants": 1,
+  "src": "善夫山鼎",
+  "period": "西周晚期"
+ },
+ "母": {
+  "cp": "U+6BCD",
+  "file": "母.svg",
+  "variants": 5,
+  "src": "[〇]母鬲",
+  "period": "商"
+ },
+ "每": {
+  "cp": "U+6BCF",
+  "file": "每.svg",
+  "variants": 5,
+  "src": "■子每刅鼎",
+  "period": "春秋早期"
+ },
+ "毳": {
+  "cp": "U+6BF3",
+  "file": "毳.svg",
+  "variants": 3,
+  "src": "毳𣪕",
+  "period": "西周晚期"
+ },
+ "氏": {
+  "cp": "U+6C0F",
+  "file": "氏.svg",
+  "variants": 5,
+  "src": "𤼈鐘",
+  "period": "西周中期"
+ },
+ "氐": {
+  "cp": "U+6C10",
+  "file": "氐.svg",
+  "variants": 1,
+  "src": "",
+  "period": ""
+ },
+ "民": {
+  "cp": "U+6C11",
+  "file": "民.svg",
+  "variants": 5,
+  "src": "余贎[〇]兒鐘（楚余義鐘、[〇]兒）",
+  "period": "春秋晚期"
+ },
+ "氒": {
+  "cp": "U+6C12",
+  "file": "氒.svg",
+  "variants": 5,
+  "src": "",
+  "period": ""
+ },
+ "气": {
+  "cp": "U+6C14",
+  "file": "气.svg",
+  "variants": 4,
+  "src": "乍册[〇]令𣪕",
+  "period": "西周早期"
+ },
+ "水": {
+  "cp": "U+6C34",
+  "file": "水.svg",
+  "variants": 4,
+  "src": "沈子它𣪕蓋（它𣪕）",
+  "period": "西周早期"
+ },
+ "永": {
+  "cp": "U+6C38",
+  "file": "永.svg",
+  "variants": 5,
+  "src": "[〇]子旅乍且乙甗",
+  "period": "西周早期"
+ },
+ "求": {
+  "cp": "U+6C42",
+  "file": "求.svg",
+  "variants": 5,
+  "src": "曶鼎",
+  "period": "西周中期"
+ },
+ "汉": {
+  "cp": "U+6C49",
+  "file": "汉.svg",
+  "variants": 2,
+  "src": "",
+  "period": ""
+ },
+ "江": {
+  "cp": "U+6C5F",
+  "file": "江.svg",
+  "variants": 2,
+  "src": "敬事天王鐘",
+  "period": "春秋晚期"
+ },
+ "池": {
+  "cp": "U+6C60",
+  "file": "池.svg",
+  "variants": 1,
+  "src": "公姞鬲",
+  "period": "西周中期"
+ },
+ "污": {
+  "cp": "U+6C61",
+  "file": "污.svg",
+  "variants": 1,
+  "src": "",
+  "period": ""
+ },
+ "汲": {
+  "cp": "U+6C72",
+  "file": "汲.svg",
+  "variants": 2,
+  "src": "己𥎦壺",
+  "period": "春秋早期"
+ },
+ "汸": {
+  "cp": "U+6C78",
+  "file": "汸.svg",
+  "variants": 1,
+  "src": "",
+  "period": ""
+ },
+ "汾": {
+  "cp": "U+6C7E",
+  "file": "汾.svg",
+  "variants": 1,
+  "src": "二十二年臨汾守戈",
+  "period": "戰國晚期"
+ },
+ "沈": {
+  "cp": "U+6C88",
+  "file": "沈.svg",
+  "variants": 2,
+  "src": "沈子它𣪕蓋（它𣪕）",
+  "period": "西周早期"
+ },
+ "沙": {
+  "cp": "U+6C99",
+  "file": "沙.svg",
+  "variants": 5,
+  "src": "無[〇]鼎",
+  "period": "西周晚期"
+ },
+ "沱": {
+  "cp": "U+6CB1",
+  "file": "沱.svg",
+  "variants": 5,
+  "src": "鐘白侵鼎",
+  "period": "春秋"
+ },
+ "河": {
+  "cp": "U+6CB3",
+  "file": "河.svg",
+  "variants": 2,
+  "src": "同𣪕蓋",
+  "period": "西周中期"
+ },
+ "沽": {
+  "cp": "U+6CBD",
+  "file": "沽.svg",
+  "variants": 1,
+  "src": "蔡𥎦墓殘鐘四十七片",
+  "period": "春秋晚期"
+ },
+ "泉": {
+  "cp": "U+6CC9",
+  "file": "泉.svg",
+  "variants": 4,
+  "src": "史[〇]鼎",
+  "period": "西周晚期"
+ },
+ "洀": {
+  "cp": "U+6D00",
+  "file": "洀.svg",
+  "variants": 1,
+  "src": "啟乍且丁尊",
+  "period": "西周早期"
+ },
+ "洛": {
+  "cp": "U+6D1B",
+  "file": "洛.svg",
+  "variants": 4,
+  "src": "敔𣪕",
+  "period": "西周晚期"
+ },
+ "洤": {
+  "cp": "U+6D24",
+  "file": "洤.svg",
+  "variants": 4,
+  "src": "",
+  "period": ""
+ },
+ "津": {
+  "cp": "U+6D25",
+  "file": "津.svg",
+  "variants": 2,
+  "src": "䣄[〇]尹朁鼎",
+  "period": "春秋早期"
+ },
+ "洹": {
+  "cp": "U+6D39",
+  "file": "洹.svg",
+  "variants": 4,
+  "src": "白喜父𣪕",
+  "period": "西周晚期"
+ },
+ "流": {
+  "cp": "U+6D41",
+  "file": "流.svg",
+  "variants": 1,
+  "src": "[〇]𧊒壺",
+  "period": "戰國晚期"
+ },
+ "浮": {
+  "cp": "U+6D6E",
+  "file": "浮.svg",
+  "variants": 1,
+  "src": "浮公之孫公父宅匜",
+  "period": "春秋"
+ },
+ "浴": {
+  "cp": "U+6D74",
+  "file": "浴.svg",
+  "variants": 3,
+  "src": "孟縢姬缶",
+  "period": "春秋"
+ },
+ "海": {
+  "cp": "U+6D77",
+  "file": "海.svg",
+  "variants": 3,
+  "src": "小臣[〇]𣪕（白懋父𣪕）",
+  "period": "西周早期"
+ },
+ "涇": {
+  "cp": "U+6D87",
+  "file": "涇.svg",
+  "variants": 2,
+  "src": "涇＊白卣",
+  "period": "西周早期"
+ },
+ "涉": {
+  "cp": "U+6D89",
+  "file": "涉.svg",
+  "variants": 5,
+  "src": "格白𣪕",
+  "period": "西周中期"
+ },
+ "涑": {
+  "cp": "U+6D91",
+  "file": "涑.svg",
+  "variants": 1,
+  "src": "涑[〇]戈",
+  "period": "戰國早期"
+ },
+ "淍": {
+  "cp": "U+6DCD",
+  "file": "淍.svg",
+  "variants": 5,
+  "src": "",
+  "period": ""
+ },
+ "淢": {
+  "cp": "U+6DE2",
+  "file": "淢.svg",
+  "variants": 3,
+  "src": "",
+  "period": ""
+ },
+ "淪": {
+  "cp": "U+6DEA",
+  "file": "淪.svg",
+  "variants": 1,
+  "src": "白駟父盤",
+  "period": "西周晚期"
+ },
+ "淮": {
+  "cp": "U+6DEE",
+  "file": "淮.svg",
+  "variants": 5,
+  "src": "禹鼎",
+  "period": "西周晚期"
+ },
+ "深": {
+  "cp": "U+6DF1",
+  "file": "深.svg",
+  "variants": 1,
+  "src": "中山王[〇]方壺",
+  "period": "戰國早期"
+ },
+ "淳": {
+  "cp": "U+6DF3",
+  "file": "淳.svg",
+  "variants": 1,
+  "src": "淳于左造戈",
+  "period": "春秋早期"
+ },
+ "清": {
+  "cp": "U+6E05",
+  "file": "清.svg",
+  "variants": 1,
+  "src": "",
+  "period": ""
+ },
+ "渠": {
+  "cp": "U+6E20",
+  "file": "渠.svg",
+  "variants": 1,
+  "src": "",
+  "period": ""
+ },
+ "渴": {
+  "cp": "U+6E34",
+  "file": "渴.svg",
+  "variants": 1,
+  "src": "中山王[〇]方壺",
+  "period": "戰國早期"
+ },
+ "湯": {
+  "cp": "U+6E6F",
+  "file": "湯.svg",
+  "variants": 5,
+  "src": "仲柟父鬲",
+  "period": "西周中期"
+ },
+ "湶": {
+  "cp": "U+6E76",
+  "file": "湶.svg",
+  "variants": 1,
+  "src": "散氏盤",
+  "period": "西周晚期"
+ },
+ "溼": {
+  "cp": "U+6EBC",
+  "file": "溼.svg",
+  "variants": 3,
+  "src": "白姜鼎",
+  "period": "西周早期"
+ },
+ "滅": {
+  "cp": "U+6EC5",
+  "file": "滅.svg",
+  "variants": 3,
+  "src": "子犯編鐘",
+  "period": "春秋晚期"
+ },
+ "漁": {
+  "cp": "U+6F01",
+  "file": "漁.svg",
+  "variants": 5,
+  "src": "",
+  "period": ""
+ },
+ "漆": {
+  "cp": "U+6F06",
+  "file": "漆.svg",
+  "variants": 1,
+  "src": "高奴禾石權",
+  "period": "戰國"
+ },
+ "漢": {
+  "cp": "U+6F22",
+  "file": "漢.svg",
+  "variants": 2,
+  "src": "",
+  "period": ""
+ },
+ "潘": {
+  "cp": "U+6F58",
+  "file": "潘.svg",
+  "variants": 1,
+  "src": "",
+  "period": ""
+ },
+ "澧": {
+  "cp": "U+6FA7",
+  "file": "澧.svg",
+  "variants": 1,
+  "src": "噩君啟舟節",
+  "period": "戰國"
+ },
+ "濁": {
+  "cp": "U+6FC1",
+  "file": "濁.svg",
+  "variants": 1,
+  "src": "曾𥎦乙鐘下一—一",
+  "period": "戰國早期"
+ },
+ "濼": {
+  "cp": "U+6FFC",
+  "file": "濼.svg",
+  "variants": 2,
+  "src": "",
+  "period": ""
+ },
+ "灋": {
+  "cp": "U+704B",
+  "file": "灋.svg",
+  "variants": 5,
+  "src": "白䢅鼎",
+  "period": "西周中期"
+ },
+ "灷": {
+  "cp": "U+7077",
+  "file": "灷.svg",
+  "variants": 4,
+  "src": "",
+  "period": ""
+ },
+ "為": {
+  "cp": "U+70BA",
+  "file": "為.svg",
+  "variants": 5,
+  "src": "𢐗白甗",
+  "period": "西周早期"
+ },
+ "烕": {
+  "cp": "U+70D5",
+  "file": "烕.svg",
+  "variants": 1,
+  "src": "",
+  "period": ""
+ },
+ "焂": {
+  "cp": "U+7102",
+  "file": "焂.svg",
+  "variants": 4,
+  "src": "弔䟒父卣",
+  "period": "西周早期"
+ },
+ "焉": {
+  "cp": "U+7109",
+  "file": "焉.svg",
+  "variants": 1,
+  "src": "中山王[〇]方壺",
+  "period": "戰國早期"
+ },
+ "焛": {
+  "cp": "U+711B",
+  "file": "焛.svg",
+  "variants": 1,
+  "src": "焛令肖豹矛",
+  "period": "戰國"
+ },
+ "無": {
+  "cp": "U+7121",
+  "file": "無.svg",
+  "variants": 5,
+  "src": "𤼈鐘",
+  "period": "西周中期"
+ },
+ "然": {
+  "cp": "U+7136",
+  "file": "然.svg",
+  "variants": 2,
+  "src": "中山王[〇]鼎",
+  "period": "戰國晚期"
+ },
+ "照": {
+  "cp": "U+7167",
+  "file": "照.svg",
+  "variants": 1,
+  "src": "",
+  "period": ""
+ },
+ "熏": {
+  "cp": "U+718F",
+  "file": "熏.svg",
+  "variants": 5,
+  "src": "毛公鼎",
+  "period": "西周晚期"
+ },
+ "熒": {
+  "cp": "U+7192",
+  "file": "熒.svg",
+  "variants": 5,
+  "src": "",
+  "period": ""
+ },
+ "熾": {
+  "cp": "U+71BE",
+  "file": "熾.svg",
+  "variants": 2,
+  "src": "",
+  "period": ""
+ },
+ "燮": {
+  "cp": "U+71EE",
+  "file": "燮.svg",
+  "variants": 1,
+  "src": "曾白𩃲簠",
+  "period": "春秋早期"
+ },
+ "燹": {
+  "cp": "U+71F9",
+  "file": "燹.svg",
+  "variants": 5,
+  "src": "五祀衛鼎",
+  "period": "西周中期"
+ },
+ "爐": {
+  "cp": "U+7210",
+  "file": "爐.svg",
+  "variants": 5,
+  "src": "",
+  "period": ""
+ },
+ "爯": {
+  "cp": "U+722F",
+  "file": "爯.svg",
+  "variants": 5,
+  "src": "[〇]有𤔲爯鬲",
+  "period": "西周晚期"
+ },
+ "爰": {
+  "cp": "U+7230",
+  "file": "爰.svg",
+  "variants": 5,
+  "src": "爰父癸甗",
+  "period": "商"
+ },
+ "爲": {
+  "cp": "U+7232",
+  "file": "爲.svg",
+  "variants": 5,
+  "src": "",
+  "period": ""
+ },
+ "爵": {
+  "cp": "U+7235",
+  "file": "爵.svg",
+  "variants": 5,
+  "src": "史獸鼎",
+  "period": "西周早期"
+ },
+ "父": {
+  "cp": "U+7236",
+  "file": "父.svg",
+  "variants": 5,
+  "src": "亞萬父己鐃",
+  "period": "商"
+ },
+ "爻": {
+  "cp": "U+723B",
+  "file": "爻.svg",
+  "variants": 5,
+  "src": "爻鼎",
+  "period": "商"
+ },
+ "爽": {
+  "cp": "U+723D",
+  "file": "爽.svg",
+  "variants": 5,
+  "src": "[〇]令方尊",
+  "period": "西周早期"
+ },
+ "爾": {
+  "cp": "U+723E",
+  "file": "爾.svg",
+  "variants": 5,
+  "src": "洹子孟姜壺",
+  "period": "春秋"
+ },
+ "牆": {
+  "cp": "U+7246",
+  "file": "牆.svg",
+  "variants": 3,
+  "src": "師酉𣪕",
+  "period": "西周中期"
+ },
+ "牙": {
+  "cp": "U+7259",
+  "file": "牙.svg",
+  "variants": 5,
+  "src": "𡱒敖𣪕蓋",
+  "period": "西周晚期"
+ },
+ "牛": {
+  "cp": "U+725B",
+  "file": "牛.svg",
+  "variants": 5,
+  "src": "牛鼎",
+  "period": "西周早期"
+ },
+ "牟": {
+  "cp": "U+725F",
+  "file": "牟.svg",
+  "variants": 1,
+  "src": "高奴禾石權",
+  "period": "戰國"
+ },
+ "牢": {
+  "cp": "U+7262",
+  "file": "牢.svg",
+  "variants": 2,
+  "src": "貉子卣",
+  "period": "西周早期"
+ },
+ "牧": {
+  "cp": "U+7267",
+  "file": "牧.svg",
+  "variants": 5,
+  "src": "乍父乙鼎",
+  "period": "西周早期"
+ },
+ "牼": {
+  "cp": "U+727C",
+  "file": "牼.svg",
+  "variants": 2,
+  "src": "鼄公牼鐘",
+  "period": "春秋晚期"
+ },
+ "犢": {
+  "cp": "U+72A2",
+  "file": "犢.svg",
+  "variants": 1,
+  "src": "",
+  "period": ""
+ },
+ "犬": {
+  "cp": "U+72AC",
+  "file": "犬.svg",
+  "variants": 4,
+  "src": "子父乙甗",
+  "period": "商"
+ },
+ "犮": {
+  "cp": "U+72AE",
+  "file": "犮.svg",
+  "variants": 2,
+  "src": "",
+  "period": ""
+ },
+ "狂": {
+  "cp": "U+72C2",
+  "file": "狂.svg",
+  "variants": 1,
+  "src": "",
+  "period": ""
+ },
+ "狄": {
+  "cp": "U+72C4",
+  "file": "狄.svg",
+  "variants": 4,
+  "src": "曾白𩃲簠",
+  "period": "春秋早期"
+ },
+ "狐": {
+  "cp": "U+72D0",
+  "file": "狐.svg",
+  "variants": 1,
+  "src": "令狐君[〇]子壺",
+  "period": "戰國中期"
+ },
+ "狽": {
+  "cp": "U+72FD",
+  "file": "狽.svg",
+  "variants": 4,
+  "src": "狽元乍父戊卣",
+  "period": "商或西周早期"
+ },
+ "獏": {
+  "cp": "U+734F",
+  "file": "獏.svg",
+  "variants": 4,
+  "src": "亞獏父己鬲",
+  "period": "商"
+ },
+ "獲": {
+  "cp": "U+7372",
+  "file": "獲.svg",
+  "variants": 2,
+  "src": "䌛𥎦鼎",
+  "period": "西周早期"
+ },
+ "獵": {
+  "cp": "U+7375",
+  "file": "獵.svg",
+  "variants": 1,
+  "src": "杕氏壺",
+  "period": "春秋晚期"
+ },
+ "獸": {
+  "cp": "U+7378",
+  "file": "獸.svg",
+  "variants": 5,
+  "src": "[〇]獸鼎",
+  "period": "西周早期"
+ },
+ "獻": {
+  "cp": "U+737B",
+  "file": "獻.svg",
+  "variants": 5,
+  "src": "白乍旅甗",
+  "period": "西周早期"
+ },
+ "玄": {
+  "cp": "U+7384",
+  "file": "玄.svg",
+  "variants": 5,
+  "src": "[〇]季鼎",
+  "period": "西周中期"
+ },
+ "率": {
+  "cp": "U+7387",
+  "file": "率.svg",
+  "variants": 1,
+  "src": "禹鼎",
+  "period": "西周晚期"
+ },
+ "玉": {
+  "cp": "U+7389",
+  "file": "玉.svg",
+  "variants": 5,
+  "src": "",
+  "period": ""
+ },
+ "班": {
+  "cp": "U+73ED",
+  "file": "班.svg",
+  "variants": 3,
+  "src": "",
+  "period": ""
+ },
+ "琅": {
+  "cp": "U+7405",
+  "file": "琅.svg",
+  "variants": 1,
+  "src": "",
+  "period": ""
+ },
+ "琱": {
+  "cp": "U+7431",
+  "file": "琱.svg",
+  "variants": 5,
+  "src": "",
+  "period": ""
+ },
+ "璋": {
+  "cp": "U+748B",
+  "file": "璋.svg",
+  "variants": 1,
+  "src": "",
+  "period": ""
+ },
+ "瓜": {
+  "cp": "U+74DC",
+  "file": "瓜.svg",
+  "variants": 1,
+  "src": "",
+  "period": ""
+ },
+ "甗": {
+  "cp": "U+7517",
+  "file": "甗.svg",
+  "variants": 1,
+  "src": "甗𢓊觚",
+  "period": "商"
+ },
+ "甘": {
+  "cp": "U+7518",
+  "file": "甘.svg",
+  "variants": 5,
+  "src": "甘丹上戈",
+  "period": "戰國"
+ },
+ "甚": {
+  "cp": "U+751A",
+  "file": "甚.svg",
+  "variants": 1,
+  "src": "",
+  "period": ""
+ },
+ "生": {
+  "cp": "U+751F",
+  "file": "生.svg",
+  "variants": 5,
+  "src": "[〇]弗生甗",
+  "period": "西周早期"
+ },
+ "產": {
+  "cp": "U+7522",
+  "file": "產.svg",
+  "variants": 4,
+  "src": "",
+  "period": ""
+ },
+ "用": {
+  "cp": "U+7528",
+  "file": "用.svg",
+  "variants": 5,
+  "src": "[〇]鬲",
+  "period": "商"
+ },
+ "甫": {
+  "cp": "U+752B",
+  "file": "甫.svg",
+  "variants": 5,
+  "src": "",
+  "period": ""
+ },
+ "甬": {
+  "cp": "U+752C",
+  "file": "甬.svg",
+  "variants": 5,
+  "src": "毛公鼎",
+  "period": "西周晚期"
+ },
+ "田": {
+  "cp": "U+7530",
+  "file": "田.svg",
+  "variants": 5,
+  "src": "告田鼎",
+  "period": "商"
+ },
+ "由": {
+  "cp": "U+7531",
+  "file": "由.svg",
+  "variants": 5,
+  "src": "史[〇]𣪕",
+  "period": "西周早期"
+ },
+ "甲": {
+  "cp": "U+7532",
+  "file": "甲.svg",
+  "variants": 5,
+  "src": "",
+  "period": ""
+ },
+ "申": {
+  "cp": "U+7533",
+  "file": "申.svg",
+  "variants": 5,
+  "src": "子申父己鼎",
+  "period": "西周早期"
+ },
+ "男": {
+  "cp": "U+7537",
+  "file": "男.svg",
+  "variants": 5,
+  "src": "",
+  "period": ""
+ },
+ "甹": {
+  "cp": "U+7539",
+  "file": "甹.svg",
+  "variants": 1,
+  "src": "班𣪕",
+  "period": "西周中期"
+ },
+ "甾": {
+  "cp": "U+753E",
+  "file": "甾.svg",
+  "variants": 2,
+  "src": "豊乍父丁鼎",
+  "period": "商"
+ },
+ "畀": {
+  "cp": "U+7540",
+  "file": "畀.svg",
+  "variants": 1,
+  "src": "",
+  "period": ""
+ },
+ "畋": {
+  "cp": "U+754B",
+  "file": "畋.svg",
+  "variants": 1,
+  "src": "",
+  "period": ""
+ },
+ "畏": {
+  "cp": "U+754F",
+  "file": "畏.svg",
+  "variants": 5,
+  "src": "毛公鼎",
+  "period": "西周晚期"
+ },
+ "畐": {
+  "cp": "U+7550",
+  "file": "畐.svg",
+  "variants": 1,
+  "src": "畐父辛爵",
+  "period": "商"
+ },
+ "留": {
+  "cp": "U+7559",
+  "file": "留.svg",
+  "variants": 2,
+  "src": "留鎛",
+  "period": "戰國"
+ },
+ "畜": {
+  "cp": "U+755C",
+  "file": "畜.svg",
+  "variants": 3,
+  "src": "秦公鐘",
+  "period": "春秋早期"
+ },
+ "畢": {
+  "cp": "U+7562",
+  "file": "畢.svg",
+  "variants": 5,
+  "src": "白夏父鬲",
+  "period": "西周晚期"
+ },
+ "番": {
+  "cp": "U+756A",
+  "file": "番.svg",
+  "variants": 5,
+  "src": "番白■孫鬲",
+  "period": "春秋早期"
+ },
+ "畫": {
+  "cp": "U+756B",
+  "file": "畫.svg",
+  "variants": 5,
+  "src": "白䢅鼎",
+  "period": "西周中期"
+ },
+ "畮": {
+  "cp": "U+756E",
+  "file": "畮.svg",
+  "variants": 1,
+  "src": "賢𣪕",
+  "period": "西周中期"
+ },
+ "異": {
+  "cp": "U+7570",
+  "file": "異.svg",
+  "variants": 5,
+  "src": "[〇]其鐘",
+  "period": "西周晚期"
+ },
+ "當": {
+  "cp": "U+7576",
+  "file": "當.svg",
+  "variants": 2,
+  "src": "櫟陽武當矛",
+  "period": "戰國"
+ },
+ "畺": {
+  "cp": "U+757A",
+  "file": "畺.svg",
+  "variants": 1,
+  "src": "[〇]子㐁車鼎（奚子宿車鼎）",
+  "period": "春秋"
+ },
+ "疆": {
+  "cp": "U+7586",
+  "file": "疆.svg",
+  "variants": 5,
+  "src": "善夫[〇]其𣪕",
+  "period": "西周晚期"
+ },
+ "疋": {
+  "cp": "U+758B",
+  "file": "疋.svg",
+  "variants": 1,
+  "src": "",
+  "period": ""
+ },
+ "疐": {
+  "cp": "U+7590",
+  "file": "疐.svg",
+  "variants": 1,
+  "src": "",
+  "period": ""
+ },
+ "疑": {
+  "cp": "U+7591",
+  "file": "疑.svg",
+  "variants": 3,
+  "src": "高卣",
+  "period": "西周早期"
+ },
+ "疕": {
+  "cp": "U+7595",
+  "file": "疕.svg",
+  "variants": 1,
+  "src": "",
+  "period": ""
+ },
+ "疾": {
+  "cp": "U+75BE",
+  "file": "疾.svg",
+  "variants": 2,
+  "src": "",
+  "period": ""
+ },
+ "瘳": {
+  "cp": "U+7633",
+  "file": "瘳.svg",
+  "variants": 3,
+  "src": "",
+  "period": ""
+ },
+ "癕": {
+  "cp": "U+7655",
+  "file": "癕.svg",
+  "variants": 1,
+  "src": "",
+  "period": ""
+ },
+ "癰": {
+  "cp": "U+7670",
+  "file": "癰.svg",
+  "variants": 1,
+  "src": "",
+  "period": ""
+ },
+ "癸": {
+  "cp": "U+7678",
+  "file": "癸.svg",
+  "variants": 1,
+  "src": "",
+  "period": ""
+ },
+ "登": {
+  "cp": "U+767B",
+  "file": "登.svg",
+  "variants": 5,
+  "src": "奠登白鼎",
+  "period": "西周晚期"
+ },
+ "發": {
+  "cp": "U+767C",
+  "file": "發.svg",
+  "variants": 3,
+  "src": "[〇]純釜",
+  "period": "戰國"
+ },
+ "百": {
+  "cp": "U+767E",
+  "file": "百.svg",
+  "variants": 5,
+  "src": "",
+  "period": ""
+ },
+ "皀": {
+  "cp": "U+7680",
+  "file": "皀.svg",
+  "variants": 1,
+  "src": "",
+  "period": ""
+ },
+ "皆": {
+  "cp": "U+7686",
+  "file": "皆.svg",
+  "variants": 3,
+  "src": "",
+  "period": ""
+ },
+ "皇": {
+  "cp": "U+7687",
+  "file": "皇.svg",
+  "variants": 5,
+  "src": "小臣[〇]鼎",
+  "period": "西周早期"
+ },
+ "皮": {
+  "cp": "U+76AE",
+  "file": "皮.svg",
+  "variants": 5,
+  "src": "者[〇]鐘",
+  "period": "春秋"
+ },
+ "皿": {
+  "cp": "U+76BF",
+  "file": "皿.svg",
+  "variants": 1,
+  "src": "乍女皿𣪕",
+  "period": "商"
+ },
+ "盂": {
+  "cp": "U+76C2",
+  "file": "盂.svg",
+  "variants": 5,
+  "src": "",
+  "period": ""
+ },
+ "盅": {
+  "cp": "U+76C5",
+  "file": "盅.svg",
+  "variants": 1,
+  "src": "盅子𢨋鼎蓋",
+  "period": "春秋晚期"
+ },
+ "盆": {
+  "cp": "U+76C6",
+  "file": "盆.svg",
+  "variants": 5,
+  "src": "曾孟[〇]諫盆",
+  "period": "春秋"
+ },
+ "盉": {
+  "cp": "U+76C9",
+  "file": "盉.svg",
+  "variants": 1,
+  "src": "",
+  "period": ""
+ },
+ "益": {
+  "cp": "U+76CA",
+  "file": "益.svg",
+  "variants": 5,
+  "src": "畢鮮𣪕",
+  "period": "西周中期"
+ },
+ "盍": {
+  "cp": "U+76CD",
+  "file": "盍.svg",
+  "variants": 1,
+  "src": "楚王酓[〇]鼎",
+  "period": "戰國晚期"
+ },
+ "盖": {
+  "cp": "U+76D6",
+  "file": "盖.svg",
+  "variants": 2,
+  "src": "",
+  "period": ""
+ },
+ "盛": {
+  "cp": "U+76DB",
+  "file": "盛.svg",
+  "variants": 5,
+  "src": "",
+  "period": ""
+ },
+ "盞": {
+  "cp": "U+76DE",
+  "file": "盞.svg",
+  "variants": 1,
+  "src": "[〇]于盞",
+  "period": "春秋晚期"
+ },
+ "盟": {
+  "cp": "U+76DF",
+  "file": "盟.svg",
+  "variants": 5,
+  "src": "鼄公華鐘",
+  "period": "春秋晚期"
+ },
+ "盠": {
+  "cp": "U+76E0",
+  "file": "盠.svg",
+  "variants": 1,
+  "src": "",
+  "period": ""
+ },
+ "盡": {
+  "cp": "U+76E1",
+  "file": "盡.svg",
+  "variants": 1,
+  "src": "商鞅量",
+  "period": "戰國"
+ },
+ "監": {
+  "cp": "U+76E3",
+  "file": "監.svg",
+  "variants": 5,
+  "src": "",
+  "period": ""
+ },
+ "盤": {
+  "cp": "U+76E4",
+  "file": "盤.svg",
+  "variants": 5,
+  "src": "王盉",
+  "period": "西周晚期"
+ },
+ "盥": {
+  "cp": "U+76E5",
+  "file": "盥.svg",
+  "variants": 5,
+  "src": "盥[〇]鼎",
+  "period": "商"
+ },
+ "盧": {
+  "cp": "U+76E7",
+  "file": "盧.svg",
+  "variants": 5,
+  "src": "",
+  "period": ""
+ },
+ "盨": {
+  "cp": "U+76E8",
+  "file": "盨.svg",
+  "variants": 1,
+  "src": "白[〇]父盨",
+  "period": "西周晚期"
+ },
+ "盩": {
+  "cp": "U+76E9",
+  "file": "盩.svg",
+  "variants": 1,
+  "src": "旅鼎",
+  "period": "西周早期"
+ },
+ "目": {
+  "cp": "U+76EE",
+  "file": "目.svg",
+  "variants": 3,
+  "src": "",
+  "period": ""
+ },
+ "直": {
+  "cp": "U+76F4",
+  "file": "直.svg",
+  "variants": 1,
+  "src": "恒𣪕蓋",
+  "period": "西周中期"
+ },
+ "相": {
+  "cp": "U+76F8",
+  "file": "相.svg",
+  "variants": 5,
+  "src": "二十一年相邦冉戈",
+  "period": "戰國晚期"
+ },
+ "省": {
+  "cp": "U+7701",
+  "file": "省.svg",
+  "variants": 5,
+  "src": "",
+  "period": ""
+ },
+ "眂": {
+  "cp": "U+7702",
+  "file": "眂.svg",
+  "variants": 1,
+  "src": "卅五年鼎",
+  "period": "戰國中晚期"
+ },
+ "眉": {
+  "cp": "U+7709",
+  "file": "眉.svg",
+  "variants": 5,
+  "src": "羋白歸苑𣪕（羌白𣪕）",
+  "period": "西周晚期"
+ },
+ "眔": {
+  "cp": "U+7714",
+  "file": "眔.svg",
+  "variants": 1,
+  "src": "",
+  "period": ""
+ },
+ "真": {
+  "cp": "U+771F",
+  "file": "真.svg",
+  "variants": 4,
+  "src": "",
+  "period": ""
+ },
+ "眾": {
+  "cp": "U+773E",
+  "file": "眾.svg",
+  "variants": 1,
+  "src": "師旂鼎",
+  "period": "西周中期"
+ },
+ "睗": {
+  "cp": "U+7757",
+  "file": "睗.svg",
+  "variants": 1,
+  "src": "戉王者旨於賜矛",
+  "period": "戰國早期"
+ },
+ "睘": {
+  "cp": "U+7758",
+  "file": "睘.svg",
+  "variants": 1,
+  "src": "",
+  "period": ""
+ },
+ "睪": {
+  "cp": "U+776A",
+  "file": "睪.svg",
+  "variants": 1,
+  "src": "曾𥎦乙鐘下一—二",
+  "period": "戰國早期"
+ },
+ "矛": {
+  "cp": "U+77DB",
+  "file": "矛.svg",
+  "variants": 1,
+  "src": "[〇]𣪕",
+  "period": "西周中期"
+ },
+ "矢": {
+  "cp": "U+77E2",
+  "file": "矢.svg",
+  "variants": 5,
+  "src": "",
+  "period": ""
+ },
+ "矣": {
+  "cp": "U+77E3",
+  "file": "矣.svg",
+  "variants": 1,
+  "src": "[〇]乍母癸尊",
+  "period": "商"
+ },
+ "知": {
+  "cp": "U+77E5",
+  "file": "知.svg",
+  "variants": 1,
+  "src": "䣄[〇]尹朁鼎",
+  "period": "春秋早期"
+ },
+ "矦": {
+  "cp": "U+77E6",
+  "file": "矦.svg",
+  "variants": 1,
+  "src": "",
+  "period": ""
+ },
+ "矩": {
+  "cp": "U+77E9",
+  "file": "矩.svg",
+  "variants": 5,
+  "src": "白矩鬲",
+  "period": "西周早期"
+ },
+ "矰": {
+  "cp": "U+77F0",
+  "file": "矰.svg",
+  "variants": 2,
+  "src": "",
+  "period": ""
+ },
+ "石": {
+  "cp": "U+77F3",
+  "file": "石.svg",
+  "variants": 4,
+  "src": "",
+  "period": ""
+ },
+ "碩": {
+  "cp": "U+78A9",
+  "file": "碩.svg",
+  "variants": 1,
+  "src": "[〇]白㜏父鬲",
+  "period": "西周晚期"
+ },
+ "示": {
+  "cp": "U+793A",
+  "file": "示.svg",
+  "variants": 3,
+  "src": "且丁父癸卣",
+  "period": "商"
+ },
+ "祀": {
+  "cp": "U+7940",
+  "file": "祀.svg",
+  "variants": 5,
+  "src": "",
+  "period": ""
+ },
+ "祈": {
+  "cp": "U+7948",
+  "file": "祈.svg",
+  "variants": 5,
+  "src": "",
+  "period": ""
+ },
+ "祐": {
+  "cp": "U+7950",
+  "file": "祐.svg",
+  "variants": 2,
+  "src": "蔡𥎦尊",
+  "period": "春秋晚期"
+ },
+ "祖": {
+  "cp": "U+7956",
+  "file": "祖.svg",
+  "variants": 5,
+  "src": "",
+  "period": ""
+ },
+ "祗": {
+  "cp": "U+7957",
+  "file": "祗.svg",
+  "variants": 1,
+  "src": "蔡𥎦紐鐘",
+  "period": "春秋晚期"
+ },
+ "祜": {
+  "cp": "U+795C",
+  "file": "祜.svg",
+  "variants": 1,
+  "src": "曾子白誩鼎",
+  "period": "春秋早期"
+ },
+ "祝": {
+  "cp": "U+795D",
+  "file": "祝.svg",
+  "variants": 5,
+  "src": "𨝍𣪕蓋（𨚕敦、毛白敦）",
+  "period": "西周晚期"
+ },
+ "神": {
+  "cp": "U+795E",
+  "file": "神.svg",
+  "variants": 5,
+  "src": "",
+  "period": ""
+ },
+ "祥": {
+  "cp": "U+7965",
+  "file": "祥.svg",
+  "variants": 2,
+  "src": "陳逆簠",
+  "period": "戰國早期"
+ },
+ "祭": {
+  "cp": "U+796D",
+  "file": "祭.svg",
+  "variants": 5,
+  "src": "鼄公華鐘",
+  "period": "春秋晚期"
+ },
+ "祼": {
+  "cp": "U+797C",
+  "file": "祼.svg",
+  "variants": 5,
+  "src": "庚嬴鼎",
+  "period": "西周早期"
+ },
+ "祿": {
+  "cp": "U+797F",
+  "file": "祿.svg",
+  "variants": 1,
+  "src": "頌鼎",
+  "period": "西周晚期"
+ },
+ "禄": {
+  "cp": "U+7984",
+  "file": "禄.svg",
+  "variants": 1,
+  "src": "",
+  "period": ""
+ },
+ "禋": {
+  "cp": "U+798B",
+  "file": "禋.svg",
+  "variants": 1,
+  "src": "蔡𥎦尊",
+  "period": "春秋晚期"
+ },
+ "福": {
+  "cp": "U+798F",
+  "file": "福.svg",
+  "variants": 5,
+  "src": "𤼈鐘",
+  "period": "西周中期"
+ },
+ "禦": {
+  "cp": "U+79A6",
+  "file": "禦.svg",
+  "variants": 1,
+  "src": "",
+  "period": ""
+ },
+ "禮": {
+  "cp": "U+79AE",
+  "file": "禮.svg",
+  "variants": 1,
+  "src": "",
+  "period": ""
+ },
+ "禹": {
+  "cp": "U+79B9",
+  "file": "禹.svg",
+  "variants": 1,
+  "src": "",
+  "period": ""
+ },
+ "禺": {
+  "cp": "U+79BA",
+  "file": "禺.svg",
+  "variants": 1,
+  "src": "趙孟庎壺",
+  "period": "春秋晚期"
+ },
+ "禽": {
+  "cp": "U+79BD",
+  "file": "禽.svg",
+  "variants": 5,
+  "src": "",
+  "period": ""
+ },
+ "禾": {
+  "cp": "U+79BE",
+  "file": "禾.svg",
+  "variants": 5,
+  "src": "大禾方鼎",
+  "period": "商"
+ },
+ "私": {
+  "cp": "U+79C1",
+  "file": "私.svg",
+  "variants": 3,
+  "src": "",
+  "period": ""
+ },
+ "秉": {
+  "cp": "U+79C9",
+  "file": "秉.svg",
+  "variants": 5,
+  "src": "",
+  "period": ""
+ },
+ "秋": {
+  "cp": "U+79CB",
+  "file": "秋.svg",
+  "variants": 1,
+  "src": "秋爵",
+  "period": "商"
+ },
+ "程": {
+  "cp": "U+7A0B",
+  "file": "程.svg",
+  "variants": 1,
+  "src": "",
+  "period": ""
+ },
+ "稷": {
+  "cp": "U+7A37",
+  "file": "稷.svg",
+  "variants": 2,
+  "src": "",
+  "period": ""
+ },
+ "穀": {
+  "cp": "U+7A40",
+  "file": "穀.svg",
+  "variants": 3,
+  "src": "",
+  "period": ""
+ },
+ "穆": {
+  "cp": "U+7A46",
+  "file": "穆.svg",
+  "variants": 5,
+  "src": "尹姞鬲",
+  "period": "西周中期"
+ },
+ "積": {
+  "cp": "U+7A4D",
+  "file": "積.svg",
+  "variants": 2,
+  "src": "",
+  "period": ""
+ },
+ "空": {
+  "cp": "U+7A7A",
+  "file": "空.svg",
+  "variants": 1,
+  "src": "中央勇矛",
+  "period": "春秋晚期或戰國早期"
+ },
+ "立": {
+  "cp": "U+7ACB",
+  "file": "立.svg",
+  "variants": 5,
+  "src": "",
+  "period": ""
+ },
+ "竝": {
+  "cp": "U+7ADD",
+  "file": "竝.svg",
+  "variants": 1,
+  "src": "乃子克鼎",
+  "period": "西周早期"
+ },
+ "竟": {
+  "cp": "U+7ADF",
+  "file": "竟.svg",
+  "variants": 1,
+  "src": "竟乍父乙鬲",
+  "period": "西周早期"
+ },
+ "章": {
+  "cp": "U+7AE0",
+  "file": "章.svg",
+  "variants": 5,
+  "src": "史頌鼎",
+  "period": "西周晚期"
+ },
+ "童": {
+  "cp": "U+7AE5",
+  "file": "童.svg",
+  "variants": 4,
+  "src": "武王戈",
+  "period": "戰國晚期"
+ },
+ "競": {
+  "cp": "U+7AF6",
+  "file": "競.svg",
+  "variants": 1,
+  "src": "",
+  "period": ""
+ },
+ "竹": {
+  "cp": "U+7AF9",
+  "file": "竹.svg",
+  "variants": 5,
+  "src": "亞[〇]鼎",
+  "period": "商"
+ },
+ "竽": {
+  "cp": "U+7AFD",
+  "file": "竽.svg",
+  "variants": 1,
+  "src": "",
+  "period": ""
+ },
+ "符": {
+  "cp": "U+7B26",
+  "file": "符.svg",
+  "variants": 1,
+  "src": "杜虎符",
+  "period": "戰國晚期"
+ },
+ "第": {
+  "cp": "U+7B2C",
+  "file": "第.svg",
+  "variants": 5,
+  "src": "",
+  "period": ""
+ },
+ "笭": {
+  "cp": "U+7B2D",
+  "file": "笭.svg",
+  "variants": 3,
+  "src": "",
+  "period": ""
+ },
+ "笹": {
+  "cp": "U+7B39",
+  "file": "笹.svg",
+  "variants": 1,
+  "src": "",
+  "period": ""
+ },
+ "筡": {
+  "cp": "U+7B61",
+  "file": "筡.svg",
+  "variants": 1,
+  "src": "",
+  "period": ""
+ },
+ "箙": {
+  "cp": "U+7B99",
+  "file": "箙.svg",
+  "variants": 1,
+  "src": "",
+  "period": ""
+ },
+ "節": {
+  "cp": "U+7BC0",
+  "file": "節.svg",
+  "variants": 5,
+  "src": "",
+  "period": ""
+ },
+ "築": {
+  "cp": "U+7BC9",
+  "file": "築.svg",
+  "variants": 1,
+  "src": "子禾子釜",
+  "period": "戰國"
+ },
+ "籥": {
+  "cp": "U+7C65",
+  "file": "籥.svg",
+  "variants": 1,
+  "src": "",
+  "period": ""
+ },
+ "粦": {
+  "cp": "U+7CA6",
+  "file": "粦.svg",
+  "variants": 3,
+  "src": "",
+  "period": ""
+ },
+ "粱": {
+  "cp": "U+7CB1",
+  "file": "粱.svg",
+  "variants": 5,
+  "src": "弔朕簠",
+  "period": "春秋早期"
+ },
+ "糸": {
+  "cp": "U+7CF8",
+  "file": "糸.svg",
+  "variants": 3,
+  "src": "",
+  "period": ""
+ },
+ "系": {
+  "cp": "U+7CFB",
+  "file": "系.svg",
+  "variants": 1,
+  "src": "系保觚",
+  "period": "商"
+ },
+ "紀": {
+  "cp": "U+7D00",
+  "file": "紀.svg",
+  "variants": 1,
+  "src": "弔鼏鬲",
+  "period": "西周早期"
+ },
+ "索": {
+  "cp": "U+7D22",
+  "file": "索.svg",
+  "variants": 2,
+  "src": "曾𥎦乙鐘下一—三",
+  "period": "戰國早期"
+ },
+ "紫": {
+  "cp": "U+7D2B",
+  "file": "紫.svg",
+  "variants": 1,
+  "src": "",
+  "period": ""
+ },
+ "紹": {
+  "cp": "U+7D39",
+  "file": "紹.svg",
+  "variants": 1,
+  "src": "",
+  "period": ""
+ },
+ "組": {
+  "cp": "U+7D44",
+  "file": "組.svg",
+  "variants": 2,
+  "src": "師㝨𣪕",
+  "period": "西周晚期"
+ },
+ "絅": {
+  "cp": "U+7D45",
+  "file": "絅.svg",
+  "variants": 2,
+  "src": "",
+  "period": ""
+ },
+ "絕": {
+  "cp": "U+7D55",
+  "file": "絕.svg",
+  "variants": 3,
+  "src": "",
+  "period": ""
+ },
+ "絲": {
+  "cp": "U+7D72",
+  "file": "絲.svg",
+  "variants": 4,
+  "src": "曶鼎",
+  "period": "西周中期"
+ },
+ "經": {
+  "cp": "U+7D93",
+  "file": "經.svg",
+  "variants": 3,
+  "src": "",
+  "period": ""
+ },
+ "維": {
+  "cp": "U+7DAD",
+  "file": "維.svg",
+  "variants": 4,
+  "src": "二十五年戈",
+  "period": "戰國"
+ },
+ "綰": {
+  "cp": "U+7DB0",
+  "file": "綰.svg",
+  "variants": 4,
+  "src": "[〇]其鐘",
+  "period": "西周晚期"
+ },
+ "緐": {
+  "cp": "U+7DD0",
+  "file": "緐.svg",
+  "variants": 5,
+  "src": "",
+  "period": ""
+ },
+ "縈": {
+  "cp": "U+7E08",
+  "file": "縈.svg",
+  "variants": 5,
+  "src": "縈白𣪕",
+  "period": "西周中期"
+ },
+ "縣": {
+  "cp": "U+7E23",
+  "file": "縣.svg",
+  "variants": 3,
+  "src": "",
+  "period": ""
+ },
+ "縷": {
+  "cp": "U+7E37",
+  "file": "縷.svg",
+  "variants": 1,
+  "src": "散氏盤",
+  "period": "西周晚期"
+ },
+ "繛": {
+  "cp": "U+7E5B",
+  "file": "繛.svg",
+  "variants": 3,
+  "src": "",
+  "period": ""
+ },
+ "繯": {
+  "cp": "U+7E6F",
+  "file": "繯.svg",
+  "variants": 1,
+  "src": "",
+  "period": ""
+ },
+ "續": {
+  "cp": "U+7E8C",
+  "file": "續.svg",
+  "variants": 3,
+  "src": "者[〇]鐘",
+  "period": "戰國早期"
+ },
+ "缶": {
+  "cp": "U+7F36",
+  "file": "缶.svg",
+  "variants": 5,
+  "src": "倗缶",
+  "period": "春秋晚期"
+ },
+ "罰": {
+  "cp": "U+7F70",
+  "file": "罰.svg",
+  "variants": 5,
+  "src": "[〇]𣪕",
+  "period": "西周晚期"
+ },
+ "羅": {
+  "cp": "U+7F85",
+  "file": "羅.svg",
+  "variants": 1,
+  "src": "羅客之官壺",
+  "period": "戰國"
+ },
+ "羊": {
+  "cp": "U+7F8A",
+  "file": "羊.svg",
+  "variants": 5,
+  "src": "",
+  "period": ""
+ },
+ "羌": {
+  "cp": "U+7F8C",
+  "file": "羌.svg",
+  "variants": 5,
+  "src": "𠫑羌鐘",
+  "period": "戰國早期"
+ },
+ "美": {
+  "cp": "U+7F8E",
+  "file": "美.svg",
+  "variants": 2,
+  "src": "美宁鼎",
+  "period": "商"
+ },
+ "羕": {
+  "cp": "U+7F95",
+  "file": "羕.svg",
+  "variants": 5,
+  "src": "邾公孫班鎛",
+  "period": "春秋晚期"
+ },
+ "羗": {
+  "cp": "U+7F97",
+  "file": "羗.svg",
+  "variants": 5,
+  "src": "",
+  "period": ""
+ },
+ "羞": {
+  "cp": "U+7F9E",
+  "file": "羞.svg",
+  "variants": 5,
+  "src": "",
+  "period": ""
+ },
+ "羣": {
+  "cp": "U+7FA3",
+  "file": "羣.svg",
+  "variants": 3,
+  "src": "",
+  "period": ""
+ },
+ "義": {
+  "cp": "U+7FA9",
+  "file": "義.svg",
+  "variants": 5,
+  "src": "",
+  "period": ""
+ },
+ "羽": {
+  "cp": "U+7FBD",
+  "file": "羽.svg",
+  "variants": 2,
+  "src": "上白羽壺",
+  "period": "戰國晚期"
+ },
+ "翏": {
+  "cp": "U+7FCF",
+  "file": "翏.svg",
+  "variants": 5,
+  "src": "無[〇]鼎",
+  "period": "西周晚期"
+ },
+ "翟": {
+  "cp": "U+7FDF",
+  "file": "翟.svg",
+  "variants": 1,
+  "src": "",
+  "period": ""
+ },
+ "翼": {
+  "cp": "U+7FFC",
+  "file": "翼.svg",
+  "variants": 3,
+  "src": "秦公鐘",
+  "period": "春秋早期"
+ },
+ "老": {
+  "cp": "U+8001",
+  "file": "老.svg",
+  "variants": 5,
+  "src": "辛中姬皇母鼎",
+  "period": "西周晚期"
+ },
+ "考": {
+  "cp": "U+8003",
+  "file": "考.svg",
+  "variants": 5,
+  "src": "魯𥎦㺇鬲",
+  "period": "西周早期"
+ },
+ "者": {
+  "cp": "U+8005",
+  "file": "者.svg",
+  "variants": 5,
+  "src": "者㚸方尊",
+  "period": "商"
+ },
+ "耆": {
+  "cp": "U+8006",
+  "file": "耆.svg",
+  "variants": 1,
+  "src": "十三年相邦義戈",
+  "period": "戰國"
+ },
+ "耇": {
+  "cp": "U+8007",
+  "file": "耇.svg",
+  "variants": 5,
+  "src": "革同𣪕蓋",
+  "period": "西周晚期"
+ },
+ "耈": {
+  "cp": "U+8008",
+  "file": "耈.svg",
+  "variants": 5,
+  "src": "",
+  "period": ""
+ },
+ "而": {
+  "cp": "U+800C",
+  "file": "而.svg",
+  "variants": 5,
+  "src": "余贎[〇]兒鐘（楚余義鐘、[〇]兒）",
+  "period": "春秋晚期"
+ },
+ "耑": {
+  "cp": "U+8011",
+  "file": "耑.svg",
+  "variants": 4,
+  "src": "十五年守相𡉣波劍",
+  "period": "戰國晚期"
+ },
+ "耒": {
+  "cp": "U+8012",
+  "file": "耒.svg",
+  "variants": 2,
+  "src": "耒册[〇]辛鼎",
+  "period": "商"
+ },
+ "耤": {
+  "cp": "U+8024",
+  "file": "耤.svg",
+  "variants": 5,
+  "src": "令鼎",
+  "period": "西周早期"
+ },
+ "耳": {
+  "cp": "U+8033",
+  "file": "耳.svg",
+  "variants": 5,
+  "src": "",
+  "period": ""
+ },
+ "耴": {
+  "cp": "U+8034",
+  "file": "耴.svg",
+  "variants": 2,
+  "src": "卅二年奠𠊈矛",
+  "period": "戰國晚期"
+ },
+ "耶": {
+  "cp": "U+8036",
+  "file": "耶.svg",
+  "variants": 1,
+  "src": "",
+  "period": ""
+ },
+ "聀": {
+  "cp": "U+8040",
+  "file": "聀.svg",
+  "variants": 2,
+  "src": "",
+  "period": ""
+ },
+ "聑": {
+  "cp": "U+8051",
+  "file": "聑.svg",
+  "variants": 3,
+  "src": "",
+  "period": ""
+ },
+ "聖": {
+  "cp": "U+8056",
+  "file": "聖.svg",
+  "variants": 5,
+  "src": "𤼈鐘",
+  "period": "西周中期"
+ },
+ "聝": {
+  "cp": "U+805D",
+  "file": "聝.svg",
+  "variants": 5,
+  "src": "多友鼎",
+  "period": "西周晚期"
+ },
+ "聞": {
+  "cp": "U+805E",
+  "file": "聞.svg",
+  "variants": 5,
+  "src": "嘉賓鐘",
+  "period": "春秋晚期"
+ },
+ "職": {
+  "cp": "U+8077",
+  "file": "職.svg",
+  "variants": 2,
+  "src": "王職戈",
+  "period": "戰國晚期"
+ },
+ "聿": {
+  "cp": "U+807F",
+  "file": "聿.svg",
+  "variants": 5,
+  "src": "聿鼎",
+  "period": "商"
+ },
+ "肁": {
+  "cp": "U+8081",
+  "file": "肁.svg",
+  "variants": 5,
+  "src": "",
+  "period": ""
+ },
+ "肅": {
+  "cp": "U+8085",
+  "file": "肅.svg",
+  "variants": 4,
+  "src": "王孫遺者鐘",
+  "period": "春秋晚期"
+ },
+ "肇": {
+  "cp": "U+8087",
+  "file": "肇.svg",
+  "variants": 5,
+  "src": "",
+  "period": ""
+ },
+ "肈": {
+  "cp": "U+8088",
+  "file": "肈.svg",
+  "variants": 5,
+  "src": "𤼈鐘",
+  "period": "西周中期"
+ },
+ "肖": {
+  "cp": "U+8096",
+  "file": "肖.svg",
+  "variants": 1,
+  "src": "十一年庫嗇夫鼎",
+  "period": "戰國晚期"
+ },
+ "胃": {
+  "cp": "U+80C3",
+  "file": "胃.svg",
+  "variants": 1,
+  "src": "少虡劍",
+  "period": "春秋晚期"
+ },
+ "胡": {
+  "cp": "U+80E1",
+  "file": "胡.svg",
+  "variants": 1,
+  "src": "",
+  "period": ""
+ },
+ "胤": {
+  "cp": "U+80E4",
+  "file": "胤.svg",
+  "variants": 5,
+  "src": "秦公鐘",
+  "period": "春秋早期"
+ },
+ "能": {
+  "cp": "U+80FD",
+  "file": "能.svg",
+  "variants": 5,
+  "src": "",
+  "period": ""
+ },
+ "脩": {
+  "cp": "U+8129",
+  "file": "脩.svg",
+  "variants": 2,
+  "src": "脩武府桮",
+  "period": "戰國晚期"
+ },
+ "脰": {
+  "cp": "U+8130",
+  "file": "脰.svg",
+  "variants": 5,
+  "src": "",
+  "period": ""
+ },
+ "膚": {
+  "cp": "U+819A",
+  "file": "膚.svg",
+  "variants": 2,
+  "src": "",
+  "period": ""
+ },
+ "臂": {
+  "cp": "U+81C2",
+  "file": "臂.svg",
+  "variants": 1,
+  "src": "[〇]𧊒壺",
+  "period": "戰國晚期"
+ },
+ "臣": {
+  "cp": "U+81E3",
+  "file": "臣.svg",
+  "variants": 5,
+  "src": "小臣[〇]方鼎",
+  "period": "商"
+ },
+ "臤": {
+  "cp": "U+81E4",
+  "file": "臤.svg",
+  "variants": 5,
+  "src": "",
+  "period": ""
+ },
+ "臧": {
+  "cp": "U+81E7",
+  "file": "臧.svg",
+  "variants": 5,
+  "src": "",
+  "period": ""
+ },
+ "臨": {
+  "cp": "U+81E8",
+  "file": "臨.svg",
+  "variants": 5,
+  "src": "",
+  "period": ""
+ },
+ "自": {
+  "cp": "U+81EA",
+  "file": "自.svg",
+  "variants": 5,
+  "src": "",
+  "period": ""
+ },
+ "臭": {
+  "cp": "U+81ED",
+  "file": "臭.svg",
+  "variants": 1,
+  "src": "子臭卣",
+  "period": "商或西周早期"
+ },
+ "至": {
+  "cp": "U+81F3",
+  "file": "至.svg",
+  "variants": 5,
+  "src": "",
+  "period": ""
+ },
+ "致": {
+  "cp": "U+81F4",
+  "file": "致.svg",
+  "variants": 4,
+  "src": "曶鼎",
+  "period": "西周中期"
+ },
+ "臸": {
+  "cp": "U+81F8",
+  "file": "臸.svg",
+  "variants": 1,
+  "src": "鑄客匜",
+  "period": "戰國晚期"
+ },
+ "臽": {
+  "cp": "U+81FD",
+  "file": "臽.svg",
+  "variants": 2,
+  "src": "",
+  "period": ""
+ },
+ "臾": {
+  "cp": "U+81FE",
+  "file": "臾.svg",
+  "variants": 5,
+  "src": "尹臾鼎",
+  "period": "西周早期"
+ },
+ "舄": {
+  "cp": "U+8204",
+  "file": "舄.svg",
+  "variants": 5,
+  "src": "白䢅鼎",
+  "period": "西周中期"
+ },
+ "與": {
+  "cp": "U+8207",
+  "file": "與.svg",
+  "variants": 4,
+  "src": "[〇]君鉦鋮（又名無者俞鉦鋮）",
+  "period": "春秋晚期"
+ },
+ "興": {
+  "cp": "U+8208",
+  "file": "興.svg",
+  "variants": 5,
+  "src": "",
+  "period": ""
+ },
+ "舉": {
+  "cp": "U+8209",
+  "file": "舉.svg",
+  "variants": 1,
+  "src": "",
+  "period": ""
+ },
+ "舊": {
+  "cp": "U+820A",
+  "file": "舊.svg",
+  "variants": 5,
+  "src": "師𠭰𣪕",
+  "period": "西周晚期"
+ },
+ "舌": {
+  "cp": "U+820C",
+  "file": "舌.svg",
+  "variants": 5,
+  "src": "舌鐃",
+  "period": "商"
+ },
+ "舍": {
+  "cp": "U+820D",
+  "file": "舍.svg",
+  "variants": 5,
+  "src": "",
+  "period": ""
+ },
+ "舒": {
+  "cp": "U+8212",
+  "file": "舒.svg",
+  "variants": 1,
+  "src": "十八年戈",
+  "period": "戰國"
+ },
+ "舞": {
+  "cp": "U+821E",
+  "file": "舞.svg",
+  "variants": 2,
+  "src": "",
+  "period": ""
+ },
+ "舟": {
+  "cp": "U+821F",
+  "file": "舟.svg",
+  "variants": 5,
+  "src": "舟鼎",
+  "period": "商"
+ },
+ "般": {
+  "cp": "U+822C",
+  "file": "般.svg",
+  "variants": 5,
+  "src": "七年趞曹鼎",
+  "period": "西周中期"
+ },
+ "良": {
+  "cp": "U+826F",
+  "file": "良.svg",
+  "variants": 5,
+  "src": "良季鼎",
+  "period": "西周晚期"
+ },
+ "芋": {
+  "cp": "U+828B",
+  "file": "芋.svg",
+  "variants": 1,
+  "src": "元年奠𠊈矛",
+  "period": "戰國"
+ },
+ "苗": {
+  "cp": "U+82D7",
+  "file": "苗.svg",
+  "variants": 1,
+  "src": "苗[〇]盨",
+  "period": "西周晚期"
+ },
+ "若": {
+  "cp": "U+82E5",
+  "file": "若.svg",
+  "variants": 5,
+  "src": "亞若癸鼎",
+  "period": "商"
+ },
+ "英": {
+  "cp": "U+82F1",
+  "file": "英.svg",
+  "variants": 2,
+  "src": "",
+  "period": ""
+ },
+ "范": {
+  "cp": "U+8303",
+  "file": "范.svg",
+  "variants": 1,
+  "src": "",
+  "period": ""
+ },
+ "茅": {
+  "cp": "U+8305",
+  "file": "茅.svg",
+  "variants": 1,
+  "src": "",
+  "period": ""
+ },
+ "茲": {
+  "cp": "U+8332",
+  "file": "茲.svg",
+  "variants": 5,
+  "src": "",
+  "period": ""
+ },
+ "莆": {
+  "cp": "U+8386",
+  "file": "莆.svg",
+  "variants": 1,
+  "src": "",
+  "period": ""
+ },
+ "莊": {
+  "cp": "U+838A",
+  "file": "莊.svg",
+  "variants": 1,
+  "src": "",
+  "period": ""
+ },
+ "莤": {
+  "cp": "U+83A4",
+  "file": "莤.svg",
+  "variants": 2,
+  "src": "寺工師初壺",
+  "period": "戰國"
+ },
+ "莫": {
+  "cp": "U+83AB",
+  "file": "莫.svg",
+  "variants": 5,
+  "src": "夆莫父卣",
+  "period": "西周早期"
+ },
+ "華": {
+  "cp": "U+83EF",
+  "file": "華.svg",
+  "variants": 5,
+  "src": "仲姞鬲",
+  "period": "西周晚期"
+ },
+ "萀": {
+  "cp": "U+8400",
+  "file": "萀.svg",
+  "variants": 1,
+  "src": "",
+  "period": ""
+ },
+ "萃": {
+  "cp": "U+8403",
+  "file": "萃.svg",
+  "variants": 3,
+  "src": "",
+  "period": ""
+ },
+ "萅": {
+  "cp": "U+8405",
+  "file": "萅.svg",
+  "variants": 5,
+  "src": "",
+  "period": ""
+ },
+ "萬": {
+  "cp": "U+842C",
+  "file": "萬.svg",
+  "variants": 5,
+  "src": "",
+  "period": ""
+ },
+ "葉": {
+  "cp": "U+8449",
+  "file": "葉.svg",
+  "variants": 2,
+  "src": "丞相觸戈",
+  "period": "戰國"
+ },
+ "葬": {
+  "cp": "U+846C",
+  "file": "葬.svg",
+  "variants": 1,
+  "src": "",
+  "period": ""
+ },
+ "蒙": {
+  "cp": "U+8499",
+  "file": "蒙.svg",
+  "variants": 2,
+  "src": "",
+  "period": ""
+ },
+ "蒼": {
+  "cp": "U+84BC",
+  "file": "蒼.svg",
+  "variants": 2,
+  "src": "宜陽右蒼鼎",
+  "period": "戰國"
+ },
+ "蓋": {
+  "cp": "U+84CB",
+  "file": "蓋.svg",
+  "variants": 2,
+  "src": "長陵盉",
+  "period": "戰國晚期"
+ },
+ "蔑": {
+  "cp": "U+8511",
+  "file": "蔑.svg",
+  "variants": 5,
+  "src": "乃子克鼎",
+  "period": "西周早期"
+ },
+ "蕃": {
+  "cp": "U+8543",
+  "file": "蕃.svg",
+  "variants": 2,
+  "src": "蔡𥎦尊",
+  "period": "春秋晚期"
+ },
+ "薛": {
+  "cp": "U+859B",
+  "file": "薛.svg",
+  "variants": 5,
+  "src": "薛戈",
+  "period": "春秋"
+ },
+ "薪": {
+  "cp": "U+85AA",
+  "file": "薪.svg",
+  "variants": 2,
+  "src": "",
+  "period": ""
+ },
+ "藥": {
+  "cp": "U+85E5",
+  "file": "藥.svg",
+  "variants": 1,
+  "src": "",
+  "period": ""
+ },
+ "蘇": {
+  "cp": "U+8607",
+  "file": "蘇.svg",
+  "variants": 2,
+  "src": "",
+  "period": ""
+ },
+ "虎": {
+  "cp": "U+864E",
+  "file": "虎.svg",
+  "variants": 5,
+  "src": "十五年趞曹鼎",
+  "period": "西周中期"
+ },
+ "虔": {
+  "cp": "U+8654",
+  "file": "虔.svg",
+  "variants": 5,
+  "src": "𤼈鐘",
+  "period": "西周中期"
+ },
+ "處": {
+  "cp": "U+8655",
+  "file": "處.svg",
+  "variants": 5,
+  "src": "𤼈鐘",
+  "period": "西周中期"
+ },
+ "虘": {
+  "cp": "U+8658",
+  "file": "虘.svg",
+  "variants": 5,
+  "src": "虘鐘",
+  "period": "西周中期"
+ },
+ "虜": {
+  "cp": "U+865C",
+  "file": "虜.svg",
+  "variants": 1,
+  "src": "",
+  "period": ""
+ },
+ "號": {
+  "cp": "U+865F",
+  "file": "號.svg",
+  "variants": 4,
+  "src": "",
+  "period": ""
+ },
+ "虡": {
+  "cp": "U+8661",
+  "file": "虡.svg",
+  "variants": 4,
+  "src": "蔡𥎦墓殘鐘四十七片",
+  "period": "春秋晚期"
+ },
+ "虤": {
+  "cp": "U+8664",
+  "file": "虤.svg",
+  "variants": 2,
+  "src": "",
+  "period": ""
+ },
+ "虩": {
+  "cp": "U+8669",
+  "file": "虩.svg",
+  "variants": 3,
+  "src": "秦公鐘",
+  "period": "春秋早期"
+ },
+ "蜀": {
+  "cp": "U+8700",
+  "file": "蜀.svg",
+  "variants": 1,
+  "src": "子犯編鐘",
+  "period": "春秋晚期"
+ },
+ "蝠": {
+  "cp": "U+8760",
+  "file": "蝠.svg",
+  "variants": 5,
+  "src": "子蝠觚",
+  "period": "商"
+ },
+ "融": {
+  "cp": "U+878D",
+  "file": "融.svg",
+  "variants": 3,
+  "src": "",
+  "period": ""
+ },
+ "行": {
+  "cp": "U+884C",
+  "file": "行.svg",
+  "variants": 5,
+  "src": "",
+  "period": ""
+ },
+ "衍": {
+  "cp": "U+884D",
+  "file": "衍.svg",
+  "variants": 5,
+  "src": "衍耳父乙尊",
+  "period": "西周早期"
+ },
+ "衛": {
+  "cp": "U+885B",
+  "file": "衛.svg",
+  "variants": 5,
+  "src": "",
+  "period": ""
+ },
+ "衡": {
+  "cp": "U+8861",
+  "file": "衡.svg",
+  "variants": 2,
+  "src": "毛公鼎",
+  "period": "西周晚期"
+ },
+ "衣": {
+  "cp": "U+8863",
+  "file": "衣.svg",
+  "variants": 5,
+  "src": "陵弔鼎",
+  "period": "西周中期"
+ },
+ "衰": {
+  "cp": "U+8870",
+  "file": "衰.svg",
+  "variants": 1,
+  "src": "",
+  "period": ""
+ },
+ "裔": {
+  "cp": "U+88D4",
+  "file": "裔.svg",
+  "variants": 1,
+  "src": "",
+  "period": ""
+ },
+ "裕": {
+  "cp": "U+88D5",
+  "file": "裕.svg",
+  "variants": 1,
+  "src": "二十年奠令戈",
+  "period": "戰國"
+ },
+ "裘": {
+  "cp": "U+88D8",
+  "file": "裘.svg",
+  "variants": 5,
+  "src": "九年衛鼎",
+  "period": "西周中期"
+ },
+ "褱": {
+  "cp": "U+8931",
+  "file": "褱.svg",
+  "variants": 5,
+  "src": "𤼈鐘",
+  "period": "西周中期"
+ },
+ "襄": {
+  "cp": "U+8944",
+  "file": "襄.svg",
+  "variants": 2,
+  "src": "小子[〇]鼎",
+  "period": "商"
+ },
+ "襲": {
+  "cp": "U+8972",
+  "file": "襲.svg",
+  "variants": 2,
+  "src": "[〇]方鼎",
+  "period": "西周中期"
+ },
+ "西": {
+  "cp": "U+897F",
+  "file": "西.svg",
+  "variants": 5,
+  "src": "",
+  "period": ""
+ },
+ "覃": {
+  "cp": "U+8983",
+  "file": "覃.svg",
+  "variants": 4,
+  "src": "亞共覃父甲鼎",
+  "period": "商"
+ },
+ "見": {
+  "cp": "U+898B",
+  "file": "見.svg",
+  "variants": 5,
+  "src": "",
+  "period": ""
+ },
+ "規": {
+  "cp": "U+898F",
+  "file": "規.svg",
+  "variants": 1,
+  "src": "",
+  "period": ""
+ },
+ "視": {
+  "cp": "U+8996",
+  "file": "視.svg",
+  "variants": 1,
+  "src": "",
+  "period": ""
+ },
+ "親": {
+  "cp": "U+89AA",
+  "file": "親.svg",
+  "variants": 5,
+  "src": "克鐘",
+  "period": "西周晚期"
+ },
+ "觀": {
+  "cp": "U+89C0",
+  "file": "觀.svg",
+  "variants": 2,
+  "src": "",
+  "period": ""
+ },
+ "角": {
+  "cp": "U+89D2",
+  "file": "角.svg",
+  "variants": 5,
+  "src": "曾𥎦乙鐘下一—一",
+  "period": "戰國早期"
+ },
+ "解": {
+  "cp": "U+89E3",
+  "file": "解.svg",
+  "variants": 4,
+  "src": "",
+  "period": ""
+ },
+ "言": {
+  "cp": "U+8A00",
+  "file": "言.svg",
+  "variants": 5,
+  "src": "",
+  "period": ""
+ },
+ "訇": {
+  "cp": "U+8A07",
+  "file": "訇.svg",
+  "variants": 2,
+  "src": "訇𣪕",
+  "period": "西周晚期"
+ },
+ "訊": {
+  "cp": "U+8A0A",
+  "file": "訊.svg",
+  "variants": 5,
+  "src": "",
+  "period": ""
+ },
+ "訏": {
+  "cp": "U+8A0F",
+  "file": "訏.svg",
+  "variants": 1,
+  "src": "",
+  "period": ""
+ },
+ "託": {
+  "cp": "U+8A17",
+  "file": "託.svg",
+  "variants": 1,
+  "src": "蔡𥎦尊",
+  "period": "春秋晚期"
+ },
+ "記": {
+  "cp": "U+8A18",
+  "file": "記.svg",
+  "variants": 2,
+  "src": "上鄀府簠",
+  "period": "春秋晚期"
+ },
+ "訟": {
+  "cp": "U+8A1F",
+  "file": "訟.svg",
+  "variants": 3,
+  "src": "[〇]𣪕",
+  "period": "西周晚期"
+ },
+ "訢": {
+  "cp": "U+8A22",
+  "file": "訢.svg",
+  "variants": 2,
+  "src": "蔡𥎦尊",
+  "period": "春秋晚期"
+ },
+ "許": {
+  "cp": "U+8A31",
+  "file": "許.svg",
+  "variants": 5,
+  "src": "",
+  "period": ""
+ },
+ "訶": {
+  "cp": "U+8A36",
+  "file": "訶.svg",
+  "variants": 4,
+  "src": "宋公戌鎛",
+  "period": "春秋晚期"
+ },
+ "詐": {
+  "cp": "U+8A50",
+  "file": "詐.svg",
+  "variants": 4,
+  "src": "",
+  "period": ""
+ },
+ "詔": {
+  "cp": "U+8A54",
+  "file": "詔.svg",
+  "variants": 2,
+  "src": "",
+  "period": ""
+ },
+ "詘": {
+  "cp": "U+8A58",
+  "file": "詘.svg",
+  "variants": 1,
+  "src": "高奴禾石權",
+  "period": "戰國"
+ },
+ "詻": {
+  "cp": "U+8A7B",
+  "file": "詻.svg",
+  "variants": 1,
+  "src": "[〇]𧊒壺",
+  "period": "戰國晚期"
+ },
+ "誋": {
+  "cp": "U+8A8B",
+  "file": "誋.svg",
+  "variants": 1,
+  "src": "𦅫鎛（齊𥎦鎛）",
+  "period": "春秋中晚期"
+ },
+ "誓": {
+  "cp": "U+8A93",
+  "file": "誓.svg",
+  "variants": 5,
+  "src": "𩰫攸比鼎（𩰫比鼎、鬲攸比鼎）",
+  "period": "西周晚期"
+ },
+ "誨": {
+  "cp": "U+8AA8",
+  "file": "誨.svg",
+  "variants": 4,
+  "src": "不𡢁𣪕",
+  "period": "西周晚期"
+ },
+ "諆": {
+  "cp": "U+8AC6",
+  "file": "諆.svg",
+  "variants": 5,
+  "src": "",
+  "period": ""
+ },
+ "請": {
+  "cp": "U+8ACB",
+  "file": "請.svg",
+  "variants": 1,
+  "src": "中山王[〇]方壺",
+  "period": "戰國早期"
+ },
+ "諧": {
+  "cp": "U+8AE7",
+  "file": "諧.svg",
+  "variants": 1,
+  "src": "蔡𥎦尊",
+  "period": "春秋晚期"
+ },
+ "諫": {
+  "cp": "U+8AEB",
+  "file": "諫.svg",
+  "variants": 4,
+  "src": "大克鼎",
+  "period": "西周晚期"
+ },
+ "諱": {
+  "cp": "U+8AF1",
+  "file": "諱.svg",
+  "variants": 2,
+  "src": "",
+  "period": ""
+ },
+ "諸": {
+  "cp": "U+8AF8",
+  "file": "諸.svg",
+  "variants": 1,
+  "src": "曾者子鼎",
+  "period": "春秋早期"
+ },
+ "諻": {
+  "cp": "U+8AFB",
+  "file": "諻.svg",
+  "variants": 3,
+  "src": "",
+  "period": ""
+ },
+ "謂": {
+  "cp": "U+8B02",
+  "file": "謂.svg",
+  "variants": 1,
+  "src": "",
+  "period": ""
+ },
+ "譙": {
+  "cp": "U+8B59",
+  "file": "譙.svg",
+  "variants": 2,
+  "src": "",
+  "period": ""
+ },
+ "議": {
+  "cp": "U+8B70",
+  "file": "議.svg",
+  "variants": 3,
+  "src": "左行議率戈",
+  "period": "戰國晚期"
+ },
+ "譱": {
+  "cp": "U+8B71",
+  "file": "譱.svg",
+  "variants": 5,
+  "src": "",
+  "period": ""
+ },
+ "讋": {
+  "cp": "U+8B8B",
+  "file": "讋.svg",
+  "variants": 1,
+  "src": "",
+  "period": ""
+ },
+ "讎": {
+  "cp": "U+8B8E",
+  "file": "讎.svg",
+  "variants": 2,
+  "src": "𩰫比盨",
+  "period": "西周晚期"
+ },
+ "谷": {
+  "cp": "U+8C37",
+  "file": "谷.svg",
+  "variants": 5,
+  "src": "格白𣪕",
+  "period": "西周中期"
+ },
+ "豆": {
+  "cp": "U+8C46",
+  "file": "豆.svg",
+  "variants": 5,
+  "src": "單𠤕生豆",
+  "period": "西周晚期"
+ },
+ "豊": {
+  "cp": "U+8C4A",
+  "file": "豊.svg",
+  "variants": 5,
+  "src": "天亡𣪕",
+  "period": "西周早期"
+ },
+ "豐": {
+  "cp": "U+8C50",
+  "file": "豐.svg",
+  "variants": 5,
+  "src": "豐公鼎",
+  "period": "西周早期"
+ },
+ "豕": {
+  "cp": "U+8C55",
+  "file": "豕.svg",
+  "variants": 4,
+  "src": "亞豕鼎",
+  "period": "商"
+ },
+ "豖": {
+  "cp": "U+8C56",
+  "file": "豖.svg",
+  "variants": 5,
+  "src": "圅皇父盤",
+  "period": "西周晚期"
+ },
+ "豚": {
+  "cp": "U+8C5A",
+  "file": "豚.svg",
+  "variants": 5,
+  "src": "",
+  "period": ""
+ },
+ "象": {
+  "cp": "U+8C61",
+  "file": "象.svg",
+  "variants": 3,
+  "src": "師湯父鼎",
+  "period": "西周中期"
+ },
+ "豫": {
+  "cp": "U+8C6B",
+  "file": "豫.svg",
+  "variants": 2,
+  "src": "蔡𥎦紐鐘",
+  "period": "春秋晚期"
+ },
+ "貍": {
+  "cp": "U+8C8D",
+  "file": "貍.svg",
+  "variants": 1,
+  "src": "貍乍父癸尊",
+  "period": "西周中期"
+ },
+ "貝": {
+  "cp": "U+8C9D",
+  "file": "貝.svg",
+  "variants": 5,
+  "src": "[〇]鬲",
+  "period": "商"
+ },
+ "貞": {
+  "cp": "U+8C9E",
+  "file": "貞.svg",
+  "variants": 5,
+  "src": "",
+  "period": ""
+ },
+ "貣": {
+  "cp": "U+8CA3",
+  "file": "貣.svg",
+  "variants": 4,
+  "src": "蔡𥎦紐鐘",
+  "period": "春秋晚期"
+ },
+ "貫": {
+  "cp": "U+8CAB",
+  "file": "貫.svg",
+  "variants": 2,
+  "src": "",
+  "period": ""
+ },
+ "責": {
+  "cp": "U+8CAC",
+  "file": "責.svg",
+  "variants": 3,
+  "src": "晉姜鼎",
+  "period": "春秋早期"
+ },
+ "貴": {
+  "cp": "U+8CB4",
+  "file": "貴.svg",
+  "variants": 1,
+  "src": "六年格氏令戈",
+  "period": "戰國"
+ },
+ "買": {
+  "cp": "U+8CB7",
+  "file": "買.svg",
+  "variants": 5,
+  "src": "買鼎",
+  "period": "商"
+ },
+ "賀": {
+  "cp": "U+8CC0",
+  "file": "賀.svg",
+  "variants": 1,
+  "src": "中山王[〇]方壺",
+  "period": "戰國早期"
+ },
+ "賃": {
+  "cp": "U+8CC3",
+  "file": "賃.svg",
+  "variants": 4,
+  "src": "王命虎符",
+  "period": "戰國"
+ },
+ "賈": {
+  "cp": "U+8CC8",
+  "file": "賈.svg",
+  "variants": 5,
+  "src": "[〇][〇]王鐘",
+  "period": "西周晚期"
+ },
+ "賊": {
+  "cp": "U+8CCA",
+  "file": "賊.svg",
+  "variants": 1,
+  "src": "",
+  "period": ""
+ },
+ "賓": {
+  "cp": "U+8CD3",
+  "file": "賓.svg",
+  "variants": 5,
+  "src": "",
+  "period": ""
+ },
+ "賜": {
+  "cp": "U+8CDC",
+  "file": "賜.svg",
+  "variants": 3,
+  "src": "越王者旨於賜鐘",
+  "period": "戰國早期"
+ },
+ "賞": {
+  "cp": "U+8CDE",
+  "file": "賞.svg",
+  "variants": 3,
+  "src": "復鼎",
+  "period": "西周早期"
+ },
+ "賢": {
+  "cp": "U+8CE2",
+  "file": "賢.svg",
+  "variants": 4,
+  "src": "賢𣪕",
+  "period": "西周中期"
+ },
+ "賣": {
+  "cp": "U+8CE3",
+  "file": "賣.svg",
+  "variants": 2,
+  "src": "",
+  "period": ""
+ },
+ "質": {
+  "cp": "U+8CEA",
+  "file": "質.svg",
+  "variants": 3,
+  "src": "",
+  "period": ""
+ },
+ "賲": {
+  "cp": "U+8CF2",
+  "file": "賲.svg",
+  "variants": 5,
+  "src": "",
+  "period": ""
+ },
+ "賸": {
+  "cp": "U+8CF8",
+  "file": "賸.svg",
+  "variants": 5,
+  "src": "乍予弔嬴鬲",
+  "period": "西周晚期"
+ },
+ "贎": {
+  "cp": "U+8D0E",
+  "file": "贎.svg",
+  "variants": 1,
+  "src": "余贎[〇]兒鐘（楚余義鐘、[〇]兒）",
+  "period": "春秋晚期"
+ },
+ "贏": {
+  "cp": "U+8D0F",
+  "file": "贏.svg",
+  "variants": 1,
+  "src": "",
+  "period": ""
+ },
+ "赤": {
+  "cp": "U+8D64",
+  "file": "赤.svg",
+  "variants": 5,
+  "src": "[〇]季鼎",
+  "period": "西周中期"
+ },
+ "赦": {
+  "cp": "U+8D66",
+  "file": "赦.svg",
+  "variants": 2,
+  "src": "[〇]匜",
+  "period": "西周晚期"
+ },
+ "走": {
+  "cp": "U+8D70",
+  "file": "走.svg",
+  "variants": 5,
+  "src": "",
+  "period": ""
+ },
+ "趙": {
+  "cp": "U+8D99",
+  "file": "趙.svg",
+  "variants": 2,
+  "src": "",
+  "period": ""
+ },
+ "趛": {
+  "cp": "U+8D9B",
+  "file": "趛.svg",
+  "variants": 4,
+  "src": "師趛鬲",
+  "period": "西周中期"
+ },
+ "趣": {
+  "cp": "U+8DA3",
+  "file": "趣.svg",
+  "variants": 1,
+  "src": "",
+  "period": ""
+ },
+ "趩": {
+  "cp": "U+8DA9",
+  "file": "趩.svg",
+  "variants": 3,
+  "src": "",
+  "period": ""
+ },
+ "足": {
+  "cp": "U+8DB3",
+  "file": "足.svg",
+  "variants": 5,
+  "src": "曶鼎",
+  "period": "西周中期"
+ },
+ "距": {
+  "cp": "U+8DDD",
+  "file": "距.svg",
+  "variants": 1,
+  "src": "",
+  "period": ""
+ },
+ "路": {
+  "cp": "U+8DEF",
+  "file": "路.svg",
+  "variants": 1,
+  "src": "",
+  "period": ""
+ },
+ "身": {
+  "cp": "U+8EAB",
+  "file": "身.svg",
+  "variants": 5,
+  "src": "𤼈鐘",
+  "period": "西周中期"
+ },
+ "躳": {
+  "cp": "U+8EB3",
+  "file": "躳.svg",
+  "variants": 5,
+  "src": "䣄[〇]尹朁鼎",
+  "period": "春秋早期"
+ },
+ "車": {
+  "cp": "U+8ECA",
+  "file": "車.svg",
+  "variants": 5,
+  "src": "",
+  "period": ""
+ },
+ "軌": {
+  "cp": "U+8ECC",
+  "file": "軌.svg",
+  "variants": 1,
+  "src": "",
+  "period": ""
+ },
+ "軍": {
+  "cp": "U+8ECD",
+  "file": "軍.svg",
+  "variants": 5,
+  "src": "",
+  "period": ""
+ },
+ "載": {
+  "cp": "U+8F09",
+  "file": "載.svg",
+  "variants": 5,
+  "src": "坪夜君成鼎",
+  "period": "戰國"
+ },
+ "輔": {
+  "cp": "U+8F14",
+  "file": "輔.svg",
+  "variants": 5,
+  "src": "輔白[〇]父鼎",
+  "period": "西周晚期"
+ },
+ "輦": {
+  "cp": "U+8F26",
+  "file": "輦.svg",
+  "variants": 3,
+  "src": "輦乍妣癸卣",
+  "period": "商"
+ },
+ "輿": {
+  "cp": "U+8F3F",
+  "file": "輿.svg",
+  "variants": 1,
+  "src": "[〇]戈",
+  "period": "戰國"
+ },
+ "辛": {
+  "cp": "U+8F9B",
+  "file": "辛.svg",
+  "variants": 5,
+  "src": "匕辛鐃",
+  "period": "商"
+ },
+ "辝": {
+  "cp": "U+8F9D",
+  "file": "辝.svg",
+  "variants": 5,
+  "src": "",
+  "period": ""
+ },
+ "辟": {
+  "cp": "U+8F9F",
+  "file": "辟.svg",
+  "variants": 5,
+  "src": "[〇]鼎",
+  "period": "西周早期"
+ },
+ "辰": {
+  "cp": "U+8FB0",
+  "file": "辰.svg",
+  "variants": 5,
+  "src": "白矩鬲",
+  "period": "西周早期"
+ },
+ "農": {
+  "cp": "U+8FB2",
+  "file": "農.svg",
+  "variants": 5,
+  "src": "田𤲆甗",
+  "period": "西周早期"
+ },
+ "返": {
+  "cp": "U+8FD4",
+  "file": "返.svg",
+  "variants": 4,
+  "src": "噩君啟車節",
+  "period": "戰國"
+ },
+ "述": {
+  "cp": "U+8FF0",
+  "file": "述.svg",
+  "variants": 5,
+  "src": "",
+  "period": ""
+ },
+ "追": {
+  "cp": "U+8FFD",
+  "file": "追.svg",
+  "variants": 5,
+  "src": "虘鐘",
+  "period": "西周中期"
+ },
+ "退": {
+  "cp": "U+9000",
+  "file": "退.svg",
+  "variants": 3,
+  "src": "",
+  "period": ""
+ },
+ "送": {
+  "cp": "U+9001",
+  "file": "送.svg",
+  "variants": 1,
+  "src": "[〇]𧊒壺",
+  "period": "戰國晚期"
+ },
+ "逆": {
+  "cp": "U+9006",
+  "file": "逆.svg",
+  "variants": 5,
+  "src": "",
+  "period": ""
+ },
+ "逐": {
+  "cp": "U+9010",
+  "file": "逐.svg",
+  "variants": 3,
+  "src": "",
+  "period": ""
+ },
+ "通": {
+  "cp": "U+901A",
+  "file": "通.svg",
+  "variants": 5,
+  "src": "",
+  "period": ""
+ },
+ "造": {
+  "cp": "U+9020",
+  "file": "造.svg",
+  "variants": 5,
+  "src": "[〇]大史申鼎",
+  "period": "春秋晚期"
+ },
+ "連": {
+  "cp": "U+9023",
+  "file": "連.svg",
+  "variants": 2,
+  "src": "能原鎛",
+  "period": "春秋晚期"
+ },
+ "進": {
+  "cp": "U+9032",
+  "file": "進.svg",
+  "variants": 4,
+  "src": "[〇]𢦚方鼎",
+  "period": "西周早期"
+ },
+ "逸": {
+  "cp": "U+9038",
+  "file": "逸.svg",
+  "variants": 3,
+  "src": "秦子戈",
+  "period": "春秋早期"
+ },
+ "遂": {
+  "cp": "U+9042",
+  "file": "遂.svg",
+  "variants": 3,
+  "src": "陳逆簠",
+  "period": "戰國早期"
+ },
+ "遄": {
+  "cp": "U+9044",
+  "file": "遄.svg",
+  "variants": 2,
+  "src": "楚𣪕",
+  "period": "西周晚期"
+ },
+ "遊": {
+  "cp": "U+904A",
+  "file": "遊.svg",
+  "variants": 5,
+  "src": "",
+  "period": ""
+ },
+ "過": {
+  "cp": "U+904E",
+  "file": "過.svg",
+  "variants": 2,
+  "src": "",
+  "period": ""
+ },
+ "道": {
+  "cp": "U+9053",
+  "file": "道.svg",
+  "variants": 5,
+  "src": "",
+  "period": ""
+ },
+ "達": {
+  "cp": "U+9054",
+  "file": "達.svg",
+  "variants": 4,
+  "src": "保子達𣪕",
+  "period": "西周晚期"
+ },
+ "遝": {
+  "cp": "U+905D",
+  "file": "遝.svg",
+  "variants": 1,
+  "src": "",
+  "period": ""
+ },
+ "遟": {
+  "cp": "U+905F",
+  "file": "遟.svg",
+  "variants": 4,
+  "src": "",
+  "period": ""
+ },
+ "遠": {
+  "cp": "U+9060",
+  "file": "遠.svg",
+  "variants": 4,
+  "src": "大克鼎",
+  "period": "西周晚期"
+ },
+ "遣": {
+  "cp": "U+9063",
+  "file": "遣.svg",
+  "variants": 5,
+  "src": "我方鼎（我甗、禦鼎、禦簋）",
+  "period": "西周早期"
+ },
+ "選": {
+  "cp": "U+9078",
+  "file": "選.svg",
+  "variants": 2,
+  "src": "",
+  "period": ""
+ },
+ "遹": {
+  "cp": "U+9079",
+  "file": "遹.svg",
+  "variants": 5,
+  "src": "小克鼎",
+  "period": "西周晚期"
+ },
+ "遺": {
+  "cp": "U+907A",
+  "file": "遺.svg",
+  "variants": 5,
+  "src": "曶鼎",
+  "period": "西周中期"
+ },
+ "遽": {
+  "cp": "U+907D",
+  "file": "遽.svg",
+  "variants": 5,
+  "src": "",
+  "period": ""
+ },
+ "邁": {
+  "cp": "U+9081",
+  "file": "邁.svg",
+  "variants": 5,
+  "src": "",
+  "period": ""
+ },
+ "還": {
+  "cp": "U+9084",
+  "file": "還.svg",
+  "variants": 5,
+  "src": "噩𥎦鼎",
+  "period": "西周晚期"
+ },
+ "邊": {
+  "cp": "U+908A",
+  "file": "邊.svg",
+  "variants": 2,
+  "src": "大盂鼎",
+  "period": "西周早期"
+ },
+ "邑": {
+  "cp": "U+9091",
+  "file": "邑.svg",
+  "variants": 5,
+  "src": "臣卿鼎",
+  "period": "西周早期"
+ },
+ "邗": {
+  "cp": "U+9097",
+  "file": "邗.svg",
+  "variants": 2,
+  "src": "趙孟庎壺",
+  "period": "春秋晚期"
+ },
+ "邘": {
+  "cp": "U+9098",
+  "file": "邘.svg",
+  "variants": 1,
+  "src": "四年邘令戈",
+  "period": "戰國"
+ },
+ "邛": {
+  "cp": "U+909B",
+  "file": "邛.svg",
+  "variants": 4,
+  "src": "",
+  "period": ""
+ },
+ "邦": {
+  "cp": "U+90A6",
+  "file": "邦.svg",
+  "variants": 5,
+  "src": "𤼈鐘",
+  "period": "西周中期"
+ },
+ "邨": {
+  "cp": "U+90A8",
+  "file": "邨.svg",
+  "variants": 1,
+  "src": "",
+  "period": ""
+ },
+ "邪": {
+  "cp": "U+90AA",
+  "file": "邪.svg",
+  "variants": 1,
+  "src": "",
+  "period": ""
+ },
+ "邿": {
+  "cp": "U+90BF",
+  "file": "邿.svg",
+  "variants": 4,
+  "src": "邿[〇]鼎",
+  "period": "春秋早期"
+ },
+ "郁": {
+  "cp": "U+90C1",
+  "file": "郁.svg",
+  "variants": 3,
+  "src": "",
+  "period": ""
+ },
+ "郃": {
+  "cp": "U+90C3",
+  "file": "郃.svg",
+  "variants": 1,
+  "src": "十七年丞相啟狀戈",
+  "period": "戰國"
+ },
+ "郙": {
+  "cp": "U+90D9",
+  "file": "郙.svg",
+  "variants": 1,
+  "src": "",
+  "period": ""
+ },
+ "郚": {
+  "cp": "U+90DA",
+  "file": "郚.svg",
+  "variants": 1,
+  "src": "二十三年郚令戈",
+  "period": "戰國"
+ },
+ "郜": {
+  "cp": "U+90DC",
+  "file": "郜.svg",
+  "variants": 1,
+  "src": "",
+  "period": ""
+ },
+ "郡": {
+  "cp": "U+90E1",
+  "file": "郡.svg",
+  "variants": 4,
+  "src": "三年上郡高戈",
+  "period": "戰國晚期"
+ },
+ "郣": {
+  "cp": "U+90E3",
+  "file": "郣.svg",
+  "variants": 1,
+  "src": "廿二年左郣矛",
+  "period": "戰國"
+ },
+ "郭": {
+  "cp": "U+90ED",
+  "file": "郭.svg",
+  "variants": 1,
+  "src": "",
+  "period": ""
+ },
+ "郴": {
+  "cp": "U+90F4",
+  "file": "郴.svg",
+  "variants": 1,
+  "src": "",
+  "period": ""
+ },
+ "郷": {
+  "cp": "U+90F7",
+  "file": "郷.svg",
+  "variants": 5,
+  "src": "",
+  "period": ""
+ },
+ "都": {
+  "cp": "U+90FD",
+  "file": "都.svg",
+  "variants": 4,
+  "src": "",
+  "period": ""
+ },
+ "郾": {
+  "cp": "U+90FE",
+  "file": "郾.svg",
+  "variants": 5,
+  "src": "中山王[〇]鼎",
+  "period": "戰國晚期"
+ },
+ "鄀": {
+  "cp": "U+9100",
+  "file": "鄀.svg",
+  "variants": 4,
+  "src": "鄀公[〇]鼎",
+  "period": "春秋早期"
+ },
+ "鄆": {
+  "cp": "U+9106",
+  "file": "鄆.svg",
+  "variants": 1,
+  "src": "",
+  "period": ""
+ },
+ "鄉": {
+  "cp": "U+9109",
+  "file": "鄉.svg",
+  "variants": 5,
+  "src": "",
+  "period": ""
+ },
+ "鄧": {
+  "cp": "U+9127",
+  "file": "鄧.svg",
+  "variants": 2,
+  "src": "",
+  "period": ""
+ },
+ "鄩": {
+  "cp": "U+9129",
+  "file": "鄩.svg",
+  "variants": 1,
+  "src": "𦅫鎛（齊𥎦鎛）",
+  "period": "春秋中晚期"
+ },
+ "鄬": {
+  "cp": "U+912C",
+  "file": "鄬.svg",
+  "variants": 2,
+  "src": "",
+  "period": ""
+ },
+ "鄭": {
+  "cp": "U+912D",
+  "file": "鄭.svg",
+  "variants": 2,
+  "src": "",
+  "period": ""
+ },
+ "鄲": {
+  "cp": "U+9132",
+  "file": "鄲.svg",
+  "variants": 2,
+  "src": "",
+  "period": ""
+ },
+ "鄴": {
+  "cp": "U+9134",
+  "file": "鄴.svg",
+  "variants": 1,
+  "src": "三十三年業令戈",
+  "period": "戰國早期"
+ },
+ "酉": {
+  "cp": "U+9149",
+  "file": "酉.svg",
+  "variants": 5,
+  "src": "酉乙鼎",
+  "period": "商"
+ },
+ "酋": {
+  "cp": "U+914B",
+  "file": "酋.svg",
+  "variants": 5,
+  "src": "",
+  "period": ""
+ },
+ "配": {
+  "cp": "U+914D",
+  "file": "配.svg",
+  "variants": 5,
+  "src": "叔尸鐘",
+  "period": "春秋晚期"
+ },
+ "酒": {
+  "cp": "U+9152",
+  "file": "酒.svg",
+  "variants": 5,
+  "src": "",
+  "period": ""
+ },
+ "酓": {
+  "cp": "U+9153",
+  "file": "酓.svg",
+  "variants": 5,
+  "src": "楚王酓[〇]釶鼎",
+  "period": "戰國晚期"
+ },
+ "酢": {
+  "cp": "U+9162",
+  "file": "酢.svg",
+  "variants": 2,
+  "src": "",
+  "period": ""
+ },
+ "醴": {
+  "cp": "U+91B4",
+  "file": "醴.svg",
+  "variants": 5,
+  "src": "大鼎",
+  "period": "西周中期"
+ },
+ "釆": {
+  "cp": "U+91C6",
+  "file": "釆.svg",
+  "variants": 2,
+  "src": "",
+  "period": ""
+ },
+ "采": {
+  "cp": "U+91C7",
+  "file": "采.svg",
+  "variants": 2,
+  "src": "中方鼎",
+  "period": "西周早期"
+ },
+ "里": {
+  "cp": "U+91CC",
+  "file": "里.svg",
+  "variants": 5,
+  "src": "史頌鼎",
+  "period": "西周晚期"
+ },
+ "重": {
+  "cp": "U+91CD",
+  "file": "重.svg",
+  "variants": 5,
+  "src": "",
+  "period": ""
+ },
+ "量": {
+  "cp": "U+91CF",
+  "file": "量.svg",
+  "variants": 4,
+  "src": "豦𣪕",
+  "period": "西周中期"
+ },
+ "釐": {
+  "cp": "U+91D0",
+  "file": "釐.svg",
+  "variants": 5,
+  "src": "",
+  "period": ""
+ },
+ "釜": {
+  "cp": "U+91DC",
+  "file": "釜.svg",
+  "variants": 2,
+  "src": "子禾子釜",
+  "period": "戰國"
+ },
+ "釱": {
+  "cp": "U+91F1",
+  "file": "釱.svg",
+  "variants": 1,
+  "src": "",
+  "period": ""
+ },
+ "釿": {
+  "cp": "U+91FF",
+  "file": "釿.svg",
+  "variants": 3,
+  "src": "卅二年坪安君鼎",
+  "period": "戰國晚期"
+ },
+ "鈇": {
+  "cp": "U+9207",
+  "file": "鈇.svg",
+  "variants": 1,
+  "src": "叔尸鐘",
+  "period": "春秋晚期"
+ },
+ "鈛": {
+  "cp": "U+921B",
+  "file": "鈛.svg",
+  "variants": 5,
+  "src": "",
+  "period": ""
+ },
+ "鈞": {
+  "cp": "U+921E",
+  "file": "鈞.svg",
+  "variants": 5,
+  "src": "幾父壺",
+  "period": "西周中期"
+ },
+ "鈧": {
+  "cp": "U+9227",
+  "file": "鈧.svg",
+  "variants": 5,
+  "src": "弭白師耤𣪕",
+  "period": "西周晚期"
+ },
+ "鈴": {
+  "cp": "U+9234",
+  "file": "鈴.svg",
+  "variants": 5,
+  "src": "",
+  "period": ""
+ },
+ "鉈": {
+  "cp": "U+9248",
+  "file": "鉈.svg",
+  "variants": 1,
+  "src": "",
+  "period": ""
+ },
+ "鉘": {
+  "cp": "U+9258",
+  "file": "鉘.svg",
+  "variants": 1,
+  "src": "郾𥎦𨊦戈",
+  "period": "戰國晚期"
+ },
+ "鉞": {
+  "cp": "U+925E",
+  "file": "鉞.svg",
+  "variants": 5,
+  "src": "",
+  "period": ""
+ },
+ "鉣": {
+  "cp": "U+9263",
+  "file": "鉣.svg",
+  "variants": 1,
+  "src": "十二年盉",
+  "period": "戰國早期"
+ },
+ "鉤": {
+  "cp": "U+9264",
+  "file": "鉤.svg",
+  "variants": 5,
+  "src": "",
+  "period": ""
+ },
+ "鉦": {
+  "cp": "U+9266",
+  "file": "鉦.svg",
+  "variants": 1,
+  "src": "冉鉦鋮（南疆鉦、鉦鐵）",
+  "period": "戰國"
+ },
+ "銅": {
+  "cp": "U+9285",
+  "file": "銅.svg",
+  "variants": 2,
+  "src": "楚王酓[〇]鼎",
+  "period": "戰國晚期"
+ },
+ "鋁": {
+  "cp": "U+92C1",
+  "file": "鋁.svg",
+  "variants": 2,
+  "src": "",
+  "period": ""
+ },
+ "鋚": {
+  "cp": "U+92DA",
+  "file": "鋚.svg",
+  "variants": 5,
+  "src": "",
+  "period": ""
+ },
+ "鋯": {
+  "cp": "U+92EF",
+  "file": "鋯.svg",
+  "variants": 5,
+  "src": "曹公子池戈",
+  "period": "春秋早期"
+ },
+ "鋸": {
+  "cp": "U+92F8",
+  "file": "鋸.svg",
+  "variants": 1,
+  "src": "",
+  "period": ""
+ },
+ "鋿": {
+  "cp": "U+92FF",
+  "file": "鋿.svg",
+  "variants": 2,
+  "src": "[〇]弔之仲子平鐘",
+  "period": "春秋晚期"
+ },
+ "錠": {
+  "cp": "U+9320",
+  "file": "錠.svg",
+  "variants": 5,
+  "src": "",
+  "period": ""
+ },
+ "錫": {
+  "cp": "U+932B",
+  "file": "錫.svg",
+  "variants": 3,
+  "src": "師[〇]𣪕（𣪕敦、白龢父敦）",
+  "period": "西周晚期"
+ },
+ "錬": {
+  "cp": "U+932C",
+  "file": "錬.svg",
+  "variants": 5,
+  "src": "[〇]弔之仲子平鐘",
+  "period": "春秋晚期"
+ },
+ "鍛": {
+  "cp": "U+935B",
+  "file": "鍛.svg",
+  "variants": 3,
+  "src": "",
+  "period": ""
+ },
+ "鍞": {
+  "cp": "U+935E",
+  "file": "鍞.svg",
+  "variants": 5,
+  "src": "三斗鼎",
+  "period": "戰國"
+ },
+ "鍨": {
+  "cp": "U+9368",
+  "file": "鍨.svg",
+  "variants": 2,
+  "src": "郾𥎦𨊦戈",
+  "period": "戰國晚期"
+ },
+ "鍺": {
+  "cp": "U+937A",
+  "file": "鍺.svg",
+  "variants": 2,
+  "src": "秦公鐘",
+  "period": "春秋早期"
+ },
+ "鍾": {
+  "cp": "U+937E",
+  "file": "鍾.svg",
+  "variants": 1,
+  "src": "",
+  "period": ""
+ },
+ "鎗": {
+  "cp": "U+9397",
+  "file": "鎗.svg",
+  "variants": 1,
+  "src": "",
+  "period": ""
+ },
+ "鎛": {
+  "cp": "U+939B",
+  "file": "鎛.svg",
+  "variants": 4,
+  "src": "曾𥎦乙鐘下二—一",
+  "period": "戰國早期"
+ },
+ "鎜": {
+  "cp": "U+939C",
+  "file": "鎜.svg",
+  "variants": 5,
+  "src": "白𥎦父盤",
+  "period": "西周晚期"
+ },
+ "鎣": {
+  "cp": "U+93A3",
+  "file": "鎣.svg",
+  "variants": 3,
+  "src": "",
+  "period": ""
+ },
+ "鎬": {
+  "cp": "U+93AC",
+  "file": "鎬.svg",
+  "variants": 2,
+  "src": "德方鼎",
+  "period": "西周早期"
+ },
+ "鏃": {
+  "cp": "U+93C3",
+  "file": "鏃.svg",
+  "variants": 5,
+  "src": "",
+  "period": ""
+ },
+ "鏐": {
+  "cp": "U+93D0",
+  "file": "鏐.svg",
+  "variants": 5,
+  "src": "鼄公牼鐘",
+  "period": "春秋晚期"
+ },
+ "鏤": {
+  "cp": "U+93E4",
+  "file": "鏤.svg",
+  "variants": 1,
+  "src": "",
+  "period": ""
+ },
+ "鐎": {
+  "cp": "U+940E",
+  "file": "鐎.svg",
+  "variants": 1,
+  "src": "",
+  "period": ""
+ },
+ "鐤": {
+  "cp": "U+9424",
+  "file": "鐤.svg",
+  "variants": 5,
+  "src": "",
+  "period": ""
+ },
+ "鐱": {
+  "cp": "U+9431",
+  "file": "鐱.svg",
+  "variants": 5,
+  "src": "",
+  "period": ""
+ },
+ "鐸": {
+  "cp": "U+9438",
+  "file": "鐸.svg",
+  "variants": 5,
+  "src": "",
+  "period": ""
+ },
+ "鑃": {
+  "cp": "U+9443",
+  "file": "鑃.svg",
+  "variants": 2,
+  "src": "",
+  "period": ""
+ },
+ "鑄": {
+  "cp": "U+9444",
+  "file": "鑄.svg",
+  "variants": 5,
+  "src": "大保方鼎",
+  "period": "西周早期"
+ },
+ "鑑": {
+  "cp": "U+9451",
+  "file": "鑑.svg",
+  "variants": 3,
+  "src": "智君子鑑",
+  "period": "春秋晚期"
+ },
+ "鑒": {
+  "cp": "U+9452",
+  "file": "鑒.svg",
+  "variants": 3,
+  "src": "",
+  "period": ""
+ },
+ "鑪": {
+  "cp": "U+946A",
+  "file": "鑪.svg",
+  "variants": 5,
+  "src": "",
+  "period": ""
+ },
+ "鑵": {
+  "cp": "U+9475",
+  "file": "鑵.svg",
+  "variants": 1,
+  "src": "取子鉞",
+  "period": "西周"
+ },
+ "铜": {
+  "cp": "U+94DC",
+  "file": "铜.svg",
+  "variants": 2,
+  "src": "",
+  "period": ""
+ },
+ "長": {
+  "cp": "U+9577",
+  "file": "長.svg",
+  "variants": 5,
+  "src": "",
+  "period": ""
+ },
+ "門": {
+  "cp": "U+9580",
+  "file": "門.svg",
+  "variants": 5,
+  "src": "",
+  "period": ""
+ },
+ "閏": {
+  "cp": "U+958F",
+  "file": "閏.svg",
+  "variants": 1,
+  "src": "",
+  "period": ""
+ },
+ "閒": {
+  "cp": "U+9592",
+  "file": "閒.svg",
+  "variants": 3,
+  "src": "七年邦司寇矛",
+  "period": "戰國晚期"
+ },
+ "閔": {
+  "cp": "U+9594",
+  "file": "閔.svg",
+  "variants": 1,
+  "src": "中閔父盨",
+  "period": "西周晚期"
+ },
+ "閭": {
+  "cp": "U+95AD",
+  "file": "閭.svg",
+  "variants": 1,
+  "src": "",
+  "period": ""
+ },
+ "闌": {
+  "cp": "U+95CC",
+  "file": "闌.svg",
+  "variants": 5,
+  "src": "王子午鼎",
+  "period": "春秋中晚期"
+ },
+ "關": {
+  "cp": "U+95DC",
+  "file": "關.svg",
+  "variants": 4,
+  "src": "",
+  "period": ""
+ },
+ "闢": {
+  "cp": "U+95E2",
+  "file": "闢.svg",
+  "variants": 5,
+  "src": "中山王[〇]方壺",
+  "period": "戰國早期"
+ },
+ "阩": {
+  "cp": "U+9629",
+  "file": "阩.svg",
+  "variants": 4,
+  "src": "",
+  "period": ""
+ },
+ "阯": {
+  "cp": "U+962F",
+  "file": "阯.svg",
+  "variants": 3,
+  "src": "",
+  "period": ""
+ },
+ "阿": {
+  "cp": "U+963F",
+  "file": "阿.svg",
+  "variants": 2,
+  "src": "",
+  "period": ""
+ },
+ "降": {
+  "cp": "U+964D",
+  "file": "降.svg",
+  "variants": 5,
+  "src": "弔旅魚父鐘",
+  "period": "西周晚期"
+ },
+ "陟": {
+  "cp": "U+965F",
+  "file": "陟.svg",
+  "variants": 5,
+  "src": "五祀㝬鐘",
+  "period": "西周晚期"
+ },
+ "陰": {
+  "cp": "U+9670",
+  "file": "陰.svg",
+  "variants": 5,
+  "src": "㠱白子[〇]父盨",
+  "period": "春秋"
+ },
+ "陳": {
+  "cp": "U+9673",
+  "file": "陳.svg",
+  "variants": 5,
+  "src": "",
+  "period": ""
+ },
+ "陵": {
+  "cp": "U+9675",
+  "file": "陵.svg",
+  "variants": 5,
+  "src": "",
+  "period": ""
+ },
+ "陶": {
+  "cp": "U+9676",
+  "file": "陶.svg",
+  "variants": 4,
+  "src": "白陶鼎（白陵鼎）",
+  "period": "西周中期"
+ },
+ "陸": {
+  "cp": "U+9678",
+  "file": "陸.svg",
+  "variants": 5,
+  "src": "陸册父甲卣",
+  "period": "商"
+ },
+ "陽": {
+  "cp": "U+967D",
+  "file": "陽.svg",
+  "variants": 5,
+  "src": "㠱白子[〇]父盨",
+  "period": "春秋"
+ },
+ "隀": {
+  "cp": "U+9680",
+  "file": "隀.svg",
+  "variants": 5,
+  "src": "",
+  "period": ""
+ },
+ "隶": {
+  "cp": "U+96B6",
+  "file": "隶.svg",
+  "variants": 1,
+  "src": "",
+  "period": ""
+ },
+ "隷": {
+  "cp": "U+96B7",
+  "file": "隷.svg",
+  "variants": 3,
+  "src": "",
+  "period": ""
+ },
+ "隸": {
+  "cp": "U+96B8",
+  "file": "隸.svg",
+  "variants": 3,
+  "src": "",
+  "period": ""
+ },
+ "隹": {
+  "cp": "U+96B9",
+  "file": "隹.svg",
+  "variants": 5,
+  "src": "戍[〇]鼎",
+  "period": "商"
+ },
+ "隻": {
+  "cp": "U+96BB",
+  "file": "隻.svg",
+  "variants": 5,
+  "src": "隻鼎",
+  "period": "商"
+ },
+ "集": {
+  "cp": "U+96C6",
+  "file": "集.svg",
+  "variants": 5,
+  "src": "",
+  "period": ""
+ },
+ "雍": {
+  "cp": "U+96CD",
+  "file": "雍.svg",
+  "variants": 5,
+  "src": "[〇]甗",
+  "period": "西周中期"
+ },
+ "雒": {
+  "cp": "U+96D2",
+  "file": "雒.svg",
+  "variants": 1,
+  "src": "周鴼盨",
+  "period": "西周晚期"
+ },
+ "雕": {
+  "cp": "U+96D5",
+  "file": "雕.svg",
+  "variants": 1,
+  "src": "",
+  "period": ""
+ },
+ "雖": {
+  "cp": "U+96D6",
+  "file": "雖.svg",
+  "variants": 1,
+  "src": "秦公𣪕",
+  "period": "春秋早期"
+ },
+ "雚": {
+  "cp": "U+96DA",
+  "file": "雚.svg",
+  "variants": 4,
+  "src": "王人[〇]輔甗",
+  "period": "西周中期"
+ },
+ "難": {
+  "cp": "U+96E3",
+  "file": "難.svg",
+  "variants": 3,
+  "src": "叔尸鐘",
+  "period": "春秋晚期"
+ },
+ "雨": {
+  "cp": "U+96E8",
+  "file": "雨.svg",
+  "variants": 3,
+  "src": "子雨己鼎",
+  "period": "商"
+ },
+ "雩": {
+  "cp": "U+96E9",
+  "file": "雩.svg",
+  "variants": 5,
+  "src": "",
+  "period": ""
+ },
+ "雲": {
+  "cp": "U+96F2",
+  "file": "雲.svg",
+  "variants": 1,
+  "src": "",
+  "period": ""
+ },
+ "雷": {
+  "cp": "U+96F7",
+  "file": "雷.svg",
+  "variants": 5,
+  "src": "師旂鼎",
+  "period": "西周中期"
+ },
+ "需": {
+  "cp": "U+9700",
+  "file": "需.svg",
+  "variants": 2,
+  "src": "需父辛鼎",
+  "period": "商"
+ },
+ "霍": {
+  "cp": "U+970D",
+  "file": "霍.svg",
+  "variants": 2,
+  "src": "",
+  "period": ""
+ },
+ "霝": {
+  "cp": "U+971D",
+  "file": "霝.svg",
+  "variants": 5,
+  "src": "𤼈鐘",
+  "period": "西周中期"
+ },
+ "霸": {
+  "cp": "U+9738",
+  "file": "霸.svg",
+  "variants": 5,
+  "src": "𡩜鼎",
+  "period": "西周早期"
+ },
+ "靃": {
+  "cp": "U+9743",
+  "file": "靃.svg",
+  "variants": 2,
+  "src": "靃鼎",
+  "period": "西周"
+ },
+ "青": {
+  "cp": "U+9752",
+  "file": "青.svg",
+  "variants": 3,
+  "src": "蔡𥎦墓殘鐘四十七片",
+  "period": "春秋晚期"
+ },
+ "靜": {
+  "cp": "U+975C",
+  "file": "靜.svg",
+  "variants": 5,
+  "src": "靜𣪕",
+  "period": "西周中期"
+ },
+ "非": {
+  "cp": "U+975E",
+  "file": "非.svg",
+  "variants": 5,
+  "src": "",
+  "period": ""
+ },
+ "革": {
+  "cp": "U+9769",
+  "file": "革.svg",
+  "variants": 2,
+  "src": "康鼎",
+  "period": "西周中期或晚期"
+ },
+ "韋": {
+  "cp": "U+97CB",
+  "file": "韋.svg",
+  "variants": 2,
+  "src": "",
+  "period": ""
+ },
+ "韓": {
+  "cp": "U+97D3",
+  "file": "韓.svg",
+  "variants": 1,
+  "src": "韓氏私官方壺",
+  "period": "戰國"
+ },
+ "音": {
+  "cp": "U+97F3",
+  "file": "音.svg",
+  "variants": 5,
+  "src": "[〇]弔之仲子平鐘",
+  "period": "春秋晚期"
+ },
+ "韹": {
+  "cp": "U+97F9",
+  "file": "韹.svg",
+  "variants": 3,
+  "src": "",
+  "period": ""
+ },
+ "順": {
+  "cp": "U+9806",
+  "file": "順.svg",
+  "variants": 2,
+  "src": "",
+  "period": ""
+ },
+ "須": {
+  "cp": "U+9808",
+  "file": "須.svg",
+  "variants": 5,
+  "src": "須鼎",
+  "period": "商"
+ },
+ "頌": {
+  "cp": "U+980C",
+  "file": "頌.svg",
+  "variants": 5,
+  "src": "史頌鼎",
+  "period": "西周晚期"
+ },
+ "頡": {
+  "cp": "U+9821",
+  "file": "頡.svg",
+  "variants": 1,
+  "src": "郘[〇]鐘",
+  "period": "春秋晚期"
+ },
+ "頪": {
+  "cp": "U+982A",
+  "file": "頪.svg",
+  "variants": 3,
+  "src": "彔盨",
+  "period": "西周晚期"
+ },
+ "頭": {
+  "cp": "U+982D",
+  "file": "頭.svg",
+  "variants": 1,
+  "src": "蔡𥎦殘鼎蓋",
+  "period": "春秋晚期"
+ },
+ "顏": {
+  "cp": "U+984F",
+  "file": "顏.svg",
+  "variants": 1,
+  "src": "九年衛鼎",
+  "period": "西周中期"
+ },
+ "顯": {
+  "cp": "U+986F",
+  "file": "顯.svg",
+  "variants": 5,
+  "src": "𠭯鐘（釐伯鐘）",
+  "period": "西周中期"
+ },
+ "食": {
+  "cp": "U+98DF",
+  "file": "食.svg",
+  "variants": 1,
+  "src": "牧共乍父丁𣪕",
+  "period": "西周早期"
+ },
+ "飤": {
+  "cp": "U+98E4",
+  "file": "飤.svg",
+  "variants": 5,
+  "src": "敶生[〇]鼎",
+  "period": "西周晚期"
+ },
+ "飯": {
+  "cp": "U+98EF",
+  "file": "飯.svg",
+  "variants": 1,
+  "src": "公子土折壺",
+  "period": "春秋晚期"
+ },
+ "飲": {
+  "cp": "U+98F2",
+  "file": "飲.svg",
+  "variants": 5,
+  "src": "",
+  "period": ""
+ },
+ "饋": {
+  "cp": "U+994B",
+  "file": "饋.svg",
+  "variants": 1,
+  "src": "無[〇]鼎",
+  "period": "戰國晚期"
+ },
+ "首": {
+  "cp": "U+9996",
+  "file": "首.svg",
+  "variants": 5,
+  "src": "",
+  "period": ""
+ },
+ "馗": {
+  "cp": "U+9997",
+  "file": "馗.svg",
+  "variants": 1,
+  "src": "",
+  "period": ""
+ },
+ "香": {
+  "cp": "U+9999",
+  "file": "香.svg",
+  "variants": 2,
+  "src": "",
+  "period": ""
+ },
+ "馬": {
+  "cp": "U+99AC",
+  "file": "馬.svg",
+  "variants": 5,
+  "src": "[〇]馬父辛鼎",
+  "period": "商"
+ },
+ "馮": {
+  "cp": "U+99AE",
+  "file": "馮.svg",
+  "variants": 1,
+  "src": "",
+  "period": ""
+ },
+ "馹": {
+  "cp": "U+99B9",
+  "file": "馹.svg",
+  "variants": 1,
+  "src": "",
+  "period": ""
+ },
+ "駒": {
+  "cp": "U+99D2",
+  "file": "駒.svg",
+  "variants": 5,
+  "src": "[〇]駒父鼎",
+  "period": "西周晚期"
+ },
+ "騎": {
+  "cp": "U+9A0E",
+  "file": "騎.svg",
+  "variants": 1,
+  "src": "騎傳馬節",
+  "period": "戰國"
+ },
+ "驅": {
+  "cp": "U+9A45",
+  "file": "驅.svg",
+  "variants": 3,
+  "src": "",
+  "period": ""
+ },
+ "驕": {
+  "cp": "U+9A55",
+  "file": "驕.svg",
+  "variants": 1,
+  "src": "",
+  "period": ""
+ },
+ "驫": {
+  "cp": "U+9A6B",
+  "file": "驫.svg",
+  "variants": 4,
+  "src": "",
+  "period": ""
+ },
+ "高": {
+  "cp": "U+9AD8",
+  "file": "高.svg",
+  "variants": 5,
+  "src": "陸婦𣪕",
+  "period": "西周早期"
+ },
+ "髟": {
+  "cp": "U+9ADF",
+  "file": "髟.svg",
+  "variants": 1,
+  "src": "父乙髟莫觚",
+  "period": "商"
+ },
+ "髭": {
+  "cp": "U+9AED",
+  "file": "髭.svg",
+  "variants": 1,
+  "src": "",
+  "period": ""
+ },
+ "鬯": {
+  "cp": "U+9B2F",
+  "file": "鬯.svg",
+  "variants": 5,
+  "src": "大盂鼎",
+  "period": "西周早期"
+ },
+ "鬲": {
+  "cp": "U+9B32",
+  "file": "鬲.svg",
+  "variants": 5,
+  "src": "仲姬乍鬲",
+  "period": "西周中期"
+ },
+ "鬳": {
+  "cp": "U+9B33",
+  "file": "鬳.svg",
+  "variants": 5,
+  "src": "",
+  "period": ""
+ },
+ "鬼": {
+  "cp": "U+9B3C",
+  "file": "鬼.svg",
+  "variants": 4,
+  "src": "鬼乍父丙壺",
+  "period": "西周中期"
+ },
+ "魚": {
+  "cp": "U+9B5A",
+  "file": "魚.svg",
+  "variants": 5,
+  "src": "魚正乙鐃",
+  "period": "商"
+ },
+ "魯": {
+  "cp": "U+9B6F",
+  "file": "魯.svg",
+  "variants": 5,
+  "src": "魯𥎦㺇鬲",
+  "period": "西周早期"
+ },
+ "魼": {
+  "cp": "U+9B7C",
+  "file": "魼.svg",
+  "variants": 2,
+  "src": "秦子戈",
+  "period": "春秋早期"
+ },
+ "鮮": {
+  "cp": "U+9BAE",
+  "file": "鮮.svg",
+  "variants": 5,
+  "src": "鮮鐘",
+  "period": "西周晚期"
+ },
+ "鯀": {
+  "cp": "U+9BC0",
+  "file": "鯀.svg",
+  "variants": 2,
+  "src": "史牆盤",
+  "period": "西周中期"
+ },
+ "鳥": {
+  "cp": "U+9CE5",
+  "file": "鳥.svg",
+  "variants": 2,
+  "src": "鳥父乙鬲",
+  "period": "商"
+ },
+ "鳧": {
+  "cp": "U+9CE7",
+  "file": "鳧.svg",
+  "variants": 3,
+  "src": "",
+  "period": ""
+ },
+ "鳳": {
+  "cp": "U+9CF3",
+  "file": "鳳.svg",
+  "variants": 5,
+  "src": "",
+  "period": ""
+ },
+ "鳴": {
+  "cp": "U+9CF4",
+  "file": "鳴.svg",
+  "variants": 4,
+  "src": "齊𩍂氏鐘",
+  "period": "春秋晚期"
+ },
+ "鴃": {
+  "cp": "U+9D03",
+  "file": "鴃.svg",
+  "variants": 3,
+  "src": "",
+  "period": ""
+ },
+ "鹵": {
+  "cp": "U+9E75",
+  "file": "鹵.svg",
+  "variants": 1,
+  "src": "免盤",
+  "period": "西周中期"
+ },
+ "鹽": {
+  "cp": "U+9E7D",
+  "file": "鹽.svg",
+  "variants": 1,
+  "src": "",
+  "period": ""
+ },
+ "鹿": {
+  "cp": "U+9E7F",
+  "file": "鹿.svg",
+  "variants": 5,
+  "src": "",
+  "period": ""
+ },
+ "麋": {
+  "cp": "U+9E8B",
+  "file": "麋.svg",
+  "variants": 3,
+  "src": "麋爵",
+  "period": "商"
+ },
+ "麗": {
+  "cp": "U+9E97",
+  "file": "麗.svg",
+  "variants": 5,
+  "src": "元年師[〇]𣪕",
+  "period": "西周晚期"
+ },
+ "麥": {
+  "cp": "U+9EA5",
+  "file": "麥.svg",
+  "variants": 3,
+  "src": "麥乍彝鬲",
+  "period": "西周早期"
+ },
+ "麻": {
+  "cp": "U+9EBB",
+  "file": "麻.svg",
+  "variants": 1,
+  "src": "",
+  "period": ""
+ },
+ "黃": {
+  "cp": "U+9EC3",
+  "file": "黃.svg",
+  "variants": 5,
+  "src": "",
+  "period": ""
+ },
+ "黍": {
+  "cp": "U+9ECD",
+  "file": "黍.svg",
+  "variants": 1,
+  "src": "",
+  "period": ""
+ },
+ "黑": {
+  "cp": "U+9ED1",
+  "file": "黑.svg",
+  "variants": 3,
+  "src": "鑄子弔黑𦣞鬲",
+  "period": "春秋早期"
+ },
+ "黨": {
+  "cp": "U+9EE8",
+  "file": "黨.svg",
+  "variants": 1,
+  "src": "上黨武庫戈",
+  "period": "戰國"
+ },
+ "黹": {
+  "cp": "U+9EF9",
+  "file": "黹.svg",
+  "variants": 5,
+  "src": "無[〇]鼎",
+  "period": "西周晚期"
+ },
+ "黽": {
+  "cp": "U+9EFD",
+  "file": "黽.svg",
+  "variants": 5,
+  "src": "",
+  "period": ""
+ },
+ "鼄": {
+  "cp": "U+9F04",
+  "file": "鼄.svg",
+  "variants": 5,
+  "src": "鼄來隹鬲",
+  "period": "春秋早期"
+ },
+ "鼑": {
+  "cp": "U+9F11",
+  "file": "鼑.svg",
+  "variants": 5,
+  "src": "",
+  "period": ""
+ },
+ "鼓": {
+  "cp": "U+9F13",
+  "file": "鼓.svg",
+  "variants": 5,
+  "src": "",
+  "period": ""
+ },
+ "鼔": {
+  "cp": "U+9F14",
+  "file": "鼔.svg",
+  "variants": 1,
+  "src": "",
+  "period": ""
+ },
+ "齊": {
+  "cp": "U+9F4A",
+  "file": "齊.svg",
+  "variants": 5,
+  "src": "遟父鐘",
+  "period": "西周晚期"
+ },
+ "齋": {
+  "cp": "U+9F4B",
+  "file": "齋.svg",
+  "variants": 5,
+  "src": "",
+  "period": ""
+ },
+ "齒": {
+  "cp": "U+9F52",
+  "file": "齒.svg",
+  "variants": 3,
+  "src": "齒兄丁觶",
+  "period": "商"
+ },
+ "龍": {
+  "cp": "U+9F8D",
+  "file": "龍.svg",
+  "variants": 5,
+  "src": "",
+  "period": ""
+ },
+ "龏": {
+  "cp": "U+9F8F",
+  "file": "龏.svg",
+  "variants": 5,
+  "src": "子龏鼎",
+  "period": "商"
+ },
+ "龜": {
+  "cp": "U+9F9C",
+  "file": "龜.svg",
+  "variants": 2,
+  "src": "龜形銘鼎",
+  "period": "商"
+ },
+ "龠": {
+  "cp": "U+9FA0",
+  "file": "龠.svg",
+  "variants": 4,
+  "src": "[〇]鼎",
+  "period": "西周早期"
+ },
+ "龢": {
+  "cp": "U+9FA2",
+  "file": "龢.svg",
+  "variants": 5,
+  "src": "",
+  "period": ""
+ },
+ "𠀠": {
+  "cp": "U+20020",
+  "file": "𠀠.svg",
+  "variants": 5,
+  "src": "",
+  "period": ""
+ },
+ "𠂤": {
+  "cp": "U+200A4",
+  "file": "𠂤.svg",
+  "variants": 5,
+  "src": "",
+  "period": ""
+ },
+ "𠆸": {
+  "cp": "U+201B8",
+  "file": "𠆸.svg",
+  "variants": 5,
+  "src": "",
+  "period": ""
+ },
+ "𠇦": {
+  "cp": "U+201E6",
+  "file": "𠇦.svg",
+  "variants": 4,
+  "src": "毌𠇦且己爵",
+  "period": "商"
+ },
+ "𠊈": {
+  "cp": "U+20288",
+  "file": "𠊈.svg",
+  "variants": 1,
+  "src": "二十年奠令戈",
+  "period": "戰國"
+ },
+ "𠑇": {
+  "cp": "U+20447",
+  "file": "𠑇.svg",
+  "variants": 5,
+  "src": "季良父簠",
+  "period": "西周晚期"
+ },
+ "𠓜": {
+  "cp": "U+204DC",
+  "file": "𠓜.svg",
+  "variants": 1,
+  "src": "",
+  "period": ""
+ },
+ "𠟭": {
+  "cp": "U+207ED",
+  "file": "𠟭.svg",
+  "variants": 5,
+  "src": "否叔卣",
+  "period": "西周早期"
+ },
+ "𠤕": {
+  "cp": "U+20915",
+  "file": "𠤕.svg",
+  "variants": 3,
+  "src": "亞𠤕鐃",
+  "period": "商"
+ },
+ "𠤳": {
+  "cp": "U+20933",
+  "file": "𠤳.svg",
+  "variants": 5,
+  "src": "史利簠",
+  "period": "西周晚期"
+ },
+ "𠦜": {
+  "cp": "U+2099C",
+  "file": "𠦜.svg",
+  "variants": 2,
+  "src": "",
+  "period": ""
+ },
+ "𠦪": {
+  "cp": "U+209AA",
+  "file": "𠦪.svg",
+  "variants": 5,
+  "src": "[〇]甗",
+  "period": "西周早期"
+ },
+ "𠨘": {
+  "cp": "U+20A18",
+  "file": "𠨘.svg",
+  "variants": 4,
+  "src": "二祀𠨘其卣",
+  "period": "商"
+ },
+ "𠪔": {
+  "cp": "U+20A94",
+  "file": "𠪔.svg",
+  "variants": 5,
+  "src": "",
+  "period": ""
+ },
+ "𠪚": {
+  "cp": "U+20A9A",
+  "file": "𠪚.svg",
+  "variants": 5,
+  "src": "不𡢁𣪕",
+  "period": "西周晚期"
+ },
+ "𠬝": {
+  "cp": "U+20B1D",
+  "file": "𠬝.svg",
+  "variants": 1,
+  "src": "",
+  "period": ""
+ },
+ "𠭁": {
+  "cp": "U+20B41",
+  "file": "𠭁.svg",
+  "variants": 5,
+  "src": "",
+  "period": ""
+ },
+ "𠭯": {
+  "cp": "U+20B6F",
+  "file": "𠭯.svg",
+  "variants": 5,
+  "src": "",
+  "period": ""
+ },
+ "𠯑": {
+  "cp": "U+20BD1",
+  "file": "𠯑.svg",
+  "variants": 1,
+  "src": "",
+  "period": ""
+ },
+ "𠱾": {
+  "cp": "U+20C7E",
+  "file": "𠱾.svg",
+  "variants": 3,
+  "src": "楚王酓章鐘",
+  "period": "戰國早期"
+ },
+ "𠳿": {
+  "cp": "U+20CFF",
+  "file": "𠳿.svg",
+  "variants": 1,
+  "src": "",
+  "period": ""
+ },
+ "𠵂": {
+  "cp": "U+20D42",
+  "file": "𠵂.svg",
+  "variants": 1,
+  "src": "西𠵂𣪕",
+  "period": "戰國"
+ },
+ "𠶷": {
+  "cp": "U+20DB7",
+  "file": "𠶷.svg",
+  "variants": 5,
+  "src": "",
+  "period": ""
+ },
+ "𠼬": {
+  "cp": "U+20F2C",
+  "file": "𠼬.svg",
+  "variants": 2,
+  "src": "",
+  "period": ""
+ },
+ "𡉣": {
+  "cp": "U+21263",
+  "file": "𡉣.svg",
+  "variants": 5,
+  "src": "[〇]𧊒壺",
+  "period": "戰國晚期"
+ },
+ "𡘇": {
+  "cp": "U+21607",
+  "file": "𡘇.svg",
+  "variants": 2,
+  "src": "",
+  "period": ""
+ },
+ "𡘽": {
+  "cp": "U+2163D",
+  "file": "𡘽.svg",
+  "variants": 5,
+  "src": "",
+  "period": ""
+ },
+ "𡚧": {
+  "cp": "U+216A7",
+  "file": "𡚧.svg",
+  "variants": 5,
+  "src": "倗乍義丏𡚧鬲",
+  "period": "西周早期"
+ },
+ "𡛰": {
+  "cp": "U+216F0",
+  "file": "𡛰.svg",
+  "variants": 2,
+  "src": "取虍匜",
+  "period": "西周晚期"
+ },
+ "𡞪": {
+  "cp": "U+217AA",
+  "file": "𡞪.svg",
+  "variants": 2,
+  "src": "𡞪𣪕",
+  "period": "商"
+ },
+ "𡢁": {
+  "cp": "U+21881",
+  "file": "𡢁.svg",
+  "variants": 5,
+  "src": "不𡢁𣪕",
+  "period": "西周晚期"
+ },
+ "𡣗": {
+  "cp": "U+218D7",
+  "file": "𡣗.svg",
+  "variants": 1,
+  "src": "𡣗卣蓋",
+  "period": "西周早期"
+ },
+ "𡤀": {
+  "cp": "U+21900",
+  "file": "𡤀.svg",
+  "variants": 5,
+  "src": "",
+  "period": ""
+ },
+ "𡤣": {
+  "cp": "U+21923",
+  "file": "𡤣.svg",
+  "variants": 2,
+  "src": "",
+  "period": ""
+ },
+ "𡧍": {
+  "cp": "U+219CD",
+  "file": "𡧍.svg",
+  "variants": 5,
+  "src": "二祀𠨘其卣",
+  "period": "商"
+ },
+ "𡧓": {
+  "cp": "U+219D3",
+  "file": "𡧓.svg",
+  "variants": 5,
+  "src": "",
+  "period": ""
+ },
+ "𡧛": {
+  "cp": "U+219DB",
+  "file": "𡧛.svg",
+  "variants": 1,
+  "src": "",
+  "period": ""
+ },
+ "𡧣": {
+  "cp": "U+219E3",
+  "file": "𡧣.svg",
+  "variants": 5,
+  "src": "弔角父𣪕",
+  "period": "西周晚期"
+ },
+ "𡧰": {
+  "cp": "U+219F0",
+  "file": "𡧰.svg",
+  "variants": 5,
+  "src": "",
+  "period": ""
+ },
+ "𡨦": {
+  "cp": "U+21A26",
+  "file": "𡨦.svg",
+  "variants": 5,
+  "src": "",
+  "period": ""
+ },
+ "𡩧": {
+  "cp": "U+21A67",
+  "file": "𡩧.svg",
+  "variants": 5,
+  "src": "",
+  "period": ""
+ },
+ "𢆶": {
+  "cp": "U+221B6",
+  "file": "𢆶.svg",
+  "variants": 1,
+  "src": "中方鼎",
+  "period": "西周早期"
+ },
+ "𢇛": {
+  "cp": "U+221DB",
+  "file": "𢇛.svg",
+  "variants": 5,
+  "src": "遣卣",
+  "period": "西周早期"
+ },
+ "𢉼": {
+  "cp": "U+2227C",
+  "file": "𢉼.svg",
+  "variants": 4,
+  "src": "上𡴼[〇]鼎",
+  "period": "戰國晚期"
+ },
+ "𢊾": {
+  "cp": "U+222BE",
+  "file": "𢊾.svg",
+  "variants": 5,
+  "src": "",
+  "period": ""
+ },
+ "𢍰": {
+  "cp": "U+22370",
+  "file": "𢍰.svg",
+  "variants": 5,
+  "src": "",
+  "period": ""
+ },
+ "𢐗": {
+  "cp": "U+22417",
+  "file": "𢐗.svg",
+  "variants": 5,
+  "src": "𢐗白鬲",
+  "period": "西周早期"
+ },
+ "𢓅": {
+  "cp": "U+224C5",
+  "file": "𢓅.svg",
+  "variants": 5,
+  "src": "",
+  "period": ""
+ },
+ "𢓉": {
+  "cp": "U+224C9",
+  "file": "𢓉.svg",
+  "variants": 4,
+  "src": "中山王[〇]方壺",
+  "period": "戰國早期"
+ },
+ "𢓊": {
+  "cp": "U+224CA",
+  "file": "𢓊.svg",
+  "variants": 5,
+  "src": "亞羊子𢓊父辛尊",
+  "period": "商"
+ },
+ "𢓠": {
+  "cp": "U+224E0",
+  "file": "𢓠.svg",
+  "variants": 5,
+  "src": "",
+  "period": ""
+ },
+ "𢔵": {
+  "cp": "U+22535",
+  "file": "𢔵.svg",
+  "variants": 5,
+  "src": "",
+  "period": ""
+ },
+ "𢕌": {
+  "cp": "U+2254C",
+  "file": "𢕌.svg",
+  "variants": 5,
+  "src": "此鼎",
+  "period": "西周晚期"
+ },
+ "𢛳": {
+  "cp": "U+226F3",
+  "file": "𢛳.svg",
+  "variants": 4,
+  "src": "",
+  "period": ""
+ },
+ "𢝊": {
+  "cp": "U+2274A",
+  "file": "𢝊.svg",
+  "variants": 2,
+  "src": "",
+  "period": ""
+ },
+ "𢦚": {
+  "cp": "U+2299A",
+  "file": "𢦚.svg",
+  "variants": 5,
+  "src": "",
+  "period": ""
+ },
+ "𢧢": {
+  "cp": "U+229E2",
+  "file": "𢧢.svg",
+  "variants": 5,
+  "src": "",
+  "period": ""
+ },
+ "𢼂": {
+  "cp": "U+22F02",
+  "file": "𢼂.svg",
+  "variants": 5,
+  "src": "",
+  "period": ""
+ },
+ "𢼄": {
+  "cp": "U+22F04",
+  "file": "𢼄.svg",
+  "variants": 5,
+  "src": "亞𢼄父乙鼎",
+  "period": "商"
+ },
+ "𢼆": {
+  "cp": "U+22F06",
+  "file": "𢼆.svg",
+  "variants": 5,
+  "src": "",
+  "period": ""
+ },
+ "𢼎": {
+  "cp": "U+22F0E",
+  "file": "𢼎.svg",
+  "variants": 5,
+  "src": "",
+  "period": ""
+ },
+ "𢽍": {
+  "cp": "U+22F4D",
+  "file": "𢽍.svg",
+  "variants": 5,
+  "src": "[〇]之𢽍戈",
+  "period": "戰國早期"
+ },
+ "𢿐": {
+  "cp": "U+22FD0",
+  "file": "𢿐.svg",
+  "variants": 4,
+  "src": "",
+  "period": ""
+ },
+ "𣄨": {
+  "cp": "U+23128",
+  "file": "𣄨.svg",
+  "variants": 5,
+  "src": "仲柟父鬲",
+  "period": "西周中期"
+ },
+ "𣅔": {
+  "cp": "U+23154",
+  "file": "𣅔.svg",
+  "variants": 1,
+  "src": "",
+  "period": ""
+ },
+ "𣆪": {
+  "cp": "U+231AA",
+  "file": "𣆪.svg",
+  "variants": 5,
+  "src": "",
+  "period": ""
+ },
+ "𣇳": {
+  "cp": "U+231F3",
+  "file": "𣇳.svg",
+  "variants": 5,
+  "src": "[〇]兒鼎",
+  "period": "春秋"
+ },
+ "𣍘": {
+  "cp": "U+23358",
+  "file": "𣍘.svg",
+  "variants": 4,
+  "src": "",
+  "period": ""
+ },
+ "𣘫": {
+  "cp": "U+2362B",
+  "file": "𣘫.svg",
+  "variants": 3,
+  "src": "",
+  "period": ""
+ },
+ "𣥺": {
+  "cp": "U+2397A",
+  "file": "𣥺.svg",
+  "variants": 3,
+  "src": "",
+  "period": ""
+ },
+ "𣦼": {
+  "cp": "U+239BC",
+  "file": "𣦼.svg",
+  "variants": 1,
+  "src": "",
+  "period": ""
+ },
+ "𣪘": {
+  "cp": "U+23A98",
+  "file": "𣪘.svg",
+  "variants": 5,
+  "src": "",
+  "period": ""
+ },
+ "𣬐": {
+  "cp": "U+23B10",
+  "file": "𣬐.svg",
+  "variants": 3,
+  "src": "士父鐘",
+  "period": "西周晚期"
+ },
+ "𣵿": {
+  "cp": "U+23D7F",
+  "file": "𣵿.svg",
+  "variants": 2,
+  "src": "",
+  "period": ""
+ },
+ "𤈩": {
+  "cp": "U+24229",
+  "file": "𤈩.svg",
+  "variants": 2,
+  "src": "",
+  "period": ""
+ },
+ "𤔲": {
+  "cp": "U+24532",
+  "file": "𤔲.svg",
+  "variants": 5,
+  "src": "",
+  "period": ""
+ },
+ "𤕌": {
+  "cp": "U+2454C",
+  "file": "𤕌.svg",
+  "variants": 5,
+  "src": "五祀㝬鐘",
+  "period": "西周晚期"
+ },
+ "𤖣": {
+  "cp": "U+245A3",
+  "file": "𤖣.svg",
+  "variants": 3,
+  "src": "師㝨𣪕",
+  "period": "西周晚期"
+ },
+ "𤘌": {
+  "cp": "U+2460C",
+  "file": "𤘌.svg",
+  "variants": 1,
+  "src": "■年上郡守戈",
+  "period": "戰國"
+ },
+ "𤝗": {
+  "cp": "U+24757",
+  "file": "𤝗.svg",
+  "variants": 1,
+  "src": "[〇]𧊒壺",
+  "period": "戰國晚期"
+ },
+ "𤠁": {
+  "cp": "U+24801",
+  "file": "𤠁.svg",
+  "variants": 5,
+  "src": "",
+  "period": ""
+ },
+ "𤯍": {
+  "cp": "U+24BCD",
+  "file": "𤯍.svg",
+  "variants": 5,
+  "src": "",
+  "period": ""
+ },
+ "𤰇": {
+  "cp": "U+24C07",
+  "file": "𤰇.svg",
+  "variants": 4,
+  "src": "",
+  "period": ""
+ },
+ "𤰈": {
+  "cp": "U+24C08",
+  "file": "𤰈.svg",
+  "variants": 4,
+  "src": "𤰈戉父癸甗",
+  "period": "商"
+ },
+ "𤳞": {
+  "cp": "U+24CDE",
+  "file": "𤳞.svg",
+  "variants": 5,
+  "src": "乍册𤳞卣",
+  "period": "西周早期"
+ },
+ "𤵪": {
+  "cp": "U+24D6A",
+  "file": "𤵪.svg",
+  "variants": 1,
+  "src": "",
+  "period": ""
+ },
+ "𤸫": {
+  "cp": "U+24E2B",
+  "file": "𤸫.svg",
+  "variants": 2,
+  "src": "師𤸫𣪕蓋",
+  "period": "西周中期"
+ },
+ "𤼈": {
+  "cp": "U+24F08",
+  "file": "𤼈.svg",
+  "variants": 5,
+  "src": "𤼈鐘",
+  "period": "西周中期"
+ },
+ "𤼷": {
+  "cp": "U+24F37",
+  "file": "𤼷.svg",
+  "variants": 5,
+  "src": "[〇]𥎦𣪕",
+  "period": "西周晚期"
+ },
+ "𥁰": {
+  "cp": "U+25070",
+  "file": "𥁰.svg",
+  "variants": 5,
+  "src": "",
+  "period": ""
+ },
+ "𥎦": {
+  "cp": "U+253A6",
+  "file": "𥎦.svg",
+  "variants": 5,
+  "src": "康𥎦鬲",
+  "period": "西周早期"
+ },
+ "𥢺": {
+  "cp": "U+258BA",
+  "file": "𥢺.svg",
+  "variants": 5,
+  "src": "",
+  "period": ""
+ },
+ "𥣫": {
+  "cp": "U+258EB",
+  "file": "𥣫.svg",
+  "variants": 1,
+  "src": "[〇]𣪕",
+  "period": "西周中期"
+ },
+ "𥮉": {
+  "cp": "U+25B89",
+  "file": "𥮉.svg",
+  "variants": 4,
+  "src": "[〇]白𤼈𥮉",
+  "period": "西周中期"
+ },
+ "𥮡": {
+  "cp": "U+25BA1",
+  "file": "𥮡.svg",
+  "variants": 3,
+  "src": "𥮡戈",
+  "period": "春秋"
+ },
+ "𦎫": {
+  "cp": "U+263AB",
+  "file": "𦎫.svg",
+  "variants": 5,
+  "src": "𦎫鼎",
+  "period": "商"
+ },
+ "𦏴": {
+  "cp": "U+263F4",
+  "file": "𦏴.svg",
+  "variants": 2,
+  "src": "",
+  "period": ""
+ },
+ "𦔻": {
+  "cp": "U+2653B",
+  "file": "𦔻.svg",
+  "variants": 5,
+  "src": "",
+  "period": ""
+ },
+ "𦘔": {
+  "cp": "U+26614",
+  "file": "𦘔.svg",
+  "variants": 2,
+  "src": "",
+  "period": ""
+ },
+ "𦣞": {
+  "cp": "U+268DE",
+  "file": "𦣞.svg",
+  "variants": 1,
+  "src": "",
+  "period": ""
+ },
+ "𦣠": {
+  "cp": "U+268E0",
+  "file": "𦣠.svg",
+  "variants": 5,
+  "src": "大師虘𣪕",
+  "period": "西周中期"
+ },
+ "𦨐": {
+  "cp": "U+26A10",
+  "file": "𦨐.svg",
+  "variants": 2,
+  "src": "",
+  "period": ""
+ },
+ "𦨕": {
+  "cp": "U+26A15",
+  "file": "𦨕.svg",
+  "variants": 5,
+  "src": "",
+  "period": ""
+ },
+ "𧇽": {
+  "cp": "U+271FD",
+  "file": "𧇽.svg",
+  "variants": 4,
+  "src": "",
+  "period": ""
+ },
+ "𧊒": {
+  "cp": "U+27292",
+  "file": "𧊒.svg",
+  "variants": 2,
+  "src": "",
+  "period": ""
+ },
+ "𧧬": {
+  "cp": "U+279EC",
+  "file": "𧧬.svg",
+  "variants": 1,
+  "src": "𧧬𣪕",
+  "period": "西周晚期"
+ },
+ "𧭥": {
+  "cp": "U+27B65",
+  "file": "𧭥.svg",
+  "variants": 3,
+  "src": "弔𧭥父盨",
+  "period": "西周晚期"
+ },
+ "𧯦": {
+  "cp": "U+27BE6",
+  "file": "𧯦.svg",
+  "variants": 4,
+  "src": "",
+  "period": ""
+ },
+ "𧷞": {
+  "cp": "U+27DDE",
+  "file": "𧷞.svg",
+  "variants": 3,
+  "src": "",
+  "period": ""
+ },
+ "𧻚": {
+  "cp": "U+27EDA",
+  "file": "𧻚.svg",
+  "variants": 5,
+  "src": "",
+  "period": ""
+ },
+ "𨊠": {
+  "cp": "U+282A0",
+  "file": "𨊠.svg",
+  "variants": 2,
+  "src": "",
+  "period": ""
+ },
+ "𨊦": {
+  "cp": "U+282A6",
+  "file": "𨊦.svg",
+  "variants": 5,
+  "src": "郾𥎦𨊦戈",
+  "period": "戰國晚期"
+ },
+ "𨗥": {
+  "cp": "U+285E5",
+  "file": "𨗥.svg",
+  "variants": 4,
+  "src": "",
+  "period": ""
+ },
+ "𨘕": {
+  "cp": "U+28615",
+  "file": "𨘕.svg",
+  "variants": 4,
+  "src": "曾子𨘕簠",
+  "period": "春秋晚期"
+ },
+ "𨙅": {
+  "cp": "U+28645",
+  "file": "𨙅.svg",
+  "variants": 5,
+  "src": "乃孫罍",
+  "period": "商"
+ },
+ "𨚁": {
+  "cp": "U+28681",
+  "file": "𨚁.svg",
+  "variants": 2,
+  "src": "𢽳白車父鼎（散白車父鼎）",
+  "period": "西周晚期"
+ },
+ "𨚵": {
+  "cp": "U+286B5",
+  "file": "𨚵.svg",
+  "variants": 2,
+  "src": "■[〇]用戈",
+  "period": "春秋早期"
+ },
+ "𨟻": {
+  "cp": "U+287FB",
+  "file": "𨟻.svg",
+  "variants": 2,
+  "src": "中山王[〇]方壺",
+  "period": "戰國早期"
+ },
+ "𨥇": {
+  "cp": "U+28947",
+  "file": "𨥇.svg",
+  "variants": 5,
+  "src": "",
+  "period": ""
+ },
+ "𨬗": {
+  "cp": "U+28B17",
+  "file": "𨬗.svg",
+  "variants": 5,
+  "src": "攸𩰫盨",
+  "period": "西周晚期"
+ },
+ "𨷼": {
+  "cp": "U+28DFC",
+  "file": "𨷼.svg",
+  "variants": 2,
+  "src": "婦𨷼甗",
+  "period": "商"
+ },
+ "𨾟": {
+  "cp": "U+28F9F",
+  "file": "𨾟.svg",
+  "variants": 1,
+  "src": "晉公盆",
+  "period": "春秋"
+ },
+ "𩁹": {
+  "cp": "U+29079",
+  "file": "𩁹.svg",
+  "variants": 5,
+  "src": "",
+  "period": ""
+ },
+ "𩂣": {
+  "cp": "U+290A3",
+  "file": "𩂣.svg",
+  "variants": 2,
+  "src": "九年奠𠊈矛",
+  "period": "戰國"
+ },
+ "𩑌": {
+  "cp": "U+2944C",
+  "file": "𩑌.svg",
+  "variants": 1,
+  "src": "",
+  "period": ""
+ },
+ "𩒨": {
+  "cp": "U+294A8",
+  "file": "𩒨.svg",
+  "variants": 5,
+  "src": "公姞鬲",
+  "period": "西周中期"
+ },
+ "𩒳": {
+  "cp": "U+294B3",
+  "file": "𩒳.svg",
+  "variants": 5,
+  "src": "毳盉",
+  "period": "西周中期"
+ },
+ "𩕢": {
+  "cp": "U+29562",
+  "file": "𩕢.svg",
+  "variants": 1,
+  "src": "𩕢卣",
+  "period": "西周早期"
+ },
+ "𩛥": {
+  "cp": "U+296E5",
+  "file": "𩛥.svg",
+  "variants": 5,
+  "src": "師𩛥鼎",
+  "period": "西周中期"
+ },
+ "𩞑": {
+  "cp": "U+29791",
+  "file": "𩞑.svg",
+  "variants": 5,
+  "src": "戲白鬲",
+  "period": "西周晚期"
+ },
+ "𩡶": {
+  "cp": "U+29876",
+  "file": "𩡶.svg",
+  "variants": 3,
+  "src": "子犯編鐘",
+  "period": "春秋晚期"
+ },
+ "𩵦": {
+  "cp": "U+29D66",
+  "file": "𩵦.svg",
+  "variants": 5,
+  "src": "𩵦衛妃鼎",
+  "period": "西周晚期"
+ }
+}
