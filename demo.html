@@ -1,0 +1,3451 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <title>宅兹中國 · 金文數字星河</title>
+    <link rel="preconnect" href="https://fonts.loli.net" crossorigin>
+    <link rel="stylesheet" href="https://fonts.loli.net/css2?family=Noto+Sans+TC:wght@400;500&family=Noto+Serif+TC:wght@400;600;700&family=Source+Sans+3:wght@400;500&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500&family=Noto+Serif+TC:wght@400;600;700&family=Source+Sans+3:wght@400;500&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap">
+    <style>
+        :root {
+            --night: #050810;
+            --paper: #f4efe4;
+            --ink: #2a2418;
+            --ink-dim: rgba(42, 36, 24, 0.55);
+            --bronze: #8b6914;
+            --cinnabar: #9c3b2e;
+            --rubbing: #e8e2d4;
+            --line: rgba(42, 36, 24, 0.18);
+            --gold-box: #c4a035;
+            --gray-box: #8a8478;
+            --font-serif: "Songti TC", "Songti SC", "STSong", "PMingLiU", "PMingLiU-ExtB", "MingLiU", "SimSun", "NSimSun", "Noto Serif CJK TC", "Noto Serif TC", "Source Han Serif TC", "Source Serif 4", serif;
+            --font-sans: "PingFang TC", "PingFang SC", "Hiragino Sans GB", "Microsoft JhengHei", "Microsoft YaHei", "Noto Sans CJK TC", "Noto Sans TC", "Source Han Sans TC", "Source Sans 3", sans-serif;
+        }
+        * { box-sizing: border-box; }
+        html, body { margin: 0; height: 100%; height: 100dvh; }
+        html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
+        body {
+            font-family: var(--font-serif);
+            font-size: 16px;
+            line-height: 1.7;
+            color: var(--ink);
+            background: var(--night);
+            overflow: hidden;
+        }
+        button, input, select, textarea, .btn, .chip, .back {
+            font-family: var(--font-sans);
+            font-size: 16px;
+        }
+        .paper-bar .tabs button, .home-doors button i {
+            font-family: var(--font-sans);
+        }
+        @font-face {
+            font-family: "Jingfeng ZSKSS";
+            src: url("./assets/fonts/JFZSKSealScript-title.ttf") format("truetype");
+            font-weight: 400;
+            font-display: block;
+            unicode-range: U+5409, U+91D1, U+667A, U+8BC6, U+8B58;
+        }
+        .home-brand, .paper-bar h1, .wall-title, .dict-hero h2, .dict-quote {
+            font-family: var(--font-serif);
+        }
+        a { color: inherit; }
+
+        #view-home { display: none; position: absolute; inset: 0; opacity: 1; transition: opacity .35s ease; }
+        #view-home.on { display: block; }
+        #view-home.leaving { opacity: 0; }
+        #galaxyFrame {
+            width: 100%; height: 100%;
+            border: 0; display: block; background: var(--night);
+        }
+        .home-brand {
+            position: absolute; top: max(22px, env(safe-area-inset-top));
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 20;
+            color: #f4d58a;
+            letter-spacing: 0;
+            text-indent: 0;
+            font-size: 22px;
+            line-height: 1;
+            opacity: 0.9;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.12em;
+            font-family: "Jingfeng ZSKSS", var(--font-serif);
+            font-weight: 400;
+            transition: top .8s ease, transform .8s ease, font-size .8s ease, opacity .45s ease, gap .8s ease;
+        }
+        .home-brand .seal-ch {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 1.05em;
+            height: 1.2em;
+            line-height: 1;
+            font-family: inherit;
+        }
+        #view-home.intro .home-brand {
+            top: 36%;
+            transform: translate(-50%, -50%);
+            font-size: clamp(48px, 16vw, 88px);
+            gap: 0.1em;
+            opacity: 1;
+            text-shadow: 0 0 36px rgba(244, 213, 138, 0.45);
+            animation: brandFloat 4.8s ease-in-out infinite;
+        }
+        @keyframes brandFloat {
+            0%, 100% { transform: translate(-50%, -50%) translateY(0); }
+            50% { transform: translate(-50%, -50%) translateY(-12px); }
+        }
+        #view-home.intro .home-doors {
+            opacity: 0;
+            pointer-events: none;
+        }
+        #view-home.tunneling #galaxyFrame,
+        #view-home.tunneling .home-brand { pointer-events: none; }
+        #view-home.tunneling .home-brand { opacity: 0; }
+        #view-home.tunneling .home-doors {
+            opacity: 0;
+            pointer-events: none;
+        }
+        .lite-sky { display: none; }
+        #view-home.lite #galaxyFrame { display: none; }
+        #view-home.lite .lite-sky {
+            display: block;
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            background:
+                radial-gradient(ellipse 90% 46% at 50% 78%, rgba(196, 160, 53, 0.2), transparent 58%),
+                radial-gradient(1.4px 1.4px at 8% 14%, rgba(244,213,138,.9), transparent),
+                radial-gradient(1px 1px at 18% 32%, rgba(255,255,255,.55), transparent),
+                radial-gradient(1.2px 1.2px at 29% 8%, rgba(244,213,138,.7), transparent),
+                radial-gradient(1px 1px at 41% 22%, rgba(255,255,255,.4), transparent),
+                radial-gradient(1.3px 1.3px at 53% 11%, rgba(244,213,138,.8), transparent),
+                radial-gradient(1px 1px at 67% 28%, rgba(255,255,255,.5), transparent),
+                radial-gradient(1.2px 1.2px at 78% 16%, rgba(244,213,138,.75), transparent),
+                radial-gradient(1px 1px at 88% 36%, rgba(255,255,255,.45), transparent),
+                radial-gradient(1px 1px at 12% 58%, rgba(255,255,255,.35), transparent),
+                radial-gradient(1.2px 1.2px at 24% 72%, rgba(244,213,138,.55), transparent),
+                radial-gradient(1px 1px at 36% 48%, rgba(255,255,255,.4), transparent),
+                radial-gradient(1.1px 1.1px at 61% 62%, rgba(244,213,138,.5), transparent),
+                radial-gradient(1px 1px at 73% 51%, rgba(255,255,255,.35), transparent),
+                radial-gradient(1.3px 1.3px at 91% 68%, rgba(244,213,138,.6), transparent),
+                #050810;
+        }
+        .home-doors {
+            position: absolute;
+            left: 50%; bottom: max(36px, calc(16px + env(safe-area-inset-bottom)));
+            transform: translateX(-50%);
+            z-index: 20;
+            display: flex; gap: 14px;
+            transition: opacity .7s ease, transform .7s ease;
+        }
+        #introSkip {
+            display: none;
+            position: absolute;
+            right: max(20px, env(safe-area-inset-right));
+            bottom: max(20px, env(safe-area-inset-bottom));
+            z-index: 50;
+            background: none;
+            border: none;
+            color: rgba(244, 213, 138, 0.7);
+            letter-spacing: 6px;
+            cursor: pointer;
+            font-size: 13px;
+        }
+        body.intro-cold #introSkip,
+        #view-home.tunneling #introSkip { display: block; }
+        #introSkip:hover { color: #f4d58a; }
+        .home-doors button {
+            min-width: 128px;
+            padding: 10px 22px 12px;
+            background: var(--paper);
+            color: var(--ink);
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 8px 28px rgba(0,0,0,0.35);
+            display: flex; flex-direction: column; align-items: center; gap: 4px;
+        }
+        .home-doors button i {
+            font-style: normal;
+            font-size: 11px;
+            letter-spacing: 3px;
+            opacity: 0.5;
+        }
+        .home-doors button b {
+            font-family: var(--font-serif);
+            font-weight: 600;
+            letter-spacing: 8px;
+            font-size: 18px;
+        }
+        .home-doors button:hover { background: #fffaf0; }
+
+        .paper-view {
+            display: none;
+            position: absolute; inset: 0;
+            background: var(--paper);
+            overflow: auto;
+            color: var(--ink);
+        }
+        .paper-view.on { display: block; }
+        #view-learn.paper-view { background: #f6f2e8; }
+        #view-work.paper-view.on {
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+        #view-work .paper-bar {
+            flex-wrap: nowrap;
+            padding: 8px 14px;
+            gap: 10px;
+            min-height: 48px;
+        }
+        #view-work .paper-bar h1,
+        #view-work .metric { display: none; }
+        #view-work .work-tools {
+            display: flex; align-items: center; gap: 6px; flex: 1; min-width: 0;
+            justify-content: flex-end;
+        }
+        #view-work .work-tools .ink { min-width: 0; flex: 1; max-width: 220px; }
+        #view-work .file-btn { position: relative; overflow: hidden; }
+        #view-work .file-btn input { display: none; }
+        .paper-bar {
+            position: sticky; top: 0; z-index: 30;
+            display: flex; align-items: center; justify-content: space-between;
+            gap: 12px; flex-wrap: wrap;
+            padding: 14px 28px;
+            background: rgba(244, 239, 228, 0.92);
+            border-bottom: 1px solid var(--line);
+            backdrop-filter: blur(8px);
+        }
+        .paper-bar h1 {
+            margin: 0;
+            font-size: 20px;
+            font-weight: normal;
+            letter-spacing: 6px;
+        }
+        .paper-bar .tabs { display: flex; gap: 4px; flex-wrap: wrap; }
+        .paper-bar .tabs button, .btn, .chip {
+            background: transparent;
+            border: 1px solid transparent;
+            color: var(--ink);
+            letter-spacing: 2px;
+            padding: 6px 14px;
+            cursor: pointer;
+            font-size: 15px;
+        }
+        .paper-bar .tabs button.active, .chip.active {
+            border-color: var(--bronze);
+            color: var(--bronze);
+        }
+        .btn {
+            border: 1px solid var(--bronze);
+            color: var(--bronze);
+            background: transparent;
+            cursor: pointer;
+            padding: 8px 16px;
+            letter-spacing: 3px;
+        }
+        .btn:hover, .chip:hover { background: rgba(139, 105, 20, 0.08); }
+        .btn.cinnabar { border-color: var(--cinnabar); color: var(--cinnabar); }
+        .btn.solid { background: var(--bronze); color: var(--paper); }
+        .back {
+            background: none; border: none;
+            color: var(--ink-dim); cursor: pointer;
+            letter-spacing: 3px; font-size: 14px;
+        }
+        .back:hover { color: var(--ink); }
+        .pane { max-width: 1080px; margin: 0 auto; padding: 28px 24px 80px; }
+        .sub { color: var(--ink-dim); letter-spacing: 1px; font-size: 13px; line-height: 1.7; }
+        .row { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+        input.ink, select.ink {
+            background: #fffdf8;
+            border: 1px solid var(--line);
+            color: var(--ink);
+            padding: 8px 12px;
+            outline: none;
+            letter-spacing: 2px;
+        }
+        .stage { text-align: center; }
+        .choices {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 14px;
+            margin: 22px 0;
+        }
+        .choice {
+            background: #fffdf8;
+            border: 1px solid var(--line);
+            padding: 14px 8px;
+            cursor: pointer;
+            min-height: 160px;
+        }
+        .choice img { width: 110px; height: 110px; }
+        .choice.right { border-color: #3d6b3d; box-shadow: 0 0 0 1px #3d6b3d; }
+        .choice.wrong { opacity: 0.35; }
+        .choice.locked { pointer-events: none; }
+        .feedback {
+            display: none; text-align: left;
+            margin-top: 20px; padding: 20px;
+            background: #fffdf8; border: 1px solid var(--line);
+            line-height: 1.85;
+        }
+        .feedback.show { display: block; }
+        .feedback.win { animation: pop .45s ease; border-color: #3d6b3d; }
+        @keyframes pop {
+            0% { transform: scale(.92); opacity: 0; }
+            60% { transform: scale(1.03); }
+            100% { transform: scale(1); opacity: 1; }
+        }
+        .feedback h3 { margin: 0 0 8px; font-weight: normal; letter-spacing: 4px; }
+        .glyph-board {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(92px, 1fr));
+            gap: 10px;
+        }
+        .glyph-card {
+            background: #fffdf8;
+            border: 1px solid var(--line);
+            padding: 10px;
+            text-align: center;
+            cursor: pointer;
+        }
+        .glyph-card img { width: 72px; height: 72px; }
+        .glyph-card b { display: block; margin-top: 4px; font-weight: normal; }
+        .detail {
+            background: #fffdf8;
+            border: 1px solid var(--line);
+            padding: 22px;
+            min-height: 280px;
+        }
+        .detail img.hero-glyph { width: 160px; height: 160px; }
+        .kao-grid { display: grid; grid-template-columns: 280px 1fr; gap: 20px; }
+
+        .wall-search {
+            display: flex; justify-content: center; gap: 8px;
+            margin: 8px 0 22px;
+        }
+        .wall-search input { min-width: min(320px, 70vw); font-size: 18px; letter-spacing: 4px; text-align: center; }
+        .flip-wall {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(88px, 1fr));
+            gap: 10px;
+            perspective: 1200px;
+        }
+        .flip-cell { aspect-ratio: 1; cursor: pointer; }
+        .flip-cell .inner {
+            position: relative; width: 100%; height: 100%;
+            transform-style: preserve-3d;
+            transition: transform .55s cubic-bezier(.2,.7,.2,1);
+        }
+        .flip-cell.on .inner { transform: rotateY(180deg); }
+        .flip-cell .face {
+            position: absolute; inset: 0;
+            backface-visibility: hidden;
+            display: flex; align-items: center; justify-content: center;
+            background: #fffdf8;
+            border: 1px solid var(--line);
+        }
+        .flip-cell .front { font-size: 28px; letter-spacing: 2px; }
+        .flip-cell .back { transform: none; }
+        .flip-cell .back img { width: 78%; height: 78%; }
+        .flip-cell.hit .face { border-color: var(--bronze); }
+        .wall-miss {
+            display: none; text-align: center;
+            color: var(--cinnabar); letter-spacing: 4px;
+            margin-bottom: 16px;
+        }
+        .wall-miss.show { display: block; }
+
+        .evo {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 8px;
+            margin: 16px 0;
+        }
+        .evo-step {
+            background: #fffdf8;
+            border: 1px solid var(--line);
+            padding: 10px 6px;
+            text-align: center;
+            min-height: 120px;
+        }
+        .evo-step b { display: block; font-weight: normal; letter-spacing: 3px; font-size: 12px; color: var(--ink-dim); margin-bottom: 8px; }
+        .evo-step img { width: 72px; height: 72px; }
+        .evo-step .kai { font-size: 42px; line-height: 72px; }
+        .evo-step.void { color: var(--ink-dim); font-size: 12px; letter-spacing: 1px; }
+
+        .modal {
+            position: fixed; inset: 0;
+            background: rgba(42,36,24,.4);
+            z-index: 80;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+        }
+        .modal.on { display: flex; }
+        .modal .sheet {
+            background: var(--paper);
+            border: 1px solid var(--bronze);
+            max-width: 560px;
+            width: 100%;
+            max-height: 90vh;
+            overflow: auto;
+            padding: 28px;
+            text-align: center;
+            line-height: 1.8;
+        }
+        .game-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 18px;
+            margin-top: 28px;
+        }
+        .game-card {
+            min-height: 240px;
+            padding: 28px 20px;
+            cursor: pointer;
+            text-align: center;
+            background:
+                linear-gradient(180deg, #fffdf8 0%, #f4efe4 100%);
+            border: 1px solid var(--bronze);
+            box-shadow: inset 0 0 0 6px rgba(139,105,20,.08);
+        }
+        .game-card:hover { background: #fffaf0; }
+        .game-card h2 { font-weight: normal; letter-spacing: 6px; margin: 12px 0 8px; }
+        .game-card .icon { font-size: 42px; letter-spacing: 0; }
+
+        .link-arena {
+            position: relative;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            max-width: 720px;
+            margin: 20px auto;
+        }
+        .link-col { display: flex; flex-direction: column; gap: 8px; }
+        .link-item {
+            background: #fffdf8;
+            border: 1px solid var(--line);
+            min-height: 56px;
+            display: flex; align-items: center; justify-content: center;
+            cursor: pointer;
+            font-size: 22px;
+        }
+        .link-item img { width: 44px; height: 44px; }
+        .link-item.picked { border-color: var(--cinnabar); box-shadow: 0 0 0 1px var(--cinnabar); }
+        .link-item.done { opacity: .4; pointer-events: none; }
+        #linkSvg {
+            position: absolute; inset: 0;
+            width: 100%; height: 100%;
+            pointer-events: none;
+            grid-column: 1 / -1;
+            grid-row: 1 / -1;
+            z-index: 1;
+        }
+        .link-col { position: relative; z-index: 2; }
+        .title-badge {
+            display: none;
+            margin: 16px auto 0;
+            padding: 10px 18px;
+            border: 1px solid var(--bronze);
+            letter-spacing: 6px;
+        }
+        .title-badge.show { display: inline-block; }
+
+        .trace-stage { display: flex; flex-direction: column; align-items: center; gap: 12px; }
+        .trace-flip { perspective: 900px; width: min(420px, 92vw); }
+        .trace-flip .card {
+            position: relative;
+            transform-style: preserve-3d;
+            transition: transform .7s ease;
+        }
+        .trace-flip.done .card { transform: rotateY(180deg); }
+        .trace-face { backface-visibility: hidden; }
+        .trace-face.back {
+            position: absolute; inset: 0;
+            transform: rotateY(180deg);
+            background: #fffdf8;
+            border: 1px solid var(--bronze);
+            padding: 20px;
+            text-align: left;
+            overflow: auto;
+            pointer-events: none;
+        }
+        .trace-flip.done .trace-face.back { pointer-events: auto; }
+        #view-work #work-search.pane {
+            max-width: none;
+            margin: 0;
+            padding: 0;
+            flex: 1;
+            min-height: 0;
+            overflow: hidden;
+            display: none;
+            flex-direction: column;
+            position: relative;
+            background: #1c1914;
+        }
+        #view-work.is-search #work-search.pane { display: flex; }
+        .lib-stage {
+            flex: 1; min-height: 0;
+            display: flex; flex-direction: column;
+        }
+        .lib-hero {
+            flex: 1; min-height: 0;
+            display: flex; align-items: center; justify-content: center;
+            position: relative; overflow: auto;
+            background: #14120e;
+        }
+        .lib-hero img {
+            display: block;
+            width: min(72vw, 72vh);
+            height: min(72vw, calc(100vh - 156px));
+            object-fit: contain;
+            image-rendering: pixelated;
+            background: transparent;
+        }
+        #view-work.lib-focus .lib-hero img {
+            width: min(86vw, 86vh);
+            height: min(86vw, calc(100vh - 108px));
+        }
+        .lib-hero.zoom img {
+            width: min(140vw, 1200px);
+            height: min(140vh, 1200px);
+        }
+        .lib-nav {
+            position: absolute; top: 50%; transform: translateY(-50%);
+            z-index: 2; min-width: 36px;
+        }
+        .lib-nav.prev { left: 10px; }
+        .lib-nav.next { right: 10px; }
+        .lib-film {
+            display: flex; gap: 6px; align-items: center;
+            overflow-x: auto; overflow-y: hidden;
+            padding: 8px 10px;
+            min-height: 96px;
+            background: #0f0e0b;
+            border-top: 1px solid rgba(244,239,228,.08);
+        }
+        .lib-film button {
+            flex: 0 0 auto; padding: 0; border: 1px solid transparent;
+            background: #1c1914; cursor: pointer; line-height: 0;
+        }
+        .lib-film button.on { border-color: var(--bronze); }
+        .lib-film img { height: 76px; width: auto; display: block; }
+        .lib-src {
+            position: absolute; top: 10px; left: 10px; z-index: 3;
+            display: flex; gap: 6px; flex-wrap: wrap;
+        }
+        .lib-src button.on { border-color: var(--bronze); color: var(--bronze); }
+        #work-search .work-lib-chips {
+            position: absolute; top: 8px; right: 8px; left: auto; z-index: 3;
+            margin: 0; padding: 4px 8px;
+            max-width: 42%; max-height: 40px;
+            overflow-x: auto; overflow-y: hidden;
+            flex-wrap: nowrap;
+            background: rgba(20,16,10,.72);
+            border: 1px solid rgba(244,239,228,.12);
+            border-radius: 4px;
+        }
+        #work-search .work-lib-chips:empty { display: none; }
+        #work-search .ocr-chips button.on { border-color: var(--bronze); color: var(--bronze); }
+        .lib-exit {
+            display: none; position: fixed; top: 10px; left: 10px; z-index: 80;
+        }
+        #view-work.lib-focus .paper-bar { display: none; }
+        #view-work.lib-focus #work-search.pane { height: 100vh; flex: 1; }
+        #view-work.lib-focus .workbench { grid-template-columns: 1fr; }
+        #view-work.lib-focus .wb-right { display: none; }
+        #view-work.lib-focus .lib-exit { display: inline-block; }
+        #view-work.lib-focus .work-lib-chips { top: 48px; }
+        #traceCanvas {
+            width: 100%;
+            height: auto;
+            aspect-ratio: 1;
+            background: var(--rubbing);
+            border: 1px solid var(--line);
+            touch-action: none;
+            cursor: crosshair;
+            display: block;
+        }
+        #traceCanvas.glow {
+            box-shadow: 0 0 24px rgba(196,160,53,.55), inset 0 0 40px rgba(196,160,53,.18);
+        }
+        .trace-pick {
+            display: flex; flex-wrap: wrap; gap: 8px; justify-content: center;
+            margin: 12px 0;
+        }
+        .trace-pick button {
+            width: 48px; height: 48px;
+            background: #fffdf8; border: 1px solid var(--line); cursor: pointer;
+        }
+        .trace-pick button.active { border-color: var(--cinnabar); }
+
+        .steps { display: flex; justify-content: center; gap: 8px; margin: 8px 0 20px; }
+        .steps span {
+            padding: 6px 14px;
+            border: 1px solid var(--line);
+            letter-spacing: 2px;
+            font-size: 13px;
+            color: var(--ink-dim);
+        }
+        .steps span.on { border-color: var(--cinnabar); color: var(--cinnabar); }
+        .ritual-vessels { display: flex; justify-content: center; gap: 12px; margin: 16px 0; }
+        .ritual-vessels button {
+            width: 100px; height: 120px;
+            background: #fffdf8; border: 1px solid var(--line);
+            cursor: pointer; letter-spacing: 2px;
+        }
+        .ritual-vessels button.active { border-color: var(--cinnabar); color: var(--cinnabar); }
+        .vessel-ico { font-size: 36px; display: block; margin-bottom: 6px; }
+        .bless-chips { display: flex; justify-content: center; gap: 8px; flex-wrap: wrap; }
+        .bless-chips button {
+            width: 72px; padding: 8px 0;
+            background: #fffdf8; border: 1px solid var(--line); cursor: pointer;
+        }
+        .bless-chips button.on { border-color: var(--cinnabar); color: var(--cinnabar); }
+        .bless-card {
+            max-width: 420px; margin: 24px auto;
+            background: var(--rubbing);
+            border: 1px solid var(--bronze);
+            padding: 32px 24px; text-align: center;
+        }
+        .bless-card img { width: 72px; height: 72px; margin: 4px; }
+        .bless-card h2 { font-weight: normal; letter-spacing: 8px; margin: 12px 0; }
+
+        .metric {
+            font-size: 12px; letter-spacing: 1px;
+            color: var(--ink-dim);
+            border: 1px solid var(--line);
+            padding: 4px 10px;
+        }
+        #view-work.is-search .workbench { display: none; }
+        #view-work.is-search #workRecTools { display: none !important; }
+        #view-work:not(.is-search) #workLibTools { display: none !important; }
+        .workbench {
+            display: grid;
+            grid-template-columns: minmax(0, 1fr) 300px;
+            flex: 1;
+            min-height: 0;
+        }
+        .wb-stage {
+            overflow: auto;
+            background: #2a261c;
+            position: relative;
+            min-height: 0;
+        }
+        .wb-stage .ocr-empty {
+            color: rgba(244,239,228,.55);
+            text-align: center;
+            padding: 28vh 24px 0;
+            letter-spacing: 2px;
+        }
+        .wb-right {
+            overflow: auto;
+            padding: 12px 12px 16px;
+        }
+        .wb-left { border-right: 1px solid var(--line); background: var(--rubbing); }
+        .wb-right { background: var(--paper); }
+        .upload-box {
+            border: 1px dashed var(--line);
+            padding: 16px; text-align: center;
+            background: rgba(255,253,248,.7); margin-bottom: 12px;
+        }
+        .ocr-badge {
+            font-size: 12px; letter-spacing: 1px; padding: 4px 10px;
+            border: 1px solid var(--line);
+        }
+        .ocr-badge.ok { color: #2d5a2d; }
+        .ocr-badge.off { color: var(--ink-dim); }
+        .ocr-quality {
+            margin: 8px 12px 0;
+            padding: 8px 12px;
+            font-size: 13px;
+            line-height: 1.55;
+            border: 1px solid var(--line);
+            background: rgba(255,253,248,.88);
+        }
+        .ocr-quality.ok { border-color: #6a8a6a; color: #2d5a2d; }
+        .ocr-quality.warn { border-color: #b0892e; color: #6a4e12; }
+        .ocr-quality.bad { border-color: #a15a4a; color: #6e2f24; }
+        .ocr-quality b { letter-spacing: 1px; }
+        .ocr-quality ul { margin: 4px 0 0 1.2em; padding: 0; }
+        .ocr-canvas-wrap {
+            position: relative;
+            min-height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #1c1914;
+        }
+        .ocr-stack {
+            position: relative;
+            display: inline-block;
+            line-height: 0;
+            max-width: 100%;
+        }
+        .ocr-canvas-wrap img,
+        .ocr-stack img {
+            display: block;
+            max-width: 100%;
+            max-height: calc(100vh - 48px);
+            width: auto;
+            height: auto;
+            object-fit: contain;
+        }
+        .ocr-canvas-wrap.zoom img { max-height: none; max-width: none; width: auto; }
+        .ocr-stack canvas {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+        .ocr-cap {
+            position: absolute; left: 10px; bottom: 10px; z-index: 2;
+            margin: 0; padding: 4px 8px;
+            background: rgba(20,16,10,.65); color: #f4efe4;
+            font-size: 12px; letter-spacing: 1px; max-width: 70%;
+        }
+        .ocr-zoom {
+            position: absolute; right: 10px; bottom: 10px; z-index: 2;
+        }
+        .ocr-box-item {
+            display: grid; grid-template-columns: 28px 40px 1fr auto;
+            gap: 8px; align-items: center; padding: 8px; cursor: pointer;
+            font-size: 13px; border-bottom: 1px solid var(--line);
+        }
+        .ocr-box-item.active { outline: 1px solid var(--bronze); background: #fffdf8; }
+        .ocr-box-item input {
+            width: 48px; border: 1px solid var(--line); background: #fffdf8;
+            text-align: center; padding: 4px;
+        }
+        .tiny { font-size: 12px; letter-spacing: 1px; padding: 4px 8px; border: 1px solid var(--line); background: transparent; cursor: pointer; }
+        .ocr-box-actions { display: flex; gap: 6px; flex-wrap: wrap; justify-content: flex-end; }
+        .ocr-chips { display: flex; flex-wrap: wrap; gap: 6px; margin: 8px 0 12px; }
+        .ocr-chips button {
+            border: 1px solid var(--line); background: #fffdf8; cursor: pointer;
+            padding: 4px 10px; letter-spacing: 2px; font-size: 14px;
+        }
+        .ocr-chips button:hover { border-color: var(--bronze); color: var(--bronze); }
+        .gold-dot, .gray-dot {
+            width: 10px; height: 10px; border-radius: 50%; display: inline-block;
+        }
+        .gold-dot { background: var(--gold-box); }
+        .gray-dot { background: var(--gray-box); }
+        .foot {
+            text-align: center; font-size: 12px; color: var(--ink-dim);
+            padding: 8px 16px 20px; letter-spacing: 1px;
+        }
+        @media (max-width: 720px) {
+            .choices, .game-grid, .evo, .kao-grid, .workbench { grid-template-columns: 1fr; }
+            .link-arena { gap: 24px; }
+            .home-doors {
+                bottom: max(16px, env(safe-area-inset-bottom));
+                width: calc(100% - 20px);
+                gap: 8px;
+            }
+            .home-doors button { min-width: 0; flex: 1; padding: 10px 6px 12px; }
+            .home-doors button i { letter-spacing: 1px; font-size: 10px; }
+            .home-doors button b { font-size: 16px; letter-spacing: 4px; }
+            .paper-bar { padding: 10px 12px; gap: 8px; }
+            .paper-bar h1 { font-size: 16px; letter-spacing: 3px; }
+            .paper-bar .tabs button, .btn, .chip, .back {
+                padding: 8px 10px;
+                letter-spacing: 1px;
+                min-height: 40px;
+            }
+            #introSkip { right: 12px; bottom: max(16px, env(safe-area-inset-bottom)); }
+            #view-work .paper-bar {
+                flex-wrap: wrap;
+                min-height: 0;
+                padding: 8px 10px;
+            }
+            #view-work .tabs { width: 100%; justify-content: center; }
+            #view-work .work-tools {
+                width: 100%;
+                flex-wrap: wrap;
+                justify-content: flex-start;
+            }
+            #view-work .work-tools .ink { max-width: none; flex: 1 1 140px; }
+            .workbench {
+                grid-template-rows: minmax(42dvh, 1fr) auto;
+                height: auto;
+                min-height: calc(100dvh - 96px);
+            }
+            .wb-stage { min-height: 42dvh; }
+            #view-work.paper-view.on { overflow: auto; }
+            .lib-hero img {
+                width: min(94vw, 70dvh);
+                height: min(94vw, calc(100dvh - 220px));
+            }
+            #view-work.lib-focus .lib-hero img {
+                width: min(96vw, 78dvh);
+                height: min(96vw, calc(100dvh - 140px));
+            }
+            .lib-film { min-height: 72px; padding: 6px 8px; }
+            .lib-film img { height: 56px; }
+            .lib-src { max-width: 72%; }
+            #work-search .work-lib-chips { max-width: 28%; top: auto; bottom: 80px; right: 8px; }
+            .ocr-box-item { grid-template-columns: 20px 36px 1fr; }
+            .ocr-box-actions { grid-column: 2 / -1; }
+            .lib-nav.prev { left: 4px; }
+            .lib-nav.next { right: 4px; }
+        }
+
+        html.neo .home-brand { color: #f1f5f9; opacity: .88; }
+        html.neo .home-doors button {
+            background: #181a23;
+            color: #f1f5f9;
+            box-shadow: 0 0 28px rgba(196,164,106,.16), 0 10px 28px rgba(0,0,0,.4);
+        }
+        html.neo .home-doors button i { color: #94a3b8; opacity: 1; }
+        html.neo .home-doors button:hover { background: #1e2130; }
+
+        html.neo #view-work.paper-view { background: #0f1015; color: #f1f5f9; }
+        html.neo #view-work .paper-bar {
+            background: rgba(24,26,35,.94);
+            border-bottom-color: rgba(241,245,249,.08);
+            color: #f1f5f9;
+        }
+        html.neo #view-work .paper-bar h1 { color: #f1f5f9; }
+        html.neo #view-work .back { color: #94a3b8; }
+        html.neo #view-work .back:hover { color: #f1f5f9; }
+        html.neo #view-work .metric {
+            color: #94a3b8;
+            border-color: rgba(241,245,249,.1);
+        }
+        html.neo #view-work .tabs button { color: #94a3b8; }
+        html.neo #view-work .tabs button.active { color: #c4a46a; border-color: #c4a46a; }
+        html.neo #view-work .wb-left { background: #0f1015; border-right-color: rgba(241,245,249,.08); }
+        html.neo #view-work .wb-stage { background: #0a0b10; }
+        html.neo #view-work .wb-right { background: #181a23; color: #f1f5f9; }
+        html.neo #view-work .work-lib-chips { background: rgba(15,16,21,.92); border-color: rgba(241,245,249,.12); }
+        html.neo #view-work .sub { color: #94a3b8; }
+        html.neo #view-work .upload-box {
+            background: #181a23;
+            border-color: rgba(241,245,249,.12);
+            color: #94a3b8;
+        }
+        html.neo #view-work .ocr-canvas-wrap {
+            background: #d9d0bc;
+            box-shadow: inset 0 0 0 1px rgba(196,164,106,.28);
+        }
+        html.neo #view-work .ocr-box-item { border-bottom-color: rgba(241,245,249,.08); }
+        html.neo #view-work .ocr-box-item.active {
+            background: #1e2130;
+            outline-color: #c4a46a;
+            box-shadow: 0 0 22px rgba(196,164,106,.14);
+        }
+        html.neo #view-work .ocr-box-item input {
+            background: #0f1015;
+            color: #f1f5f9;
+            border-color: rgba(241,245,249,.12);
+        }
+        html.neo #view-work .ocr-box-item img,
+        html.neo #view-work .glyph-card img,
+        html.neo #view-work .detail img.hero-glyph {
+            background: #d9d0bc;
+            padding: 3px;
+        }
+        html.neo #view-work .btn { color: #c4a46a; border-color: rgba(196,164,106,.45); }
+        html.neo #view-work .btn:hover { background: rgba(196,164,106,.08); }
+        html.neo #view-work .tiny { color: #94a3b8; border-color: rgba(241,245,249,.12); }
+        html.neo #view-work .ocr-badge { color: #94a3b8; border-color: rgba(241,245,249,.12); }
+        html.neo #view-work .ocr-badge.ok { color: #86c9a0; }
+        html.neo #view-work #work-search.pane,
+        html.neo #view-work .lib-hero { background: #0a0b10; color: #f1f5f9; }
+        html.neo #view-work .lib-film { background: #0f1015; border-top-color: rgba(241,245,249,.08); }
+        html.neo #view-work .detail,
+        html.neo #view-work .glyph-card {
+            background: #181a23;
+            border-color: rgba(241,245,249,.08);
+            color: #f1f5f9;
+        }
+        html.neo #view-work .ink {
+            background: #0f1015;
+            color: #f1f5f9;
+            border-color: rgba(241,245,249,.12);
+        }
+        html.neo #view-work .foot { color: #94a3b8; }
+
+        /* —— 第一步：學習頁 · 報紙印刷（只作用於此頁） —— */
+        #view-learn.paper-view {
+            background: #f2efe6;
+            color: #1c1914;
+        }
+        #view-learn .paper-bar {
+            display: grid;
+            grid-template-columns: 1fr auto 1fr;
+            align-items: end;
+            gap: 16px 24px;
+            padding: 22px 40px 16px;
+            background: #f2efe6;
+            border-bottom: none;
+            box-shadow: inset 0 -1px #1c1914, inset 0 -4px #1c1914;
+        }
+        #view-learn .paper-bar h1 {
+            font-family: var(--font-serif);
+            font-size: 42px;
+            font-weight: 600;
+            letter-spacing: 18px;
+            line-height: 1.15;
+            text-align: center;
+        }
+        #view-learn .kicker {
+            margin: 0 0 6px;
+            text-align: center;
+            font-size: 11px;
+            letter-spacing: 6px;
+            color: #5c564a;
+            text-transform: none;
+        }
+        #view-learn .back {
+            font-size: 12px;
+            letter-spacing: 4px;
+            color: #5c564a;
+            padding: 0;
+        }
+        #view-learn .tabs {
+            justify-content: flex-end;
+            gap: 0;
+        }
+        #view-learn .tabs button {
+            font-family: var(--font-sans);
+            border: none;
+            border-bottom: 1px solid transparent;
+            padding: 4px 10px 6px;
+            font-size: 13px;
+            letter-spacing: 3px;
+            color: #5c564a;
+            border-radius: 0;
+        }
+        #view-learn .tabs button.active {
+            border-color: #1c1914;
+            color: #1c1914;
+        }
+        #view-learn .pane {
+            max-width: 1120px;
+            padding: 48px 40px 96px;
+        }
+        #view-learn #learn-wall {
+            max-width: 1040px;
+            margin: 0 auto;
+        }
+        #view-learn .wall-title {
+            margin: 12px 0 18px;
+            text-align: center;
+            font-family: var(--font-serif);
+            font-weight: 600;
+            font-size: clamp(28px, 4vw, 40px);
+            letter-spacing: 0.72em;
+            text-indent: 0.72em;
+            color: #c4a035;
+        }
+        #view-learn #learn-wall > .sub {
+            font-size: 13px;
+            letter-spacing: 3px;
+            color: #9a9386;
+            margin: 0 auto 28px;
+            max-width: 36em;
+            line-height: 1.85;
+        }
+        #view-learn .wall-search {
+            gap: 16px;
+            margin: 0 0 40px;
+        }
+        #view-learn .wall-search input.ink {
+            min-width: min(420px, 72vw);
+            background: transparent;
+            border: none;
+            border-bottom: 1px solid #1c1914;
+            border-radius: 0;
+            font-size: 22px;
+            letter-spacing: 8px;
+            padding: 8px 0 10px;
+        }
+        #view-learn .wall-search .btn {
+            border: none;
+            border-bottom: 1px solid #1c1914;
+            border-radius: 0;
+            color: #1c1914;
+            padding: 8px 0;
+            letter-spacing: 6px;
+        }
+        #view-learn .wall-search .btn:hover { background: transparent; }
+        #view-learn .flip-wall {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: 12px;
+            perspective: 1400px;
+            padding: 8px 0 40px;
+        }
+        #view-learn .brick {
+            position: relative;
+            aspect-ratio: 1;
+            min-height: 0;
+            cursor: pointer;
+            background: transparent;
+            border: none;
+            padding: 0;
+            color: inherit;
+            user-select: none;
+            perspective: 900px;
+        }
+        #view-learn .brick .inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            transform-style: preserve-3d;
+            transition: transform .7s cubic-bezier(.22, .7, .2, 1), box-shadow .7s ease;
+            box-shadow: 0 2px 7px rgba(60, 50, 38, 0.06);
+        }
+        #view-learn .brick.is-open .inner {
+            transform: rotateY(-180deg);
+            box-shadow: 0 8px 18px rgba(60, 50, 38, 0.1);
+        }
+        #view-learn .brick .face {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            backface-visibility: hidden;
+            -webkit-backface-visibility: hidden;
+            border-radius: 2px;
+        }
+        #view-learn .brick .front {
+            font-family: var(--font-serif);
+            font-weight: 600;
+            font-size: clamp(16px, 1.7vw, 22px);
+            line-height: 1;
+            letter-spacing: 0;
+            color: #4a4338;
+            background:
+                linear-gradient(160deg, #ebe6da 0%, #dfd8ca 48%, #d5cdbe 100%);
+            box-shadow:
+                inset 0 1px 0 rgba(255, 255, 255, 0.55),
+                inset 0 -1px 0 rgba(90, 80, 65, 0.08);
+            text-shadow:
+                0 1px 0 rgba(255, 255, 255, 0.35);
+        }
+        #view-learn .brick .back {
+            transform: rotateY(180deg);
+            background: #f4efe4;
+        }
+        #view-learn .brick .back img {
+            width: 70%;
+            height: 70%;
+            object-fit: contain;
+            pointer-events: none;
+            filter: sepia(0.9) saturate(2.6) hue-rotate(4deg) brightness(0.68);
+        }
+        #view-learn .brick .void {
+            color: #b2aa9c;
+            font-size: 11px;
+            letter-spacing: 2px;
+        }
+        #view-learn .brick.is-pinned .inner {
+            box-shadow: 0 10px 20px rgba(60, 50, 38, 0.12);
+        }
+        @media (max-width: 720px) {
+            #view-learn .flip-wall { grid-template-columns: repeat(6, 1fr); gap: 10px; }
+            #view-learn .wall-title { letter-spacing: 0.4em; text-indent: 0.4em; }
+        }
+        @media (prefers-reduced-motion: reduce) {
+            #view-learn .brick .inner { transition-duration: .01s; }
+        }
+        #view-learn .wall-miss {
+            letter-spacing: 6px;
+            margin: 0 0 28px;
+        }
+        #view-learn .jw-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(148px, 1fr));
+            gap: 0;
+            border-top: 1px solid #1c1914;
+            border-left: 1px solid #1c1914;
+        }
+        #view-learn .jw-card {
+            margin: 0;
+            padding: 22px 14px 18px;
+            background: #f2efe6;
+            border: none;
+            border-right: 1px solid #1c1914;
+            border-bottom: 1px solid #1c1914;
+            cursor: pointer;
+            text-align: center;
+            color: #1c1914;
+        }
+        #view-learn .jw-card:hover,
+        #view-learn .jw-card.on {
+            box-shadow: inset 0 0 0 2px #1c1914;
+        }
+        #view-learn .jw-card img {
+            width: 92px;
+            height: 92px;
+            display: block;
+            margin: 0 auto 12px;
+        }
+        #view-learn .jw-card strong {
+            display: block;
+            font-weight: normal;
+            font-size: 22px;
+            letter-spacing: 6px;
+        }
+        #view-learn .jw-card span {
+            display: block;
+            margin-top: 8px;
+            font-size: 12px;
+            letter-spacing: 1px;
+            color: #5c564a;
+            line-height: 1.5;
+        }
+        #view-learn .dict-page { text-align: left; }
+        #view-learn .dict-split {
+            display: grid;
+            grid-template-columns: minmax(240px, 34%) 1fr;
+            border: 1px solid #1c1914;
+            min-height: 640px;
+            background: #f2efe6;
+        }
+        #view-learn .dict-side {
+            border-right: 1px solid #1c1914;
+            padding: 22px 20px 28px;
+        }
+        #view-learn .dict-search {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            margin-bottom: 18px;
+        }
+        #view-learn .dict-search input.ink {
+            flex: 1;
+            min-width: 0;
+            background: transparent;
+            border: none;
+            border-bottom: 1px solid #1c1914;
+            border-radius: 0;
+            font-size: 16px;
+            letter-spacing: 3px;
+            padding: 6px 0 8px;
+        }
+        #view-learn .dict-search .btn {
+            border: none;
+            border-bottom: 1px solid #1c1914;
+            padding: 6px 0;
+            letter-spacing: 4px;
+        }
+        #view-learn .dict-label {
+            margin: 16px 0 8px;
+            font-size: 12px;
+            letter-spacing: 4px;
+            color: #5c564a;
+        }
+        #view-learn .dict-chips {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+        }
+        #view-learn .dict-chips button {
+            background: transparent;
+            border: 1px solid #1c1914;
+            color: #1c1914;
+            letter-spacing: 2px;
+            padding: 4px 10px;
+            cursor: pointer;
+            font-size: 13px;
+        }
+        #view-learn .dict-chips button.on {
+            background: #1c1914;
+            color: #f2efe6;
+        }
+        #view-learn .dict-lead {
+            margin: 16px 0 10px;
+            font-size: 12px;
+            letter-spacing: 1px;
+            color: #5c564a;
+            line-height: 1.6;
+        }
+        #view-learn .dict-list {
+            display: flex;
+            flex-direction: column;
+            border-top: 1px solid #1c1914;
+            max-height: 420px;
+            overflow: auto;
+        }
+        #view-learn .dict-list button {
+            display: grid;
+            grid-template-columns: 44px 1fr;
+            gap: 10px;
+            align-items: center;
+            width: 100%;
+            margin: 0;
+            padding: 8px 6px;
+            background: transparent;
+            border: none;
+            border-bottom: 1px solid #1c1914;
+            text-align: left;
+            cursor: pointer;
+            color: #1c1914;
+        }
+        #view-learn .dict-list button.on,
+        #view-learn .dict-list button:hover {
+            box-shadow: inset 3px 0 0 #1c1914;
+        }
+        #view-learn .dict-list img {
+            width: 40px;
+            height: 40px;
+            object-fit: contain;
+        }
+        #view-learn .dict-list b {
+            font-weight: normal;
+            letter-spacing: 4px;
+            font-size: 18px;
+        }
+        #view-learn .dict-list i {
+            display: block;
+            font-style: normal;
+            font-size: 11px;
+            letter-spacing: 1px;
+            color: #5c564a;
+        }
+        #view-learn .dict-card {
+            padding: 28px 32px 36px;
+        }
+        #view-learn .dict-hero {
+            display: grid;
+            grid-template-columns: 140px 1fr;
+            gap: 22px;
+            align-items: center;
+            margin-bottom: 28px;
+            padding-bottom: 22px;
+            border-bottom: 1px solid #1c1914;
+        }
+        #view-learn .dict-hero img {
+            width: 140px;
+            height: 140px;
+            object-fit: contain;
+            background: #fffdf8;
+            border: 1px solid #1c1914;
+        }
+        #view-learn .dict-hero h2 {
+            margin: 0 0 8px;
+            font-family: var(--font-serif);
+            font-weight: 700;
+            font-size: 40px;
+            letter-spacing: 12px;
+        }
+        #view-learn .dict-mod {
+            margin: 0 0 26px;
+        }
+        #view-learn .dict-mod h3 {
+            margin: 0 0 10px;
+            font-family: var(--font-sans);
+            font-weight: 500;
+            font-size: 13px;
+            letter-spacing: 5px;
+            color: #5c564a;
+        }
+        #view-learn .dict-mod p { margin: 0 0 10px; line-height: 1.85; }
+        #view-learn .dict-quote {
+            margin: 0 0 10px;
+            padding: 14px 16px;
+            border-left: 2px solid #1c1914;
+            letter-spacing: 2px;
+            line-height: 1.8;
+        }
+        #view-learn .dict-bridges {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-top: 8px;
+        }
+        #view-learn .dict-bridges .btn {
+            text-align: left;
+            letter-spacing: 2px;
+            line-height: 1.6;
+            white-space: normal;
+        }
+        @media (max-width: 860px) {
+            #view-learn .dict-split { grid-template-columns: 1fr; }
+            #view-learn .dict-side { border-right: none; border-bottom: 1px solid #1c1914; }
+            #view-learn .dict-hero { grid-template-columns: 96px 1fr; }
+        }
+        #view-learn .foot {
+            padding: 0 40px 40px;
+            letter-spacing: 2px;
+            color: #5c564a;
+        }
+        @media (max-width: 720px) {
+            .home-brand { font-size: 18px; top: max(12px, env(safe-area-inset-top)); }
+            #view-home.intro .home-brand { top: 34%; font-size: clamp(42px, 17vw, 72px); }
+            .home-doors {
+                flex-direction: column;
+                width: min(86vw, 320px);
+                gap: 10px;
+                bottom: max(18px, env(safe-area-inset-bottom));
+            }
+            .home-doors button {
+                min-width: 0;
+                width: 100%;
+                min-height: 52px;
+                padding: 12px 16px;
+            }
+            .home-doors button b { letter-spacing: 6px; }
+            #view-learn .paper-bar {
+                grid-template-columns: 1fr;
+                justify-items: center;
+                padding: 16px 16px 12px;
+            }
+            #view-learn .paper-bar h1 { font-size: 22px; letter-spacing: 6px; }
+            #view-learn .tabs { justify-content: center; flex-wrap: wrap; }
+            #view-learn .tabs button { min-height: 44px; }
+            #view-learn .pane { padding: 20px 14px 72px; }
+            #view-learn .flip-wall {
+                grid-template-columns: repeat(4, 1fr);
+                gap: 8px;
+                perspective: none;
+            }
+            #view-learn .brick { perspective: none; min-height: 64px; }
+            #view-learn .brick .inner {
+                transform-style: flat;
+                -webkit-transform-style: flat;
+                transition: none;
+                transform: none !important;
+            }
+            #view-learn .brick .face {
+                backface-visibility: visible;
+                -webkit-backface-visibility: visible;
+                transform: none !important;
+            }
+            #view-learn .brick .back { display: none; }
+            #view-learn .brick.is-open .front { display: none; }
+            #view-learn .brick.is-open .back { display: flex; }
+            #view-learn .brick .front { font-size: clamp(22px, 6.2vw, 30px); }
+            #view-learn .dict-hero { grid-template-columns: 72px 1fr; }
+            #view-play .paper-bar { flex-wrap: wrap; justify-content: center; }
+            button, .btn, .chip, .back { touch-action: manipulation; }
+        }
+        html.phone-lite #view-learn .flip-wall {
+            grid-template-columns: repeat(4, 1fr);
+            gap: 8px;
+            perspective: none;
+        }
+        html.phone-lite #view-learn .brick { perspective: none; min-height: 64px; }
+        html.phone-lite #view-learn .brick .inner {
+            transform-style: flat;
+            -webkit-transform-style: flat;
+            transition: none;
+            transform: none !important;
+        }
+        html.phone-lite #view-learn .brick .face {
+            backface-visibility: visible;
+            -webkit-backface-visibility: visible;
+            transform: none !important;
+        }
+        html.phone-lite #view-learn .brick .back { display: none; }
+        html.phone-lite #view-learn .brick.is-open .front { display: none; }
+        html.phone-lite #view-learn .brick.is-open .back { display: flex; }
+        html.phone-lite #view-learn .brick .front { font-size: clamp(22px, 6.2vw, 30px); }
+    </style>
+</head>
+<body class="intro-cold">
+    <section id="view-home" class="on intro">
+        <iframe id="galaxyFrame" title="金文星河" src="about:blank"></iframe>
+        <div class="lite-sky" aria-hidden="true"></div>
+        <button type="button" class="home-brand" id="homeBrand" aria-label="吉金智識" title="篆字：敬峰中山王篆（OFL）"><span class="seal-ch">吉</span><span class="seal-ch">金</span><span class="seal-ch">智</span><span class="seal-ch">识</span></button>
+        <div class="home-doors">
+            <button type="button" data-go="learn"><i>探索星河</i><b>學習</b></button>
+            <button type="button" data-go="play"><i>趣味工坊</i><b>遊玩</b></button>
+            <button type="button" data-go="work"><i>智能實驗室</i><b>銘見</b></button>
+        </div>
+        <button type="button" id="introSkip">跳過</button>
+    </section>
+
+    <section class="paper-view" id="view-learn">
+        <div class="paper-bar">
+            <button class="back" type="button" data-home>回星河</button>
+            <div class="mast-center">
+                <p class="kicker">探索星河</p>
+                <h1>學習</h1>
+            </div>
+            <div class="tabs">
+                <button class="active" data-tab="wall">漢字方格牆</button>
+                <button data-tab="listen">古音聽音室</button>
+                <button data-tab="lookup">吉金字典</button>
+            </div>
+        </div>
+        <div class="pane">
+            <div id="learn-wall" class="stage">
+                <h2 class="wall-title">金文百家姓</h2>
+                <p class="sub">宋本《百家姓》單姓四百零八字，自趙至公，不含複姓。</p>
+                <div class="wall-search">
+                    <input class="ink" id="nameInput" maxlength="4" placeholder="輸入姓氏，如 王">
+                    <button class="btn" id="nameBtn" type="button">尋姓</button>
+                </div>
+                <div class="wall-miss" id="wallMiss">此姓在金文中未見記載</div>
+                <div class="flip-wall" id="flipWall"></div>
+            </div>
+            <div id="learn-listen" class="stage" style="display:none">
+                <p class="sub">聽構擬上古音，從金文裡認出它。</p>
+                <div class="row" style="justify-content:center;margin:16px 0">
+                    <span>難度</span>
+                    <select class="ink" id="levelSel">
+                        <option value="1">入門 · 象形</option>
+                        <option value="2">中級 · 會意</option>
+                        <option value="3">高級 · 虛字</option>
+                    </select>
+                </div>
+                <div class="row" style="justify-content:center">
+                    <button class="btn" id="playIpa" type="button">播放上古音</button>
+                    <button class="btn" id="playModern" type="button">現代普通話</button>
+                </div>
+                <p class="sub" id="ipaHint">上古音由 IPA 合成，帶回響，僅供參考。</p>
+                <div class="choices" id="choices"></div>
+                <div class="sub" id="scoreline">得分 0 / 0</div>
+                <div class="row" style="justify-content:center;margin-top:12px">
+                    <button class="btn" id="btnSkip" type="button">跳過</button>
+                    <button class="btn" id="btnNext" type="button">下一題</button>
+                </div>
+                <div class="feedback" id="feedback"></div>
+            </div>
+            <div id="learn-lookup" class="dict-page" style="display:none">
+                <div class="dict-split">
+                    <aside class="dict-side">
+                        <div class="dict-search">
+                            <input class="ink" id="lookupQ" placeholder="漢字、拼音或部首，如 王 / wang / 馬部">
+                            <button class="btn" id="lookupBtn" type="button">檢索</button>
+                        </div>
+                        <div class="dict-label">高頻字</div>
+                        <div class="dict-chips" id="dictTags"></div>
+                        <div class="dict-label">器物類別</div>
+                        <div class="dict-chips" id="dictVessels"></div>
+                        <div class="dict-label">部首</div>
+                        <div class="dict-chips" id="dictRadicals"></div>
+                        <p class="dict-lead" id="lookupLead">點一字，右側展開基因解碼卡片。</p>
+                        <div class="dict-list" id="lookupCards"></div>
+                    </aside>
+                    <article class="dict-card" id="dictCard">
+                        <p class="sub">從左側檢索或點高頻字，查看出處、辭例與語境。</p>
+                    </article>
+                </div>
+            </div>
+        </div>
+        <div class="foot">音值參考鄭張尚芳《上古音系》(2003)。</div>
+    </section>
+
+    <section class="paper-view" id="view-play">
+        <div class="paper-bar">
+            <button class="back" type="button" data-home>← 回星河</button>
+            <button class="back" type="button" id="playBackLobby" style="display:none">← 回工坊</button>
+            <h1 id="playTitle">趣味工坊 · 遊玩</h1>
+            <div class="tabs" id="playTabs" style="display:none">
+                <button data-tab="match">連連看</button>
+                <button data-tab="trace">描紅</button>
+                <button data-tab="ritual">祭祀祝福</button>
+            </div>
+        </div>
+        <div class="pane">
+            <div id="play-lobby">
+                <p class="sub" style="text-align:center">三個輕量遊戲。點進去就玩，不記進度。</p>
+                <div class="game-grid">
+                    <button class="game-card" type="button" data-game="match">
+                        <div class="icon">🔗</div>
+                        <h2>金文連連看</h2>
+                        <p class="sub">左側金文，右側今字。連對有編鐘聲。</p>
+                    </button>
+                    <button class="game-card" type="button" data-game="trace">
+                        <div class="icon">✍️</div>
+                        <h2>青銅器描紅</h2>
+                        <p class="sub">跟著淡底描一筆，完成後翻出出處。</p>
+                    </button>
+                    <button class="game-card" type="button" data-game="ritual">
+                        <div class="icon">📜</div>
+                        <h2>祭祀祝福生成器</h2>
+                        <p class="sub">選器、選字，帶走一張銘文風明信片。</p>
+                    </button>
+                </div>
+            </div>
+            <div id="play-match" class="stage" style="display:none">
+                <p class="sub">左側金文字形，右側今字。先點一邊再點另一邊連線。</p>
+                <div class="sub" id="matchScore">配對 0 / 10</div>
+                <div class="link-arena" id="linkArena">
+                    <svg id="linkSvg"></svg>
+                    <div class="link-col" id="linkLeft"></div>
+                    <div class="link-col" id="linkRight"></div>
+                </div>
+                <div class="title-badge" id="matchTitle">青銅學徒</div>
+                <button class="btn" id="matchReset" type="button">再來一局</button>
+            </div>
+            <div id="play-trace" class="stage" style="display:none">
+                <p class="sub">選一個象形字，順淡底描筆。完成後底圖點亮，卡片翻轉揭曉。</p>
+                <div class="trace-pick" id="tracePick"></div>
+                <div class="trace-stage">
+                    <div class="trace-flip" id="traceFlip">
+                        <div class="card">
+                            <div class="trace-face front">
+                                <canvas id="traceCanvas" width="500" height="500"></canvas>
+                            </div>
+                            <div class="trace-face back" id="traceBack"></div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <button class="btn cinnabar" id="traceClear" type="button">重描</button>
+                        <button class="btn" id="traceDone" type="button">完成</button>
+                    </div>
+                </div>
+            </div>
+            <div id="play-ritual" class="stage" style="display:none">
+                <div class="steps" id="ritualSteps">
+                    <span class="on" data-step="1">1 選器</span>
+                    <span data-step="2">2 選字</span>
+                    <span data-step="3">3 預覽下載</span>
+                </div>
+                <div id="ritualStep1">
+                    <p class="sub">選一件器，作為祝福的底座。</p>
+                    <div class="ritual-vessels">
+                        <button type="button" data-vessel="鼎" class="active"><span class="vessel-ico">鼎</span>鼎</button>
+                        <button type="button" data-vessel="簋"><span class="vessel-ico">簋</span>簋</button>
+                        <button type="button" data-vessel="尊"><span class="vessel-ico">尊</span>尊</button>
+                    </div>
+                    <button class="btn" id="ritualNext1" type="button">下一步</button>
+                </div>
+                <div id="ritualStep2" style="display:none">
+                    <p class="sub">點兩到三個吉祥金文。</p>
+                    <div class="bless-chips" id="blessChips"></div>
+                    <div class="row" style="justify-content:center;margin-top:16px">
+                        <button class="btn" id="ritualBack2" type="button">上一步</button>
+                        <button class="btn" id="blessBtn" type="button">鑄辭</button>
+                    </div>
+                </div>
+                <div id="ritualStep3" style="display:none">
+                    <p class="sub">商周青銅銘文風明信片。僅供娛樂，非嚴謹拼湊。</p>
+                    <div class="bless-card" id="blessCard"></div>
+                    <div class="row" style="justify-content:center">
+                        <button class="btn" id="ritualBack3" type="button">上一步</button>
+                        <button class="btn solid" id="blessDl" type="button">一鍵下載圖片</button>
+                    </div>
+                </div>
+                <p class="sub" style="margin-top:24px">本祝福生成器僅供娛樂體驗，非嚴謹青銅器銘文拼湊。</p>
+            </div>
+        </div>
+        <div class="foot">金文祭祀祝福為現代互動，並非復原先秦祭儀。</div>
+    </section>
+
+    <section class="paper-view" id="view-work">
+        <div class="paper-bar">
+            <button class="back" type="button" data-home>← 回星河</button>
+            <div class="tabs">
+                <button class="active" data-tab="rec">識圖</button>
+                <button data-tab="search">金文字庫</button>
+            </div>
+            <div class="work-tools" id="workRecTools">
+                <span id="ocrBadge" class="ocr-badge">檢測後端…</span>
+                <button class="btn" id="ocrConfig" type="button">後端</button>
+                <label class="btn file-btn">上傳拓片<input type="file" id="ocrFile" accept="image/*"></label>
+                <button class="btn" id="ocrDemo" type="button">Demo</button>
+                <button class="btn" id="ocrExpand" type="button">全屏看拓</button>
+            </div>
+            <div class="work-tools" id="workLibTools">
+                <input class="ink" id="workQ" placeholder="王 / U+738B">
+                <button class="btn" id="workSearchBtn" type="button">檢索</button>
+                <button class="btn" id="workToDict" type="button">通俗解釋</button>
+                <a class="btn" id="workJinwenOpen" href="https://darkscope.cn/jinwen-data/" target="_blank" rel="noopener">詳庫</a>
+                <button class="btn" id="workLibExpand" type="button">全屏看拓</button>
+            </div>
+        </div>
+        <div id="work-rec" class="workbench">
+            <div class="wb-stage" id="ocrStage">
+                <p class="ocr-empty">上傳拓片或載入 Demo。整幅拓片在此查看，右側校對。</p>
+            </div>
+            <aside class="wb-right">
+                <p class="sub"><span class="gold-dot"></span> 初稿　<span class="gray-dot"></span> 標疑　查字進金文字庫</p>
+                <div id="ocrChips" class="ocr-chips"></div>
+                <div id="ocrList"><p class="sub">尚未識圖。</p></div>
+                <div class="row" style="margin-top:16px">
+                    <button class="btn" id="expDraft" type="button">導出初稿</button>
+                    <button class="btn" id="expDoubt" type="button">導出疑字表</button>
+                    <button class="btn" id="expJson" type="button">全部 JSON</button>
+                </div>
+            </aside>
+        </div>
+        <div id="work-search" class="pane">
+            <div class="lib-stage">
+                <div class="lib-hero" id="libHero">
+                    <div class="lib-src" id="libSrc"></div>
+                    <p class="ocr-empty" id="libEmpty">檢索一字，在此看真拓片。</p>
+                    <img id="libHeroImg" alt="" hidden>
+                    <p class="ocr-cap" id="libCap"></p>
+                    <button class="tiny lib-nav prev" id="libPrev" type="button" hidden>‹</button>
+                    <button class="tiny lib-nav next" id="libNext" type="button" hidden>›</button>
+                    <button class="tiny ocr-zoom" id="libZoom" type="button" hidden>放大</button>
+                </div>
+                <div class="lib-film" id="libFilm"></div>
+            </div>
+            <div id="workLibChips" class="ocr-chips work-lib-chips"></div>
+        </div>
+        <button class="btn lib-exit" id="workLibExit" type="button">退出全屏</button>
+    </section>
+
+    <div class="modal" id="charModal">
+        <div class="sheet" id="charSheet"></div>
+    </div>
+
+    <script src="./js/vendor/mespeak.js"></script>
+    <script>
+        const SURNAME_STORIES = {
+            '王': { location: '山西太原', story: '王姓源自周灵王太子晋，太子晋因谏被废，其子宗敬后人以王为姓' },
+            '周': { location: '陕西周原', story: '周姓源自西周王室，周原是周人发祥之地，毛公鼎、大盂鼎皆出于此' },
+            '殷': { location: '河南安阳', story: '殷姓源自商朝王族，商亦称殷，殷墟出土大量甲骨与青铜器' },
+            '吴': { location: '江苏无锡', story: '周太王之子太伯让位奔吴，建立句吴，为吴姓之始' },
+            '楚': { location: '湖北荆州', story: '楚国王族熊氏之后，以国为氏' },
+            '秦': { location: '甘肃天水', story: '秦国王族嬴姓赵氏之后，以国为姓' },
+            '宋': { location: '河南商丘', story: '商纣王庶兄微子启封于宋，其后以国为姓' },
+            '曹': { location: '山东定陶', story: '周武王封弟叔振铎于曹，其后以国为姓' },
+            '蔡': { location: '河南上蔡', story: '周武王封弟叔度于蔡，其后以国为姓' },
+            '虢': { location: '河南三门峡', story: '周文王之弟虢仲封于虢，虢季子白盘出土于此' },
+            '散': { location: '陕西宝鸡', story: '散国为西周小国，散氏盘记载其与夨国土地纠纷' },
+            '毛': { location: '陕西岐山', story: '周文王之子毛叔郑封于毛，毛公鼎为其后人所铸' },
+            '虞': { location: '山西平陆', story: '周太王之子仲雍之后，太伯奔吴，仲雍留居为虞' },
+            '曾': { location: '湖北随州', story: '曾国为西周姬姓封国，曾侯乙墓编钟震惊世界' },
+            '黄': { location: '河南潢川', story: '黄姓源自嬴姓黄国，黄国为春秋小国，后被楚所灭' },
+            '朱': { location: '河南商丘', story: '朱姓源自颛顼之后曹挟，周武王封于邾，后去邑为朱' },
+            '林': { location: '河南卫辉', story: '林姓源自比干之子坚，避难于长林山，遂以林为姓' },
+            '方': { location: '河南禹州', story: '方姓源自炎帝神农氏之后方雷氏，为古老姓氏' },
+            '金': { location: '山东金乡', story: '金姓多源，一说源自少昊金天氏，一说源自匈奴休屠王之子金日磾' },
+            '白': { location: '陕西韩城', story: '白姓源自嬴姓，秦国大将白乙丙之后，或楚平王孙白公胜之后' }
+        };
+        const TRACE_BANK = [
+            { char: '日', how: '外作圓輪，中一點或短橫，象太陽。', usage: '紀日、日名。金文常見於「某日」及族徽。' },
+            { char: '月', how: '缺圓如夕，象月牙。', usage: '月份、夜晚。與「夕」同源而分化。' },
+            { char: '山', how: '三峰並峙，中峰略高。', usage: '山嶽、地名。象形最穩的一類。' },
+            { char: '水', how: '中線為川，兩側點子象水紋。', usage: '河流、水域。偏旁「氵」由此出。' },
+            { char: '王', how: '三橫一豎，中橫或略短，象斧鉞之柄貫穿。', usage: '王者、賜命。毛公鼎、大盂鼎多見。' },
+            { char: '馬', how: '側視馬形：首、身、四足、鬃尾俱在。', usage: '馬匹、賞賜。金文馬字足部常誇張。' },
+            { char: '魚', how: '豎魚：首、身、鱗、尾。', usage: '魚、祭牲。器物銘常見。' },
+            { char: '鹿', how: '角枝分叉，身側視。', usage: '鹿、田獵。象形可辨。' },
+            { char: '木', how: '中幹上下枝根。', usage: '樹木。作偏旁極多。' },
+            { char: '人', how: '側身而立，臂前傾。', usage: '人、眾人。與「尸」有別。' },
+            { char: '口', how: '方框開口，象嘴。', usage: '口、器口。亦作意符。' },
+            { char: '目', how: '橫目，中瞳。', usage: '眼睛。金文目字多橫置。' }
+        ];
+        const MATCH_CHARS = ['日', '月', '山', '水', '王', '馬', '魚', '鹿', '木', '人'];
+        const BLESS_CHARS = ['福', '壽', '永', '安', '保'];
+        const DICT_TAGS = ['王', '馬', '福', '壽', '寶', '侯', '車'];
+        const DICT_VESSELS = ['鼎', '簋', '尊'];
+        const DICT_RADICALS = ['人', '水', '木', '日', '口', '金', '馬', '車', '示', '貝'];
+        const CHAR_RADICAL = {
+            '人':'人','休':'人','保':'人','侯':'人','伐':'人',
+            '水':'水','永':'水',
+            '木':'木',
+            '日':'日','明':'日',
+            '口':'口',
+            '金':'金',
+            '馬':'馬',
+            '車':'車',
+            '福':'示','示':'示','宗':'示','祝':'示',
+            '貝':'貝','寶':'貝',
+            '王':'王','玉':'王',
+            '壽':'士','宅':'宀','茲':'艸','中':'丨','國':'囗',
+            '山':'山','月':'月','目':'目','魚':'魚','鹿':'鹿',
+            '羊':'羊','牛':'牛','舟':'舟','門':'門',
+            '安':'宀','好':'女','武':'止','文':'文',
+            '其':'八','于':'二','乃':'丿','若':'艸','亦':'亠','之':'丿','自':'自','民':'氏'
+        };
+        const CHAR_DOSSIER = {
+            '王': {
+                fame: '西周早期·大盂鼎',
+                essay: '金文王字象斧鉞之柄貫穿三橫，是王權的象形。西周冊命金文裡，「王若曰」幾乎是王朝話語的開頭。',
+                classic: '王若曰：盂，丕顯文王',
+                vernacular: '王這樣說：盂啊，偉大顯赫的文王……',
+                cite: '大盂鼎'
+            },
+            '馬': {
+                fame: '西周早期·大盂鼎',
+                essay: '金文馬字側視：首、身、四足、鬃尾俱在，足部常被誇張。賞賜車馬是冊命禮中常見的榮寵。',
+                classic: '錫汝鬯一卣、冕衣、市舄、車馬',
+                vernacular: '賞賜你香酒一卣，以及冕服、蔽膝、鞋子和車馬。',
+                cite: '大盂鼎'
+            },
+            '車': {
+                fame: '西周早期·大盂鼎',
+                essay: '車是兩周金文裡的具體名物，也常與馬連言，標記賞賜規格。',
+                classic: '錫汝鬯一卣、冕衣、市舄、車馬',
+                vernacular: '賞賜你香酒一卣，以及冕服、蔽膝、鞋子和車馬。',
+                cite: '大盂鼎'
+            },
+            '寶': {
+                fame: '兩周彝銘習語',
+                essay: '寶字從宀從貝從玉，是把珍貴之物藏於室中的會意。鑄器者最常把它寫進結尾，把銅器交給後世。',
+                classic: '子子孫孫永寶用',
+                vernacular: '希望子子孫孫永遠珍藏、使用這件銅器。',
+                cite: '兩周彝銘習語'
+            },
+            '壽': {
+                fame: '兩周彝銘習語',
+                essay: '壽在金文裡多與祭祀祈願連用。「眉壽」不是現代口語的長壽套話，而是向神明求高年的禮辭。',
+                classic: '用祈眉壽，其萬年子子孫孫永寶用',
+                vernacular: '藉此祈求長壽，願萬年之後子子孫孫仍珍用此器。',
+                cite: '兩周彝銘習語'
+            },
+            '福': {
+                fame: '春秋早期·秦公鐘',
+                essay: '金文福字從示，是向神明求福的用字。春秋秦器把受祐寫進樂鐘，把祭祀、宴樂與福連在一起。',
+                classic: '以匽皇公，以受大福',
+                vernacular: '用以宴樂先公，並承受盛大的福佑。',
+                cite: '秦公鐘'
+            },
+            '侯': {
+                fame: '西周早期·宜侯夨簋',
+                essay: '侯是封建爵稱。宜侯夨簋記周王改封，是理解西周「侯」如何落地到土地與人群的關鍵器。',
+                classic: '王令虞侯夨曰：侯于宜',
+                vernacular: '王命令虞侯夨：在宜地為侯。',
+                cite: '宜侯夨簋'
+            },
+            '宅': {
+                fame: '西周早期·何尊',
+                essay: '宅是居住、營居。何尊記成王營成周，「宅兹中國」是目前所見「中國」一詞最早的青銅書寫之一。',
+                classic: '宅兹中國',
+                vernacular: '居住在這天下之中。',
+                cite: '何尊'
+            },
+            '茲': {
+                fame: '西周早期·何尊',
+                essay: '茲在金文裡多作指示，相當於「此」。何尊以「宅兹中國」把「此」釘在成周這座新都上。',
+                classic: '宅兹中國',
+                vernacular: '居住在這天下之中。',
+                cite: '何尊'
+            },
+            '中': {
+                fame: '西周早期·何尊',
+                essay: '中象旗杆立於正中。何尊的「中國」不是近代民族國家，而是王都所在的天下之中。',
+                classic: '宅兹中國',
+                vernacular: '居住在這天下之中。',
+                cite: '何尊'
+            },
+            '國': {
+                fame: '西周早期·何尊',
+                essay: '國字從戈從或，是有武力守護的邦域。何尊把「中國」寫進營都的紀念，後世讀法由此展開。',
+                classic: '宅兹中國',
+                vernacular: '居住在這天下之中。',
+                cite: '何尊'
+            }
+        };
+        const BLESS_PHRASE = {
+            '福壽': '福壽永昌', '福安': '永保福安', '福永': '福祿永綏', '福保': '永保厥福',
+            '壽永': '壽考永命', '壽安': '安壽無疆', '壽保': '保其眉壽',
+            '永安': '永安毋替', '永保': '永保用享', '安保': '安保其家'
+        };
+        const WALL_SEED = [...new Set([
+            ...Object.keys(SURNAME_STORIES),
+            ...TRACE_BANK.map(x => x.char),
+            '宅', '茲', '中', '國', '福', '壽', '永', '安', '保', '鼎'
+        ])];
+        // 宋本《百家姓》單姓 408 字（趙→公），不含複姓。牆面字頭一律繁體。
+        // 于／於、郁／鬱 分屬不同單姓，不做簡繁互代。
+        const BAIJIA = '趙錢孫李周吳鄭王馮陳褚衛蔣沈韓楊朱秦尤許何呂施張孔曹嚴華金魏陶姜戚謝鄒喻柏水竇章雲蘇潘葛奚范彭郎魯韋昌馬苗鳳花方俞任袁柳酆鮑史唐費廉岑薛雷賀倪湯滕殷羅畢郝鄔安常樂于時傅皮卞齊康伍余元卜顧孟平黃和穆蕭尹姚邵湛汪祁毛禹狄米貝明臧計伏成戴談宋茅龐熊紀舒屈項祝董梁杜阮藍閔席季麻強賈路婁危江童顏郭梅盛林刁鍾徐邱駱高夏蔡田樊胡凌霍虞萬支柯昝管盧莫經房裘繆干解應宗丁宣賁鄧郁單杭洪包諸左石崔吉鈕龔程嵇邢滑裴陸榮翁荀羊於惠甄麴家封芮羿儲靳汲邴糜松井段富巫烏焦巴弓牧隗山谷車侯宓蓬全郗班仰秋仲伊宮寧仇欒暴甘鈄厲戎祖武符劉景詹束龍葉幸司韶郜黎薊薄印宿白懷蒲邰從鄂索咸籍賴卓藺屠蒙池喬陰鬱胥能蒼雙聞莘黨翟譚貢勞逄姬申扶堵冉宰酈雍郤璩桑桂濮牛壽通邊扈燕冀郟浦尚農溫別莊晏柴瞿閻充慕連茹習宦艾魚容向古易慎戈廖庾終暨居衡步都耿滿弘匡國文寇廣祿闕東歐殳沃利蔚越夔隆師鞏厙聶晁勾敖融冷訾辛闞那簡饒空曾毋沙乜養鞠須豐巢關蒯相查後荊紅游竺權逯蓋益桓公';
+        const S2T = {
+            '赵':'趙','钱':'錢','孙':'孫','吴':'吳','郑':'鄭','冯':'馮','陈':'陳','卫':'衛','蒋':'蔣','韩':'韓','杨':'楊',
+            '许':'許','吕':'呂','张':'張','严':'嚴','华':'華','谢':'謝','邹':'鄒','窦':'竇','云':'雲','苏':'蘇',
+            '鲁':'魯','韦':'韋','马':'馬','凤':'鳳','郦':'酈','鲍':'鮑','费':'費','罗':'羅','邬':'鄔','乐':'樂','齐':'齊',
+            '顾':'顧','黄':'黃','萧':'蕭','时':'時','贝':'貝','计':'計','谈':'談','庞':'龐','纪':'紀','项':'項','蓝':'藍','闵':'閔','强':'強','贾':'賈','娄':'婁',
+            '颜':'顏','钟':'鍾','骆':'駱','万':'萬','卢':'盧','经':'經','缪':'繆','应':'應','贲':'賁','邓':'鄧','单':'單',
+            '龚':'龔','陆':'陸','荣':'榮','诸':'諸','储':'儲','乌':'烏','车':'車','宫':'宮','宁':'寧','栾':'欒','钭':'鈄','厉':'厲','刘':'劉','龙':'龍','叶':'葉','蓟':'薊',
+            '怀':'懷','从':'從','赖':'賴','蔺':'藺','乔':'喬','阴':'陰','苍':'蒼','双':'雙','闻':'聞','党':'黨','谭':'譚','贡':'貢','劳':'勞','边':'邊','郏':'郟',
+            '农':'農','温':'溫','别':'別','庄':'莊','阎':'閻','连':'連','习':'習','鱼':'魚','终':'終','满':'滿','国':'國','广':'廣','禄':'祿','阙':'闕',
+            '东':'東','欧':'歐','师':'師','巩':'鞏','厍':'厙','聂':'聶','阚':'闞','简':'簡','饶':'饒','养':'養','须':'須','丰':'豐','关':'關','后':'後','荆':'荊','红':'紅','权':'權','盖':'蓋',
+            '钮':'鈕','寿':'壽','兹':'茲','门':'門','与':'與','为':'為','义':'義','乡':'鄉','书':'書','乱':'亂','争':'爭','来':'來','鹿':'鹿'
+        };
+        const T2S = Object.fromEntries(Object.entries(S2T).map(([s, t]) => [t, s]));
+        function lemmaKeys(ch) {
+            const out = [];
+            const add = (x) => { if (x && !out.includes(x)) out.push(x); };
+            add(ch);
+            add(S2T[ch]);
+            add(T2S[ch]);
+            return out;
+        }
+        function resolveJinwen(idx, ch) {
+            for (const k of lemmaKeys(ch)) {
+                if (idx[k]) return k;
+            }
+            return '';
+        }
+        function baijiaLemma(ch, key) {
+            return [...BAIJIA].find(c => lemmaKeys(c).includes(ch) || (key && lemmaKeys(c).includes(key))) || '';
+        }
+
+        let LEXICON = [
+            { char: '王', ipa: 'ɢʷaŋ', pinyin: 'wáng', gloss: '王者、统治者', tone: '平声', level: 1 }
+        ];
+        let lexiconReady = fetch('./data/laoyin_seed.json')
+            .then(r => r.ok ? r.json() : Promise.reject())
+            .then(seed => {
+                if (seed && Array.isArray(seed.entries) && seed.entries.length) {
+                    LEXICON = seed.entries.filter(e => e.status !== 'ipa_pending');
+                }
+            })
+            .catch(() => {});
+        let SIMILARITY = null;
+        fetch('./data/similarity.json').then(r => r.ok ? r.json() : null).then(s => { SIMILARITY = s; }).catch(() => {});
+
+        let jinwenIndex = null;
+        async function getIndex() {
+            if (jinwenIndex) return jinwenIndex;
+            jinwenIndex = await (await fetch('./jinwen_svg/index.json')).json();
+            return jinwenIndex;
+        }
+        function svg(ch) { return './jinwen_svg/' + encodeURIComponent(ch) + '.svg'; }
+
+        let audioCtx = null;
+        function isPhoneLite() {
+            if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return true;
+            if (window.matchMedia && window.matchMedia('(max-width: 820px)').matches) return true;
+            const short = Math.min(screen.width || 0, screen.height || 0);
+            return (navigator.maxTouchPoints > 1 && short > 0 && short <= 920);
+        }
+        if (isPhoneLite()) document.documentElement.classList.add('phone-lite');
+        function ctx() {
+            if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            if (audioCtx.state === 'suspended') audioCtx.resume();
+            return audioCtx;
+        }
+        function unlockAudio() {
+            try {
+                const ac = ctx();
+                const buf = ac.createBuffer(1, 1, 22050);
+                const src = ac.createBufferSource();
+                src.buffer = buf;
+                src.connect(ac.destination);
+                src.start(0);
+            } catch (e) {}
+        }
+        function warmSpeech() {
+            if (!('speechSynthesis' in window)) return;
+            try {
+                const u = new SpeechSynthesisUtterance('\u200b');
+                u.volume = 0;
+                u.rate = 1;
+                speechSynthesis.speak(u);
+                speechSynthesis.cancel();
+            } catch (e) {}
+        }
+        function chime(ok) {
+            try {
+                const ac = ctx();
+                const freqs = ok ? [523, 784, 1046] : [180, 140];
+                freqs.forEach((f, i) => {
+                    const o = ac.createOscillator();
+                    const g = ac.createGain();
+                    o.type = ok ? 'triangle' : 'square';
+                    o.frequency.value = f;
+                    const t = ac.currentTime + i * 0.07;
+                    g.gain.setValueAtTime(0.08, t);
+                    g.gain.exponentialRampToValueAtTime(0.001, t + 0.35);
+                    o.connect(g); g.connect(ac.destination);
+                    o.start(t); o.stop(t + 0.4);
+                });
+            } catch (e) {}
+        }
+        function warmAudioOnce() {
+            unlockAudio();
+            warmSpeech();
+            ensureMeSpeak().catch(() => {});
+        }
+        document.body.addEventListener('touchstart', warmAudioOnce, { once: true, capture: true, passive: true });
+        document.body.addEventListener('click', warmAudioOnce, { once: true, capture: true });
+
+        let galaxyLoaded = false;
+        let introLanded = false;
+        let introTimer = 0;
+        function tellGalaxy(payload) {
+            const frame = document.getElementById('galaxyFrame');
+            try { frame.contentWindow.postMessage(payload, '*'); } catch (e) {}
+        }
+        function setColdOpen() {
+            introLanded = false;
+            document.body.classList.add('intro-cold');
+            document.getElementById('view-home').classList.add('intro');
+            document.getElementById('view-home').classList.remove('tunneling');
+            tellGalaxy({ type: 'intro-lock' });
+        }
+        function revealHome() {
+            introLanded = true;
+            clearTimeout(introTimer);
+            document.body.classList.remove('intro-cold');
+            const home = document.getElementById('view-home');
+            home.classList.remove('intro', 'tunneling');
+        }
+        function landHome() {
+            revealHome();
+            tellGalaxy({ type: 'intro-land' });
+        }
+        function startIntro() {
+            if (isPhoneLite() || (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches)) {
+                landHome();
+                return;
+            }
+            document.getElementById('view-home').classList.add('tunneling');
+            tellGalaxy({ type: 'intro-start' });
+            clearTimeout(introTimer);
+            introTimer = setTimeout(landHome, 18000);
+        }
+        document.getElementById('homeBrand').onclick = () => {
+            if (!document.getElementById('view-home').classList.contains('on')) return;
+            if (document.getElementById('view-home').classList.contains('tunneling')) return;
+            startIntro();
+        };
+        document.getElementById('introSkip').onclick = (e) => {
+            e.stopPropagation();
+            landHome();
+        };
+        function applySkin(neo) {
+            document.documentElement.classList.toggle('neo', neo);
+            try {
+                sessionStorage.setItem('neoBronze', neo ? '1' : '0');
+            } catch (e) {}
+            const frame = document.getElementById('galaxyFrame');
+            try { frame.contentWindow.postMessage({ type: 'skin', neo: neo }, '*'); } catch (e) {}
+        }
+        applySkin(sessionStorage.getItem('neoBronze') !== '0');
+        function parseHash() {
+            const raw = (location.hash || '#/').replace(/^#\/?/, '');
+            const [path, qs] = raw.split('?');
+            const p = new URLSearchParams(qs || '');
+            return { view: path || 'home', q: p.get('q') || p.get('char') || '', tab: p.get('tab') || '' };
+        }
+        function go(view, q, tab) {
+            const p = new URLSearchParams();
+            if (q) p.set('q', q);
+            if (tab) p.set('tab', tab);
+            const qs = p.toString();
+            const hash = '#/' + (view === 'home' ? '' : view) + (qs ? '?' + qs : '');
+            if (location.hash === hash || (view === 'home' && !location.hash && !qs)) applyRoute({ view, q, tab });
+            else location.hash = hash;
+        }
+        function showView(id) {
+            document.getElementById('view-home').classList.toggle('on', id === 'home');
+            ['learn', 'play', 'work'].forEach(v => {
+                document.getElementById('view-' + v).classList.toggle('on', v === id);
+            });
+            document.body.style.background = id === 'home' ? '#050810' : '#f4efe4';
+            document.body.style.overflow = id === 'home' ? 'hidden' : (id === 'work' ? 'hidden' : 'auto');
+        }
+        function setTab(view, tab) {
+            const root = document.getElementById('view-' + view);
+            if (!root || !tab) return;
+            root.querySelectorAll('.paper-bar .tabs button').forEach(b => {
+                b.classList.toggle('active', b.dataset.tab === tab);
+            });
+            if (view === 'learn') {
+                document.getElementById('learn-wall').style.display = tab === 'wall' ? '' : 'none';
+                document.getElementById('learn-listen').style.display = tab === 'listen' ? '' : 'none';
+                document.getElementById('learn-lookup').style.display = tab === 'lookup' ? '' : 'none';
+                if (tab === 'wall' && !parseHash().q && !document.getElementById('flipWall').childElementCount) buildWall();
+                if (tab === 'lookup' && !document.getElementById('lookupCards').childElementCount) runLookup(parseHash().q);
+            }
+            if (view === 'play') {
+                const lobby = tab === 'lobby';
+                document.getElementById('play-lobby').style.display = lobby ? '' : 'none';
+                document.getElementById('play-match').style.display = tab === 'match' ? '' : 'none';
+                document.getElementById('play-trace').style.display = tab === 'trace' ? '' : 'none';
+                document.getElementById('play-ritual').style.display = tab === 'ritual' ? '' : 'none';
+                document.getElementById('playTabs').style.display = lobby ? 'none' : '';
+                document.getElementById('playBackLobby').style.display = lobby ? 'none' : '';
+                document.getElementById('playTitle').textContent = lobby ? '趣味工坊 · 遊玩' : (
+                    tab === 'match' ? '金文連連看' : tab === 'trace' ? '青銅器描紅' : '祭祀祝福生成器'
+                );
+                if (tab === 'match') startMatch();
+                if (tab === 'trace') drawTraceBase();
+            }
+            if (view === 'work') {
+                const work = document.getElementById('view-work');
+                work.classList.toggle('is-search', tab === 'search');
+                work.classList.toggle('is-rec', tab === 'rec');
+                if (tab !== 'search') work.classList.remove('lib-focus');
+                if (tab === 'rec' && ocrBackendStatus === 'unknown') checkOCRHealth();
+                if (tab === 'search') runWorkSearch(parseHash().q);
+            }
+        }
+        function applyRoute({ view, q, tab }) {
+            if (!view || view === 'home' || view === 'landing' || view === 'ming') {
+                showView('home');
+                const frame = document.getElementById('galaxyFrame');
+                if (!galaxyLoaded) {
+                    galaxyLoaded = true;
+                    if (isPhoneLite()) {
+                        document.getElementById('view-home').classList.add('lite');
+                    } else {
+                        frame.src = 'index.html?embed=1' + (q ? '&char=' + encodeURIComponent(q) : '');
+                    }
+                    setColdOpen();
+                } else if (q) {
+                    try { frame.contentWindow.postMessage({ type: 'focus-char', char: q }, '*'); } catch (e) {}
+                    landHome();
+                } else {
+                    landHome();
+                }
+                return;
+            }
+            if (view === 'zhuan') { view = 'learn'; tab = tab || 'listen'; }
+            if (view === 'kao') { view = 'work'; tab = tab || 'search'; }
+            if (tab === 'name') tab = 'wall';
+            showView(view);
+            const defaults = { learn: 'wall', play: 'lobby', work: 'rec' };
+            const t = tab || defaults[view];
+            setTab(view, t);
+            if (view === 'learn' && t === 'listen' && q) focusQuizChar(q);
+            if (view === 'learn' && t === 'wall' && q) seekWall(q);
+            if (view === 'learn' && t === 'lookup' && q) runLookup(q, true);
+            if (view === 'play' && t === 'ritual' && q) seedBlessFromDict(q);
+            if (view === 'work' && (t === 'search' || (!tab && q)) && q) runWorkSearch(q);
+        }
+        window.addEventListener('hashchange', () => applyRoute(parseHash()));
+        let lastStar = '';
+        let enterTimer = 0;
+        const DOOR_TAB = { learn: 'wall', play: 'lobby', work: 'rec' };
+        function enterFromGalaxy(view) {
+            const frame = document.getElementById('galaxyFrame');
+            const tab = DOOR_TAB[view] || '';
+            if (isPhoneLite() || !galaxyLoaded || !frame.contentWindow || document.getElementById('view-home').classList.contains('lite')) {
+                go(view, lastStar, tab);
+                return;
+            }
+            clearTimeout(enterTimer);
+            enterTimer = setTimeout(() => {
+                enterTimer = 0;
+                go(view, lastStar, tab);
+            }, 3600);
+            try {
+                frame.contentWindow.postMessage({
+                    type: 'enter-section',
+                    view: view,
+                    tab: tab,
+                    char: lastStar
+                }, '*');
+            } catch (e) {
+                clearTimeout(enterTimer);
+                go(view, lastStar, tab);
+            }
+        }
+        function cutToSection(view, q, tab) {
+            const home = document.getElementById('view-home');
+            if (home.classList.contains('on') && !home.classList.contains('leaving')) {
+                home.classList.add('leaving');
+                setTimeout(() => {
+                    home.classList.remove('leaving');
+                    go(view, q, tab);
+                }, 280);
+                return;
+            }
+            go(view, q, tab);
+        }
+        document.querySelectorAll('[data-go]').forEach(b => b.onclick = () => enterFromGalaxy(b.dataset.go));
+        document.querySelectorAll('[data-home]').forEach(b => b.onclick = () => go('home'));
+        document.getElementById('playBackLobby').onclick = () => go('play', '', 'lobby');
+        document.querySelectorAll('.paper-bar .tabs button').forEach(b => {
+            b.onclick = () => {
+                const view = b.closest('.paper-view').id.replace('view-', '');
+                go(view, parseHash().q, b.dataset.tab);
+            };
+        });
+        document.querySelectorAll('[data-game]').forEach(b => {
+            b.onclick = () => go('play', '', b.dataset.game);
+        });
+        window.addEventListener('message', (e) => {
+            if (!e.data) return;
+            if (e.data.type === 'char-selected' && e.data.char) lastStar = e.data.char;
+            if (e.data.type === 'galaxy-ready') {
+                applySkin(document.documentElement.classList.contains('neo'));
+                if (introLanded) tellGalaxy({ type: 'intro-land' });
+                else tellGalaxy({ type: 'intro-lock' });
+            }
+            if (e.data.type === 'intro-done') revealHome();
+            if (e.data.type === 'navigate') {
+                clearTimeout(enterTimer);
+                enterTimer = 0;
+                cutToSection(e.data.view, e.data.char, e.data.tab);
+            }
+        });
+
+        function makeReverb(ac) {
+            const irLen = ac.sampleRate * 2.2;
+            const ir = ac.createBuffer(2, irLen, ac.sampleRate);
+            for (let ch = 0; ch < 2; ch++) {
+                const d = ir.getChannelData(ch);
+                for (let i = 0; i < irLen; i++) d[i] = (Math.random() * 2 - 1) * Math.pow(1 - i / irLen, 3.2);
+            }
+            const conv = ac.createConvolver(); conv.buffer = ir; return conv;
+        }
+        let mespeakReady = null, mespeakReadyDone = false;
+        function ensureMeSpeak() {
+            if (mespeakReady) return mespeakReady;
+            if (typeof meSpeak === 'undefined') return Promise.reject(new Error('meSpeak 未加载'));
+            mespeakReady = new Promise((resolve, reject) => {
+                try { meSpeak.loadConfig('./js/vendor/mespeak_config.json'); } catch (e) { return reject(e); }
+                const t = setInterval(() => {
+                    if (meSpeak.isConfigLoaded && meSpeak.isConfigLoaded()) {
+                        clearInterval(t);
+                        meSpeak.loadVoice('./js/vendor/voice-en.json', (ok, msg) => {
+                            if (ok) { mespeakReadyDone = true; resolve(); }
+                            else reject(new Error(msg));
+                        });
+                    }
+                }, 100);
+                setTimeout(() => { clearInterval(t); if (!mespeakReadyDone) reject(new Error('timeout')); }, 8000);
+            });
+            return mespeakReady;
+        }
+        async function playWav(ab) {
+            const ac = ctx();
+            const buf = await ac.decodeAudioData(ab.slice(0));
+            const src = ac.createBufferSource(); src.buffer = buf;
+            const master = ac.createGain(); master.gain.value = 1;
+            src.connect(master); master.connect(ac.destination);
+            try {
+                const lp = ac.createBiquadFilter(); lp.type = 'lowpass'; lp.frequency.value = 3000;
+                const rev = makeReverb(ac); const wet = ac.createGain(); wet.gain.value = 0.4;
+                master.connect(lp); lp.connect(rev); rev.connect(wet); wet.connect(ac.destination);
+            } catch (e) {}
+            src.start();
+        }
+        function ipaToKirshenbaum(s) {
+            const map = { 'ɢ':'g','ɡ':'g','ʔ':'?','ŋ':'N','ɑ':'A','ə':'@','ɔ':'O','ɯ':'u-','ɨ':'i-','ʰ':'h','ʷ':'w','ʲ':'j','ː':':' };
+            return [...s].map(ch => map[ch] || ch).join('');
+        }
+        async function playIPA(ipa, ch) {
+            const hint = document.getElementById('ipaHint');
+            const btn = document.getElementById('playIpa');
+            unlockAudio();
+            btn.disabled = true;
+            try {
+                if (!mespeakReadyDone) {
+                    playModern(ch);
+                    hint.textContent = '先讀普通話。擬音引擎就緒後再點可聽上古構擬。';
+                    await ensureMeSpeak();
+                    hint.textContent = '上古音引擎已就緒，再點「播放上古音」可聽構擬。';
+                    return;
+                }
+                hint.textContent = '上古音由 IPA 合成，帶回響，僅供參考。';
+                const wav = meSpeak.speak('[[' + ipaToKirshenbaum(ipa) + ']]', {
+                    amplitude: 100, pitch: 40, speed: 110, variant: 'm3', rawdata: 'ArrayBuffer'
+                });
+                if (wav && wav.byteLength > 44) await playWav(wav);
+                else playModern(ch);
+            } catch (e) {
+                hint.textContent = '語音引擎失敗，已改讀普通話。';
+                playModern(ch);
+            } finally { btn.disabled = false; }
+        }
+        function playModern(ch) {
+            if (!ch || !('speechSynthesis' in window)) return;
+            const u = new SpeechSynthesisUtterance(ch);
+            u.lang = 'zh-CN'; u.rate = 0.85;
+            speechSynthesis.cancel(); speechSynthesis.speak(u);
+        }
+
+        let asked = 0, correctN = 0, currentQ = null, answered = false;
+        function pickQuiz(level, prefer) {
+            const pool = LEXICON.filter(x => x.level === level);
+            const fallback = pool.length ? pool : LEXICON;
+            let answer = prefer && fallback.find(x => x.char === prefer);
+            if (!answer) answer = fallback[Math.floor(Math.random() * fallback.length)];
+            const others = LEXICON.filter(x => x.char !== answer.char && x.level === level);
+            const extra = others.length < 3 ? LEXICON.filter(x => x.char !== answer.char && !others.includes(x)) : [];
+            const opts = [answer];
+            const bag = others.concat(extra);
+            while (opts.length < 4 && bag.length) opts.push(bag.splice(Math.floor(Math.random() * bag.length), 1)[0]);
+            for (let i = opts.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [opts[i], opts[j]] = [opts[j], opts[i]];
+            }
+            return { answer, opts };
+        }
+        function renderQuiz(q) {
+            currentQ = q; answered = false;
+            const fb = document.getElementById('feedback');
+            fb.classList.remove('show', 'win');
+            document.getElementById('choices').innerHTML = q.opts.map(o =>
+                `<button class="choice" data-char="${o.char}" type="button"><img src="${svg(o.char)}" alt=""></button>`
+            ).join('');
+            document.getElementById('choices').querySelectorAll('.choice').forEach(btn => {
+                btn.onclick = () => grade(btn.dataset.char);
+            });
+            document.getElementById('scoreline').textContent = `得分 ${correctN} / ${asked}`;
+        }
+        async function grade(ch) {
+            if (answered || !currentQ) return;
+            answered = true; asked += 1;
+            const ok = ch === currentQ.answer.char;
+            if (ok) { correctN += 1; chime(true); }
+            else chime(false);
+            document.querySelectorAll('#choices .choice').forEach(btn => {
+                btn.classList.add('locked');
+                if (btn.dataset.char === currentQ.answer.char) btn.classList.add('right');
+                else if (btn.dataset.char === ch && !ok) btn.classList.add('wrong');
+            });
+            const info = (jinwenIndex && jinwenIndex[currentQ.answer.char]) || {};
+            const fb = document.getElementById('feedback');
+            fb.innerHTML = `
+                <h3>${ok ? '✦ 解鎖' : '正確答案'}　${currentQ.answer.char}　*${currentQ.answer.ipa}　${currentQ.answer.tone}</h3>
+                <div>普通話　${currentQ.answer.pinyin}　·　${currentQ.answer.gloss}</div>
+                <div>出土器物　${info.src || '著錄待補'}　·　${info.period || '未標註'}</div>
+                <div class="sub">引用　鄭張尚芳《上古音系》，2003。構擬僅供參考。</div>
+                <div class="row" style="margin-top:12px">
+                    <button class="btn" type="button" id="fbHome">回星河看此字</button>
+                    <button class="btn" type="button" id="fbWork">在銘見中查此字</button>
+                </div>`;
+            fb.classList.add('show');
+            if (ok) fb.classList.add('win');
+            document.getElementById('fbHome').onclick = () => go('home', currentQ.answer.char);
+            document.getElementById('fbWork').onclick = () => go('work', currentQ.answer.char, 'search');
+            document.getElementById('scoreline').textContent = `得分 ${correctN} / ${asked}`;
+        }
+        function nextQuiz(prefer) {
+            renderQuiz(pickQuiz(Number(document.getElementById('levelSel').value), prefer));
+        }
+        function focusQuizChar(ch) {
+            const item = LEXICON.find(x => x.char === ch);
+            if (item) document.getElementById('levelSel').value = String(item.level);
+            nextQuiz(item ? ch : '');
+        }
+        document.getElementById('playIpa').onclick = () => {
+            unlockAudio();
+            warmSpeech();
+            if (!currentQ) nextQuiz();
+            if (currentQ) playIPA(currentQ.answer.ipa, currentQ.answer.char);
+        };
+        document.getElementById('playModern').onclick = () => {
+            unlockAudio();
+            warmSpeech();
+            if (!currentQ) nextQuiz();
+            if (currentQ) playModern(currentQ.answer.char);
+        };
+        document.getElementById('btnNext').onclick = () => nextQuiz();
+        document.getElementById('btnSkip').onclick = () => nextQuiz();
+        document.getElementById('levelSel').onchange = () => nextQuiz();
+
+        function periodOf(p) {
+            p = p || '';
+            if (/西周/.test(p)) return '西周';
+            if (/春秋/.test(p)) return '春秋';
+            if (/戰國|战国/.test(p)) return '戰國';
+            if (/商/.test(p)) return '商';
+            return '未標註';
+        }
+        function similarChars(idx, ch, n) {
+            const out = [];
+            if (SIMILARITY && SIMILARITY[ch]) {
+                for (const item of SIMILARITY[ch]) {
+                    if (out.length >= n) break;
+                    if (item.char !== ch && idx[item.char]) out.push(item.char);
+                }
+            }
+            const era = periodOf(idx[ch] && idx[ch].period);
+            const rest = Object.keys(idx).filter(k => k !== ch && !out.includes(k) && periodOf(idx[k].period) === era);
+            while (out.length < n && rest.length) out.push(rest.splice(Math.floor(Math.random() * rest.length), 1)[0]);
+            return out.slice(0, n);
+        }
+        function detailHtml(idx, ch) {
+            const info = idx[ch];
+            if (!info) return `<p>「${ch}」不在 1690 字表中。金文字頭多為繁體，可改用繁體再查。</p>`;
+            const lex = LEXICON.find(x => x.char === ch) || LEXICON.find(x => lemmaKeys(ch).includes(x.char));
+            const story = lemmaKeys(ch).map(k => SURNAME_STORIES[k]).find(Boolean);
+            return `
+                <img class="hero-glyph" src="${svg(ch)}" alt="${ch}">
+                <h2 style="font-weight:normal;letter-spacing:6px">${ch}</h2>
+                <div>碼位 ${info.cp}</div>
+                <div>朝代 ${info.period || '未標註'}　·　器物 ${info.src || '—'}</div>
+                <div>${lex ? '構擬 *' + lex.ipa + '　' + lex.pinyin + '　' + lex.gloss : '此字暫缺上古音條目，不硬編。'}</div>
+                ${story ? `<p class="sub">籍貫 · ${story.location}</p><p>${story.story}</p>` : ''}`;
+        }
+        function openModal(ch) {
+            getIndex().then(idx => {
+                const sheet = document.getElementById('charSheet');
+                sheet.innerHTML = detailHtml(idx, ch) +
+                    `<div class="row" style="justify-content:center;margin-top:12px">
+                        <button class="btn" type="button" id="mdHome">回星河看這個字</button>
+                        <button class="btn" type="button" id="mdClose">關閉</button>
+                    </div>`;
+                document.getElementById('mdHome').onclick = () => { closeModal(); go('home', ch); };
+                document.getElementById('mdClose').onclick = closeModal;
+                document.getElementById('charModal').classList.add('on');
+            });
+        }
+        function closeModal() { document.getElementById('charModal').classList.remove('on'); }
+        document.getElementById('charModal').onclick = e => { if (e.target.id === 'charModal') closeModal(); };
+
+        function wallRoot() { return document.getElementById('flipWall'); }
+        function highlightWall(lemma) {
+            const root = wallRoot();
+            if (!root) return;
+            root.querySelectorAll('.brick').forEach(c => {
+                c.classList.toggle('is-pinned', !!lemma && c.dataset.lemma === lemma);
+                c.classList.toggle('is-open', !!lemma && c.dataset.lemma === lemma);
+            });
+        }
+        function setBrickOpen(el, open, pin) {
+            if (!el) return;
+            if (pin !== undefined) el.classList.toggle('is-pinned', pin);
+            el.classList.toggle('is-open', open);
+        }
+        async function buildWall() {
+            const idx = await getIndex();
+            const root = wallRoot();
+            if (!root) return;
+            root.innerHTML = [...BAIJIA].map((lemma, i) => {
+                const key = resolveJinwen(idx, lemma);
+                const back = key
+                    ? `<img src="${svg(key)}" alt="" loading="lazy">`
+                    : `<span class="void">未見</span>`;
+                return `<div class="brick${key ? '' : ' empty'}" role="button" tabindex="0" data-i="${i}" data-lemma="${lemma}" data-key="${key}">
+                    <div class="inner"><div class="face front">${lemma}</div><div class="face back">${back}</div></div>
+                </div>`;
+            }).join('');
+        }
+        async function seekWall(raw) {
+            const ch = (raw || document.getElementById('nameInput').value || '').trim().replace(/姓$/, '');
+            document.getElementById('nameInput').value = ch;
+            const miss = document.getElementById('wallMiss');
+            miss.classList.remove('show');
+            if (!ch) return;
+            const idx = await getIndex();
+            if (!wallRoot().childElementCount) await buildWall();
+            const key = resolveJinwen(idx, ch);
+            const lemma = baijiaLemma(ch, key);
+            if (!lemma) return;
+            const el = wallRoot().querySelector('.brick[data-lemma="' + lemma + '"]');
+            if (el) el.scrollIntoView({ block: 'center', behavior: 'smooth' });
+            setBrickOpen(el, true, true);
+            if (!key) {
+                miss.classList.add('show');
+                miss.textContent = '「' + lemma + '」金文中未見記載';
+                chime(false);
+            } else {
+                chime(true);
+            }
+        }
+        document.getElementById('nameBtn').onclick = () => seekWall();
+        document.getElementById('nameInput').addEventListener('keydown', e => { if (e.key === 'Enter') seekWall(); });
+        (function bindBrickWall() {
+            const root = wallRoot();
+            if (!root) return;
+            if (window.matchMedia && window.matchMedia('(hover: hover)').matches) {
+            root.addEventListener('mouseover', (e) => {
+                const el = e.target.closest('.brick');
+                if (!el || el.contains(e.relatedTarget)) return;
+                el.classList.add('is-open');
+            });
+            root.addEventListener('mouseout', (e) => {
+                const el = e.target.closest('.brick');
+                if (!el || el.contains(e.relatedTarget)) return;
+                if (!el.classList.contains('is-pinned')) el.classList.remove('is-open');
+            });
+            }
+            root.addEventListener('click', (e) => {
+                const el = e.target.closest('.brick');
+                if (!el) return;
+                const pin = !el.classList.contains('is-pinned');
+                setBrickOpen(el, pin, pin);
+            });
+            root.addEventListener('keydown', (e) => {
+                const el = e.target.closest('.brick');
+                if (!el) return;
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    const pin = !el.classList.contains('is-pinned');
+                    setBrickOpen(el, pin, pin);
+                }
+            });
+        })();
+
+        function renderCharDetail(el, idx, ch, extraBtns) {
+            if (!idx[ch]) { el.innerHTML = `<p>「${ch}」不在 1690 字表中。</p>`; return; }
+            const sims = similarChars(idx, ch, 8);
+            el.innerHTML = detailHtml(idx, ch) +
+                `<div class="glyph-board" id="simBoardInner"></div>
+                 <div class="row" style="margin-top:16px">${extraBtns || ''}</div>`;
+            const board = el.querySelector('#simBoardInner');
+            board.innerHTML = sims.map(s => `<div class="glyph-card" data-char="${s}"><img src="${svg(s)}" alt="${s}"><b>${s}</b></div>`).join('');
+            board.querySelectorAll('.glyph-card').forEach(c => {
+                c.onclick = () => (el.id === 'workDetail' ? runWorkSearch : runLookup)(c.dataset.char);
+            });
+        }
+        async function fillBoard(boardId, detailId, ch, runner) {
+            const q = (ch || '').trim();
+            const idx = await getIndex();
+            const hit = q ? resolveJinwen(idx, q) : '';
+            const near = similarChars(idx, hit || q || '王', 12);
+            const keys = hit ? [hit, ...near.filter(c => c !== hit)] : near;
+            const board = document.getElementById(boardId);
+            board.innerHTML = keys.map(s => `<div class="glyph-card" data-char="${s}"><img src="${svg(s)}" alt="${s}"><b>${s}</b></div>`).join('');
+            board.querySelectorAll('.glyph-card').forEach(c => { c.onclick = () => runner(c.dataset.char); });
+            if (q) {
+                const extra = detailId === 'workDetail'
+                    ? `<button class="btn" type="button" id="toGal">回星河</button><button class="btn" type="button" id="toListen">聽上古音</button>`
+                    : `<button class="btn" type="button" id="toGal">回星河看這個字</button>`;
+                renderCharDetail(document.getElementById(detailId), idx, hit || q, extra);
+                const g = document.getElementById('toGal'); if (g) g.onclick = () => go('home', hit || q);
+                const l = document.getElementById('toListen'); if (l) l.onclick = () => go('learn', hit || q, 'listen');
+            }
+        }
+        let lookupTimer = 0;
+        let dictVessel = '';
+        let dictRadical = '';
+        function foldPy(s) {
+            return String(s || '').toLowerCase().replace(/[āáǎà]/g, 'a').replace(/[ēéěè]/g, 'e')
+                .replace(/[īíǐì]/g, 'i').replace(/[ōóǒò]/g, 'o').replace(/[ūúǔù]/g, 'u')
+                .replace(/[üǖǘǚǜ]/g, 'v').replace(/[^a-z]/g, '');
+        }
+        function vesselKind(src) {
+            src = src || '';
+            if (/鼎/.test(src)) return '鼎';
+            if (/簋|𣪕/.test(src)) return '簋';
+            if (/尊/.test(src)) return '尊';
+            return '';
+        }
+        function radicalOf(ch) {
+            return CHAR_RADICAL[ch] || '';
+        }
+        function searchDict(idx, q) {
+            q = (q || '').trim();
+            let keys = Object.keys(idx);
+            if (dictVessel) keys = keys.filter(k => vesselKind(idx[k].src) === dictVessel);
+            if (dictRadical) keys = keys.filter(k => radicalOf(k) === dictRadical);
+            const inKeys = (ch) => keys.includes(ch);
+            if (!q) {
+                const featured = DICT_TAGS.map(c => resolveJinwen(idx, c)).filter(inKeys);
+                const rest = keys.filter(k => !featured.includes(k))
+                    .sort((a, b) => (idx[b].variants || 0) - (idx[a].variants || 0));
+                return [...new Set([...featured, ...rest])].slice(0, 36);
+            }
+            if (/部$/.test(q)) {
+                const rad = q.replace(/部$/, '');
+                return keys.filter(k => radicalOf(k) === rad || k === rad).slice(0, 36);
+            }
+            const hit = resolveJinwen(idx, q);
+            if (hit && inKeys(hit)) {
+                const rest = similarChars(idx, hit, 11).filter(c => c !== hit && inKeys(c));
+                return [hit, ...rest];
+            }
+            const py = foldPy(q);
+            if (py && /^[a-z]+$/.test(py)) {
+                const pyHits = LEXICON
+                    .filter(e => foldPy(e.pinyin) === py || foldPy(e.pinyin).startsWith(py))
+                    .map(e => resolveJinwen(idx, e.char))
+                    .filter(inKeys);
+                if (pyHits.length) return [...new Set(pyHits)];
+            }
+            if (DICT_RADICALS.includes(q) || DICT_RADICALS.includes(S2T[q] || '')) {
+                const rad = S2T[q] || q;
+                return keys.filter(k => radicalOf(k) === rad || k === rad).slice(0, 36);
+            }
+            return keys.filter(k => k.includes(q) || (idx[k].src || '').includes(q)).slice(0, 36);
+        }
+        function renderDictCard(idx, ch) {
+            const el = document.getElementById('dictCard');
+            if (!ch || !idx[ch]) {
+                el.innerHTML = `<p class="sub">${ch ? '「' + ch + '」金文中未見記載。可改用繁體字頭，或點高頻字。' : '從左側檢索或點高頻字，查看出處、辭例與語境。'}</p>`;
+                return;
+            }
+            const info = idx[ch];
+            const lex = LEXICON.find(x => x.char === ch) || LEXICON.find(x => lemmaKeys(ch).includes(x.char));
+            const trace = TRACE_BANK.find(x => x.char === ch);
+            const story = lemmaKeys(ch).map(k => SURNAME_STORIES[k]).find(Boolean);
+            const dossier = lemmaKeys(ch).map(k => CHAR_DOSSIER[k]).find(Boolean);
+            const essay = (dossier && dossier.essay) || (trace && (trace.how + ' ' + trace.usage)) || (story && story.story) || (lex && lex.gloss) || '此字暫缺造字說解，不硬編。';
+            const fame = (dossier && dossier.fame) || ((info.period || '') + (info.src ? '·' + info.src : '')) || '出處未標註';
+            const local = [info.period, info.src].filter(Boolean).join('·');
+            const classic = dossier && dossier.classic;
+            const vernacular = dossier && dossier.vernacular;
+            const cite = dossier && dossier.cite;
+            el.innerHTML = `
+                <div class="dict-hero">
+                    <img src="${svg(ch)}" alt="${ch}">
+                    <div>
+                        <h2>${ch}</h2>
+                        <p class="sub">${lex ? lex.pinyin + '　*' + lex.ipa + '　' + lex.gloss : '此字暫缺上古音條目，不硬編。'}</p>
+                    </div>
+                </div>
+                <section class="dict-mod">
+                    <h3>名物出處與字形</h3>
+                    <p>代表性器物　${fame}</p>
+                    ${local && fame.indexOf(info.src || '___') < 0 ? `<p class="sub">本庫單字字形另見　${local}</p>` : (local ? `<p class="sub">本庫字形　${local}</p>` : '')}
+                    <p>${essay}</p>
+                    <p class="sub">所示為本庫金文單字，非整器原拓。</p>
+                </section>
+                <section class="dict-mod">
+                    <h3>銘文辭例與語境</h3>
+                    ${classic ? `<div class="dict-quote">${classic}</div>
+                        <p>${vernacular}</p>
+                        <p class="sub">辭例　${cite}</p>` : `<p>本庫尚未著錄含「${ch}」的完整辭例，不硬編整句銘文。</p>`}
+                </section>
+                <section class="dict-mod">
+                    <h3>跨界傳送門</h3>
+                    <div class="dict-bridges">
+                        <button class="btn" type="button" id="dictToWork">在金文字庫中查看（darkscope）</button>
+                        <button class="btn" type="button" id="dictToBless">將此字加入我的祭祀祝福卡</button>
+                    </div>
+                </section>`;
+            document.getElementById('dictToWork').onclick = () => go('work', ch, 'search');
+            document.getElementById('dictToBless').onclick = () => go('play', ch, 'ritual');
+        }
+        function renderLookupCards(chars, idx, hit) {
+            const box = document.getElementById('lookupCards');
+            const lead = document.getElementById('lookupLead');
+            if (hit && !idx[hit]) {
+                lead.textContent = '「' + hit + '」金文中未見記載。下列為可讀金文。';
+            } else if (hit && idx[hit]) {
+                lead.textContent = '檢得「' + hit + '」。點字展開右側卡片。';
+            } else if (dictVessel || dictRadical) {
+                lead.textContent = (dictVessel ? dictVessel + '類' : '') + (dictRadical ? dictRadical + '部' : '') + '　' + chars.length + ' 字';
+            } else {
+                lead.textContent = '高頻字與變體較多的金文。點一字展開卡片。';
+            }
+            box.innerHTML = chars.map(ch => {
+                const info = idx[ch] || {};
+                return `<button type="button" class="${ch === hit ? 'on' : ''}" data-char="${ch}">
+                    <img src="${svg(ch)}" alt="${ch}">
+                    <span><b>${ch}</b><i>${info.period || '未標註'}　${info.src || ''}</i></span>
+                </button>`;
+            }).join('') || '<p class="sub">此篩選下暫無字頭。</p>';
+            box.querySelectorAll('button[data-char]').forEach(card => {
+                card.onclick = () => {
+                    const ch = card.dataset.char;
+                    document.getElementById('lookupQ').value = ch;
+                    box.querySelectorAll('button').forEach(x => x.classList.toggle('on', x === card));
+                    renderDictCard(idx, ch);
+                };
+            });
+        }
+        function bindDictChips() {
+            const tags = document.getElementById('dictTags');
+            const vessels = document.getElementById('dictVessels');
+            const rads = document.getElementById('dictRadicals');
+            if (!tags.childElementCount) {
+                tags.innerHTML = DICT_TAGS.map(ch => `<button type="button" data-tag="${ch}">${ch}</button>`).join('');
+                vessels.innerHTML = DICT_VESSELS.map(v => `<button type="button" data-vessel-filter="${v}">${v}類</button>`).join('');
+                rads.innerHTML = DICT_RADICALS.map(r => `<button type="button" data-rad="${r}">${r}部</button>`).join('');
+                tags.onclick = (e) => {
+                    const b = e.target.closest('[data-tag]');
+                    if (!b) return;
+                    dictVessel = '';
+                    dictRadical = '';
+                    vessels.querySelectorAll('button').forEach(x => x.classList.remove('on'));
+                    rads.querySelectorAll('button').forEach(x => x.classList.remove('on'));
+                    tags.querySelectorAll('button').forEach(x => x.classList.toggle('on', x === b));
+                    runLookup(b.dataset.tag, true);
+                };
+                vessels.onclick = (e) => {
+                    const b = e.target.closest('[data-vessel-filter]');
+                    if (!b) return;
+                    dictVessel = dictVessel === b.dataset.vesselFilter ? '' : b.dataset.vesselFilter;
+                    vessels.querySelectorAll('button').forEach(x => x.classList.toggle('on', x.dataset.vesselFilter === dictVessel));
+                    runLookup(document.getElementById('lookupQ').value, false);
+                };
+                rads.onclick = (e) => {
+                    const b = e.target.closest('[data-rad]');
+                    if (!b) return;
+                    dictRadical = dictRadical === b.dataset.rad ? '' : b.dataset.rad;
+                    rads.querySelectorAll('button').forEach(x => x.classList.toggle('on', x.dataset.rad === dictRadical));
+                    runLookup(document.getElementById('lookupQ').value, false);
+                };
+            }
+        }
+        async function runLookup(ch, open) {
+            bindDictChips();
+            const q = (ch || document.getElementById('lookupQ').value || '').trim();
+            document.getElementById('lookupQ').value = q;
+            const idx = await getIndex();
+            const hit = q ? resolveJinwen(idx, q) : '';
+            const list = searchDict(idx, q);
+            renderLookupCards(list, idx, hit);
+            if (open && hit) renderDictCard(idx, hit);
+            else if (!q && !hit) renderDictCard(idx, '');
+        }
+        const JINWEN_DATA_BASE = (new URLSearchParams(location.search).get('jinwen') || 'https://darkscope.cn/jinwen-data/').replace(/\/?$/, '/');
+        function cpToken(ch) {
+            const s = String(ch || '').trim();
+            if (!s) return '';
+            if (/^U\+[0-9A-Fa-f]+$/.test(s)) return s.toUpperCase();
+            return 'U+' + s.codePointAt(0).toString(16).toUpperCase().padStart(4, '0');
+        }
+        function charUrl(ch) {
+            const tok = cpToken(ch);
+            return tok ? (JINWEN_DATA_BASE + '#/char/' + tok) : JINWEN_DATA_BASE;
+        }
+        const RUB_SOURCES = [
+            { id: 'kaom', label: 'KAOM' },
+            { id: 'sais', label: 'SAIS' },
+            { id: 'qxk', label: 'QXK' }
+        ];
+        let libState = { token: 0, cp: '', q: '', items: [], idx: 0, filter: '', pending: 0, left: 0 };
+        function rubUrl(src, cp, i) {
+            return JINWEN_DATA_BASE + 'thumbs/' + src + '/' + cp + '/' + i + '.webp';
+        }
+        function sortLibItems(a, b) {
+            const oa = RUB_SOURCES.findIndex(s => s.id === a.src);
+            const ob = RUB_SOURCES.findIndex(s => s.id === b.src);
+            return (oa - ob) || (a.i - b.i);
+        }
+        function visibleLibItems() {
+            return libState.filter ? libState.items.filter(x => x.src === libState.filter) : libState.items;
+        }
+        function renderLibViewer() {
+            const hero = document.getElementById('libHero');
+            const img = document.getElementById('libHeroImg');
+            const empty = document.getElementById('libEmpty');
+            const cap = document.getElementById('libCap');
+            const film = document.getElementById('libFilm');
+            const srcBox = document.getElementById('libSrc');
+            const prev = document.getElementById('libPrev');
+            const next = document.getElementById('libNext');
+            const zoom = document.getElementById('libZoom');
+            const vis = visibleLibItems();
+            if (libState.idx >= vis.length) libState.idx = 0;
+            const cur = vis[libState.idx];
+            const counts = {};
+            libState.items.forEach(it => { counts[it.src] = (counts[it.src] || 0) + 1; });
+            srcBox.innerHTML = RUB_SOURCES.map(s => {
+                const n = counts[s.id] || 0;
+                if (!n && libState.pending) return '';
+                if (!n) return '';
+                return '<button type="button" class="tiny' + (libState.filter === s.id ? ' on' : '') + '" data-src="' + s.id + '">' + s.label + ' ' + n + '</button>';
+            }).join('') + (libState.items.length
+                ? '<button type="button" class="tiny' + (!libState.filter ? ' on' : '') + '" data-src="">全部 ' + libState.items.length + '</button>'
+                : '');
+            srcBox.querySelectorAll('[data-src]').forEach(b => {
+                b.onclick = () => { libState.filter = b.dataset.src; libState.idx = 0; renderLibViewer(); };
+            });
+            if (!cur) {
+                img.hidden = true;
+                img.removeAttribute('src');
+                empty.hidden = false;
+                empty.textContent = libState.q
+                    ? (libState.left ? '正在載入拓片…' : '此字暫無真拓片。可開詳庫查看字典字形。')
+                    : '檢索一字，在此看真拓片。';
+                cap.textContent = '';
+                film.innerHTML = '';
+                prev.hidden = next.hidden = zoom.hidden = true;
+                return;
+            }
+            empty.hidden = true;
+            img.hidden = false;
+            if (img.src !== cur.url) img.src = cur.url;
+            img.alt = (libState.q || '') + ' ' + cur.label;
+            cap.textContent = (libState.q ? libState.q + ' · ' : '') + cur.label + ' · ' + (libState.idx + 1) + '/' + vis.length
+                + (libState.left ? ' · 繼續載入' : '');
+            prev.hidden = next.hidden = zoom.hidden = false;
+            film.innerHTML = vis.map((it, i) =>
+                '<button type="button" class="' + (i === libState.idx ? 'on' : '') + '" data-i="' + i + '" title="' + it.label + ' ' + (it.i + 1) + '">'
+                + '<img src="' + it.url + '" alt=""></button>'
+            ).join('');
+            film.querySelectorAll('[data-i]').forEach(b => {
+                b.onclick = () => { libState.idx = +b.dataset.i; renderLibViewer(); };
+            });
+            const onBtn = film.querySelector('button.on');
+            if (onBtn) onBtn.scrollIntoView({ inline: 'center', block: 'nearest' });
+        }
+        function pumpRubSource(token, src, cp, i) {
+            if (libState.token !== token) return;
+            if (i > 80) {
+                libState.left = Math.max(0, libState.left - 1);
+                renderLibViewer();
+                return;
+            }
+            libState.pending++;
+            const url = rubUrl(src.id, cp, i);
+            const probe = new Image();
+            probe.onload = () => {
+                if (libState.token !== token) return;
+                libState.pending = Math.max(0, libState.pending - 1);
+                libState.items.push({ src: src.id, label: src.label, url, i });
+                libState.items.sort(sortLibItems);
+                renderLibViewer();
+                pumpRubSource(token, src, cp, i + 1);
+            };
+            probe.onerror = () => {
+                if (libState.token !== token) return;
+                libState.pending = Math.max(0, libState.pending - 1);
+                libState.left = Math.max(0, libState.left - 1);
+                renderLibViewer();
+            };
+            probe.src = url;
+        }
+        function loadLibRubbings(q) {
+            const cp = cpToken(q);
+            libState = { token: libState.token + 1, cp, q: (q || '').trim(), items: [], idx: 0, filter: '', pending: 0, left: cp ? RUB_SOURCES.length : 0 };
+            const hero = document.getElementById('libHero');
+            if (hero) hero.classList.remove('zoom');
+            const zoom = document.getElementById('libZoom');
+            if (zoom) zoom.textContent = '放大';
+            renderLibViewer();
+            if (!cp) return;
+            RUB_SOURCES.forEach(src => pumpRubSource(libState.token, src, cp, 0));
+        }
+        function stepLib(delta) {
+            const vis = visibleLibItems();
+            if (!vis.length) return;
+            libState.idx = (libState.idx + delta + vis.length) % vis.length;
+            renderLibViewer();
+        }
+        function renderWorkLibChips(focus) {
+            const box = document.getElementById('workLibChips');
+            if (!box) return;
+            const chars = [];
+            liveDets().forEach(d => { if (d.text && !chars.includes(d.text)) chars.push(d.text); });
+            if (focus && !chars.includes(focus) && !/^U\+/i.test(focus)) chars.unshift(focus);
+            box.innerHTML = chars.map(ch =>
+                '<button type="button" class="' + (ch === focus ? 'on' : '') + '" data-lib="' + ch + '">' + ch + '</button>'
+            ).join('');
+            box.querySelectorAll('[data-lib]').forEach(b => {
+                b.onclick = () => go('work', b.dataset.lib, 'search');
+            });
+        }
+        function runWorkSearch(ch) {
+            const q = (ch || document.getElementById('workQ').value || '').trim();
+            document.getElementById('workQ').value = q;
+            const url = q ? charUrl(q) : JINWEN_DATA_BASE;
+            const open = document.getElementById('workJinwenOpen');
+            if (open) {
+                open.href = url;
+                open.textContent = '詳庫';
+                open.title = q ? (q + ' · ' + cpToken(q)) : 'darkscope 金文字庫';
+            }
+            loadLibRubbings(q);
+            renderWorkLibChips(q);
+        }
+        document.getElementById('lookupBtn').onclick = () => runLookup('', true);
+        document.getElementById('lookupQ').addEventListener('input', () => {
+            clearTimeout(lookupTimer);
+            lookupTimer = setTimeout(() => runLookup('', false), 280);
+        });
+        document.getElementById('lookupQ').addEventListener('keydown', e => { if (e.key === 'Enter') runLookup('', true); });
+        document.getElementById('workSearchBtn').onclick = () => runWorkSearch();
+        document.getElementById('workQ').addEventListener('keydown', e => { if (e.key === 'Enter') runWorkSearch(); });
+        document.getElementById('workToDict').onclick = () => go('learn', document.getElementById('workQ').value.trim(), 'lookup');
+        function setRubFocus(on) {
+            document.getElementById('view-work').classList.toggle('lib-focus', !!on);
+        }
+        document.getElementById('workLibExpand').onclick = () => setRubFocus(true);
+        document.getElementById('ocrExpand').onclick = () => setRubFocus(true);
+        document.getElementById('workLibExit').onclick = () => setRubFocus(false);
+        document.getElementById('libPrev').onclick = () => stepLib(-1);
+        document.getElementById('libNext').onclick = () => stepLib(1);
+        document.getElementById('libZoom').onclick = () => {
+            const hero = document.getElementById('libHero');
+            hero.classList.toggle('zoom');
+            document.getElementById('libZoom').textContent = hero.classList.contains('zoom') ? '適應' : '放大';
+        };
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') setRubFocus(false);
+            const work = document.getElementById('view-work');
+            if (!work.classList.contains('is-search') || !work.classList.contains('on')) return;
+            if (e.target && (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA')) return;
+            if (e.key === 'ArrowLeft') { e.preventDefault(); stepLib(-1); }
+            if (e.key === 'ArrowRight') { e.preventDefault(); stepLib(1); }
+        });
+
+        function shuffle(a) {
+            for (let i = a.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [a[i], a[j]] = [a[j], a[i]];
+            }
+            return a;
+        }
+        let matchLeft = [], matchRight = [], matchPicked = null, matchDone = 0, matchLinks = [];
+        function startMatch() {
+            matchDone = 0; matchPicked = null; matchLinks = [];
+            matchLeft = shuffle(MATCH_CHARS.map(ch => ({ char: ch })));
+            matchRight = shuffle(MATCH_CHARS.map(ch => ({ char: ch })));
+            document.getElementById('linkLeft').innerHTML = matchLeft.map((t, i) =>
+                `<button class="link-item" data-side="L" data-i="${i}" type="button"><img src="${svg(t.char)}" alt=""></button>`
+            ).join('');
+            document.getElementById('linkRight').innerHTML = matchRight.map((t, i) =>
+                `<button class="link-item" data-side="R" data-i="${i}" type="button">${t.char}</button>`
+            ).join('');
+            document.getElementById('matchScore').textContent = '配對 0 / ' + MATCH_CHARS.length;
+            document.getElementById('matchTitle').classList.remove('show');
+            document.querySelectorAll('#linkArena .link-item').forEach(btn => {
+                btn.onclick = () => onLink(btn);
+            });
+            drawLinks();
+        }
+        function onLink(el) {
+            if (el.classList.contains('done')) return;
+            if (!matchPicked) {
+                matchPicked = el; el.classList.add('picked'); return;
+            }
+            if (matchPicked === el) return;
+            if (matchPicked.dataset.side === el.dataset.side) {
+                matchPicked.classList.remove('picked');
+                matchPicked = el; el.classList.add('picked'); return;
+            }
+            const a = matchPicked.dataset.side === 'L'
+                ? matchLeft[Number(matchPicked.dataset.i)]
+                : matchRight[Number(matchPicked.dataset.i)];
+            const b = el.dataset.side === 'L'
+                ? matchLeft[Number(el.dataset.i)]
+                : matchRight[Number(el.dataset.i)];
+            if (a.char === b.char) {
+                el.classList.add('done'); matchPicked.classList.add('done');
+                matchPicked.classList.remove('picked');
+                matchLinks.push([matchPicked, el]);
+                matchPicked = null; matchDone += 1;
+                chime(true);
+                document.getElementById('matchScore').textContent = '配對 ' + matchDone + ' / ' + MATCH_CHARS.length;
+                if (matchDone === MATCH_CHARS.length) document.getElementById('matchTitle').classList.add('show');
+                drawLinks();
+            } else {
+                chime(false);
+                matchPicked.classList.remove('picked');
+                matchPicked = null;
+            }
+        }
+        function drawLinks() {
+            const arena = document.getElementById('linkArena');
+            const svgEl = document.getElementById('linkSvg');
+            if (!arena || !svgEl) return;
+            const r = arena.getBoundingClientRect();
+            svgEl.setAttribute('viewBox', '0 0 ' + r.width + ' ' + r.height);
+            svgEl.innerHTML = matchLinks.map(([a, b]) => {
+                const ra = a.getBoundingClientRect();
+                const rb = b.getBoundingClientRect();
+                const x1 = ra.left + ra.width / 2 - r.left;
+                const y1 = ra.top + ra.height / 2 - r.top;
+                const x2 = rb.left + rb.width / 2 - r.left;
+                const y2 = rb.top + rb.height / 2 - r.top;
+                return `<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" stroke="#8b6914" stroke-width="2"/>`;
+            }).join('');
+        }
+        window.addEventListener('resize', drawLinks);
+        document.getElementById('matchReset').onclick = startMatch;
+
+        let traceIdx = 0, tracing = false;
+        document.getElementById('tracePick').innerHTML = TRACE_BANK.map((item, i) =>
+            `<button type="button" data-ti="${i}">${item.char}</button>`
+        ).join('');
+        function markTracePick() {
+            document.querySelectorAll('#tracePick button').forEach(b => {
+                b.classList.toggle('active', Number(b.dataset.ti) === traceIdx);
+            });
+        }
+        document.getElementById('tracePick').querySelectorAll('button').forEach(b => {
+            b.onclick = () => { traceIdx = Number(b.dataset.ti); drawTraceBase(); };
+        });
+        function drawTraceBase() {
+            const flip = document.getElementById('traceFlip');
+            flip.classList.remove('done');
+            const c = document.getElementById('traceCanvas');
+            c.classList.remove('glow');
+            const g = c.getContext('2d');
+            g.fillStyle = '#e8e2d4'; g.fillRect(0, 0, c.width, c.height);
+            const item = TRACE_BANK[traceIdx];
+            markTracePick();
+            const img = new Image();
+            img.onload = () => { g.globalAlpha = 0.18; g.drawImage(img, 40, 40, 420, 420); g.globalAlpha = 1; };
+            img.src = svg(item.char);
+        }
+        function startTraceStroke(e) {
+            tracing = true;
+            const c = document.getElementById('traceCanvas');
+            const r = c.getBoundingClientRect();
+            const g = c.getContext('2d');
+            g.strokeStyle = '#9c3b2e'; g.lineWidth = 8; g.lineCap = 'round'; g.lineJoin = 'round';
+            const x = (e.touches ? e.touches[0].clientX : e.clientX) - r.left;
+            const y = (e.touches ? e.touches[0].clientY : e.clientY) - r.top;
+            g.beginPath(); g.moveTo(x * c.width / r.width, y * c.height / r.height);
+            e.preventDefault();
+        }
+        function moveTrace(e) {
+            if (!tracing) return;
+            const c = document.getElementById('traceCanvas');
+            const r = c.getBoundingClientRect();
+            const g = c.getContext('2d');
+            const x = (e.touches ? e.touches[0].clientX : e.clientX) - r.left;
+            const y = (e.touches ? e.touches[0].clientY : e.clientY) - r.top;
+            g.lineTo(x * c.width / r.width, y * c.height / r.height); g.stroke();
+            e.preventDefault();
+        }
+        function endTrace() { tracing = false; }
+        const tc = document.getElementById('traceCanvas');
+        tc.addEventListener('mousedown', startTraceStroke);
+        tc.addEventListener('mousemove', moveTrace);
+        window.addEventListener('mouseup', endTrace);
+        tc.addEventListener('touchstart', startTraceStroke, { passive: false });
+        tc.addEventListener('touchmove', moveTrace, { passive: false });
+        tc.addEventListener('touchend', endTrace);
+        document.getElementById('traceClear').onclick = drawTraceBase;
+        document.getElementById('traceDone').onclick = async () => {
+            const item = TRACE_BANK[traceIdx];
+            const idx = await getIndex();
+            const info = idx[item.char] || {};
+            const c = document.getElementById('traceCanvas');
+            const g = c.getContext('2d');
+            g.fillStyle = 'rgba(196,160,53,0.18)';
+            g.fillRect(0, 0, c.width, c.height);
+            c.classList.add('glow');
+            document.getElementById('traceBack').innerHTML =
+                `<h3 style="font-weight:normal;letter-spacing:4px">${item.char}</h3>
+                 <p><b>寫法</b>　${item.how}</p>
+                 <p><b>用法</b>　${item.usage}</p>
+                 <p class="sub">${info.period || ''}　${info.src || ''}</p>
+                 <button class="btn" type="button" id="traceGal">回星河看這個字</button>`;
+            document.getElementById('traceFlip').classList.add('done');
+            document.getElementById('traceGal').onclick = () => go('home', item.char);
+            chime(true);
+        };
+
+        let vessel = '鼎';
+        const pickedBless = new Set();
+        function setRitualStep(n) {
+            document.querySelectorAll('#ritualSteps span').forEach(s => s.classList.toggle('on', s.dataset.step === String(n)));
+            document.getElementById('ritualStep1').style.display = n === 1 ? '' : 'none';
+            document.getElementById('ritualStep2').style.display = n === 2 ? '' : 'none';
+            document.getElementById('ritualStep3').style.display = n === 3 ? '' : 'none';
+        }
+        document.querySelectorAll('[data-vessel]').forEach(b => {
+            b.onclick = () => {
+                document.querySelectorAll('[data-vessel]').forEach(x => x.classList.toggle('active', x === b));
+                vessel = b.dataset.vessel;
+            };
+        });
+        function renderBlessChips() {
+            const extra = [...pickedBless].filter(ch => !BLESS_CHARS.includes(ch));
+            const chars = [...BLESS_CHARS, ...extra];
+            const box = document.getElementById('blessChips');
+            box.innerHTML = chars.map(ch =>
+                `<button type="button" data-b="${ch}" class="${pickedBless.has(ch) ? 'on' : ''}"><img src="${svg(ch)}" alt="${ch}" width="40" height="40"><br>${ch}</button>`
+            ).join('');
+            box.querySelectorAll('button').forEach(b => {
+                b.onclick = () => {
+                    const ch = b.dataset.b;
+                    if (pickedBless.has(ch)) pickedBless.delete(ch);
+                    else if (pickedBless.size < 3) pickedBless.add(ch);
+                    b.classList.toggle('on', pickedBless.has(ch));
+                };
+            });
+        }
+        function seedBlessFromDict(ch) {
+            const q = (ch || '').trim();
+            if (!q) return;
+            pickedBless.add(q);
+            while (pickedBless.size > 3) {
+                const first = pickedBless.values().next().value;
+                if (first === q) break;
+                pickedBless.delete(first);
+            }
+            renderBlessChips();
+            setRitualStep(2);
+        }
+        renderBlessChips();
+        function phraseOf(chars) {
+            if (chars.length >= 2) {
+                for (const [k, v] of Object.entries(BLESS_PHRASE)) {
+                    if (k.split('').every(x => chars.includes(x))) return v;
+                }
+            }
+            return chars.join('') + '永用';
+        }
+        document.getElementById('ritualNext1').onclick = () => setRitualStep(2);
+        document.getElementById('ritualBack2').onclick = () => setRitualStep(1);
+        document.getElementById('ritualBack3').onclick = () => setRitualStep(2);
+        document.getElementById('blessBtn').onclick = () => {
+            const chars = [...pickedBless];
+            if (chars.length < 2) { alert('請點選兩到三個吉祥字'); return; }
+            const phrase = phraseOf(chars);
+            const card = document.getElementById('blessCard');
+            card.innerHTML = `<div class="sub">${vessel} · 戲擬銘辭</div>
+                ${chars.map(c => `<img src="${svg(c)}" alt="${c}">`).join('')}
+                <h2>${phrase}</h2>
+                <p class="sub">借金文字形，送一句現代祝福。不是先秦祭儀。</p>`;
+            setRitualStep(3);
+        };
+        function loadImg(src) {
+            return new Promise((resolve, reject) => {
+                const img = new Image();
+                img.onload = () => resolve(img);
+                img.onerror = reject;
+                img.src = src;
+            });
+        }
+        document.getElementById('blessDl').onclick = async () => {
+            const chars = [...pickedBless];
+            if (chars.length < 2) return;
+            const phrase = phraseOf(chars);
+            const c = document.createElement('canvas');
+            c.width = 800; c.height = 1000;
+            const x = c.getContext('2d');
+            x.fillStyle = '#e8e2d4'; x.fillRect(0, 0, 800, 1000);
+            x.strokeStyle = '#8b6914'; x.lineWidth = 4; x.strokeRect(36, 36, 728, 928);
+            x.fillStyle = '#2a2418'; x.textAlign = 'center';
+            x.font = '28px serif'; x.fillText(vessel + ' · 戲擬銘辭', 400, 100);
+            try {
+                for (let i = 0; i < chars.length; i++) {
+                    const img = await loadImg(svg(chars[i]));
+                    const left = 400 - (chars.length * 90) / 2 + i * 90;
+                    x.drawImage(img, left, 220, 80, 80);
+                }
+            } catch (e) {}
+            x.font = '64px serif'; x.fillText(phrase, 400, 520);
+            x.font = '22px serif'; x.fillText('宅兹中國', 400, 860);
+            x.fillText('本祝福生成器僅供娛樂體驗，非嚴謹青銅器銘文拼湊', 400, 910);
+            c.toBlob(blob => {
+                const a = document.createElement('a');
+                a.href = URL.createObjectURL(blob);
+                a.download = '金文祝福.png';
+                a.click();
+            });
+        };
+
+        function isLocalOcrHost(url) {
+            try {
+                const u = new URL(url, location.href);
+                return u.hostname === 'localhost' || u.hostname === '127.0.0.1';
+            } catch (e) { return false; }
+        }
+        function defaultOcrEndpoint() {
+            const q = new URLSearchParams(location.search).get('ocr');
+            if (q) return q;
+            const saved = localStorage.getItem('ocrEndpoint');
+            // 本地静态页的 localhost:8000 不是识图 API，不能盖住 ocr-endpoint.json
+            if (saved && !isLocalOcrHost(saved)) return saved;
+            return '';
+        }
+        const OCR_CONFIG = {
+            endpoint: defaultOcrEndpoint(),
+            healthTimeout: 8000, inferTimeout: 90000
+        };
+        async function resolveOcrEndpoint() {
+            if (OCR_CONFIG.endpoint) return OCR_CONFIG.endpoint;
+            try {
+                const r = await fetch('ocr-endpoint.json', { cache: 'no-store' });
+                if (r.ok) {
+                    const j = await r.json();
+                    if (j && j.endpoint) {
+                        OCR_CONFIG.endpoint = String(j.endpoint).replace(/\/$/, '');
+                        return OCR_CONFIG.endpoint;
+                    }
+                }
+            } catch (e) {}
+            OCR_CONFIG.endpoint = 'http://localhost:8000';
+            return OCR_CONFIG.endpoint;
+        }
+        let ocrBackendStatus = 'unknown';
+        let ocrState = { detections: [], imageUrl: '', meta: null, sourceLabel: '', quality: null };
+        function updateOCRBadge(text, cls) {
+            const b = document.getElementById('ocrBadge');
+            if (!b) return;
+            if (text != null) { b.textContent = text; b.className = 'ocr-badge ' + (cls || ''); return; }
+            if (ocrBackendStatus === 'ok') { b.textContent = '後端已連接 · RF-DETR + ResNet50'; b.className = 'ocr-badge ok'; }
+            else if (ocrBackendStatus === 'down') { b.textContent = '示範模式 · 後端未連接'; b.className = 'ocr-badge off'; }
+            else { b.textContent = '檢測後端…'; b.className = 'ocr-badge'; }
+        }
+        async function checkOCRHealth() {
+            updateOCRBadge('檢測後端…');
+            await resolveOcrEndpoint();
+            try {
+                const ctrl = new AbortController();
+                const timer = setTimeout(() => ctrl.abort(), OCR_CONFIG.healthTimeout);
+                const r = await fetch(ocrUrl('/health'), { signal: ctrl.signal });
+                clearTimeout(timer);
+                const j = await r.json();
+                ocrBackendStatus = (j && j.model_loaded) ? 'ok' : 'down';
+            } catch (e) { ocrBackendStatus = 'down'; }
+            updateOCRBadge();
+            return ocrBackendStatus === 'ok';
+        }
+        function ocrUrl(path) {
+            const base = (OCR_CONFIG.endpoint || '').replace(/\/$/, '');
+            return base + path;
+        }
+        async function callRealOCR(file) {
+            const fd = new FormData(); fd.append('file', file);
+            const ctrl = new AbortController();
+            const timer = setTimeout(() => ctrl.abort(), OCR_CONFIG.inferTimeout);
+            try {
+                const r = await fetch(ocrUrl('/ocr'), { method: 'POST', body: fd, signal: ctrl.signal });
+                if (!r.ok) {
+                    const t = await r.text().catch(() => '');
+                    throw new Error('HTTP ' + r.status + (t ? ' ' + t.slice(0, 180) : ''));
+                }
+                return await r.json();
+            } finally { clearTimeout(timer); }
+        }
+        async function makeDemoRubbing(chars) {
+            const c = document.createElement('canvas');
+            c.width = 800; c.height = 280;
+            const x = c.getContext('2d');
+            x.fillStyle = '#d9d0bc'; x.fillRect(0, 0, 800, 280);
+            for (let i = 0; i < chars.length; i++) {
+                try {
+                    const img = await loadImg(svg(chars[i]));
+                    x.drawImage(img, 40 + i * 180, 40, 160, 160);
+                } catch (e) {}
+            }
+            return await new Promise(res => c.toBlob(res, 'image/png'));
+        }
+        async function mockRecognize(file) {
+            const idx = await getIndex();
+            let chars, base;
+            if (!file) {
+                chars = ['宅', '茲', '中', '國'];
+                base = [0.91, 0.84, 0.88, 0.42];
+            } else {
+                let s = (file.size || 1) >>> 0;
+                const keys = Object.keys(idx); chars = [];
+                while (chars.length < 5 && keys.length) {
+                    s = (s * 1103515245 + 12345) >>> 0;
+                    const k = keys[s % keys.length];
+                    if (!chars.includes(k)) chars.push(k);
+                }
+                base = [0.87, 0.71, 0.55, 0.42, 0.31];
+            }
+            const detections = chars.map((ch, i) => {
+                const conf = Math.max(0.05, base[i]);
+                const alts = similarChars(idx, ch, 3);
+                const top5 = [{ text: ch, score: conf }].concat(alts.map((a, j) => ({ text: a, score: Math.max(0.03, 0.18 - j * 0.05) })));
+                return {
+                    bbox: file ? [20 + i * 90, 20, 80, 80] : [40 + i * 180, 40, 160, 160],
+                    text: ch, confidence: conf, kept: conf >= 0.5, top5, deleted: false
+                };
+            });
+            return {
+                source: 'mock',
+                sourceLabel: file ? '已接收圖像 · 示範數據' : 'Demo · 何尊銘文 · 宅兹中國',
+                detections, meta: { f1: 0.2441, precision: 0.2705, recall: 0.2224 }
+            };
+        }
+        function assessImageFile(file) {
+            return new Promise((resolve) => {
+                const img = new Image();
+                const url = URL.createObjectURL(file);
+                img.onload = () => {
+                    const w = img.naturalWidth, h = img.naturalHeight;
+                    const max = 256;
+                    const scale = Math.min(1, max / Math.max(w, h, 1));
+                    const c = document.createElement('canvas');
+                    c.width = Math.max(1, Math.round(w * scale));
+                    c.height = Math.max(1, Math.round(h * scale));
+                    const ctx = c.getContext('2d', { willReadFrequently: true });
+                    ctx.drawImage(img, 0, 0, c.width, c.height);
+                    const data = ctx.getImageData(0, 0, c.width, c.height).data;
+                    const n = c.width * c.height;
+                    let sum = 0, sum2 = 0, dark = 0, bright = 0;
+                    let rgSum = 0, ybSum = 0, rg2 = 0, yb2 = 0;
+                    for (let i = 0; i < data.length; i += 4) {
+                        const r = data[i], g = data[i + 1], b = data[i + 2];
+                        const y = (r + g + b) / 3;
+                        sum += y; sum2 += y * y;
+                        if (y < 80) dark++;
+                        if (y > 180) bright++;
+                        const rg = r - g, yb = 0.5 * (r + g) - b;
+                        rgSum += rg; ybSum += yb; rg2 += rg * rg; yb2 += yb * yb;
+                    }
+                    const mean = sum / n;
+                    const std = Math.sqrt(Math.max(0, sum2 / n - mean * mean));
+                    const rgMean = rgSum / n, ybMean = ybSum / n;
+                    const colorfulness = Math.sqrt(
+                        Math.max(0, rg2 / n - rgMean * rgMean) +
+                        Math.max(0, yb2 / n - ybMean * ybMean)
+                    ) + 0.3 * Math.sqrt(rgMean * rgMean + ybMean * ybMean);
+                    const issues = [];
+                    let level = 'ok';
+                    const shortSide = Math.min(w, h);
+                    if (shortSide < 480) {
+                        issues.push('整頁過短（短邊 ' + shortSide + 'px），笔画会被拉糊');
+                        level = 'bad';
+                    } else if (shortSide < 800) {
+                        issues.push('整頁偏小（短邊 ' + shortSide + 'px），密銘可能漏字');
+                        if (level === 'ok') level = 'warn';
+                    }
+                    if (colorfulness > 28) {
+                        issues.push('彩度偏高，更像器物/場景照片，不是黑底拓片');
+                        level = 'bad';
+                    }
+                    if (mean > 145 && dark / n < 0.35) {
+                        issues.push('底色偏亮，不像黑底白字（紙本、反色或照片）');
+                        level = 'bad';
+                    }
+                    if (std < 22) {
+                        issues.push('對比過低，可能過曝、過暗或壓縮嚴重');
+                        if (level === 'ok') level = 'warn';
+                        if (std < 12) level = 'bad';
+                    }
+                    if (bright / n < 0.008 && dark / n > 0.85) {
+                        issues.push('幾乎看不到白字');
+                        level = 'bad';
+                    }
+                    if (bright / n > 0.55 && mean > 120) {
+                        issues.push('白像素過多，不像拓片');
+                        if (level === 'ok') level = 'warn';
+                    }
+                    URL.revokeObjectURL(url);
+                    resolve({
+                        level, issues,
+                        stats: {
+                            w, h, shortSide,
+                            mean: Math.round(mean),
+                            std: Math.round(std),
+                            colorfulness: Math.round(colorfulness)
+                        }
+                    });
+                };
+                img.onerror = () => {
+                    URL.revokeObjectURL(url);
+                    resolve({ level: 'bad', issues: ['無法讀取圖像'], stats: {} });
+                };
+                img.src = url;
+            });
+        }
+        function refineCheckWithBoxes(check, dets) {
+            const q = check || { level: 'ok', issues: [], stats: {} };
+            q.issues = q.issues ? q.issues.slice() : [];
+            if (!dets || !dets.length) {
+                q.issues.push('未檢出字框。若確認是拓片，可能過糊、反色或單字太小');
+                if (q.level === 'ok') q.level = 'warn';
+                return q;
+            }
+            const sides = dets.map(d => Math.min(d.bbox[2] || 0, d.bbox[3] || 0)).sort((a, b) => a - b);
+            const med = sides[Math.floor(sides.length / 2)] || 0;
+            q.stats = Object.assign({}, q.stats, { boxes: dets.length, medianChar: med });
+            if (med < 36) {
+                q.issues.push('檢出字偏小（中位邊長 ' + med + 'px），認字不穩');
+                if (q.level === 'ok') q.level = 'warn';
+                if (med < 22) q.level = 'bad';
+            }
+            return q;
+        }
+        function qualityHtml(q) {
+            if (!q) return '';
+            const title = q.level === 'ok' ? '圖像合格 · 可作拓片識別' : (q.level === 'warn' ? '圖像勉强可用 · 結果僅供參考' : '圖像不太符合要求');
+            const st = q.stats || {};
+            const size = st.w ? (st.w + '×' + st.h) : '';
+            const extra = st.medianChar ? '　字框中位 ' + st.medianChar + 'px' : '';
+            const lis = (q.issues || []).map(x => '<li>' + x + '</li>').join('');
+            return '<div class="ocr-quality ' + q.level + '"><b>' + title + '</b>'
+                + (size ? '<div class="sub">' + size + extra + '</div>' : '')
+                + (lis ? '<ul>' + lis + '</ul>' : '') + '</div>';
+        }
+        function normalizeReal(raw, file) {
+            const list = raw.detections || (raw.chars && raw.chars.detections) || [];
+            const detections = list.map(d => {
+                const bbox = Array.isArray(d.bbox) && d.bbox.length === 4 ? d.bbox : [0, 0, 1, 1];
+                return Object.assign({ deleted: false }, d, {
+                    bbox: bbox,
+                    kept: d.kept === true,
+                    text: d.text || '',
+                    confidence: Number(d.confidence || 0),
+                    top5: d.top5 || []
+                });
+            });
+            return {
+                source: 'real',
+                sourceLabel: '後端識別 · RF-DETR + ResNet50 · ' + ((file && file.name) || '圖像') + ' · 共 ' + detections.length + ' 框',
+                detections, meta: raw.meta || (raw.chars && raw.chars.meta) || null
+            };
+        }
+        const recognitionAdapter = {
+            async recognize(file) {
+                if (ocrBackendStatus === 'unknown') await checkOCRHealth();
+                if (ocrBackendStatus === 'ok' && file) {
+                    try { return normalizeReal(await callRealOCR(file), file); }
+                    catch (e) { ocrBackendStatus = 'down'; updateOCRBadge(); }
+                }
+                return mockRecognize(file);
+            }
+        };
+        function liveDets() { return ocrState.detections.filter(d => !d.deleted); }
+        function drawOcrOverlay() {
+            const img = document.getElementById('ocrSrcImg');
+            const overlay = document.getElementById('ocrOverlay');
+            if (!img || !overlay) return;
+            overlay.width = img.clientWidth; overlay.height = img.clientHeight;
+            const sx = img.clientWidth / (img.naturalWidth || 1);
+            const sy = img.clientHeight / (img.naturalHeight || 1);
+            const c = overlay.getContext('2d');
+            c.clearRect(0, 0, overlay.width, overlay.height);
+            liveDets().forEach((d, i) => {
+                const [x, y, w, h] = d.bbox;
+                c.lineWidth = d._active ? 3 : 2;
+                c.strokeStyle = d.kept ? '#c4a035' : '#8a8478';
+                c.strokeRect(x * sx, y * sy, w * sx, h * sy);
+                c.fillStyle = d.kept ? 'rgba(196,160,53,.12)' : 'rgba(138,132,120,.1)';
+                c.fillRect(x * sx, y * sy, w * sx, h * sy);
+            });
+        }
+        function renderWorkbench() {
+            const stage = document.getElementById('ocrStage');
+            const list = document.getElementById('ocrList');
+            const chips = document.getElementById('ocrChips');
+            if (!ocrState.imageUrl) {
+                stage.innerHTML = '<p class="ocr-empty">上傳拓片或載入 Demo。整幅拓片在此查看，右側校對。</p>'
+                    + qualityHtml(ocrState.quality);
+                list.innerHTML = '<p class="sub">尚未識圖。</p>';
+                if (chips) chips.innerHTML = '';
+                return;
+            }
+            const dets = liveDets();
+            const kept = dets.filter(d => d.kept);
+            const uniq = [];
+            dets.forEach(d => { if (d.text && !uniq.includes(d.text)) uniq.push(d.text); });
+            if (chips) {
+                chips.innerHTML = uniq.length
+                    ? uniq.map(ch => '<button type="button" data-lookup-char="' + ch + '">' + ch + '</button>').join('')
+                    : '';
+                chips.querySelectorAll('[data-lookup-char]').forEach(btn => {
+                    btn.onclick = () => go('work', btn.dataset.lookupChar, 'search');
+                });
+            }
+            stage.innerHTML = qualityHtml(ocrState.quality)
+                + '<div class="ocr-canvas-wrap" id="ocrWrap">'
+                + '<div class="ocr-stack"><img id="ocrSrcImg" src="' + ocrState.imageUrl + '" alt=""><canvas id="ocrOverlay"></canvas></div>'
+                + '<p class="ocr-cap">' + ocrState.sourceLabel + ' · 初稿 ' + kept.length + ' · 標疑 ' + dets.filter(d => !d.kept).length + '</p>'
+                + '<button class="tiny ocr-zoom" id="ocrZoom" type="button">原大</button></div>';
+            list.innerHTML = dets.map((d, i) => {
+                const alts = (d.top5 || []).slice(1, 4).map(a => a.text);
+                const realIdx = ocrState.detections.indexOf(d);
+                return '<div class="ocr-box-item" data-idx="' + realIdx + '">'
+                    + '<span class="' + (d.kept ? 'gold-dot' : 'gray-dot') + '"></span>'
+                    + '<img src="' + svg(d.text) + '" width="40" height="40" alt="">'
+                    + '<div><input value="' + d.text + '" data-idx="' + realIdx + '">'
+                    + '<div class="sub">' + Math.round(d.confidence * 100) + '%　' + (d.kept ? '初稿' : '標疑')
+                    + (alts.length ? '　候選 ' + alts.join(' · ') : '') + '</div></div>'
+                    + '<div class="ocr-box-actions">'
+                    + '<button class="tiny" type="button" data-lookup="' + realIdx + '">查字</button>'
+                    + '<button class="tiny" type="button" data-del="' + realIdx + '">刪框</button>'
+                    + '</div></div>';
+            }).join('') || '<p class="sub">框已全部刪除。</p>';
+            const img = document.getElementById('ocrSrcImg');
+            if (img.complete && img.naturalWidth) drawOcrOverlay(); else img.onload = drawOcrOverlay;
+            const zoomBtn = document.getElementById('ocrZoom');
+            if (zoomBtn) {
+                zoomBtn.onclick = () => {
+                    const wrap = document.getElementById('ocrWrap');
+                    wrap.classList.toggle('zoom');
+                    zoomBtn.textContent = wrap.classList.contains('zoom') ? '適應' : '原大';
+                    requestAnimationFrame(drawOcrOverlay);
+                };
+            }
+            list.querySelectorAll('.ocr-box-item').forEach(item => {
+                item.onclick = (e) => {
+                    if (e.target.closest('button') || e.target.tagName === 'INPUT') return;
+                    ocrState.detections.forEach(d => d._active = false);
+                    const d = ocrState.detections[Number(item.dataset.idx)];
+                    if (d) d._active = true;
+                    list.querySelectorAll('.ocr-box-item').forEach(x => x.classList.remove('active'));
+                    item.classList.add('active');
+                    drawOcrOverlay();
+                };
+            });
+            list.querySelectorAll('input').forEach(inp => {
+                inp.onchange = () => {
+                    const d = ocrState.detections[Number(inp.dataset.idx)];
+                    if (d) { d.text = inp.value.trim() || d.text; renderWorkbench(); }
+                };
+            });
+            list.querySelectorAll('[data-lookup]').forEach(btn => {
+                btn.onclick = (e) => {
+                    e.stopPropagation();
+                    const d = ocrState.detections[Number(btn.dataset.lookup)];
+                    if (d && d.text) go('work', d.text, 'search');
+                };
+            });
+            list.querySelectorAll('[data-del]').forEach(btn => {
+                btn.onclick = (e) => {
+                    e.stopPropagation();
+                    const d = ocrState.detections[Number(btn.dataset.del)];
+                    if (d) d.deleted = true;
+                    renderWorkbench();
+                };
+            });
+        }
+        function downloadText(name, text, mime) {
+            const a = document.createElement('a');
+            a.href = URL.createObjectURL(new Blob([text], { type: mime || 'text/plain' }));
+            a.download = name;
+            a.click();
+        }
+        document.getElementById('expDraft').onclick = () => {
+            const rows = liveDets().filter(d => d.kept).map((d, i) => (i + 1) + '\t' + d.text + '\t' + Math.round(d.confidence * 100) + '%');
+            downloadText('銘見初稿.txt', '序\t今字\t把握\n' + rows.join('\n'));
+        };
+        document.getElementById('expDoubt').onclick = () => {
+            const rows = liveDets().filter(d => !d.kept).map((d, i) => (i + 1) + '\t' + d.text + '\t' + Math.round(d.confidence * 100) + '%\t' + ((d.top5 || []).map(a => a.text).join('/')));
+            downloadText('銘見疑字表.txt', '序\t今字\t把握\t候選\n' + rows.join('\n'));
+        };
+        document.getElementById('expJson').onclick = () => {
+            downloadText('銘見全部.json', JSON.stringify({
+                sourceLabel: ocrState.sourceLabel,
+                quality: ocrState.quality,
+                metric: { f1: 0.2441, precision: 0.2705, recall: 0.2224 },
+                detections: ocrState.detections
+            }, null, 2), 'application/json');
+        };
+        async function runRecognition(file) {
+            document.getElementById('ocrList').innerHTML = '<p class="sub">識別中……</p>';
+            let quality = null;
+            if (file) {
+                quality = await assessImageFile(file);
+                ocrState.quality = quality;
+                const stage = document.getElementById('ocrStage');
+                if (stage && !ocrState.imageUrl) stage.insertAdjacentHTML('beforeend', qualityHtml(quality));
+            }
+            let out;
+            try { out = await recognitionAdapter.recognize(file); }
+            catch (err) {
+                document.getElementById('ocrList').innerHTML = '<p class="sub">識別失敗: ' + (err.message || err) + '</p>';
+                return;
+            }
+            if (out.source === 'real') quality = refineCheckWithBoxes(quality, out.detections || []);
+            let blob = file;
+            if (!blob) blob = await makeDemoRubbing(['宅', '茲', '中', '國']);
+            ocrState = {
+                detections: out.detections || [],
+                imageUrl: URL.createObjectURL(blob),
+                meta: out.meta,
+                sourceLabel: out.sourceLabel,
+                quality
+            };
+            renderWorkbench();
+        }
+        document.getElementById('ocrDemo').onclick = () => runRecognition(null);
+        document.getElementById('ocrFile').onchange = e => runRecognition((e.target.files && e.target.files[0]) || null);
+        document.getElementById('ocrConfig').onclick = () => {
+            const next = prompt('OCR 後端地址（留空恢復默認）', OCR_CONFIG.endpoint);
+            if (next == null) return;
+            const trimmed = next.trim().replace(/\/$/, '');
+            OCR_CONFIG.endpoint = trimmed || 'http://localhost:8000';
+            if (trimmed) localStorage.setItem('ocrEndpoint', OCR_CONFIG.endpoint);
+            else localStorage.removeItem('ocrEndpoint');
+            ocrBackendStatus = 'unknown';
+            checkOCRHealth();
+        };
+
+        applyRoute(parseHash());
+        ensureMeSpeak().catch(() => {});
+        Promise.all([getIndex(), lexiconReady]).then(() => {
+            nextQuiz();
+            drawTraceBase();
+            const r = parseHash();
+            if (r.view && r.view !== 'home' && r.view !== 'landing' && r.view !== 'ming') applyRoute(r);
+            else if (!document.getElementById('flipWall').childElementCount) buildWall();
+        }).catch(() => {
+            try { nextQuiz(); } catch (e) {}
+            drawTraceBase();
+            buildWall();
+        });
+    </script>
+</body>
+</html>

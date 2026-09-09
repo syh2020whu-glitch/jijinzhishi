@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>宅兹中國 · 金文数字宇宙 · 提案书</title>
+<style>
+* { box-sizing: border-box; }
+body {
+    max-width: 820px;
+    margin: 2em auto;
+    padding: 0 1.5em 4em;
+    font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", sans-serif;
+    line-height: 1.8;
+    color: #2a2418;
+    background: #faf7ee;
+}
+h1, h2, h3, h4 { color: #6b4d10; font-weight: 600; }
+h1 { font-size: 1.9em; border-bottom: 2px solid #c9a961; padding-bottom: 0.4em; margin-top: 1.5em; }
+h1:first-of-type { margin-top: 0.5em; text-align: center; border: none; font-size: 2.2em; letter-spacing: 4px; }
+h2 { font-size: 1.4em; margin-top: 2.5em; border-bottom: 1px solid #d4c48a; padding-bottom: 0.3em; }
+h3 { font-size: 1.15em; margin-top: 1.8em; color: #8b6914; }
+h4 { font-size: 1em; color: #8b6914; }
+p { margin: 0.9em 0; }
+blockquote {
+    border-left: 4px solid #c9a961;
+    background: #f2ead0;
+    padding: 0.8em 1.2em;
+    color: #5c4515;
+    margin: 1.2em 0;
+    border-radius: 0 4px 4px 0;
+    font-style: normal;
+}
+blockquote p { margin: 0.3em 0; }
+blockquote strong { color: #6b4d10; }
+table {
+    border-collapse: collapse;
+    width: 100%;
+    margin: 1.2em 0;
+    font-size: 0.95em;
+    background: #fff;
+    box-shadow: 0 1px 3px rgba(139, 105, 20, 0.1);
+}
+th, td {
+    border: 1px solid #e0d5b7;
+    padding: 0.6em 0.9em;
+    text-align: left;
+    vertical-align: top;
+}
+th { background: #efe6c8; color: #6b4d10; font-weight: 600; }
+tr:nth-child(even) td { background: #fbf8ee; }
+code {
+    background: #efe6c8;
+    padding: 0.1em 0.4em;
+    border-radius: 3px;
+    font-size: 0.9em;
+    color: #6b4d10;
+    font-family: "SF Mono", Consolas, monospace;
+}
+pre {
+    background: #2b2b2b;
+    color: #f0e5c5;
+    padding: 1em 1.2em;
+    border-radius: 5px;
+    overflow-x: auto;
+    line-height: 1.55;
+}
+pre code { background: none; color: inherit; padding: 0; }
+hr { border: none; border-top: 1px dashed #c9a961; margin: 2.5em 0; }
+ul, ol { padding-left: 1.5em; }
+li { margin: 0.35em 0; }
+a { color: #8b6914; text-decoration: none; border-bottom: 1px dotted #c9a961; }
+a:hover { color: #c9a961; }
+.toc {
+    background: linear-gradient(135deg, #f5edd3 0%, #efe6c8 100%);
+    padding: 1.2em 2em;
+    border-radius: 6px;
+    margin: 2em 0;
+    box-shadow: inset 0 1px 3px rgba(139, 105, 20, 0.1);
+}
+.toc > ul { padding-left: 1.2em; }
+.toc a { border: none; color: #6b4d10; }
+.toc a:hover { color: #c9a961; }
+input[type=checkbox] { margin-right: 0.5em; }
+strong { color: #6b4d10; }
+em { color: #8b6914; }
+@media (max-width: 640px) {
+    body { font-size: 15px; padding: 0 1em 3em; margin: 1em auto; }
+    h1:first-of-type { font-size: 1.7em; }
+    h1 { font-size: 1.5em; }
+    h2 { font-size: 1.25em; }
+    table { font-size: 0.88em; }
+    th, td { padding: 0.4em 0.5em; }
+    pre { font-size: 0.85em; }
+    .toc { padding: 1em 1.2em; }
+}
+@media print {
+    body { background: #fff; max-width: none; margin: 0; padding: 1cm; }
+    h1, h2 { break-after: avoid; }
+    table, pre, blockquote { break-inside: avoid; }
+    a { color: #6b4d10; }
+}
+</style>
+</head>
+<body>
+<h1 id="_1">宅兹中國 · 金文数字宇宙</h1>
+<p><strong>面向文化中国 · 开放赛道的提案书</strong></p>
+<p>—— 让一千年间的先秦金文，在浏览器里重新可视、可听、可算。</p>
+<hr />
+<p><strong>项目</strong>：（待定）
+<strong>作者</strong>：（待定）
+<strong>所属</strong>：（待定）
+<strong>版本</strong>：v0.1 初审提交稿
+<strong>日期</strong>：（待填）</p>
+<hr />
+<h2 id="_2">目录</h2>
+<ol>
+<li>一句话立项</li>
+<li>命题背景：为什么是金文</li>
+<li>项目定位与三入口结构</li>
+<li>「铭」：公众入口</li>
+<li>「篆」：游戏入口（含"听音识字"子板块，赛道差异化重心）</li>
+<li>「考」：研究者入口</li>
+<li>现有资产与技术基础</li>
+<li>学术合规性与数据来源</li>
+<li>里程碑与工作量估算</li>
+<li>参赛材料清单</li>
+<li>风险与规避</li>
+<li>附录：视觉与交互草图</li>
+<li>附录：数据统计</li>
+<li>附录：竞品对比（Fabricius）</li>
+<li>附录：未来展望</li>
+</ol>
+<hr />
+<h2 id="1">1. 一句话立项</h2>
+<blockquote>
+<p><strong>何尊铭文里，"中国"两个字第一次被写下来。</strong>
+<strong>三千年后，我们把先秦所有可见的金文放进了一个可交互、可听闻、可考释的数字宇宙。</strong></p>
+</blockquote>
+<hr />
+<h2 id="2">2. 命题背景：为什么是金文</h2>
+<p><strong>"文化中国"命题回归汉字本源，天然指向金文。</strong></p>
+<ul>
+<li>甲骨文是<strong>占卜刻辞</strong>，字形随意、多为神秘辞令</li>
+<li>金文（青铜器铭文）是<strong>国之重器</strong>，铸于礼器之上，字形郑重、内容涉及分封、征战、盟誓、赏赐</li>
+<li><strong>"中国"一词的最早实物证据，出于西周早期何尊铭文</strong>："宅兹中國，自之乂民"</li>
+<li>金文覆盖<strong>商晚 → 战国</strong>约一千年，是汉字<strong>从象形向抽象过渡的关键阶段</strong></li>
+</ul>
+<p><strong>当前公众可见性差：</strong></p>
+<ul>
+<li>博物馆中，金文往往作为"青铜器铭文说明"陈列，是配角</li>
+<li>汉典、zdic 等数据库以字为单位组织，缺乏叙事</li>
+<li>高校汉语史课程外，公众几无系统接触金文的途径</li>
+</ul>
+<p><strong>"金文"在中华文化叙事中的地位远未被信息化时代讲好。这是本项目的公众价值锚点。</strong></p>
+<hr />
+<h2 id="3">3. 项目定位与三入口结构</h2>
+<p><strong>产品形态</strong>：Web 应用，浏览器直接打开，无需下载安装。</p>
+<p><strong>参照对标</strong>：大英博物馆 × Google Arts &amp; Culture 的 <a href="https://artsandculture.google.com/experiment/fabricius/">Fabricius</a> —— 用 AI 让公众参与古埃及象形文字的互动、游戏与研究。</p>
+<p><strong>在 Fabricius 三入口结构（Learn/Play/Work）基础上重构为</strong>：</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>入口</th>
+<th>面向</th>
+<th>差异化</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>铭</strong></td>
+<td>公众入口</td>
+<td>一般访客、传播</td>
+<td>金文星河 3D 可视化 + 何尊叙事主轴</td>
+</tr>
+<tr>
+<td><strong>篆</strong></td>
+<td>游戏入口</td>
+<td>学生、爱好者</td>
+<td><strong>听音识字</strong>（郑张尚芳上古音）+ 铸金书写</td>
+</tr>
+<tr>
+<td><strong>考</strong></td>
+<td>研究者入口</td>
+<td>学者、师生</td>
+<td><strong>金文识别 AI 工作台</strong>（含置信度可视化）</td>
+</tr>
+</tbody>
+</table>
+<p><strong>三入口的"入口权重"分布</strong>（一个人开发的资源分配）：</p>
+<ul>
+<li>「铭」20% ── 复用现有金文星河可视化</li>
+<li>「篆」50% ── 主战场，"听音识字"是核心差异化</li>
+<li>「考」30% ── 挂靠已有金文识别平台代码</li>
+</ul>
+<hr />
+<h2 id="4">4. 「铭」：公众入口</h2>
+<p><strong>目标</strong>：让第一次听说"金文"的人，30 秒内感受到规模、时间纵深与美学。</p>
+<h3 id="41">4.1 主视觉</h3>
+<ul>
+<li>页面首屏：<strong>何尊 3D 主视觉</strong>，或用 1690 个金文粒子在星河中拼出何尊轮廓</li>
+<li>铭文"宅兹中國"逐字浮现，右下小字给出白话译文</li>
+<li>背景配鼓底钟音（Web Audio 现场合成，无版权顾虑）</li>
+</ul>
+<h3 id="42">4.2 金文星河（已有）</h3>
+<ul>
+<li><strong>1690 个先秦金文</strong>分布于对数螺旋双臂银河</li>
+<li><strong>按朝代染色</strong>：商橙红 / 西周金 / 春秋淡金 / 戰國青金</li>
+<li>5 种真实青铜器形态可切换：<strong>鼎 · 簋 · 尊 · 盘 · 爵</strong></li>
+<li>每字弹窗：字形 + 朝代 + 出土器物 + 20 姓氏保留历史故事</li>
+<li>支持一键录制 30 秒展示视频（1080p MP4 + 配乐）</li>
+</ul>
+<h3 id="43">4.3 时间轴与查询</h3>
+<ul>
+<li>横向时间轴：拖动可见 1690 字在千年间的密度分布</li>
+<li><strong>"你的姓在哪里"</strong>：输入姓氏 → 镜头飞向星河中对应字 → 弹出故事</li>
+<li>命中 20 姓：完整历史故事</li>
+<li>未命中：提示"你的姓氏在金文中未见记载"（制造情感落差）</li>
+</ul>
+<hr />
+<h2 id="5">5. 「篆」：游戏入口（主战场）</h2>
+<p>游戏入口分两个子板块：</p>
+<ul>
+<li><strong>听</strong>：听音识字 —— 郑张尚芳上古音朗读，用户听音选出对应金文</li>
+<li><strong>铸</strong>：铸金书写 —— 用户临摹金文写字，铸到青铜器上分享（形态待定，见 §9）</li>
+</ul>
+<p><strong>本节重点介绍「听」，因为它是本项目的</strong>赛道差异化重心**。</p>
+<h3 id="51">5.1 为什么"听音识字"是关键差异化</h3>
+<ul>
+<li><strong>听觉维度在同类项目中几近空白</strong>：现有汉字数字化产品几乎都停留在字形展示，"听"这一维度未被开发</li>
+<li><strong>学术性天花板高</strong>：挂靠郑张尚芳《上古音系》，学术引用清晰可靠</li>
+<li><strong>传播 hook 强</strong>："你能听懂 3000 年前的中国人说话吗？"是天然的社交媒体标题</li>
+<li><strong>技术可实现</strong>：郑张尚芳构拟音已文本公开，可通过 eSpeak-NG 音标合成 + 后处理</li>
+</ul>
+<h3 id="52-level-1">5.2 「听」子板块 Level 1：单字听辨（本次交付重点）</h3>
+<p><strong>交互流程</strong>：</p>
+<pre><code>播放上古音（ɢʷaŋ）
+    ↓
+呈现 4 个金文字形选项
+    ↓
+用户点选
+    ↓
+展示：
+  • 正确答案（王，*ɢʷaŋ）
+  • 现代普通话拼音（wáng）
+  • 字义（王者、统治者）
+  • 出土器物（毛公鼎、大盂鼎…）
+  • 学术引用（郑张尚芳《上古音系》，上海教育出版社 2003）
+  • [在星河中查看此字]
+</code></pre>
+<p><strong>难度递增策略</strong>：</p>
+<ul>
+<li><strong>入门</strong>：象形字（日、月、山、水、王、马、鱼、鹿），字形与含义高度相关</li>
+<li><strong>中级</strong>：会意字（明、休、伐），需要一定汉语理解力</li>
+<li><strong>高级</strong>：抽象字（其、于、乃），几乎需要真的记住上古音</li>
+</ul>
+<p><strong>得分系统</strong>：答对的字自动进入用户的<strong>"个人金文星河"</strong>（localStorage 持久化）。玩得越多，星河越亮。这是保留率的核心 hook。</p>
+<h3 id="53">5.3 数据来源与合成路径</h3>
+<ul>
+<li><strong>上古音数据</strong>：郑张尚芳《上古音系》(上海教育出版社, 2003) 附录索引 + 汉典网/维基词典整理，需人工校对</li>
+<li><strong>合成引擎</strong>：eSpeak-NG（开源，支持任意 IPA 输入），后接混响 + 降采样 + 低通滤波，产出"三千年回声"的听感</li>
+<li><strong>免责声明</strong>：页面固定底栏 —— "实际先秦发音已不可考，本站音值参考郑张尚芳《上古音系》(2003) 构拟，合成音仅供参考"</li>
+</ul>
+<h3 id="54-level-23">5.4 "听"板块 Level 2/3（暂缓，视时间开放）</h3>
+<ul>
+<li><strong>L2 铭文接龙</strong>：真实铭文的完整朗读 + 音游节奏机制</li>
+<li><strong>L3 同族字识别</strong>：基于郑张体系的词族学考察</li>
+</ul>
+<p>本次交付<strong>只做 L1</strong>，L2 与 L3 作为后续迭代方向。</p>
+<h3 id="55">5.5 「铸」子板块（形态待定）</h3>
+<p>三种档次：</p>
+<ul>
+<li><strong>极简版（3-5 天）</strong>：写现代字 → 查金文 → 生成分享卡片</li>
+<li><strong>中等版（2-3 周）</strong>：金文以发光贴图贴到现有鼎/簋/尊模型表面（推荐）</li>
+<li><strong>完整版（1-2 个月）</strong>：金属着色器 + 铸造粒子动画 + 花纹添加（风险高）</li>
+</ul>
+<p><strong>决策待定</strong>，见 §9 里程碑。</p>
+<hr />
+<h2 id="6">6. 「考」：研究者入口</h2>
+<p><strong>目标</strong>：让评审看到"这个团队真的懂古文字"，同时把已有的金文识别平台学术化包装。</p>
+<h3 id="61-ocr">6.1 命名不叫"金文 OCR"，叫"金文数字化考释工作台"</h3>
+<ul>
+<li>面向：汉语史、古文字学、考古学专业师生</li>
+<li>定位：从"识别工具"升级为"考释辅助"</li>
+</ul>
+<h3 id="62">6.2 三件套功能</h3>
+<ol>
+<li><strong>拓片识别</strong>：上传金文拓片图像 → 系统给出候选字 Top-K + 置信度</li>
+<li><strong>变体检索</strong>：输入现代字 → 数据库返回该字所有金文变体 + 出土器物</li>
+<li><strong>相似字辅助考释</strong>：给定一个金文字形，返回数据库中最相似的 N 个字（供学者判断是否为异体、讹误、初文等）</li>
+</ol>
+<h3 id="63">6.3 差异化：置信度可视化</h3>
+<ul>
+<li><strong>不是给结论，是辅助思考</strong></li>
+<li>展示 attention map、变体聚类、发展脉络</li>
+<li>学术圈最反感的是"黑盒 AI"，这一层足够拉开与商用 OCR 的差距</li>
+</ul>
+<h3 id="64">6.4 开放数据集</h3>
+<ul>
+<li>把 1690 字 SVG + 元数据（朝代、出土器物、上古音）打包为 CC-BY 数据集</li>
+<li>提供 JSON schema 说明与下载</li>
+<li>附学术引用格式</li>
+</ul>
+<p><strong>这是评审加分项</strong>：文化中国赛道明确鼓励开放数据。</p>
+<h3 id="65">6.5 现有代码</h3>
+<p>（等作者提供后补充）</p>
+<hr />
+<h2 id="7">7. 现有资产与技术基础</h2>
+<h3 id="71">7.1 已完成的资产</h3>
+<ul>
+<li><strong>前端主页</strong>：<code>index.html</code> 单文件 Three.js 应用，无构建工具</li>
+<li><strong>数据集</strong>：1690 个先秦金文 SVG（下载自 darkscope.cn/zdic）+ 索引 JSON（含 1127 条朝代/出土器物元数据）</li>
+<li><strong>金文星河 3D 可视化</strong>：对数螺旋双臂银河布局，按朝代染色，5 种真实青铜器形态切换（鼎/簋/尊/盘/爵）</li>
+<li><strong>一键录制展示</strong>：canvas.captureStream → MediaRecorder，输出 1080p MP4 + Web Audio 合成配乐</li>
+<li><strong>数据下载脚本</strong>：<code>download_all_jinwen.py</code>（可增量），<code>enrich_index.py</code>（补朝代出土信息）</li>
+</ul>
+<h3 id="72">7.2 计划开发</h3>
+<ul>
+<li><strong>听音识字 L1</strong>（本次核心交付）</li>
+<li><strong>"铭"入口的时间轴 + 姓氏查询</strong></li>
+<li><strong>"考"入口的置信度可视化面板 + 数据集页面</strong></li>
+<li><strong>响应式：至少让手机能横屏看星河</strong></li>
+</ul>
+<h3 id="73">7.3 技术栈</h3>
+<ul>
+<li>前端：<strong>Three.js r128</strong>（无构建工具，CDN 加载）</li>
+<li>数据：JSON 文件 + SVG 矢量图，无后端</li>
+<li>语音：<strong>eSpeak-NG 命令行</strong>离线生成音频，浏览器直接播放 mp3</li>
+<li>部署：静态托管（GitHub Pages / Netlify / 自建）</li>
+<li>无用户系统、无数据库、无排行榜服务器（游戏成绩 localStorage 存储）</li>
+</ul>
+<p><strong>优势</strong>：极简架构，一人可维护。所有资源可缓存至 CDN，加载体验佳。</p>
+<hr />
+<h2 id="8">8. 学术合规性与数据来源</h2>
+<h3 id="81">8.1 数据来源引用</h3>
+<table>
+<thead>
+<tr>
+<th>资产</th>
+<th>来源</th>
+<th>授权</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>金文 SVG 字形</td>
+<td>zdic.net / darkscope.cn/jinwen-data</td>
+<td>学术引用规范</td>
+</tr>
+<tr>
+<td>朝代与出土器物</td>
+<td>thumbs-meta（kaom 分类）</td>
+<td>同上</td>
+</tr>
+<tr>
+<td>上古音构拟</td>
+<td>郑张尚芳《上古音系》(上海教育出版社, 2003)</td>
+<td>学术引用规范</td>
+</tr>
+<tr>
+<td>20 姓氏历史故事</td>
+<td>通行姓氏学资料</td>
+<td>待细化</td>
+</tr>
+</tbody>
+</table>
+<h3 id="82">8.2 免责声明策略</h3>
+<ul>
+<li><strong>音频</strong>：底部固定说明"实际发音已不可考"</li>
+<li><strong>AI 识别</strong>："识别结果为算法辅助，仅供参考，最终考释以学者判断为准"</li>
+<li><strong>姓氏起源</strong>："传统姓氏学说，学界或有不同意见"</li>
+</ul>
+<h3 id="83">8.3 无学术合作者的应对</h3>
+<p><strong>当前决策：作者本人负责所有学术内容。</strong></p>
+<p>规避风险的措施：</p>
+<ul>
+<li>所有引用都可溯源到具体书目页码</li>
+<li>所有构拟音<strong>只引用不自创</strong></li>
+<li>项目文档预留"学术合作者"字段，后续开放合作</li>
+<li>首发前请一位汉语史方向的师友做非正式审读</li>
+</ul>
+<hr />
+<h2 id="9">9. 里程碑与工作量估算</h2>
+<p><strong>假设</strong>：作者全职投入约等于兼职深度参与，每周有效工时 20-30 小时。</p>
+<h3 id="2_1">阶段一：基础加固（当前 ~ +2 周）</h3>
+<ul>
+<li>完善"铭"入口：加时间轴、姓氏查询、何尊主视觉</li>
+<li>上古音数据抓取与整理（郑张尚芳，覆盖 1690 字中 60-70%）</li>
+<li>中期检查：现有星河产品是否已具备可提交给初审的完整度</li>
+</ul>
+<h3 id="l12-4">阶段二：听音识字 L1（+2 ~ +4 周）</h3>
+<ul>
+<li>eSpeak-NG 合成流水线跑通</li>
+<li>音频后处理（混响 + 降采样）</li>
+<li>L1 前端小游戏</li>
+<li>得分系统 + 个人金文星河</li>
+</ul>
+<h3 id="4-7">阶段三：考释工作台（+4 ~ +7 周）</h3>
+<ul>
+<li>识别平台前端加壳（依赖作者原有代码）</li>
+<li>置信度可视化组件</li>
+<li>数据集下载页面</li>
+</ul>
+<h3 id="7-9">阶段四：铸金书写（+7 ~ +9 周）</h3>
+<ul>
+<li>视决策：<strong>极简 3-5 天</strong> / <strong>中等 2-3 周</strong> / <strong>完整 4-8 周</strong></li>
+<li>若时间紧，选极简；若中期节奏顺，选中等</li>
+</ul>
+<h3 id="9-10">阶段五：打磨与提交（+9 ~ +10 周）</h3>
+<ul>
+<li>移动端适配（横屏能看即可）</li>
+<li>30 秒宣传片重录</li>
+<li>参赛材料整理</li>
+</ul>
+<hr />
+<h2 id="10">10. 参赛材料清单</h2>
+<p>初审通常需要：</p>
+<ul>
+<li>[ ] 项目 pitch 文档（本文件）</li>
+<li>[ ] 3-5 分钟宣传视频（已具备录制能力）</li>
+<li>[ ] 可访问的 Web demo 链接</li>
+<li>[ ] 团队/作者介绍</li>
+<li>[ ] 技术白皮书或数据集说明</li>
+<li>[ ] 视觉物料（截图、logo、海报等）</li>
+</ul>
+<hr />
+<h2 id="11">11. 风险与规避</h2>
+<table>
+<thead>
+<tr>
+<th>风险</th>
+<th>影响</th>
+<th>规避</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>一人开发赶不上完整交付</td>
+<td>高</td>
+<td>优先级明确：铭 → 听音识字 L1 → 考 → 铸（可砍）</td>
+</tr>
+<tr>
+<td>上古音学术准确性被专家质疑</td>
+<td>中</td>
+<td>只引用不自创；免责声明；预约汉语史师友审读</td>
+</tr>
+<tr>
+<td>铸金书写完整版失控（视觉/工作量）</td>
+<td>中</td>
+<td>三档预案，中期强制决策</td>
+</tr>
+<tr>
+<td>移动端体验差</td>
+<td>中</td>
+<td>明确"横屏 + 触控简化"底线</td>
+</tr>
+<tr>
+<td>数据授权争议</td>
+<td>低</td>
+<td>zdic 数据用于学术目的，均标注来源</td>
+</tr>
+<tr>
+<td>评审对 Three.js 单文件架构存疑</td>
+<td>低</td>
+<td>强调"零依赖、易部署、开放源码"</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="12">12. 附录：视觉与交互草图</h2>
+<p><strong>（此处将补充线框图，包含）</strong>：</p>
+<ul>
+<li>首页何尊主视觉</li>
+<li>金文星河 + 器形切换栏</li>
+<li>听音识字 L1 主界面</li>
+<li>单字答对/答错反馈弹窗</li>
+<li>考释工作台上传界面</li>
+<li>个人金文星河成就页</li>
+</ul>
+<hr />
+<h2 id="13">13. 附录：数据统计</h2>
+<ul>
+<li>金文字数：<strong>1690</strong> 个（先秦，覆盖 zdic 全部有金文变体的字）</li>
+<li>金文变体总数：<strong>5930</strong> 个（每字平均 3.5 个变体，最多 5 个）</li>
+<li>朝代分布：</li>
+<li>西周（早期 193 + 中期 196 + 晚期 200）= 589</li>
+<li>商 = 162</li>
+<li>春秋（早期 43 + 中期 3 + 晚期 96）= 142</li>
+<li>戰國（早期 51 + 中期 2 + 晚期 66 + 未细分 79）= 198</li>
+<li>未标注朝代 = 563</li>
+<li>已具备出土器物信息：1127 字（占 66.7%）</li>
+<li>20 姓氏（王周殷吴楚秦宋曹蔡虢散毛虞曾黄朱林方金白）皆有完整历史故事</li>
+</ul>
+<hr />
+<h2 id="14-fabricius">14. 附录：竞品对比（Fabricius）</h2>
+<table>
+<thead>
+<tr>
+<th>维度</th>
+<th>Google × 大英博物馆 Fabricius</th>
+<th>本项目</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>目标文字</td>
+<td>古埃及圣书体</td>
+<td>先秦金文</td>
+</tr>
+<tr>
+<td>团队规模</td>
+<td>数十人 × 一年</td>
+<td>一人 × 数月</td>
+</tr>
+<tr>
+<td>三入口</td>
+<td>Learn / Play / Work</td>
+<td>铭 / 篆 / 考</td>
+</tr>
+<tr>
+<td>数据规模</td>
+<td>约 800 字符</td>
+<td>1690 字，5930 变体</td>
+</tr>
+<tr>
+<td>差异化</td>
+<td>AI 手写识别</td>
+<td><strong>听音识字（上古音听觉维度）+ 星河可视化</strong></td>
+</tr>
+<tr>
+<td>移动端</td>
+<td>有</td>
+<td>至少能横屏看</td>
+</tr>
+<tr>
+<td>商业模式</td>
+<td>Google Arts &amp; Culture 内嵌</td>
+<td>独立 Web 应用</td>
+</tr>
+</tbody>
+</table>
+<p><strong>核心信念</strong>：Fabricius 在"视觉+游戏"维度已做得很好，本项目通过"听觉"这一未被开发的感官维度形成差异化。</p>
+<hr />
+<h2 id="15">15. 附录：未来展望</h2>
+<p>若初审通过并有资源持续投入：</p>
+<ul>
+<li><strong>听音识字 L2 铭文接龙</strong>：完整何尊、毛公鼎、散氏盘朗读</li>
+<li><strong>听音识字 L3 词族识别</strong>：进入真正的学术辅助工具形态</li>
+<li><strong>多方言对照</strong>：粤语、闽南语、客家话与上古音的对照展示</li>
+<li><strong>AR/VR 版本</strong>：把"金文星河"搬到 VR 头显中，用户漫游其中</li>
+<li><strong>教育合作</strong>：与中学"语文素养课"或高校"汉语史"课程联动</li>
+<li><strong>开放 API</strong>：把 1690 字 SVG + 上古音数据开放为 Web API，供其他学术项目调用</li>
+</ul>
+<hr />
+<p><strong>（文档结束）</strong></p>
+<p><strong>下一步待作者决策</strong>：</p>
+<ol>
+<li>补充项目名称、作者信息、单位</li>
+<li>确认铸金书写档次</li>
+<li>是否邀请汉语史师友审读</li>
+<li>何时启动数据抓取脚本</li>
+</ol>
+</body>
+</html>

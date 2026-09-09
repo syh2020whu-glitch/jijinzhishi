@@ -1,0 +1,1999 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <title>百家金文 · 星河</title>
+    <link rel="preconnect" href="https://fonts.loli.net" crossorigin>
+    <link rel="stylesheet" href="https://fonts.loli.net/css2?family=Noto+Sans+TC:wght@400;500&family=Noto+Serif+TC:wght@400;600;700&family=Source+Sans+3:wght@400;500&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500&family=Noto+Serif+TC:wght@400;600;700&family=Source+Sans+3:wght@400;500&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap">
+    <script>
+        if (!new URLSearchParams(location.search).has('embed')) {
+            location.replace('demo.html' + (location.hash || ''));
+        }
+    </script>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            background: #050810;
+            font-family: "Source Serif 4", "Noto Serif TC", "Source Han Serif TC", serif;
+            cursor: grab;
+        }
+        body:active { cursor: grabbing; }
+
+        #canvas { width: 100vw; height: 100vh; display: block; }
+
+        .header {
+            position: absolute;
+            top: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: #f4d58a;
+            text-align: center;
+            z-index: 10;
+            pointer-events: none;
+            text-shadow: 0 0 20px rgba(244, 213, 138, 0.5);
+        }
+        .header h1 {
+            font-size: 56px;
+            margin: 0;
+            letter-spacing: 25px;
+            font-weight: normal;
+        }
+        .header p {
+            font-size: 14px;
+            margin-top: 15px;
+            opacity: 0.7;
+            letter-spacing: 8px;
+        }
+
+        .footer {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: #f4d58a;
+            z-index: 10;
+            font-size: 13px;
+            opacity: 0.5;
+            pointer-events: none;
+            letter-spacing: 4px;
+        }
+
+        /* 加载进度 */
+        .loading {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: #f4d58a;
+            z-index: 30;
+            text-align: center;
+            font-size: 14px;
+            letter-spacing: 4px;
+            pointer-events: none;
+        }
+        .loading .bar {
+            width: 320px;
+            height: 2px;
+            background: rgba(244, 213, 138, 0.15);
+            margin-top: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+        .loading .bar .fill {
+            position: absolute;
+            top: 0; left: 0;
+            height: 100%;
+            width: 0;
+            background: linear-gradient(90deg, transparent, #f4d58a, transparent);
+            box-shadow: 0 0 10px #f4d58a;
+            transition: width 0.15s ease-out;
+        }
+        .loading.done { opacity: 0; transition: opacity 1s; }
+
+        /* 底部：器形切换 */
+        .shapes {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 8px;
+            z-index: 15;
+        }
+        .shapes button {
+            background: rgba(10, 15, 25, 0.55);
+            border: 1px solid rgba(244, 213, 138, 0.25);
+            color: #f4d58a;
+            font-family: "Source Serif 4", "Noto Serif TC", "Source Han Serif TC", serif;
+            font-size: 20px;
+            letter-spacing: 3px;
+            padding: 8px 20px;
+            cursor: pointer;
+            backdrop-filter: blur(6px);
+            transition: all 0.25s ease;
+            opacity: 0.75;
+        }
+        .shapes button:hover {
+            opacity: 1;
+            background: rgba(244, 213, 138, 0.1);
+            border-color: rgba(244, 213, 138, 0.55);
+        }
+        .shapes button.active {
+            opacity: 1;
+            background: rgba(244, 213, 138, 0.18);
+            border-color: rgba(244, 213, 138, 0.75);
+            box-shadow: 0 0 18px rgba(244, 213, 138, 0.35);
+            color: #fff2b0;
+        }
+
+        /* 录制按钮 */
+        .rec-btn {
+            position: absolute;
+            bottom: 30px;
+            right: 30px;
+            background: rgba(10, 15, 25, 0.55);
+            border: 1px solid rgba(244, 213, 138, 0.35);
+            color: #f4d58a;
+            font-family: "Source Serif 4", "Noto Serif TC", "Source Han Serif TC", serif;
+            font-size: 15px;
+            padding: 10px 18px;
+            letter-spacing: 3px;
+            cursor: pointer;
+            backdrop-filter: blur(6px);
+            z-index: 15;
+            transition: all 0.25s;
+        }
+        .rec-btn:hover { background: rgba(244, 213, 138, 0.12); border-color: rgba(244, 213, 138, 0.6); }
+        .rec-btn.recording {
+            background: rgba(200, 50, 50, 0.35);
+            border-color: rgba(255, 120, 120, 0.7);
+            color: #ffe0e0;
+            cursor: not-allowed;
+        }
+        .rec-btn.recording::before {
+            content: '●';
+            color: #ff5050;
+            margin-right: 6px;
+            animation: blink 1s infinite;
+        }
+        @keyframes blink { 50% { opacity: 0.25; } }
+
+        /* 录制状态提示（顶部） */
+        .rec-status {
+            position: absolute;
+            top: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(20, 15, 20, 0.85);
+            color: #ffd8d8;
+            padding: 8px 18px;
+            border-radius: 18px;
+            font-size: 12px;
+            letter-spacing: 3px;
+            z-index: 25;
+            display: none;
+            border: 1px solid rgba(255, 120, 120, 0.4);
+        }
+        .rec-status.show { display: block; }
+
+        /* 图例：朝代-颜色 */
+        .legend {
+            position: absolute;
+            top: 40px;
+            left: 40px;
+            color: #f4d58a;
+            font-size: 12px;
+            letter-spacing: 2px;
+            opacity: 0.6;
+            z-index: 10;
+            pointer-events: none;
+            line-height: 1.9;
+        }
+        .legend .dot {
+            display: inline-block;
+            width: 10px; height: 10px;
+            border-radius: 50%;
+            margin-right: 8px;
+            vertical-align: middle;
+            box-shadow: 0 0 6px currentColor;
+        }
+
+        /* 统计 */
+        .counter {
+            position: absolute;
+            top: 40px;
+            right: 40px;
+            color: #f4d58a;
+            font-size: 12px;
+            letter-spacing: 2px;
+            opacity: 0.6;
+            z-index: 10;
+            pointer-events: none;
+            text-align: right;
+            line-height: 1.9;
+        }
+        .counter .num {
+            font-size: 32px;
+            letter-spacing: 0;
+            display: block;
+            line-height: 1.1;
+        }
+
+        /* 悬浮详情弹窗 */
+        .info-panel {
+            position: absolute;
+            top: 50%;
+            right: 50px;
+            transform: translateY(-50%);
+            width: 340px;
+            padding: 30px;
+            background: rgba(10, 15, 25, 0.85);
+            border: 1px solid rgba(244, 213, 138, 0.3);
+            color: #f4d58a;
+            z-index: 20;
+            display: none;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 0 30px rgba(244, 213, 138, 0.1);
+        }
+        .info-panel.show { display: block; }
+        .info-panel .surname {
+            font-size: 72px;
+            text-align: center;
+            margin-bottom: 10px;
+            text-shadow: 0 0 20px rgba(244, 213, 138, 0.6);
+            font-family: "Source Serif 4", "Noto Serif TC", "Source Han Serif TC", serif;
+        }
+        .info-panel .modern {
+            text-align: center;
+            font-size: 14px;
+            opacity: 0.5;
+            letter-spacing: 4px;
+            margin-bottom: 20px;
+        }
+        .info-panel .meta {
+            display: flex;
+            justify-content: space-between;
+            font-size: 13px;
+            opacity: 0.75;
+            border-top: 1px solid rgba(244, 213, 138, 0.2);
+            padding-top: 15px;
+            margin-top: 15px;
+        }
+        .info-panel .meta span:first-child { opacity: 0.5; margin-right: 10px; }
+        .info-panel .story {
+            font-size: 13px;
+            line-height: 1.8;
+            opacity: 0.75;
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid rgba(244, 213, 138, 0.2);
+        }
+        .info-panel .close {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            font-size: 20px;
+            cursor: pointer;
+            opacity: 0.5;
+        }
+        .info-panel .close:hover { opacity: 1; }
+        .info-panel .actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 18px;
+        }
+        .info-panel .actions button {
+            flex: 1;
+            background: rgba(244, 213, 138, 0.1);
+            border: 1px solid rgba(244, 213, 138, 0.4);
+            color: #f4d58a;
+            font-family: inherit;
+            font-size: 13px;
+            letter-spacing: 2px;
+            padding: 8px 0;
+            cursor: pointer;
+        }
+        .info-panel .actions button:hover {
+            background: rgba(244, 213, 138, 0.22);
+        }
+
+        .search-box {
+            position: absolute;
+            top: 36px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 16;
+            display: flex;
+            gap: 8px;
+            align-items: center;
+        }
+        .search-box input {
+            width: 220px;
+            background: rgba(10, 15, 25, 0.7);
+            border: 1px solid rgba(244, 213, 138, 0.35);
+            color: #f4d58a;
+            font-family: inherit;
+            font-size: 15px;
+            letter-spacing: 3px;
+            padding: 9px 14px;
+            outline: none;
+            backdrop-filter: blur(8px);
+        }
+        .search-box input::placeholder { color: rgba(244, 213, 138, 0.45); }
+        .search-box button {
+            background: rgba(244, 213, 138, 0.14);
+            border: 1px solid rgba(244, 213, 138, 0.45);
+            color: #f4d58a;
+            font-family: inherit;
+            letter-spacing: 2px;
+            padding: 9px 16px;
+            cursor: pointer;
+        }
+        .search-miss {
+            position: absolute;
+            top: 86px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 16;
+            display: none;
+            max-width: 420px;
+            padding: 14px 20px;
+            background: rgba(10, 15, 25, 0.88);
+            border: 1px solid rgba(244, 213, 138, 0.3);
+            color: #f4d58a;
+            letter-spacing: 2px;
+            font-size: 14px;
+            line-height: 1.7;
+            text-align: center;
+            backdrop-filter: blur(10px);
+        }
+        .search-miss.show { display: block; }
+
+        .timeline {
+            position: absolute;
+            left: 40px;
+            right: 40px;
+            bottom: 88px;
+            z-index: 15;
+            display: flex;
+            gap: 6px;
+            pointer-events: auto;
+        }
+        .timeline button {
+            flex: 1;
+            background: rgba(10, 15, 25, 0.55);
+            border: 1px solid rgba(244, 213, 138, 0.22);
+            color: #f4d58a;
+            font-family: inherit;
+            font-size: 12px;
+            letter-spacing: 2px;
+            padding: 8px 6px 10px;
+            cursor: pointer;
+            backdrop-filter: blur(6px);
+            opacity: 0.8;
+        }
+        .timeline button .bar {
+            height: 4px;
+            margin: 0 4px 6px;
+            background: rgba(244, 213, 138, 0.2);
+            overflow: hidden;
+        }
+        .timeline button .bar i {
+            display: block;
+            height: 100%;
+            width: 0;
+            background: currentColor;
+        }
+        .timeline button.active, .timeline button:hover {
+            opacity: 1;
+            border-color: rgba(244, 213, 138, 0.7);
+            background: rgba(244, 213, 138, 0.12);
+        }
+
+        .brand-link {
+            position: absolute;
+            top: 18px;
+            left: 40px;
+            z-index: 16;
+            color: #f4d58a;
+            text-decoration: none;
+            letter-spacing: 4px;
+            font-size: 13px;
+            opacity: 0.55;
+        }
+        .brand-link:hover { opacity: 1; }
+
+        html.embed .header { display: none; }
+        html.embed .footer { display: none; }
+        html.embed .brand-link,
+        html.embed .search-box,
+        html.embed .search-miss,
+        html.embed .timeline,
+        html.embed .rec-btn,
+        html.embed .shapes { display: none !important; }
+        html.embed .legend { top: 18px; left: 18px; }
+        html.embed .counter { top: 18px; right: 18px; }
+        html.embed.introing .legend,
+        html.embed.introing .counter,
+        html.embed.introing .info-panel,
+        html.embed.introing .loading { display: none !important; }
+
+        html.embed.neo body { background: #0f1015; }
+        html.embed.neo .legend,
+        html.embed.neo .counter { color: #f1f5f9; opacity: .88; }
+        html.embed.neo .info-panel {
+            background: #181a23;
+            border-color: rgba(241,245,249,.1);
+            color: #f1f5f9;
+            box-shadow: 0 0 32px rgba(196,164,106,.12);
+        }
+        html.embed.neo .info-panel .surname {
+            color: #f1f5f9;
+            text-shadow: 0 0 18px rgba(196,164,106,.28);
+        }
+        html.embed.neo .info-panel .modern,
+        html.embed.neo .info-panel .story,
+        html.embed.neo .info-panel .meta { color: #94a3b8; }
+        html.embed.neo .info-panel .meta {
+            border-top-color: rgba(241,245,249,.1);
+        }
+        html.embed.neo .info-panel .actions button {
+            color: #f1f5f9;
+            border-color: rgba(196,164,106,.4);
+            background: rgba(196,164,106,.08);
+        }
+        html.embed.neo .info-panel .actions button:hover {
+            background: rgba(196,164,106,.18);
+        }
+
+        @media (max-width: 720px) {
+            .header h1 { font-size: 28px; letter-spacing: 8px; }
+            .search-box { top: 16px; }
+            .search-box input { width: min(168px, 48vw); font-size: 16px; }
+            .timeline { left: 8px; right: 8px; bottom: max(72px, calc(env(safe-area-inset-bottom) + 64px)); }
+            .timeline button { letter-spacing: 0; font-size: 11px; padding: 8px 2px; min-height: 40px; }
+            .info-panel { right: 12px; left: 12px; width: auto; }
+            .legend, .counter { display: none; }
+            .shapes { bottom: max(12px, env(safe-area-inset-bottom)); flex-wrap: wrap; justify-content: center; max-width: calc(100% - 16px); }
+        }
+    </style>
+</head>
+<body>
+    <canvas id="canvas"></canvas>
+
+    <a class="brand-link" href="demo.html">宅兹中國 · 进入完整 Demo</a>
+    <div class="legend" id="legend"></div>
+    <div class="counter" id="counter"><span class="num" id="counterNum">0</span>金文星辰</div>
+
+    <div class="search-box">
+        <input id="surnameInput" maxlength="4" placeholder="你的姓在哪里" autocomplete="off">
+        <button id="surnameBtn">寻</button>
+    </div>
+    <div class="search-miss" id="searchMiss"></div>
+    <div class="timeline" id="timeline"></div>
+
+    <div class="loading" id="loading">
+        <div>正在铸鼎……<span id="loadingText">0 / 0</span></div>
+        <div class="bar"><div class="fill" id="loadingFill"></div></div>
+    </div>
+
+    <button class="rec-btn" id="recBtn">录制展示</button>
+    <div class="rec-status" id="recStatus"></div>
+
+    <div class="shapes" id="shapes">
+        <button data-shape="galaxy" class="active">星河</button>
+        <button data-shape="ding">鼎</button>
+        <button data-shape="gui">簋</button>
+        <button data-shape="zun">尊</button>
+        <button data-shape="pan">盘</button>
+        <button data-shape="jue">爵</button>
+    </div>
+
+    <div class="info-panel" id="infoPanel">
+        <span class="close" onclick="document.getElementById('infoPanel').classList.remove('show')">×</span>
+        <div class="surname" id="infoSurname"></div>
+        <div class="modern" id="infoModern"></div>
+        <div class="meta" id="infoMetaTop"></div>
+        <div class="story" id="infoStory"></div>
+        <div class="actions">
+            <button type="button" id="btnWall">去方格牆</button>
+            <button type="button" id="btnListen">聽此字</button>
+            <button type="button" id="btnKao">去銘見</button>
+        </div>
+    </div>
+
+    <script src="https://unpkg.com/three@0.128.0/build/three.min.js"></script>
+    <script src="https://unpkg.com/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+
+    <script>
+        // ============ 20 个已知姓氏的深度故事（其余字用 index.json 里的元数据） ============
+        const surnameStories = {
+            '王': { location: '山西太原', story: '王姓源自周灵王太子晋，太子晋因谏被废，其子宗敬后人以王为姓' },
+            '周': { location: '陕西周原', story: '周姓源自西周王室，周原是周人发祥之地，毛公鼎、大盂鼎皆出于此' },
+            '殷': { location: '河南安阳', story: '殷姓源自商朝王族，商亦称殷，殷墟出土大量甲骨与青铜器' },
+            '吴': { location: '江苏无锡', story: '周太王之子太伯让位奔吴，建立句吴，为吴姓之始' },
+            '楚': { location: '湖北荆州', story: '楚国王族熊氏之后，以国为氏' },
+            '秦': { location: '甘肃天水', story: '秦国王族嬴姓赵氏之后，以国为姓' },
+            '宋': { location: '河南商丘', story: '商纣王庶兄微子启封于宋，其后以国为姓' },
+            '曹': { location: '山东定陶', story: '周武王封弟叔振铎于曹，其后以国为姓' },
+            '蔡': { location: '河南上蔡', story: '周武王封弟叔度于蔡，其后以国为姓' },
+            '虢': { location: '河南三门峡', story: '周文王之弟虢仲封于虢，虢季子白盘出土于此' },
+            '散': { location: '陕西宝鸡', story: '散国为西周小国，散氏盘记载其与夨国土地纠纷' },
+            '毛': { location: '陕西岐山', story: '周文王之子毛叔郑封于毛，毛公鼎为其后人所铸' },
+            '虞': { location: '山西平陆', story: '周太王之子仲雍之后，太伯奔吴，仲雍留居为虞' },
+            '曾': { location: '湖北随州', story: '曾国为西周姬姓封国，曾侯乙墓编钟震惊世界' },
+            '黄': { location: '河南潢川', story: '黄姓源自嬴姓黄国，黄国为春秋小国，后被楚所灭' },
+            '朱': { location: '河南商丘', story: '朱姓源自颛顼之后曹挟，周武王封于邾，后去邑为朱' },
+            '林': { location: '河南卫辉', story: '林姓源自比干之子坚，避难于长林山，遂以林为姓' },
+            '方': { location: '河南禹州', story: '方姓源自炎帝神农氏之后方雷氏，为古老姓氏' },
+            '金': { location: '山东金乡', story: '金姓多源，一说源自少昊金天氏，一说源自匈奴休屠王之子金日磾' },
+            '白': { location: '陕西韩城', story: '白姓源自嬴姓，秦国大将白乙丙之后，或楚平王孙白公胜之后' }
+        };
+
+        // ============ 朝代 → 颜色（分层染色） ============
+        const periodColorMap = [
+            { match: /商/,        color: [255, 176, 96],  label: '商' },
+            { match: /西周/,      color: [244, 213, 138], label: '西周' },
+            { match: /春秋/,      color: [220, 225, 150], label: '春秋' },
+            { match: /戰國|战国/, color: [170, 220, 170], label: '戰國' },
+        ];
+        function getPeriodStyle(period) {
+            for (const p of periodColorMap) {
+                if (p.match.test(period || '')) return p;
+            }
+            return { color: [244, 213, 138], label: period || '未知' };
+        }
+
+        // 图例
+        const legendEl = document.getElementById('legend');
+        legendEl.innerHTML = periodColorMap.map(p => {
+            const c = `rgb(${p.color.join(',')})`;
+            return `<div><span class="dot" style="color:${c};background:${c}"></span>${p.label}</div>`;
+        }).join('');
+
+        // ============ Three.js 场景 ============
+        if (new URLSearchParams(location.search).has('embed')) {
+            document.documentElement.classList.add('embed', 'introing');
+        }
+        window.addEventListener('message', (e) => {
+            if (!e.data) return;
+            if (e.data.type === 'focus-char' && e.data.char) flyToChar(e.data.char);
+            if (e.data.type === 'filter-period') applyPeriodFilter(e.data.period || '');
+            if (e.data.type === 'enter-section') {
+                flyThenNavigate(e.data.view, e.data.tab, e.data.char);
+            }
+            if (e.data.type === 'skin') {
+                document.documentElement.classList.toggle('neo', !!e.data.neo);
+            }
+            if (e.data.type === 'intro-lock') {
+                document.documentElement.classList.add('introing');
+                if (typeof controls !== 'undefined') {
+                    controls.enabled = false;
+                    controls.autoRotate = true;
+                    controls.autoRotateSpeed = 0.32;
+                    camera.position.set(0, 420, 160);
+                    controls.target.set(0, 0, 0);
+                    controls.update();
+                }
+                vesselScaleTarget = 1;
+            }
+            if (e.data.type === 'intro-start') {
+                document.documentElement.classList.add('introing');
+                if (typeof introDive === 'function') introDive();
+            }
+            if (e.data.type === 'intro-land' || e.data.type === 'set-shape') {
+                document.documentElement.classList.remove('introing');
+                if (typeof landAsHezun === 'function') landAsHezun();
+            }
+        });
+
+        const scene = new THREE.Scene();
+        const starGroup = new THREE.Group();
+        scene.add(starGroup);
+        const isEmbed = new URLSearchParams(location.search).has('embed');
+        const camera = new THREE.PerspectiveCamera(58, window.innerWidth / window.innerHeight, 0.1, 5000);
+        if (isEmbed) {
+            camera.position.set(0, 420, 160);
+        } else {
+            camera.position.set(0, 220, 700);
+        }
+
+        const renderer = new THREE.WebGLRenderer({
+            canvas: document.getElementById('canvas'),
+            antialias: true,
+            alpha: true
+        });
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+        renderer.setClearColor(0x050810, 1);
+
+        const controls = new THREE.OrbitControls(camera, renderer.domElement);
+        controls.enableDamping = true;
+        controls.dampingFactor = 0.05;
+        controls.minDistance = 80;
+        controls.maxDistance = 2400;
+        controls.autoRotate = true;
+        controls.autoRotateSpeed = isEmbed ? 0.32 : 0.15;
+        controls.target.set(0, isEmbed ? 0 : 110, 0);
+        controls.update();
+
+        // 圆形粒子纹理
+        function createCircleTexture() {
+            const c = document.createElement('canvas');
+            c.width = 64; c.height = 64;
+            const ctx = c.getContext('2d');
+            const g = ctx.createRadialGradient(32, 32, 0, 32, 32, 32);
+            g.addColorStop(0, 'rgba(255,255,255,1)');
+            g.addColorStop(0.5, 'rgba(255,255,255,0.5)');
+            g.addColorStop(1, 'rgba(255,255,255,0)');
+            ctx.fillStyle = g;
+            ctx.fillRect(0, 0, 64, 64);
+            const t = new THREE.CanvasTexture(c);
+            t.needsUpdate = true;
+            return t;
+        }
+        const circleTexture = createCircleTexture();
+
+        // ============ 背景深空星尘 ============
+        {
+            const geo = new THREE.BufferGeometry();
+            const N = 3000;
+            const pos = new Float32Array(N * 3);
+            const col = new Float32Array(N * 3);
+            for (let i = 0; i < N; i++) {
+                const r = 900 + Math.random() * 1500;
+                const theta = Math.random() * Math.PI * 2;
+                const phi = Math.acos(2 * Math.random() - 1);
+                pos[i*3]   = r * Math.sin(phi) * Math.cos(theta);
+                pos[i*3+1] = r * Math.sin(phi) * Math.sin(theta);
+                pos[i*3+2] = r * Math.cos(phi);
+                const cc = Math.random();
+                if (cc < 0.55)      { col[i*3]=1.00; col[i*3+1]=0.69; col[i*3+2]=0.38; }
+                else if (cc < 0.82){ col[i*3]=0.96; col[i*3+1]=0.84; col[i*3+2]=0.54; }
+                else               { col[i*3]=0.86; col[i*3+1]=0.88; col[i*3+2]=0.59; }
+            }
+            geo.setAttribute('position', new THREE.BufferAttribute(pos, 3));
+            geo.setAttribute('color', new THREE.BufferAttribute(col, 3));
+            const mat = new THREE.PointsMaterial({
+                size: 3, vertexColors: true, transparent: true, opacity: 0.85,
+                sizeAttenuation: true, map: circleTexture, alphaTest: 0.01, depthWrite: false
+            });
+            scene.add(new THREE.Points(geo, mat));
+        }
+
+        // ============ 银河盘云雾 ============
+        {
+            const geo = new THREE.BufferGeometry();
+            const N = 1200;
+            const pos = new Float32Array(N * 3);
+            const col = new Float32Array(N * 3);
+            for (let i = 0; i < N; i++) {
+                const r = 60 + Math.random() * 1100;
+                const theta = Math.random() * Math.PI * 2;
+                const y = (Math.random() - 0.5) * 14 * Math.exp(-r / 700);
+                pos[i*3]   = r * Math.cos(theta);
+                pos[i*3+1] = y;
+                pos[i*3+2] = r * Math.sin(theta);
+                col[i*3]   = 0.82 + Math.random() * 0.18;
+                col[i*3+1] = 0.58 + Math.random() * 0.22;
+                col[i*3+2] = 0.28 + Math.random() * 0.18;
+            }
+            geo.setAttribute('position', new THREE.BufferAttribute(pos, 3));
+            geo.setAttribute('color', new THREE.BufferAttribute(col, 3));
+            const mat = new THREE.PointsMaterial({
+                size: 22, vertexColors: true, transparent: true, opacity: 0.18,
+                blending: THREE.AdditiveBlending, sizeAttenuation: true,
+                map: circleTexture, alphaTest: 0.01, depthWrite: false
+            });
+            const cloud = new THREE.Points(geo, mat);
+            starGroup.add(cloud);
+            window.__cloud = cloud;
+        }
+
+        // ============ 金文字符纹理（128×128 + 染色 + 光晕） ============
+        async function createJinwenTexture(char, rgb) {
+            const size = 128;
+            const canvas = document.createElement('canvas');
+            canvas.width = size; canvas.height = size;
+            const ctx = canvas.getContext('2d');
+
+            const svgUrl = `./jinwen_svg/${encodeURIComponent(char)}.svg`;
+            await new Promise((resolve, reject) => {
+                const img = new Image();
+                img.crossOrigin = 'anonymous';
+                img.onload = () => {
+                    ctx.drawImage(img, 0, 0, size, size);
+                    const imageData = ctx.getImageData(0, 0, size, size);
+                    const data = imageData.data;
+                    for (let i = 0; i < data.length; i += 4) {
+                        if (data[i + 3] > 0) {
+                            data[i]   = rgb[0];
+                            data[i+1] = rgb[1];
+                            data[i+2] = rgb[2];
+                        }
+                    }
+                    ctx.putImageData(imageData, 0, 0);
+                    ctx.globalCompositeOperation = 'source-over';
+                    ctx.shadowColor = `rgba(${rgb[0]},${rgb[1]},${rgb[2]},0.9)`;
+                    ctx.shadowBlur = 8;
+                    ctx.drawImage(canvas, 0, 0);
+                    ctx.shadowBlur = 0;
+                    resolve();
+                };
+                img.onerror = () => reject(new Error('svg load failed'));
+                img.src = svgUrl;
+            });
+
+            const tex = new THREE.CanvasTexture(canvas);
+            tex.needsUpdate = true;
+            return tex;
+        }
+
+        // ============ 器形布局：银河 + 5 种青铜器 ============
+        // 每个 sprite 有一个稳定的 rand[] 池（初始化时随机一次）
+        // 切换器形时，每个字按其 index+rand 得到目标位置，动画丝滑过渡
+
+        // ---- 分段 profile 采样：smoothstep 混合（linear 会有折角）----
+        function sampleProfile(profile, y) {
+            if (y <= profile[0].y) return profile[0].r;
+            for (let i = 1; i < profile.length; i++) {
+                if (y <= profile[i].y) {
+                    const t = (y - profile[i-1].y) / (profile[i].y - profile[i-1].y);
+                    const s = t * t * (3 - 2 * t);   // smoothstep：C1 连续
+                    return profile[i-1].r * (1 - s) + profile[i].r * s;
+                }
+            }
+            return profile[profile.length - 1].r;
+        }
+
+        // ---- 按表面积均匀采样：预计算 CDF（∫ 2πr dy 归一化）----
+        function buildCDF(profile, yMin, yMax, N) {
+            N = N || 512;
+            const ys = new Float32Array(N);
+            const rs = new Float32Array(N);
+            const cum = new Float32Array(N);
+            let acc = 0;
+            for (let i = 0; i < N; i++) {
+                const y = yMin + (yMax - yMin) * (i / (N - 1));
+                const r = sampleProfile(profile, y);
+                acc += r;   // 权重 ∝ 2πr（常数省略）
+                ys[i] = y;
+                rs[i] = r;
+                cum[i] = acc;
+            }
+            const total = cum[N - 1] || 1;
+            for (let i = 0; i < N; i++) cum[i] /= total;
+            return { ys, rs, cum, N };
+        }
+        function cdfSample(cdf, u) {
+            let lo = 0, hi = cdf.N - 1;
+            while (lo < hi) {
+                const m = (lo + hi) >> 1;
+                if (cdf.cum[m] < u) lo = m + 1;
+                else hi = m;
+            }
+            return { y: cdf.ys[lo], r: cdf.rs[lo] };
+        }
+        // 从一段"雨滴分布"（沿某曲线均匀）采样
+        function bodyPoint(cdf, rand) {
+            const { y, r } = cdfSample(cdf, rand[0]);
+            const theta = rand[1] * Math.PI * 2;
+            // 极轻扰动，仅用作抗摩尔纹，不影响轮廓感
+            const dR = (rand[3] - 0.5) * 1.5;
+            const dY = (rand[2] - 0.5) * 1.5;
+            return { x: (r + dR) * Math.cos(theta), y: y + dY, z: (r + dR) * Math.sin(theta) };
+        }
+
+        // ---- 圆锥形腿（青铜柱足）----
+        function conicLeg(rand, legTheta, yMin, yMax, rCenterBase, rCenterTop, girthBase, girthTop) {
+            const cosT = Math.cos(legTheta), sinT = Math.sin(legTheta);
+            const t = rand[0];
+            const y = yMin + t * (yMax - yMin);
+            const rCenter = rCenterBase + (rCenterTop - rCenterBase) * t;
+            const girth = girthBase + (girthTop - girthBase) * t;
+            const phi = rand[1] * Math.PI * 2;
+            // 腿的横截面圆：径向 + 切向
+            const localR = girth * Math.cos(phi);
+            const localT = girth * Math.sin(phi);
+            return {
+                x: (rCenter + localR) * cosT + localT * (-sinT),
+                y,
+                z: (rCenter + localR) * sinT + localT * cosT,
+            };
+        }
+
+        // ---- 矩形环耳（贴在器身某方位）----
+        function rectHandle(rand, handleTheta, rCenter, yCenter, width, height, thickness) {
+            const cosT = Math.cos(handleTheta), sinT = Math.sin(handleTheta);
+            // 沿矩形环外周（perimeter）分布
+            const perim = 2 * (width + height);
+            const s = rand[0] * perim;
+            let lx, ly;
+            if (s < width) { lx = -width/2 + s;             ly = -height/2; }
+            else if (s < width + height) { lx = width/2;    ly = -height/2 + (s - width); }
+            else if (s < 2*width + height) { lx = width/2 - (s - width - height); ly = height/2; }
+            else { lx = -width/2;                           ly = height/2 - (s - 2*width - height); }
+            // 径向厚度：让环有立体感
+            const dR = (rand[1] - 0.5) * thickness;
+            const dY = (rand[2] - 0.5) * 1.5;
+            // 切向 = (-sinT, 0, cosT)；径向 = (cosT, 0, sinT)
+            return {
+                x: (rCenter + dR) * cosT + lx * (-sinT),
+                y: yCenter + ly + dY,
+                z: (rCenter + dR) * sinT + lx * cosT,
+            };
+        }
+
+        // 银河：对数螺旋双臂
+        function shape_galaxy(i, total, rand) {
+            const rMin = 18, rMax = 1180;
+            const r = rMin + (rMax - rMin) * Math.sqrt(rand[0]);
+            const arm = i % 4;
+            const spiral = Math.log(Math.max(r, rMin + 1) / rMin) * 1.08;
+            const onArm = rand[3] < 0.7;
+            const theta = onArm
+                ? arm * (Math.PI / 2) + spiral + (rand[1] - 0.5) * 0.42
+                : rand[1] * Math.PI * 2;
+            const rr = r + (rand[4] - 0.5) * (onArm ? 40 : 16);
+            const y = (rand[2] - 0.5) * 5;
+            return { x: rr * Math.cos(theta), y, z: rr * Math.sin(theta) };
+        }
+
+        // 螺旋吸入：双臂收束成盘，质量向中心塌
+        function shape_vortex(i, total, rand) {
+            const arm = i % 2;
+            const t = i / total;
+            const rMin = 6, rMax = 95;
+            const r = rMin + (rMax - rMin) * Math.pow(t, 1.65);
+            const spiral = Math.log(Math.max(r, rMin + 1) / rMin) * 3.6;
+            const theta = arm * Math.PI + spiral + (rand[0] - 0.5) * 0.22;
+            const y = (rand[2] - 0.5) * 10 * Math.exp(-r / 40);
+            return { x: r * Math.cos(theta), y, z: r * Math.sin(theta) };
+        }
+
+        // ============ 鼎：圆腹三足双立耳 ============
+        // 参考毛公鼎：高:径 ≈ 1.12，腿约 30% 高度，耳鼓出鼎口
+        const DING = {
+            body: [
+                { y:  70, r: 108 }, { y:  80, r: 122 }, { y:  92, r: 135 },
+                { y: 108, r: 143 }, { y: 122, r: 142 }, { y: 138, r: 136 },
+                { y: 154, r: 128 }, { y: 170, r: 120 }, { y: 186, r: 114 },
+                { y: 200, r: 112 }, { y: 212, r: 116 }, { y: 220, r: 120 },
+            ],
+            yBody: [70, 220],
+            legAngle: Math.PI / 6,       // 三足从 30° 起
+            legY:    [0, 70],
+            legRBase: 92, legRTop: 82,   // 底部略外撇
+            legGirthBase: 14, legGirthTop: 20,   // 上粗下细（马蹄形）
+            handleAngle: Math.PI / 2,    // 双耳 90°/270° (与足错开)
+            handleRCenter: 120,
+            handleYCenter: 240,
+            handleW: 30, handleH: 42, handleT: 8,
+        };
+        const DING_CDF = buildCDF(DING.body, DING.yBody[0], DING.yBody[1]);
+        function shape_ding(i, total, rand) {
+            const bodyN = Math.floor(total * 0.66);
+            const legN  = Math.floor(total * 0.18);
+            if (i < bodyN) return bodyPoint(DING_CDF, rand);
+            if (i < bodyN + legN) {
+                const idx = (i - bodyN) % 3;
+                const theta = DING.legAngle + idx * (Math.PI * 2 / 3);
+                return conicLeg(rand, theta, DING.legY[0], DING.legY[1],
+                                DING.legRBase, DING.legRTop,
+                                DING.legGirthBase, DING.legGirthTop);
+            }
+            const idx = (i - bodyN - legN) % 2;
+            return rectHandle(rand, DING.handleAngle + idx * Math.PI,
+                              DING.handleRCenter, DING.handleYCenter,
+                              DING.handleW, DING.handleH, DING.handleT);
+        }
+
+        // ============ 簋：圈足 + 圆腹 + 侧耳 ============
+        // 参考利簋：短粗，耳附腹侧
+        const GUI = {
+            foot: [
+                { y:  0, r: 70 }, { y:  8, r: 60 }, { y: 18, r: 52 },
+                { y: 28, r: 48 }, { y: 40, r: 55 },
+            ],
+            yFoot: [0, 40],
+            body: [
+                { y: 40, r:  60 }, { y: 52, r:  82 }, { y: 66, r: 108 },
+                { y: 80, r: 130 }, { y: 96, r: 145 }, { y:112, r: 148 },
+                { y:126, r: 143 }, { y:140, r: 132 }, { y:154, r: 118 },
+                { y:166, r: 108 }, { y:174, r: 106 },
+            ],
+            yBody: [40, 174],
+            // 耳：从器腹侧外突的弧形耳
+            handleAngle: 0,
+            handleRCenter: 155,
+            handleYCenter: 106,
+            handleW: 26, handleH: 60, handleT: 10,
+        };
+        const GUI_FOOT_CDF = buildCDF(GUI.foot, GUI.yFoot[0], GUI.yFoot[1]);
+        const GUI_BODY_CDF = buildCDF(GUI.body, GUI.yBody[0], GUI.yBody[1]);
+        function shape_gui(i, total, rand) {
+            const footN = Math.floor(total * 0.13);
+            const bodyN = Math.floor(total * 0.75);
+            if (i < footN) return bodyPoint(GUI_FOOT_CDF, rand);
+            if (i < footN + bodyN) return bodyPoint(GUI_BODY_CDF, rand);
+            const idx = (i - footN - bodyN) % 2;
+            return rectHandle(rand, GUI.handleAngle + idx * Math.PI,
+                              GUI.handleRCenter, GUI.handleYCenter,
+                              GUI.handleW, GUI.handleH, GUI.handleT);
+        }
+
+        // 何尊实测：通高 38.8cm，口径 28.8cm，高/口径 ≈ 1.35。口大于腹，腹大于足。
+        const ZUN = {
+            body: [
+                { y:   0, r:  60 }, { y:  14, r:  54 }, { y:  28, r:  52 },
+                { y:  42, r:  58 }, { y:  62, r:  70 }, { y:  88, r:  76 },
+                { y: 112, r:  78 }, { y: 136, r:  74 }, { y: 158, r:  64 },
+                { y: 178, r:  58 }, { y: 198, r:  62 }, { y: 218, r:  74 },
+                { y: 238, r:  86 }, { y: 254, r:  95 }, { y: 270, r: 100 },
+            ],
+            yRange: [0, 270],
+        };
+        const ZUN_CDF = buildCDF(ZUN.body, ZUN.yRange[0], ZUN.yRange[1]);
+        function flangeExtra(y) {
+            const t = y / ZUN.yRange[1];
+            return 7 + 13 * t * t + 2.5 * Math.abs(Math.sin(y * 0.11));
+        }
+        function shape_zun(i, total, rand) {
+            const flangeN = Math.floor(total * 0.20);
+            const rimN = Math.floor(total * 0.14);
+            const footN = Math.floor(total * 0.07);
+            if (i < flangeN) {
+                const y = ZUN.yRange[0] + rand[0] * (ZUN.yRange[1] - ZUN.yRange[0]);
+                const theta = (i % 4) * (Math.PI / 2) + (rand[1] - 0.5) * 0.06;
+                const r = sampleProfile(ZUN.body, y) + flangeExtra(y) + (rand[2] - 0.5) * 1.4;
+                return { x: r * Math.cos(theta), y, z: r * Math.sin(theta) };
+            }
+            if (i < flangeN + rimN) {
+                const theta = rand[0] * Math.PI * 2;
+                const y = 256 + rand[1] * 14;
+                const outer = sampleProfile(ZUN.body, ZUN.yRange[1]);
+                const r = 70 + (outer - 70) * Math.sqrt(rand[2]);
+                return { x: r * Math.cos(theta), y, z: r * Math.sin(theta) };
+            }
+            if (i < flangeN + rimN + footN) {
+                const theta = rand[0] * Math.PI * 2;
+                const y = rand[1] * 16;
+                const r = sampleProfile(ZUN.body, y) + (rand[2] - 0.5) * 2;
+                return { x: r * Math.cos(theta), y, z: r * Math.sin(theta) };
+            }
+            return bodyPoint(ZUN_CDF, rand);
+        }
+
+        // ============ 盘：宽浅圆盘 + 立沿 + 圈足 ============
+        // 参考虢季子白盘：口沿外翻，底有圈足
+        function shape_pan(i, total, rand) {
+            const diskN = Math.floor(total * 0.72);
+            const rimN  = Math.floor(total * 0.15);
+            const footN = total - diskN - rimN;
+            if (i < diskN) {
+                // 盘面：均匀密度 (sqrt 让点在盘中均匀铺开)
+                const r = 195 * Math.sqrt(rand[0]);
+                const theta = rand[1] * Math.PI * 2;
+                const y = 12 + (rand[2] - 0.5) * 3;   // 略微凹
+                return { x: r * Math.cos(theta), y, z: r * Math.sin(theta) };
+            }
+            if (i < diskN + rimN) {
+                // 口沿：一圈立起来的墙
+                const theta = rand[0] * Math.PI * 2;
+                const y = 12 + rand[1] * 22;
+                const r = 195 + (rand[2] - 0.5) * 5;
+                return { x: r * Math.cos(theta), y, z: r * Math.sin(theta) };
+            }
+            // 圈足：盘底一个小环
+            const theta = rand[0] * Math.PI * 2;
+            const r = 90 + (rand[1] - 0.5) * 8;
+            const y = -12 + rand[2] * 12;
+            return { x: r * Math.cos(theta), y, z: r * Math.sin(theta) };
+        }
+
+        // ============ 爵：三高足 + 小腹 + 前流后尾 + 双柱 + 单鋬 ============
+        // 参考商代典型爵：足瘦长外撇，流上翘，尾尖，鋬在腹侧
+        const JUE = {
+            body: [
+                { y:  90, r: 30 }, { y: 100, r: 40 }, { y: 112, r: 48 },
+                { y: 128, r: 52 }, { y: 145, r: 52 }, { y: 158, r: 48 },
+            ],
+            yBody: [90, 158],
+        };
+        const JUE_CDF = buildCDF(JUE.body, JUE.yBody[0], JUE.yBody[1]);
+        function shape_jue(i, total, rand) {
+            const legN   = Math.floor(total * 0.30);
+            const bodyN  = Math.floor(total * 0.28);
+            const spoutN = Math.floor(total * 0.16);
+            const tailN  = Math.floor(total * 0.09);
+            const postN  = Math.floor(total * 0.08);
+            // 剩余 ≈ 9% 给单侧鋬（strap handle）
+
+            if (i < legN) {
+                // 三足外撇：足尖略朝外
+                const idx = i % 3;
+                const theta = Math.PI / 2 + idx * (Math.PI * 2 / 3);  // 90°/210°/330°
+                return conicLeg(rand, theta, 0, 90, 65, 42, 6, 9);
+            }
+            if (i < legN + bodyN) return bodyPoint(JUE_CDF, rand);
+
+            if (i < legN + bodyN + spoutN) {
+                // 前流：从鼎口 +X 方向延伸向上外撇，横截面是 U 形沟槽
+                const t = rand[0];
+                const cx = 50 + t * 82;                       // 沿 +X 拉长
+                const cy = 155 + t * 30 - t * t * 12;         // 抛物线上翘
+                // 沟槽宽度沿长度渐宽
+                const halfW = 12 + t * 14;
+                const lateral = (rand[1] - 0.5) * 2 * halfW;
+                // U 形：中间凹陷
+                const dip = Math.max(0, 4 - Math.abs(lateral) * 0.5);
+                return { x: cx, y: cy - dip, z: lateral };
+            }
+            if (i < legN + bodyN + spoutN + tailN) {
+                // 后尾：-X 方向尖端，无沟槽
+                const t = rand[0];
+                const cx = -48 - t * 55;
+                const cy = 152 + t * 14;
+                const halfW = 8 * (1 - t * 0.7);
+                const lateral = (rand[1] - 0.5) * 2 * halfW;
+                return { x: cx, y: cy, z: lateral };
+            }
+            if (i < legN + bodyN + spoutN + tailN + postN) {
+                // 双柱：口沿上两根蘑菇形立柱
+                const idx = i % 2;
+                const cx = 18;                                // 靠近流的一端
+                const cz = idx === 0 ? 24 : -24;
+                const t = rand[0];
+                const y = 158 + t * 40;
+                // 顶端伞盖：t 越大越粗
+                const capBoost = t > 0.75 ? (t - 0.75) * 30 : 0;
+                const localR = 3 + capBoost + (rand[1] - 0.5) * 2;
+                const phi = rand[2] * Math.PI * 2;
+                return { x: cx + localR * Math.cos(phi), y, z: cz + localR * Math.sin(phi) };
+            }
+            // 单侧鋬（strap handle）：-Z 侧一个小竖环
+            return rectHandle(rand, -Math.PI / 2, 55, 128, 12, 32, 4);
+        }
+
+        const shapes = {
+            galaxy: shape_galaxy,
+            vortex: shape_vortex,
+            ding:   shape_ding,
+            gui:    shape_gui,
+            zun:    shape_zun,
+            pan:    shape_pan,
+            jue:    shape_jue,
+        };
+        let currentShape = 'galaxy';
+        let introSpin = 0;
+        let introSpinTarget = 0;
+        let introToken = 0;
+        let introPlaying = false;
+        let camTweenGen = 0;
+        let vesselScale = 1;
+        let vesselScaleTarget = 1;
+
+        // 每次 applyShape 都会给所有 sprite 布一条二次贝塞尔轨迹：
+        //   burst：径向炸开再聚形
+        //   spiral：沿旋臂卷入再落到新目标
+        function applyShape(name, opts) {
+            if (!shapes[name]) return;
+            const mode = (opts && opts.mode) || 'burst';
+            const duration = (opts && opts.duration) || (mode === 'spiral' ? 2400 : 1400);
+            const total = surnameSprites.length;
+            const now = performance.now();
+            const isSameShape = (currentShape === name);
+            const isInitial = surnameSprites.every(s => !s.userData.targetPos);
+            currentShape = name;
+            for (let i = 0; i < total; i++) {
+                const s = surnameSprites[i];
+                const p = shapes[name](i, total, s.userData.rand);
+                const end = new THREE.Vector3(p.x, p.y, p.z);
+
+                // 首次布局 或 同形态重复点：直接就位，不炸
+                if (isInitial || isSameShape || !s.userData.targetPos) {
+                    s.userData.targetPos = end;
+                    s.userData.transitioning = false;
+                    continue;
+                }
+
+                const start = s.position.clone();
+                let control;
+                if (mode === 'spiral') {
+                    const startAngle = Math.atan2(start.z, start.x);
+                    const wind = 2.2 + s.userData.rand[3] * 1.6;
+                    const midR = start.length() * 0.42 + end.length() * 0.18;
+                    const cAngle = startAngle + wind;
+                    control = new THREE.Vector3(
+                        Math.cos(cAngle) * midR,
+                        start.y * 0.55 + end.y * 0.45 + (s.userData.rand[0] - 0.5) * 24,
+                        Math.sin(cAngle) * midR
+                    );
+                } else {
+                    const dir = start.clone();
+                    if (dir.lengthSq() < 1) {
+                        dir.set(s.userData.rand[0] - 0.5, s.userData.rand[1] - 0.5, s.userData.rand[2] - 0.5);
+                    }
+                    dir.normalize();
+                    const scatterDist = 260 + s.userData.rand[3] * 180;
+                    control = start.clone().add(dir.multiplyScalar(scatterDist));
+                    control.x += (s.userData.rand[4] - 0.5) * 220;
+                    control.y += (s.userData.rand[0] - 0.5) * 200 + 40;
+                    control.z += (s.userData.rand[1] - 0.5) * 220;
+                }
+
+                s.userData.bezP0 = start;
+                s.userData.bezP1 = control;
+                s.userData.bezP2 = end;
+                s.userData.targetPos = end;
+                s.userData.transitionStart = now + s.userData.rand[2] * (mode === 'spiral' ? 180 : 350);
+                s.userData.transitionDuration = duration;
+                s.userData.transitioning = true;
+                s.userData.transitionKind = 'bezier';
+            }
+        }
+
+        const GALAXY_R_MIN = 18;
+        const GALAXY_R_MAX = 1180;
+        function cylOf(pos) {
+            return { r: Math.hypot(pos.x, pos.z), th: Math.atan2(pos.z, pos.x), y: pos.y };
+        }
+        function posFromCyl(c) {
+            return new THREE.Vector3(c.r * Math.cos(c.th), c.y, c.r * Math.sin(c.th));
+        }
+        function galaxyUFromR(r) {
+            return Math.max(0, Math.min(1, (r - GALAXY_R_MIN) / (GALAXY_R_MAX - GALAXY_R_MIN)));
+        }
+        function stampGalaxyCoords() {
+            for (const s of surnameSprites) {
+                const a = cylOf(s.position);
+                s.userData.galU = galaxyUFromR(a.r);
+                s.userData.galTh = a.th;
+            }
+        }
+        function zunCylFromGalaxy(s, a, twist) {
+            const u = s.userData.galU;
+            const th = a.th + twist;
+            const y = ZUN.yRange[0] + (1 - u) * (ZUN.yRange[1] - ZUN.yRange[0]);
+            let r = sampleProfile(ZUN.body, y) + (s.userData.rand[3] - 0.5) * 1.2;
+            const q = Math.PI / 2;
+            let d = th - q * Math.round(th / q);
+            if (d > Math.PI) d -= Math.PI * 2;
+            if (d < -Math.PI) d += Math.PI * 2;
+            const ad = Math.abs(d);
+            if (ad < 0.2) {
+                const w = 1 - ad / 0.2;
+                r += flangeExtra(y) * w * w;
+            }
+            if (u < 0.12) {
+                const outer = sampleProfile(ZUN.body, ZUN.yRange[1]);
+                r = 70 + (outer - 70) * (u / 0.12);
+                return { r, th, y: 256 + (1 - u / 0.12) * 12 };
+            }
+            return { r, th, y };
+        }
+        function applyLathe(endFn, duration) {
+            const now = performance.now();
+            for (const s of surnameSprites) {
+                const a = cylOf(s.position);
+                const b = endFn(s, a);
+                s.userData.lathe = { r0: a.r, th0: a.th, y0: a.y, r1: b.r, th1: b.th, y1: b.y };
+                s.userData.targetPos = posFromCyl(b);
+                s.userData.transitionStart = now;
+                s.userData.transitionDuration = duration;
+                s.userData.transitioning = true;
+                s.userData.transitionKind = 'lathe';
+                s.userData.flashAmt = 0;
+            }
+        }
+
+        // ============ 加载全部金文 ============
+        const surnameSprites = [];
+        const loadingEl = document.getElementById('loading');
+        const loadingText = document.getElementById('loadingText');
+        const loadingFill = document.getElementById('loadingFill');
+        const counterEl = document.getElementById('counterNum');
+
+        (async () => {
+            let index;
+            try {
+                const url = './jinwen_svg/index.json';
+                const res = await fetch(url);
+                if (!res.ok) {
+                    throw new Error(`HTTP ${res.status} ${res.statusText}`);
+                }
+                const text = await res.text();
+                try {
+                    index = JSON.parse(text);
+                } catch (pe) {
+                    throw new Error('JSON 解析失败: ' + pe.message + ' | 前 100 字符: ' + text.slice(0, 100));
+                }
+                if (!index || typeof index !== 'object' || Object.keys(index).length === 0) {
+                    throw new Error('index.json 为空或格式异常');
+                }
+            } catch (e) {
+                loadingEl.innerHTML = `
+                    <div style="color:#f99; text-align:left; max-width:600px; word-break:break-all; line-height:1.7;">
+                        <div style="font-size:16px; margin-bottom:12px; color:#faa">✕ 加载 index.json 失败</div>
+                        <div style="opacity:0.9">错误：${e.message}</div>
+                        <div style="opacity:0.7; margin-top:12px; font-size:12px">
+                            当前页面地址：${location.href}<br>
+                            尝试请求：${location.origin}/jinwen_svg/index.json<br>
+                        </div>
+                        <div style="opacity:0.6; margin-top:12px; font-size:12px">
+                            排查：<br>
+                            1. 地址栏是不是 http://localhost:8000（不是 file:///）？<br>
+                            2. 启动服务器.bat 窗口还开着吗？<br>
+                            3. 试试直接访问 <a href="./jinwen_svg/index.json" style="color:#f4d58a">/jinwen_svg/index.json</a> 看能不能打开
+                        </div>
+                    </div>`;
+                loadingEl.classList.remove('done');
+                return;
+            }
+
+            // 排序：已知 20 姓 → 变体数多的 → 其他。让"重要"的字更靠内。
+            const known = new Set(Object.keys(surnameStories));
+            const items = Object.entries(index).map(([char, info]) => ({ char, ...info }));
+            items.sort((a, b) => {
+                const ka = known.has(a.char) ? 0 : 1;
+                const kb = known.has(b.char) ? 0 : 1;
+                if (ka !== kb) return ka - kb;
+                return (b.variants || 0) - (a.variants || 0);
+            });
+
+            const total = items.length;
+            loadingText.textContent = `0 / ${total}`;
+
+            let done = 0, ok = 0;
+            const BATCH = 12;   // 每批并发数
+            const YIELD_EVERY = 24;
+
+            async function loadOne(item, i) {
+                const style = getPeriodStyle(item.period);
+                try {
+                    const texture = await createJinwenTexture(item.char, style.color);
+                    const material = new THREE.SpriteMaterial({
+                        map: texture,
+                        transparent: true,
+                        alphaTest: 0.01,
+                        depthWrite: false,
+                        depthTest: true,
+                    });
+                    const sprite = new THREE.Sprite(material);
+                    const rand = [Math.random(), Math.random(), Math.random(), Math.random(), Math.random()];
+                    const pos = shapes[currentShape](i, total, rand);
+                    sprite.position.set(pos.x, pos.y, pos.z);
+                    const isKnown = known.has(item.char);
+                    const baseScale = isKnown ? 30 : 17;
+                    sprite.scale.set(baseScale, baseScale, 1);
+                    sprite.userData = {
+                        char: item.char,
+                        cp: item.cp,
+                        period: item.period,
+                        src: item.src,
+                        variants: item.variants,
+                        story: surnameStories[item.char] || null,
+                        baseScale,
+                        phaseOffset: Math.random() * Math.PI * 2,
+                        rand,
+                        targetPos: new THREE.Vector3(pos.x, pos.y, pos.z),
+                    };
+                    starGroup.add(sprite);
+                    surnameSprites.push(sprite);
+                    ok++;
+                } catch (e) {
+                    // 单个 SVG 加载失败就静默跳过（银河少一颗星不影响）
+                }
+            }
+
+            // 分批并发（避免同时开 1690 个 <img> 请求）
+            for (let i = 0; i < items.length; i += BATCH) {
+                const chunk = items.slice(i, i + BATCH);
+                await Promise.all(chunk.map((item, j) => loadOne(item, i + j)));
+                done += chunk.length;
+                loadingText.textContent = `${done} / ${total}`;
+                loadingFill.style.width = (done / total * 100) + '%';
+                counterEl.textContent = ok;
+                if ((i / BATCH) % 2 === 0) {
+                    await new Promise(r => setTimeout(r, 0));  // 让浏览器喘口气
+                }
+            }
+
+            loadingEl.classList.add('done');
+            setTimeout(() => loadingEl.style.display = 'none', 1200);
+            buildTimeline();
+            const pending = new URLSearchParams(location.search).get('char')
+                || new URLSearchParams(location.search).get('focus');
+            if (pending) setTimeout(() => flyToChar(pending), 700);
+            if (window.parent !== window) {
+                window.parent.postMessage({ type: 'galaxy-ready', count: ok }, '*');
+            }
+        })();
+
+        // ============ 交互 ============
+        const raycaster = new THREE.Raycaster();
+        raycaster.params.Sprite = { threshold: 0 };
+        const mouse = new THREE.Vector2();
+
+        function pick(event) {
+            mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+            mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+            raycaster.setFromCamera(mouse, camera);
+            return raycaster.intersectObjects(surnameSprites);
+        }
+
+        function showInfo(d) {
+            document.getElementById('infoSurname').textContent = d.char;
+            document.getElementById('infoModern').textContent = d.char;
+
+            const metaTop = document.getElementById('infoMetaTop');
+            const rows = [];
+            if (d.period) rows.push(`<span>朝代</span><span>${d.period}</span>`);
+            if (d.src)    rows.push(`<span>出处</span><span>${d.src}</span>`);
+            if (d.variants) rows.push(`<span>变体</span><span>${d.variants} 例</span>`);
+            metaTop.innerHTML = rows.map(r => `<div>${r}</div>`).join('');
+            metaTop.style.flexDirection = 'column';
+            metaTop.style.gap = '4px';
+
+            const storyEl = document.getElementById('infoStory');
+            if (d.story) {
+                storyEl.innerHTML = `<div style="opacity:0.5;margin-bottom:6px">籍贯 · ${d.story.location}</div>${d.story.story}`;
+                storyEl.style.display = 'block';
+            } else {
+                storyEl.style.display = 'none';
+            }
+
+            document.getElementById('infoPanel').classList.add('show');
+            if (window.parent !== window) {
+                window.parent.postMessage({ type: 'char-selected', char: d.char }, '*');
+            }
+        }
+
+        function sendNavigate(view, char, tab) {
+            if (window.parent !== window) {
+                window.parent.postMessage({ type: 'navigate', view, char, tab }, '*');
+                return;
+            }
+            const qs = new URLSearchParams();
+            if (tab) qs.set('tab', tab);
+            if (char) qs.set('q', char);
+            const extra = qs.toString();
+            location.href = `demo.html#/${view}` + (extra ? '?' + extra : '');
+        }
+        function pickStar(preferred) {
+            const has = (c) => c && surnameSprites.some(x => x.userData.char === c);
+            const shown = (document.getElementById('infoSurname').textContent || '').trim();
+            if (has(preferred)) return preferred;
+            if (has(shown)) return shown;
+            for (const ch of ['宅', '王', '中', '周']) {
+                if (has(ch)) return ch;
+            }
+            const mid = surnameSprites[Math.floor(surnameSprites.length / 2)];
+            return (mid && mid.userData.char) || '';
+        }
+        function flyToChar(char, opts) {
+            opts = opts || {};
+            const s = surnameSprites.find(x => x.userData.char === char);
+            if (!s) return Promise.resolve(false);
+            const p = s.userData.targetPos ? s.userData.targetPos.clone() : s.position.clone();
+            controls.autoRotate = false;
+            surnameSprites.forEach(x => { x.userData.hover = x === s; });
+            const dir = camera.position.clone().sub(controls.target);
+            if (dir.length() < 1) dir.set(0, 40, 180);
+            dir.normalize().multiplyScalar(opts.dive ? 56 : 200);
+            const cam = p.clone().add(dir);
+            if (!opts.silent) showInfo(s.userData);
+            return moveCamera(cam.x, cam.y + (opts.dive ? 8 : 24), cam.z, p.x, p.y, p.z, opts.dive ? 1100 : 1400)
+                .then(() => true);
+        }
+        async function flyThenNavigate(view, tab, char) {
+            const mapped = (view === 'zhuan' || view === 'wall') ? 'learn'
+                : view === 'kao' ? 'work' : view;
+            const mappedTab = view === 'zhuan' ? 'listen'
+                : view === 'wall' ? 'wall'
+                : view === 'kao' ? 'search'
+                : (tab || '');
+            const ch = pickStar(char);
+            if (ch && surnameSprites.length) {
+                await flyToChar(ch, { dive: true });
+                await wait(180);
+            }
+            sendNavigate(mapped, ch || char || '', mappedTab);
+        }
+        document.getElementById('btnWall').addEventListener('click', () => {
+            const ch = document.getElementById('infoSurname').textContent;
+            if (ch) flyThenNavigate('learn', 'wall', ch);
+        });
+        document.getElementById('btnListen').addEventListener('click', () => {
+            const ch = document.getElementById('infoSurname').textContent;
+            if (ch) flyThenNavigate('learn', 'listen', ch);
+        });
+        document.getElementById('btnKao').addEventListener('click', () => {
+            const ch = document.getElementById('infoSurname').textContent;
+            if (ch) flyThenNavigate('work', 'search', ch);
+        });
+
+        const searchMiss = document.getElementById('searchMiss');
+        function seekSurname(raw) {
+            const char = (raw || '').trim().replace(/姓$/,'');
+            searchMiss.classList.remove('show');
+            if (!char) return;
+            if (surnameSprites.length < 80) {
+                searchMiss.textContent = '星河仍在铸造，稍后再寻。';
+                searchMiss.classList.add('show');
+                return;
+            }
+            if (surnameSprites.some(x => x.userData.char === char)) {
+                flyToChar(char);
+                return;
+            }
+            searchMiss.innerHTML = `你的姓氏「${char}」在金文中未见记载。<br><span style="opacity:.55;font-size:12px">未修饰之外的落差，本身就是记忆点。</span>`;
+            searchMiss.classList.add('show');
+        }
+        document.getElementById('surnameBtn').addEventListener('click', () => {
+            seekSurname(document.getElementById('surnameInput').value);
+        });
+        document.getElementById('surnameInput').addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') seekSurname(e.target.value);
+        });
+
+        function periodLabelOf(period) {
+            const p = period || '';
+            if (/西周/.test(p)) return '西周';
+            if (/春秋/.test(p)) return '春秋';
+            if (/戰國|战国/.test(p)) return '戰國';
+            if (/商/.test(p)) return '商';
+            return '未标注';
+        }
+        function applyPeriodFilter(label) {
+            for (const s of surnameSprites) {
+                const lab = periodLabelOf(s.userData.period);
+                s.userData.dimmed = !!(label && lab !== label);
+            }
+            document.querySelectorAll('#timeline button').forEach(b => {
+                b.classList.toggle('active', b.dataset.period === label);
+            });
+        }
+        function buildTimeline() {
+            const order = ['商', '西周', '春秋', '戰國', '未标注'];
+            const counts = { '商':0, '西周':0, '春秋':0, '戰國':0, '未标注':0 };
+            for (const s of surnameSprites) counts[periodLabelOf(s.userData.period)]++;
+            const max = Math.max(1, ...Object.values(counts));
+            const colors = { '商':'#ffb060', '西周':'#f4d58a', '春秋':'#dce196', '戰國':'#aadcaa', '未标注':'#8a8070' };
+            const el = document.getElementById('timeline');
+            el.innerHTML = order.map(k => {
+                const w = Math.round(counts[k] / max * 100);
+                return `<button data-period="${k}" style="color:${colors[k]}">
+                    <div class="bar"><i style="width:${w}%;background:${colors[k]}"></i></div>
+                    ${k} · ${counts[k]}
+                </button>`;
+            }).join('');
+            el.querySelectorAll('button').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const next = btn.classList.contains('active') ? '' : btn.dataset.period;
+                    applyPeriodFilter(next);
+                });
+            });
+        }
+
+        renderer.domElement.addEventListener('click', (event) => {
+            const hits = pick(event);
+            if (hits.length === 0) return;
+            showInfo(hits[0].object.userData);
+        });
+
+        // 悬停放大 —— 节流到 ~30fps
+        let hoverTicking = false;
+        renderer.domElement.addEventListener('mousemove', (event) => {
+            if (hoverTicking) return;
+            hoverTicking = true;
+            requestAnimationFrame(() => {
+                const hits = pick(event);
+                const hovered = hits.length > 0 ? hits[0].object : null;
+                let anyHover = false;
+                for (const s of surnameSprites) {
+                    const h = (s === hovered);
+                    s.userData.hover = h;
+                    if (h) anyHover = true;
+                }
+                document.body.style.cursor = anyHover ? 'pointer' : 'grab';
+                hoverTicking = false;
+            });
+        });
+
+        // ============ 动画 ============
+        const clock = new THREE.Clock();
+        function animate() {
+            requestAnimationFrame(animate);
+            const dt = clock.getDelta();
+            const t = clock.elapsedTime;
+
+            if (window.__cloud && !introPlaying) window.__cloud.rotation.y = t * 0.02;
+            introSpin += (introSpinTarget - introSpin) * Math.min(1, dt * 3);
+            if (Math.abs(introSpin) > 0.0005) starGroup.rotation.y += introSpin * dt;
+            vesselScale += (vesselScaleTarget - vesselScale) * Math.min(1, dt * 2.2);
+
+            const nowMs = performance.now();
+            for (const s of surnameSprites) {
+                let flashScale = 1;
+                if (s.userData.transitioning) {
+                    const raw = (nowMs - s.userData.transitionStart) / s.userData.transitionDuration;
+                    if (raw < 0) {
+                        // 还没到发车时间，原地不动
+                    } else if (raw < 1) {
+                        const e = raw < 0.5
+                            ? 4 * raw * raw * raw
+                            : 1 - Math.pow(-2 * raw + 2, 3) / 2;
+                        if (s.userData.transitionKind === 'lathe') {
+                            const L = s.userData.lathe;
+                            const r = L.r0 + (L.r1 - L.r0) * e;
+                            const th = L.th0 + (L.th1 - L.th0) * e;
+                            const y = L.y0 + (L.y1 - L.y0) * e;
+                            s.position.set(r * Math.cos(th), y, r * Math.sin(th));
+                            flashScale = 1;
+                        } else {
+                            const inv = 1 - e;
+                            const P0 = s.userData.bezP0, P1 = s.userData.bezP1, P2 = s.userData.bezP2;
+                            s.position.x = inv * inv * P0.x + 2 * inv * e * P1.x + e * e * P2.x;
+                            s.position.y = inv * inv * P0.y + 2 * inv * e * P1.y + e * e * P2.y;
+                            s.position.z = inv * inv * P0.z + 2 * inv * e * P1.z + e * e * P2.z;
+                            flashScale = 1 + Math.sin(raw * Math.PI) * 0.45;
+                        }
+                    } else {
+                        if (s.userData.transitionKind === 'lathe') s.position.copy(s.userData.targetPos);
+                        else s.position.copy(s.userData.bezP2);
+                        s.userData.transitioning = false;
+                    }
+                } else if (s.userData.targetPos) {
+                    // 已就位：微小回正，防止长期漂移
+                    s.position.lerp(s.userData.targetPos, 0.05);
+                }
+                const base = s.userData.baseScale;
+                const pulseAmt = currentShape === 'zun' ? 0.03 : 0.08;
+                const pulse = 1 + Math.sin(t * 1.5 + s.userData.phaseOffset) * pulseAmt;
+                const target = (s.userData.hover ? base * 1.6 : base * pulse) * flashScale * vesselScale;
+                s.scale.x += (target - s.scale.x) * 0.15;
+                s.scale.y += (target - s.scale.y) * 0.15;
+                s.material.opacity += ((s.userData.dimmed ? 0.12 : 1) - s.material.opacity) * 0.12;
+            }
+
+            controls.update();
+            renderer.render(scene, camera);
+        }
+        animate();
+
+        // 器形切换按钮
+        function setActiveShape(name) {
+            document.querySelectorAll('#shapes button').forEach(b => {
+                b.classList.toggle('active', b.dataset.shape === name);
+            });
+            applyShape(name);
+        }
+        function tellParent(payload) {
+            if (window.parent !== window) {
+                try { window.parent.postMessage(payload, '*'); } catch (e) {}
+            }
+        }
+        function cancelCameraTweens() { camTweenGen++; }
+        async function waitForSprites() {
+            for (let i = 0; i < 80; i++) {
+                if (surnameSprites.length > 80) return;
+                await wait(100);
+            }
+        }
+        async function introDive() {
+            introToken++;
+            const token = introToken;
+            introPlaying = true;
+            cancelCameraTweens();
+            document.documentElement.classList.add('introing');
+            controls.enabled = false;
+            controls.autoRotate = false;
+            await waitForSprites();
+            if (token !== introToken) return;
+
+            if (window.__cloud) window.__cloud.material.opacity = 0.16;
+
+            if (currentShape !== 'galaxy') {
+                applyLathe((s, a) => {
+                    const u = s.userData.galU != null ? s.userData.galU : galaxyUFromR(a.r);
+                    return {
+                        r: GALAXY_R_MIN + (GALAXY_R_MAX - GALAXY_R_MIN) * Math.sqrt(Math.max(u, 0.0008)),
+                        th: a.th,
+                        y: (s.userData.rand[2] - 0.5) * 5
+                    };
+                }, 800);
+                currentShape = 'galaxy';
+                await wait(850);
+                if (token !== introToken) return;
+            }
+
+            stampGalaxyCoords();
+            introSpinTarget = 0.24;
+            applyLathe((s, a) => ({
+                r: a.r * 0.96,
+                th: a.th,
+                y: (s.userData.galU - 0.5) * 8
+            }), 2000);
+            await moveCamera(0, 400, 70, 0, 0, 0, 2000);
+            if (token !== introToken) return;
+
+            introSpinTarget = 0;
+            if (window.__cloud) window.__cloud.material.opacity = 0.05;
+            applyLathe((s, a) => {
+                const u = s.userData.galU;
+                return {
+                    r: 38 + u * 70,
+                    th: a.th + 0.5,
+                    y: 14 + (1 - u) * 240
+                };
+            }, 2800);
+            await moveCamera(210, 210, 460, 0, 130, 0, 2800);
+            if (token !== introToken) return;
+
+            vesselScaleTarget = 0.4;
+            applyLathe((s, a) => zunCylFromGalaxy(s, a, 0.28), 2400);
+            currentShape = 'zun';
+            await moveCamera(220, 200, 500, 0, 135, 0, 2400);
+            if (token !== introToken) return;
+
+            introSpinTarget = 0;
+            introSpin = 0;
+            introPlaying = false;
+            document.documentElement.classList.remove('introing');
+            controls.autoRotate = true;
+            controls.autoRotateSpeed = 0.22;
+            controls.enabled = true;
+            controls.update();
+            tellParent({ type: 'intro-done' });
+        }
+        function landAsHezun() {
+            introToken++;
+            introPlaying = false;
+            cancelCameraTweens();
+            introSpinTarget = 0;
+            introSpin = 0;
+            starGroup.rotation.y = 0;
+            if (window.__cloud) window.__cloud.material.opacity = 0.06;
+            vesselScaleTarget = 0.4;
+            vesselScale = 0.4;
+            setActiveShape('zun');
+            camera.position.set(220, 200, 500);
+            controls.target.set(0, 135, 0);
+            controls.autoRotate = true;
+            controls.autoRotateSpeed = 0.22;
+            controls.enabled = true;
+            controls.update();
+            document.documentElement.classList.remove('introing');
+        }
+        document.querySelectorAll('#shapes button').forEach(btn => {
+            btn.addEventListener('click', () => setActiveShape(btn.dataset.shape));
+        });
+
+        // ============ 一键录制展示（canvas.captureStream → WebM） ============
+        function tweenVec(vec, tx, ty, tz, duration, gen) {
+            return new Promise(resolve => {
+                const start = performance.now();
+                const fx = vec.x, fy = vec.y, fz = vec.z;
+                function step(now) {
+                    if (gen !== camTweenGen) { resolve(); return; }
+                    const t = Math.min(1, (now - start) / duration);
+                    // easeInOutCubic
+                    const e = t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+                    vec.x = fx + (tx - fx) * e;
+                    vec.y = fy + (ty - fy) * e;
+                    vec.z = fz + (tz - fz) * e;
+                    if (t < 1) requestAnimationFrame(step);
+                    else resolve();
+                }
+                requestAnimationFrame(step);
+            });
+        }
+
+        function wait(ms) { return new Promise(r => setTimeout(r, ms)); }
+
+        async function moveCamera(px, py, pz, tx, ty, tz, duration) {
+            const gen = camTweenGen;
+            await Promise.all([
+                tweenVec(camera.position, px, py, pz, duration, gen),
+                tweenVec(controls.target, tx, ty, tz, duration, gen),
+            ]);
+        }
+
+        // 镜头脚本：每一幕（约 3.5-4s）= 切换器形 + 机位移动
+        async function runCinematic() {
+            const savedAutoRotate = controls.autoRotate;
+            controls.autoRotate = false;
+
+            // 幕 1：银河（起手宽景）
+            setActiveShape('galaxy');
+            camera.position.set(0, 220, 700);
+            controls.target.set(0, 0, 0);
+            await wait(600);
+            await moveCamera(400, 150, 700, 0, 0, 0, 3500);
+
+            // 幕 2：鼎（三足圆腹）
+            setActiveShape('ding');
+            await moveCamera(0, 240, 480, 0, 120, 0, 1500);
+            await moveCamera(-420, 180, 320, 0, 120, 0, 3200);
+
+            // 幕 3：簋（圈足鼓腹两耳）
+            setActiveShape('gui');
+            await moveCamera(420, 200, 320, 0, 100, 0, 1500);
+            await moveCamera(80, 260, -450, 0, 100, 0, 3200);
+
+            // 幕 4：尊（喇叭口高体）
+            setActiveShape('zun');
+            await moveCamera(-80, 260, 450, 0, 120, 0, 1500);
+            await moveCamera(400, 220, 400, 0, 120, 0, 3200);
+
+            // 幕 5：盘（俯视看金文铺成的圆盘）
+            setActiveShape('pan');
+            await moveCamera(0, 500, 180, 0, 0, 0, 2200);
+            await moveCamera(0, 380, 250, 0, 0, 0, 2500);
+
+            // 幕 6：爵（不对称，前流后尾）
+            setActiveShape('jue');
+            await moveCamera(360, 200, 260, 0, 120, 0, 1500);
+            await moveCamera(-260, 220, 400, 0, 120, 0, 3200);
+
+            // 幕 7：回到银河（拉远）
+            setActiveShape('galaxy');
+            await moveCamera(0, 300, 900, 0, 0, 0, 3500);
+
+            controls.autoRotate = savedAutoRotate;
+        }
+
+        const recBtn = document.getElementById('recBtn');
+        const recStatus = document.getElementById('recStatus');
+
+        // ============ 古风 ambient 配乐（Web Audio 合成，无外部依赖） ============
+        class Soundtrack {
+            constructor(ctx) {
+                this.ctx = ctx;
+                this.master = ctx.createGain();
+                this.master.gain.value = 0.55;
+                // 卷积混响（合成脉冲响应）
+                const irLen = ctx.sampleRate * 2.5;
+                const ir = ctx.createBuffer(2, irLen, ctx.sampleRate);
+                for (let ch = 0; ch < 2; ch++) {
+                    const d = ir.getChannelData(ch);
+                    for (let i = 0; i < irLen; i++) {
+                        d[i] = (Math.random() * 2 - 1) * Math.pow(1 - i / irLen, 3.5);
+                    }
+                }
+                this.reverb = ctx.createConvolver();
+                this.reverb.buffer = ir;
+                this.reverbBus = ctx.createGain();
+                this.reverbBus.gain.value = 0.45;
+                this.reverbBus.connect(this.reverb);
+                this.reverb.connect(this.master);
+                this.drones = [];
+            }
+            connectTo(dest) { this.master.connect(dest); }
+            _drone(freq, gain) {
+                const osc = this.ctx.createOscillator();
+                const g = this.ctx.createGain();
+                osc.type = 'sine';
+                osc.frequency.value = freq;
+                g.gain.value = 0;
+                g.gain.linearRampToValueAtTime(gain, this.ctx.currentTime + 2.5);
+                osc.connect(g);
+                g.connect(this.master);
+                // 轻微颤音
+                const lfo = this.ctx.createOscillator();
+                const lfoG = this.ctx.createGain();
+                lfo.frequency.value = 0.18 + Math.random() * 0.1;
+                lfoG.gain.value = freq * 0.006;
+                lfo.connect(lfoG); lfoG.connect(osc.frequency);
+                osc.start(); lfo.start();
+                return { osc, lfo, g };
+            }
+            _bell(freq, t, dur) {
+                const osc = this.ctx.createOscillator();
+                const osc2 = this.ctx.createOscillator();
+                const g = this.ctx.createGain();
+                osc.type = 'sine';
+                osc2.type = 'sine';
+                osc.frequency.value = freq;
+                osc2.frequency.value = freq * 2.007;   // 略微失谐，出金属拍音
+                const g2 = this.ctx.createGain();
+                g2.gain.value = 0.32;
+                osc.connect(g);
+                osc2.connect(g2); g2.connect(g);
+                g.gain.setValueAtTime(0, t);
+                g.gain.linearRampToValueAtTime(0.14, t + 0.012);
+                g.gain.exponentialRampToValueAtTime(0.001, t + dur);
+                g.connect(this.master);
+                g.connect(this.reverbBus);
+                osc.start(t); osc2.start(t);
+                osc.stop(t + dur); osc2.stop(t + dur);
+            }
+            start(totalDuration) {
+                const t0 = this.ctx.currentTime;
+                // 双音鼓底：A2 + E3（纯五度）
+                this.drones.push(this._drone(110, 0.045));
+                this.drones.push(this._drone(164.81, 0.028));
+                // 五声音阶（宫商角徵羽 = C D E G A），多八度
+                const scale = [
+                    130.81, 146.83, 164.81, 196.00, 220.00,   // 低
+                    261.63, 293.66, 329.63, 392.00, 440.00,   // 中
+                    523.25, 587.33, 659.25, 783.99, 880.00,   // 高
+                ];
+                let t = t0 + 0.6;
+                const endT = t0 + totalDuration;
+                while (t < endT) {
+                    // 60% 单音，40% 双音琶音
+                    const cluster = Math.random() < 0.4 ? 2 : 1;
+                    for (let k = 0; k < cluster; k++) {
+                        const f = scale[Math.floor(Math.random() * scale.length)];
+                        this._bell(f, t + k * 0.18, 2.2 + Math.random() * 2.4);
+                    }
+                    t += 0.55 + Math.random() * 1.6;
+                }
+            }
+            fadeOut() {
+                const t = this.ctx.currentTime;
+                this.master.gain.cancelScheduledValues(t);
+                this.master.gain.setValueAtTime(this.master.gain.value, t);
+                this.master.gain.linearRampToValueAtTime(0, t + 0.8);
+                this.drones.forEach(d => {
+                    try { d.osc.stop(t + 1.0); d.lfo.stop(t + 1.0); } catch (e) {}
+                });
+            }
+        }
+
+        async function recordDemo() {
+            if (!window.MediaRecorder) {
+                alert('当前浏览器不支持 MediaRecorder，试试 Chrome/Edge 最新版');
+                return;
+            }
+            const canvas = document.getElementById('canvas');
+
+            // ==== 强制拉高清：录制时 canvas 后台 buffer 升到 1080p / 1440p ====
+            // 目标短边 1080（想更清可改 1440）；保持当前窗口宽高比，避免拉伸
+            const TARGET_MIN = 1080;
+            const aspect = window.innerWidth / window.innerHeight;
+            let recW, recH;
+            if (aspect >= 1) {
+                recH = TARGET_MIN;
+                recW = Math.round(TARGET_MIN * aspect);
+            } else {
+                recW = TARGET_MIN;
+                recH = Math.round(TARGET_MIN / aspect);
+            }
+            // 偶数化，H.264 编码器友好
+            recW = recW + (recW % 2);
+            recH = recH + (recH % 2);
+
+            const saved = {
+                pixelRatio: renderer.getPixelRatio(),
+                width: window.innerWidth,
+                height: window.innerHeight,
+                cameraAspect: camera.aspect,
+            };
+            renderer.setPixelRatio(1);
+            renderer.setSize(recW, recH, false);   // false = 不动 CSS 大小
+            camera.aspect = recW / recH;
+            camera.updateProjectionMatrix();
+
+            // 音频上下文
+            const AudioCtx = window.AudioContext || window.webkitAudioContext;
+            const audioCtx = new AudioCtx();
+            if (audioCtx.state === 'suspended') await audioCtx.resume();
+            const soundtrack = new Soundtrack(audioCtx);
+            soundtrack.connectTo(audioCtx.destination);         // 用户实时听
+            const audioDest = audioCtx.createMediaStreamDestination();
+            soundtrack.connectTo(audioDest);                    // 录进视频
+
+            // 音视频合流（先渲一帧确保新分辨率生效，再抓流）
+            renderer.render(scene, camera);
+            const videoStream = canvas.captureStream(30);
+            const combinedStream = new MediaStream([
+                ...videoStream.getVideoTracks(),
+                ...audioDest.stream.getAudioTracks(),
+            ]);
+
+            // 优先 MP4，失败降级 WebM
+            const mimes = [
+                'video/mp4;codecs=avc1.42E01F,mp4a.40.2',   // H.264 baseline + AAC
+                'video/mp4;codecs=avc1.4D401F,mp4a.40.2',   // H.264 main
+                'video/mp4;codecs=h264,aac',
+                'video/mp4',
+                'video/webm;codecs=vp9,opus',
+                'video/webm;codecs=vp8,opus',
+                'video/webm',
+            ];
+            const mime = mimes.find(m => MediaRecorder.isTypeSupported(m));
+            if (!mime) { alert('浏览器不支持任何视频录制格式'); audioCtx.close(); return; }
+            const isMP4 = mime.startsWith('video/mp4');
+            const ext = isMP4 ? 'mp4' : 'webm';
+            const container = isMP4 ? 'video/mp4' : 'video/webm';
+
+            // 高码率：1080p 用 25M，1440p 自动更高
+            const pixelCount = recW * recH;
+            const bitrate = Math.min(40_000_000, Math.round(pixelCount * 12));   // 约 ~25M @1080p, ~44M @1440p (被 clamp)
+            const recorder = new MediaRecorder(combinedStream, {
+                mimeType: mime,
+                videoBitsPerSecond: bitrate,
+                audioBitsPerSecond: 192_000,
+            });
+            const chunks = [];
+            recorder.ondataavailable = e => e.data && e.data.size && chunks.push(e.data);
+            const stopped = new Promise(r => recorder.onstop = r);
+
+            recorder.start();
+            // 视频录制启动后再开配乐，避免开头无声
+            soundtrack.start(30);   // 30 秒配乐够覆盖全片
+            const startTime = performance.now();
+            recStatus.classList.add('show');
+            const fmtTag = isMP4 ? 'MP4' : 'WebM';
+            const resTag = `${recW}×${recH}`;
+            const ticker = setInterval(() => {
+                const sec = ((performance.now() - startTime) / 1000).toFixed(1);
+                recStatus.textContent = `● 录制中 · ${fmtTag} · ${resTag} · ${sec}s`;
+            }, 100);
+
+            try {
+                await runCinematic();
+            } catch (e) {
+                console.error(e);
+            }
+
+            // 结尾留 700ms 让混响尾音散尽
+            soundtrack.fadeOut();
+            await wait(900);
+
+            clearInterval(ticker);
+            recorder.stop();
+            await stopped;
+            recStatus.classList.remove('show');
+            try { await audioCtx.close(); } catch (e) {}
+
+            // 恢复 canvas 分辨率到窗口大小
+            renderer.setPixelRatio(saved.pixelRatio);
+            renderer.setSize(saved.width, saved.height, true);
+            camera.aspect = saved.cameraAspect;
+            camera.updateProjectionMatrix();
+
+            const blob = new Blob(chunks, { type: container });
+            const url = URL.createObjectURL(blob);
+            const stamp = new Date().toISOString().slice(0, 19).replace(/[:T-]/g, '').slice(0, 12);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `百家金文-展示-${stamp}.${ext}`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            setTimeout(() => URL.revokeObjectURL(url), 3000);
+        }
+
+        recBtn.addEventListener('click', async () => {
+            if (recBtn.classList.contains('recording')) return;
+            if (surnameSprites.length < 100) {
+                alert('金文还在加载，等进度条走完再录~');
+                return;
+            }
+            recBtn.classList.add('recording');
+            recBtn.textContent = '录制中';
+            try {
+                await recordDemo();
+            } finally {
+                recBtn.classList.remove('recording');
+                recBtn.textContent = '录制展示';
+            }
+        });
+
+        window.addEventListener('resize', () => {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        });
+    </script>
+</body>
+</html>
