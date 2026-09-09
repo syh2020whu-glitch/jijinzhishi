@@ -37,6 +37,12 @@
             font-family: var(--font-sans);
             font-size: 16px;
         }
+        #ipaPlayer {
+            position: absolute;
+            width: 1px; height: 1px;
+            opacity: 0;
+            pointer-events: none;
+        }
         .paper-bar .tabs button, .home-doors button i {
             font-family: var(--font-sans);
         }
@@ -1411,7 +1417,8 @@
                     <button class="btn" id="playIpa" type="button">播放上古音</button>
                     <button class="btn" id="playModern" type="button">現代普通話</button>
                 </div>
-                <p class="sub" id="ipaHint">上古音由 IPA 合成，帶回響，僅供參考。</p>
+                <audio id="ipaPlayer" playsinline webkit-playsinline preload="auto"></audio>
+                <p class="sub" id="ipaHint">點「播放上古音」聽構擬近似。手機走系統語音，電腦走電子合成。僅供參考。</p>
                 <div class="choices" id="choices"></div>
                 <div class="sub" id="scoreline">得分 0 / 0</div>
                 <div class="row" style="justify-content:center;margin-top:12px">
@@ -1824,7 +1831,7 @@
         function unlockAudio() {
             try {
                 const ac = ctx();
-                const buf = ac.createBuffer(1, 1, 22050);
+                const buf = ac.createBuffer(1, 1, ac.sampleRate || 44100);
                 const src = ac.createBufferSource();
                 src.buffer = buf;
                 src.connect(ac.destination);
@@ -1833,13 +1840,7 @@
         }
         function warmSpeech() {
             if (!('speechSynthesis' in window)) return;
-            try {
-                const u = new SpeechSynthesisUtterance('\u200b');
-                u.volume = 0;
-                u.rate = 1;
-                speechSynthesis.speak(u);
-                speechSynthesis.cancel();
-            } catch (e) {}
+            try { speechSynthesis.getVoices(); } catch (e) {}
         }
         function chime(ok) {
             try {
@@ -1953,6 +1954,7 @@
                 document.getElementById('learn-listen').style.display = tab === 'listen' ? '' : 'none';
                 document.getElementById('learn-lookup').style.display = tab === 'lookup' ? '' : 'none';
                 if (tab === 'wall' && !parseHash().q && !document.getElementById('flipWall').childElementCount) buildWall();
+                if (tab === 'listen') ensureMeSpeak().catch(() => {});
                 if (tab === 'lookup' && !document.getElementById('lookupCards').childElementCount) runLookup(parseHash().q);
             }
             if (view === 'play') {
@@ -2103,56 +2105,163 @@
                         });
                     }
                 }, 100);
-                setTimeout(() => { clearInterval(t); if (!mespeakReadyDone) reject(new Error('timeout')); }, 8000);
+                setTimeout(() => { clearInterval(t); if (!mespeakReadyDone) reject(new Error('timeout')); }, 20000);
             });
             return mespeakReady;
         }
-        async function playWav(ab) {
+        function wavToAudioBuffer(ab, ac) {
+            const raw = ab instanceof ArrayBuffer ? ab : ab.buffer;
+            const v = new DataView(raw);
+            if (v.byteLength < 44) return null;
+            let offset = 12, channels = 1, rate = 22050, bits = 16, dataOff = 44, dataLen = v.byteLength - 44;
+            while (offset + 8 <= v.byteLength) {
+                const id = String.fromCharCode(v.getUint8(offset), v.getUint8(offset + 1), v.getUint8(offset + 2), v.getUint8(offset + 3));
+                const size = v.getUint32(offset + 4, true);
+                if (id === 'fmt ') {
+                    channels = v.getUint16(offset + 10, true) || 1;
+                    rate = v.getUint32(offset + 12, true) || 22050;
+                    bits = v.getUint16(offset + 22, true) || 16;
+                } else if (id === 'data') {
+                    dataOff = offset + 8;
+                    dataLen = size;
+                    break;
+                }
+                offset += 8 + size + (size % 2);
+            }
+            const step = (bits / 8) * channels;
+            const n = Math.max(0, Math.floor(dataLen / step));
+            if (!n) return null;
+            const buf = ac.createBuffer(1, n, rate);
+            const out = buf.getChannelData(0);
+            let energy = 0;
+            for (let i = 0; i < n; i++) {
+                const p = dataOff + i * step;
+                let s = 0;
+                if (bits === 16) s = v.getInt16(p, true) / 32768;
+                else if (bits === 8) s = (v.getUint8(p) - 128) / 128;
+                out[i] = s;
+                energy += s * s;
+            }
+            buf._rms = Math.sqrt(energy / n);
+            return buf;
+        }
+        function playBufferNow(buf, loud) {
             const ac = ctx();
-            const buf = await ac.decodeAudioData(ab.slice(0));
-            const src = ac.createBufferSource(); src.buffer = buf;
-            const master = ac.createGain(); master.gain.value = 1;
-            src.connect(master); master.connect(ac.destination);
-            try {
-                const lp = ac.createBiquadFilter(); lp.type = 'lowpass'; lp.frequency.value = 3000;
-                const rev = makeReverb(ac); const wet = ac.createGain(); wet.gain.value = 0.4;
-                master.connect(lp); lp.connect(rev); rev.connect(wet); wet.connect(ac.destination);
-            } catch (e) {}
-            src.start();
+            const start = function () {
+                const src = ac.createBufferSource();
+                const g = ac.createGain();
+                src.buffer = buf;
+                g.gain.value = loud ? 2.4 : 1.6;
+                src.connect(g);
+                g.connect(ac.destination);
+                src.start();
+            };
+            if (ac.state === 'running') start();
+            else ac.resume().then(start).catch(start);
+        }
+        function synthSpeak(text, phoneme) {
+            const payload = phoneme ? '[[' + text + ']]' : text;
+            return meSpeak.speak(payload, {
+                amplitude: 140, pitch: 48, speed: 120, variant: 'm3', rawdata: 'ArrayBuffer'
+            });
         }
         function ipaToKirshenbaum(s) {
-            const map = { 'ɢ':'g','ɡ':'g','ʔ':'?','ŋ':'N','ɑ':'A','ə':'@','ɔ':'O','ɯ':'u-','ɨ':'i-','ʰ':'h','ʷ':'w','ʲ':'j','ː':':' };
-            return [...s].map(ch => map[ch] || ch).join('');
+            const map = {
+                'ɢ':'g','ɡ':'g','ʔ':'?','ŋ':'N','ɲ':'n','ɑ':'A','ə':'@','ɔ':'O','ɛ':'E',
+                'æ':'a','ɨ':'i','ɯ':'u','ʊ':'u','ɪ':'i','ʰ':'h','ʷ':'w','ʲ':'j','ː':':',
+                'ˀ':'?','ɣ':'g','ɦ':'h','ɕ':'s','ʑ':'z','ʈ':'t','ɖ':'d','ɬ':'l','θ':'T',
+                '*':'','˥':'','˩':'','¹':'','²':'','³':'','⁴':''
+            };
+            return [...String(s || '')].map(ch => map[ch] === undefined ? ch : map[ch]).join('').replace(/[^a-zA-Z@:?N0-9-]/g, '');
         }
-        async function playIPA(ipa, ch) {
+        function ipaToRoughLatin(s) {
+            return ipaToKirshenbaum(s).replace(/[@:?N]/g, function (ch) {
+                return ({ '@': 'e', ':': '', '?': '', N: 'ng' }[ch] || '');
+            }) || 'a';
+        }
+        function isMobileSound() {
+            return document.documentElement.classList.contains('phone-lite')
+                || /iPhone|iPad|iPod|Android|MicroMessenger|Harmony/i.test(navigator.userAgent || '');
+        }
+        function playIpaByVoice(ipa) {
+            if (!('speechSynthesis' in window)) return '';
+            const text = ipaToRoughLatin(ipa);
+            const u = new SpeechSynthesisUtterance(text);
+            u.lang = 'en-US';
+            u.rate = 0.68;
+            u.pitch = 0.72;
+            u.volume = 1;
+            const voices = speechSynthesis.getVoices() || [];
+            const en = voices.find(v => /en(-|_)GB/i.test(v.lang || ''))
+                || voices.find(v => /en/i.test(v.lang || ''));
+            if (en) u.voice = en;
+            speechSynthesis.speak(u);
+            return text;
+        }
+        function speakIpaNow(ipa) {
+            const ac = ctx();
+            const kirsh = ipaToKirshenbaum(ipa);
+            const tries = [
+                function () { return synthSpeak(kirsh, true); },
+                function () { return synthSpeak(ipaToRoughLatin(ipa), false); }
+            ];
+            for (let i = 0; i < tries.length; i++) {
+                const wav = tries[i]();
+                if (!wav || wav.byteLength <= 44) continue;
+                const buf = wavToAudioBuffer(wav, ac);
+                if (!buf || buf.length < 200) continue;
+                if (buf._rms < 0.004 && i === 0) continue;
+                playBufferNow(buf, true);
+                return true;
+            }
+            return false;
+        }
+        function playIPA(ipa) {
             const hint = document.getElementById('ipaHint');
-            const btn = document.getElementById('playIpa');
             unlockAudio();
-            btn.disabled = true;
+            if (isMobileSound()) {
+                const said = playIpaByVoice(ipa);
+                hint.textContent = said
+                    ? '手機用系統語音讀構擬近似 *' + ipa + ' → ' + said + '。僅供參考。'
+                    : '此機無法朗讀擬音，請改聽普通話。';
+                return;
+            }
+            if (!mespeakReadyDone) {
+                const said = playIpaByVoice(ipa);
+                hint.textContent = said
+                    ? '電子合成還在加載，先用口頭近似 *' + ipa + '。'
+                    : '擬音引擎還在加載，請稍候再點。';
+                ensureMeSpeak().then(() => {
+                    hint.textContent = '電子合成已就緒。再點一次可聽合成音。';
+                }).catch(() => {});
+                return;
+            }
             try {
-                if (!mespeakReadyDone) {
-                    playModern(ch);
-                    hint.textContent = '先讀普通話。擬音引擎就緒後再點可聽上古構擬。';
-                    await ensureMeSpeak();
-                    hint.textContent = '上古音引擎已就緒，再點「播放上古音」可聽構擬。';
-                    return;
+                if (speakIpaNow(ipa)) {
+                    hint.textContent = '上古音由 IPA 合成，僅供參考。';
+                } else {
+                    const said = playIpaByVoice(ipa);
+                    hint.textContent = said
+                        ? '合成失敗，已改讀近似 ' + said + '。'
+                        : '這條擬音無法播放。';
                 }
-                hint.textContent = '上古音由 IPA 合成，帶回響，僅供參考。';
-                const wav = meSpeak.speak('[[' + ipaToKirshenbaum(ipa) + ']]', {
-                    amplitude: 100, pitch: 40, speed: 110, variant: 'm3', rawdata: 'ArrayBuffer'
-                });
-                if (wav && wav.byteLength > 44) await playWav(wav);
-                else playModern(ch);
             } catch (e) {
-                hint.textContent = '語音引擎失敗，已改讀普通話。';
-                playModern(ch);
-            } finally { btn.disabled = false; }
+                playIpaByVoice(ipa);
+                hint.textContent = '合成出錯，已改讀口頭近似。';
+            }
         }
         function playModern(ch) {
             if (!ch || !('speechSynthesis' in window)) return;
-            const u = new SpeechSynthesisUtterance(ch);
-            u.lang = 'zh-CN'; u.rate = 0.85;
-            speechSynthesis.cancel(); speechSynthesis.speak(u);
+            try {
+                const voices = speechSynthesis.getVoices() || [];
+                const u = new SpeechSynthesisUtterance(ch);
+                u.lang = 'zh-CN';
+                u.rate = 0.85;
+                u.volume = 1;
+                const zh = voices.find(v => /zh(-|_|$)/i.test(v.lang || ''));
+                if (zh) u.voice = zh;
+                speechSynthesis.speak(u);
+            } catch (e) {}
         }
 
         let asked = 0, correctN = 0, currentQ = null, answered = false;
@@ -3039,6 +3148,10 @@
                     }
                 }
             } catch (e) {}
+            if (/github\.io$/i.test(location.hostname)) {
+                OCR_CONFIG.endpoint = 'https://findlaw-naturals-wax-regardless.trycloudflare.com';
+                return OCR_CONFIG.endpoint;
+            }
             OCR_CONFIG.endpoint = 'http://localhost:8000';
             return OCR_CONFIG.endpoint;
         }
