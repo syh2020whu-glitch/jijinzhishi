@@ -1,0 +1,34 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "serve",
+      "type": "shell",
+      "command": "python",
+      "args": ["serve.py"],
+      "isBackground": true,
+      "problemMatcher": {
+        "owner": "serve",
+        "pattern": { "regexp": "^$" },
+        "background": {
+          "activeOnStart": true,
+          "beginsPattern": ".",
+          "endsPattern": "127\\.0\\.0\\.1:8000"
+        }
+      }
+    },
+    {
+      "label": "打开 demo",
+      "dependsOn": ["serve"],
+      "dependsOrder": "sequence",
+      "type": "shell",
+      "command": "cmd",
+      "args": ["/c", "start", "", "http://127.0.0.1:8000/demo.html"],
+      "problemMatcher": [],
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      }
+    }
+  ]
+}
