@@ -4,6 +4,29 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
     <title>宅兹中國 · 金文數字星河</title>
+    <script>
+        (function () {
+            if (window.parent !== window) {
+                document.documentElement.classList.add('nested-demo');
+                return;
+            }
+            if (location.protocol !== 'file:') return;
+            var http = 'http://127.0.0.1:8000/demo.html' + (location.hash || '');
+            fetch(http, { method: 'GET', cache: 'no-store' }).then(function (r) {
+                if (r.ok) location.replace(http);
+                else throw new Error('bad');
+            }).catch(function () {
+                document.documentElement.innerHTML =
+                    '<body style="margin:0;background:#f4efe4;color:#2a2418;font:18px/1.7 Songti TC,STSong,serif;padding:48px 28px;text-align:center">' +
+                    '<p style="letter-spacing:6px">吉金智識</p>' +
+                    '<p>此頁必須由本機 HTTP 打開，快捷鍵若走 file:// 會打不開星河。</p>' +
+                    '<p>在專案目錄執行 <code>python serve.py</code>，再打開</p>' +
+                    '<p><a href="' + http + '">' + http + '</a></p>' +
+                    '<p style="opacity:.55;font-size:14px">Cursor 裡也可用 Ctrl+Shift+B 啟動「打開 demo」。</p>' +
+                    '</body>';
+            });
+        })();
+    </script>
     <link rel="preconnect" href="https://fonts.loli.net" crossorigin>
     <link rel="stylesheet" href="https://fonts.loli.net/css2?family=Noto+Sans+TC:wght@400;500&family=Noto+Serif+TC:wght@400;600;700&family=Source+Sans+3:wght@400;500&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500&family=Noto+Serif+TC:wght@400;600;700&family=Source+Sans+3:wght@400;500&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap">
@@ -48,7 +71,7 @@
         }
         @font-face {
             font-family: "Jingfeng ZSKSS";
-            src: url("./assets/fonts/JFZSKSealScript-title.ttf") format("truetype");
+            src: url("./assets/fonts/JFZSKSealScript-title.ttf?v=2") format("truetype");
             font-weight: 400;
             font-display: block;
             unicode-range: U+5409, U+91D1, U+667A, U+8BC6, U+8B58;
@@ -57,19 +80,27 @@
             font-family: var(--font-serif);
         }
         a { color: inherit; }
+        html.nested-demo #galaxyFrame { display: none !important; }
+        html.nested-demo .home-brand,
+        html.nested-demo .home-doors,
+        html.nested-demo #introSkip { display: none !important; }
 
         #view-home { display: none; position: absolute; inset: 0; opacity: 1; transition: opacity .35s ease; }
         #view-home.on { display: block; }
         #view-home.leaving { opacity: 0; }
         #galaxyFrame {
+            position: absolute; inset: 0;
             width: 100%; height: 100%;
             border: 0; display: block; background: var(--night);
+            z-index: 1;
         }
+        #view-home.intro #galaxyFrame,
+        #view-home.tunneling #galaxyFrame { pointer-events: none; }
         .home-brand {
             position: absolute; top: max(22px, env(safe-area-inset-top));
             left: 50%;
             transform: translateX(-50%);
-            z-index: 20;
+            z-index: 30;
             color: #f4d58a;
             letter-spacing: 0;
             text-indent: 0;
@@ -128,29 +159,65 @@
             position: absolute;
             inset: 0;
             pointer-events: none;
+            overflow: hidden;
             background:
-                radial-gradient(ellipse 90% 46% at 50% 78%, rgba(196, 160, 53, 0.2), transparent 58%),
-                radial-gradient(1.4px 1.4px at 8% 14%, rgba(244,213,138,.9), transparent),
-                radial-gradient(1px 1px at 18% 32%, rgba(255,255,255,.55), transparent),
-                radial-gradient(1.2px 1.2px at 29% 8%, rgba(244,213,138,.7), transparent),
-                radial-gradient(1px 1px at 41% 22%, rgba(255,255,255,.4), transparent),
-                radial-gradient(1.3px 1.3px at 53% 11%, rgba(244,213,138,.8), transparent),
-                radial-gradient(1px 1px at 67% 28%, rgba(255,255,255,.5), transparent),
-                radial-gradient(1.2px 1.2px at 78% 16%, rgba(244,213,138,.75), transparent),
-                radial-gradient(1px 1px at 88% 36%, rgba(255,255,255,.45), transparent),
-                radial-gradient(1px 1px at 12% 58%, rgba(255,255,255,.35), transparent),
-                radial-gradient(1.2px 1.2px at 24% 72%, rgba(244,213,138,.55), transparent),
-                radial-gradient(1px 1px at 36% 48%, rgba(255,255,255,.4), transparent),
-                radial-gradient(1.1px 1.1px at 61% 62%, rgba(244,213,138,.5), transparent),
-                radial-gradient(1px 1px at 73% 51%, rgba(255,255,255,.35), transparent),
-                radial-gradient(1.3px 1.3px at 91% 68%, rgba(244,213,138,.6), transparent),
+                radial-gradient(ellipse 90% 46% at 50% 78%, rgba(196, 160, 53, 0.16), transparent 58%),
                 #050810;
+        }
+        #liteCanvas {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+        }
+        .lite-glyphs {
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+        }
+        .lite-glyphs img {
+            position: absolute;
+            width: 22px;
+            height: 22px;
+            margin: -11px 0 0 -11px;
+            object-fit: contain;
+            filter: sepia(1) saturate(2.8) hue-rotate(6deg) brightness(1.2);
+            opacity: 0.92;
+            will-change: left, top, width, height;
+        }
+        #view-home.lite.lite-landed .lite-glyphs img { opacity: 0.9; }
+        .lite-zun {
+            display: none;
+        }
+        .lite-zun svg {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        #view-home.lite.lite-diving .home-brand {
+            animation: liteSuck 1.7s ease-in forwards;
+        }
+        #view-home.lite.lite-diving .lite-zun {
+            animation: liteZunIn 2.2s 1.55s ease-out forwards;
+        }
+        #view-home.lite.lite-landed .lite-zun {
+            opacity: 0.78;
+            transform: translate(-50%, -48%) scale(1);
+        }
+        @keyframes liteSuck {
+            0% { transform: translate(-50%, -50%) scale(1); opacity: 1; filter: blur(0); }
+            60% { transform: translate(-50%, -18%) scale(0.42); opacity: 0.75; filter: blur(1px); }
+            100% { transform: translate(-50%, 8%) scale(0.08); opacity: 0; filter: blur(10px); }
+        }
+        @keyframes liteZunIn {
+            0% { opacity: 0; transform: translate(-50%, -36%) scale(0.34); filter: blur(8px); }
+            100% { opacity: 0.7; transform: translate(-50%, -46%) scale(1); filter: blur(0); }
         }
         .home-doors {
             position: absolute;
             left: 50%; bottom: max(36px, calc(16px + env(safe-area-inset-bottom)));
             transform: translateX(-50%);
-            z-index: 20;
+            z-index: 30;
             display: flex; gap: 14px;
             transition: opacity .7s ease, transform .7s ease;
         }
@@ -606,28 +673,188 @@
             color: var(--ink-dim);
         }
         .steps span.on { border-color: var(--cinnabar); color: var(--cinnabar); }
-        .ritual-vessels { display: flex; justify-content: center; gap: 12px; margin: 16px 0; }
-        .ritual-vessels button {
-            width: 100px; height: 120px;
-            background: #fffdf8; border: 1px solid var(--line);
-            cursor: pointer; letter-spacing: 2px;
+        .vessel-picker {
+            display: grid; grid-template-columns: repeat(3, 1fr);
+            gap: 12px; max-width: 560px; margin: 18px auto 8px;
         }
-        .ritual-vessels button.active { border-color: var(--cinnabar); color: var(--cinnabar); }
-        .vessel-ico { font-size: 36px; display: block; margin-bottom: 6px; }
+        .vessel-picker button {
+            background: #f0ddb8; border: 1px solid var(--line);
+            padding: 10px 6px 8px; cursor: pointer;
+            display: flex; flex-direction: column; align-items: center; gap: 6px;
+            transition: border-color .2s, background .2s;
+        }
+        .vessel-picker button.active {
+            border-color: var(--cinnabar); background: #e8d09a;
+        }
+        .vessel-picker .vessel-art {
+            width: 110px; height: 180px; display: block;
+            position: relative;
+            overflow: hidden;
+        }
+        .vessel-picker .vessel-art > img {
+            position: absolute; inset: 0;
+            width: 100%; height: 100%; display: block;
+            object-fit: contain;
+            pointer-events: none;
+        }
+        .vessel-picker .vessel-name {
+            font-family: var(--font-serif); font-size: 15px;
+            letter-spacing: 4px; color: var(--ink);
+        }
+        .vessel-picker button.active .vessel-name { color: var(--cinnabar); }
+        @media (max-width: 560px) {
+            .vessel-picker { grid-template-columns: repeat(3, 1fr); gap: 8px; }
+            .vessel-picker .vessel-art { width: 78px; height: 140px; }
+        }
+        .vessel-rite {
+            max-width: 560px; margin: 4px auto 12px;
+            padding: 14px 16px 12px;
+            border: 1px solid var(--line);
+            background: #f0ddb8;
+            text-align: left;
+        }
+        .vessel-rite .job {
+            margin: 0 0 6px;
+            font-size: 15px;
+            letter-spacing: 3px;
+            color: var(--cinnabar);
+        }
+        .vessel-rite .note {
+            margin: 0;
+            font-size: 14px;
+            line-height: 1.75;
+            color: var(--ink);
+        }
+        .vessel-rite .formula {
+            margin: 8px 0 0;
+            font-size: 13px;
+            letter-spacing: 2px;
+            color: var(--ink-dim);
+        }
+        .bless-families {
+            display: flex; flex-direction: column; gap: 16px;
+            max-width: 520px; margin: 12px auto 0;
+        }
+        .bless-family .lab {
+            text-align: center;
+            font-size: 12px;
+            letter-spacing: 0.42em;
+            color: var(--ink-dim);
+            margin-bottom: 8px;
+        }
         .bless-chips { display: flex; justify-content: center; gap: 8px; flex-wrap: wrap; }
         .bless-chips button {
-            width: 72px; padding: 8px 0;
+            width: 72px; padding: 8px 0 6px;
             background: #fffdf8; border: 1px solid var(--line); cursor: pointer;
         }
         .bless-chips button.on { border-color: var(--cinnabar); color: var(--cinnabar); }
-        .bless-card {
-            max-width: 420px; margin: 24px auto;
-            background: var(--rubbing);
-            border: 1px solid var(--bronze);
-            padding: 32px 24px; text-align: center;
+        .bless-chips button.rec { box-shadow: inset 0 0 0 1px rgba(156, 59, 46, 0.28); }
+        .bless-chips button .mark {
+            display: block;
+            font-size: 10px;
+            letter-spacing: 1px;
+            color: var(--cinnabar);
+            min-height: 14px;
         }
-        .bless-card img { width: 72px; height: 72px; margin: 4px; }
-        .bless-card h2 { font-weight: normal; letter-spacing: 8px; margin: 12px 0; }
+        .bless-card {
+            max-width: 640px; margin: 8px auto 0;
+            background: transparent; border: none;
+            padding: 0; text-align: center;
+        }
+        .bless-card .bless-loading {
+            padding: 60px 20px; font-family: var(--font-serif);
+            color: var(--ink-dim); letter-spacing: 4px;
+        }
+        .greet-stage {
+            perspective: 1600px;
+            width: min(340px, 78vw);
+            margin: 12px auto 0;
+        }
+        .greet-card {
+            display: block;
+            position: relative;
+            width: 100%;
+            aspect-ratio: 5 / 7;
+            transform-style: preserve-3d;
+            transition: transform .75s cubic-bezier(.22, .8, .25, 1);
+            cursor: pointer;
+            border: 0;
+            padding: 0;
+            background: transparent;
+            font-family: inherit;
+            color: inherit;
+        }
+        .greet-card.is-open { transform: rotateY(180deg); }
+        .greet-face {
+            position: absolute; inset: 0;
+            backface-visibility: hidden;
+            -webkit-backface-visibility: hidden;
+            border-radius: 3px;
+            box-shadow: 0 14px 36px rgba(60, 42, 16, 0.16);
+            overflow: hidden;
+            background: #f4efe4;
+        }
+        .greet-face.front img,
+        .greet-face.front canvas {
+            width: 100%; height: 100%;
+            object-fit: cover;
+            display: block;
+            pointer-events: none;
+        }
+        .greet-face.back {
+            transform: rotateY(180deg);
+            background: #f4efe4;
+            color: var(--ink);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 28px 26px 24px;
+            box-sizing: border-box;
+        }
+        .greet-back-inner { text-align: center; max-width: 100%; }
+        .greet-back-inner .kicker {
+            font-size: 12px;
+            letter-spacing: 0.62em;
+            text-indent: 0.62em;
+            color: var(--cinnabar);
+            margin-bottom: 12px;
+        }
+        .greet-back-inner .rite {
+            margin: 0 0 14px;
+            font-size: 13px;
+            letter-spacing: 2px;
+            color: var(--ink-dim);
+        }
+        .greet-back-inner .passage {
+            margin: 0;
+            font-family: var(--font-serif);
+            font-size: 16px;
+            line-height: 2.15;
+            letter-spacing: 2px;
+        }
+        .greet-back-inner .cite {
+            margin: 16px 0 0;
+            font-size: 12px;
+            line-height: 1.7;
+            letter-spacing: 1px;
+            color: var(--ink-dim);
+        }
+        .greet-back-inner .sign {
+            margin-top: 22px;
+            font-size: 12px;
+            letter-spacing: 4px;
+            color: var(--ink-dim);
+        }
+        .greet-hint {
+            text-align: center;
+            font-size: 12px;
+            letter-spacing: 3px;
+            color: var(--ink-dim);
+            margin: 12px 0 8px;
+        }
+        @media (prefers-reduced-motion: reduce) {
+            .greet-card { transition: none; }
+        }
 
         .metric {
             font-size: 12px; letter-spacing: 1px;
@@ -1368,9 +1595,31 @@
 </head>
 <body class="intro-cold">
     <section id="view-home" class="on intro">
-        <iframe id="galaxyFrame" title="金文星河" src="about:blank"></iframe>
-        <div class="lite-sky" aria-hidden="true"></div>
-        <button type="button" class="home-brand" id="homeBrand" aria-label="吉金智識" title="篆字：敬峰中山王篆（OFL）"><span class="seal-ch">吉</span><span class="seal-ch">金</span><span class="seal-ch">智</span><span class="seal-ch">识</span></button>
+        <iframe id="galaxyFrame" title="金文星河" src="index.html?embed=1"></iframe>
+        <div class="lite-sky" aria-hidden="true">
+            <canvas id="liteCanvas"></canvas>
+            <div class="lite-glyphs" id="liteGlyphs"></div>
+            <div class="lite-zun" id="liteZun">
+                <svg viewBox="0 0 200 300" aria-hidden="true">
+                    <defs>
+                        <linearGradient id="zunFill" x1="40" y1="20" x2="160" y2="280" gradientUnits="userSpaceOnUse">
+                            <stop offset="0" stop-color="#7a5a22" stop-opacity=".55"/>
+                            <stop offset=".45" stop-color="#3d2a10" stop-opacity=".72"/>
+                            <stop offset="1" stop-color="#1a1208" stop-opacity=".85"/>
+                        </linearGradient>
+                    </defs>
+                    <path fill="url(#zunFill)" stroke="#f4d58a" stroke-width="1.7" stroke-linejoin="round" d="M14 18c8-8 28-12 86-12s78 4 86 12l-10 12c-10 4-28 8-76 8s-66-4-76-8Z"/>
+                    <path fill="url(#zunFill)" stroke="#e8c56a" stroke-width="1.55" stroke-linejoin="round" d="M24 28c12 6 30 10 76 10s64-4 76-10l12 22c-8 18-22 48-28 78-4 18-6 28-4 36 4 14 8 28 4 44-4 18-14 32-20 48-4 10-6 22-2 32 4 10 10 16 8 28-2 10-12 16-22 20H76c-10-4-20-10-22-20-2-12 4-18 8-28 4-10 2-22-2-32-6-16-16-30-20-48-4-16 0-30 4-44 2-8 0-18-4-36-6-30-20-60-28-78Z"/>
+                    <path fill="#c4a035" stroke="#f4d58a" stroke-width="1.1" d="M22 30c-8-2-16 0-20 6l2 16 10-4 4-10-4-6zm156 0c8-2 16 0 20 6l-2 16-10-4-4-10 4-6z"/>
+                    <path fill="#c4a035" stroke="#e6c56a" stroke-width="1" d="M48 150c-12-2-22 4-28 10l4 18 14-2 8-14-6-12zm104 0c12-2 22 4 28 10l-4 18-14-2-8-14 6-12z"/>
+                    <path fill="#b8942e" stroke="#e6c56a" stroke-width="1" d="M52 226c-12 4-22 12-26 20l8 16 16-8 4-16-2-12zm96 0c12 4 22 12 26 20l-8 16-16-8-4-16 2-12z"/>
+                    <ellipse cx="100" cy="22" rx="78" ry="6" fill="none" stroke="#f4d58a" stroke-width="1.2" opacity=".85"/>
+                    <path fill="none" stroke="#d4b45a" stroke-width="1" opacity=".55" d="M54 128h92M56 194h88"/>
+                    <path fill="none" stroke="#d4b45a" stroke-width=".8" opacity=".35" d="M40 48l60 36 60-36M46 72l54 28 54-28M54 96l46 18 46-18"/>
+                </svg>
+            </div>
+        </div>
+        <button type="button" class="home-brand" id="homeBrand" aria-label="吉金智識" title="篆字：敬峰中山王篆（OFL）"><span class="seal-ch">吉</span><span class="seal-ch">金</span><span class="seal-ch">智</span><span class="seal-ch">識</span></button>
         <div class="home-doors">
             <button type="button" data-go="learn"><i>探索星河</i><b>學習</b></button>
             <button type="button" data-go="play"><i>趣味工坊</i><b>遊玩</b></button>
@@ -1436,10 +1685,6 @@
                         </div>
                         <div class="dict-label">高頻字</div>
                         <div class="dict-chips" id="dictTags"></div>
-                        <div class="dict-label">器物類別</div>
-                        <div class="dict-chips" id="dictVessels"></div>
-                        <div class="dict-label">部首</div>
-                        <div class="dict-chips" id="dictRadicals"></div>
                         <p class="dict-lead" id="lookupLead">點一字，右側展開基因解碼卡片。</p>
                         <div class="dict-list" id="lookupCards"></div>
                     </aside>
@@ -1460,7 +1705,7 @@
             <div class="tabs" id="playTabs" style="display:none">
                 <button data-tab="match">連連看</button>
                 <button data-tab="trace">描紅</button>
-                <button data-tab="ritual">祭祀祝福</button>
+                <button data-tab="ritual">金文吉辭</button>
             </div>
         </div>
         <div class="pane">
@@ -1479,8 +1724,8 @@
                     </button>
                     <button class="game-card" type="button" data-game="ritual">
                         <div class="icon">📜</div>
-                        <h2>祭祀祝福生成器</h2>
-                        <p class="sub">選器、選字，帶走一張銘文風明信片。</p>
+                        <h2>金文吉辭 · 鑄辭坊</h2>
+                        <p class="sub">先選禮器，再鑄祈辭。賀卡是銘末套語的當代戲仿。</p>
                     </button>
                 </div>
             </div>
@@ -1496,8 +1741,7 @@
                 <button class="btn" id="matchReset" type="button">再來一局</button>
             </div>
             <div id="play-trace" class="stage" style="display:none">
-                <p class="sub">選一個象形字，順淡底描筆。完成後底圖點亮，卡片翻轉揭曉。</p>
-                <div class="trace-pick" id="tracePick"></div>
+                <p class="sub">隨機一字，順淡底描筆。點「完成」自動揭曉並換下一字。</p>
                 <div class="trace-stage">
                     <div class="trace-flip" id="traceFlip">
                         <div class="card">
@@ -1509,45 +1753,44 @@
                     </div>
                     <div class="row">
                         <button class="btn cinnabar" id="traceClear" type="button">重描</button>
-                        <button class="btn" id="traceDone" type="button">完成</button>
+                        <button class="btn" id="traceDone" type="button">完成 · 換一字</button>
                     </div>
                 </div>
             </div>
             <div id="play-ritual" class="stage" style="display:none">
                 <div class="steps" id="ritualSteps">
-                    <span class="on" data-step="1">1 選器</span>
-                    <span data-step="2">2 選字</span>
-                    <span data-step="3">3 預覽下載</span>
+                    <span class="on" data-step="1">1 選器 · 禮</span>
+                    <span data-step="2">2 選辭 · 祈</span>
+                    <span data-step="3">3 成器 · 贈藏</span>
                 </div>
                 <div id="ritualStep1">
-                    <p class="sub">選一件器，作為祝福的底座。</p>
-                    <div class="ritual-vessels">
-                        <button type="button" data-vessel="鼎" class="active"><span class="vessel-ico">鼎</span>鼎</button>
-                        <button type="button" data-vessel="簋"><span class="vessel-ico">簋</span>簋</button>
-                        <button type="button" data-vessel="尊"><span class="vessel-ico">尊</span>尊</button>
+                    <p class="sub" id="ritualHint1">禮器先承祭，銘文後祈福。選一件器，看它在祭裡做什麼。</p>
+                    <div class="vessel-picker" id="vesselPicker"></div>
+                    <div class="vessel-rite" id="vesselRite"></div>
+                    <div class="row" style="justify-content:center;margin-top:8px">
+                        <button class="btn" id="ritualNext1" type="button">以此器鑄辭</button>
                     </div>
-                    <button class="btn" id="ritualNext1" type="button">下一步</button>
                 </div>
                 <div id="ritualStep2" style="display:none">
-                    <p class="sub">點兩到三個吉祥金文。</p>
-                    <div class="bless-chips" id="blessChips"></div>
+                    <p class="sub" id="ritualHint2">點一到四字。朱框是此器常見的祈願方向，亦可另選。</p>
+                    <div id="blessFamilies" class="bless-families"></div>
                     <div class="row" style="justify-content:center;margin-top:16px">
-                        <button class="btn" id="ritualBack2" type="button">上一步</button>
+                        <button class="btn" id="ritualBack2" type="button">換一件器</button>
                         <button class="btn" id="blessBtn" type="button">鑄辭</button>
                     </div>
                 </div>
                 <div id="ritualStep3" style="display:none">
-                    <p class="sub">商周青銅銘文風明信片。僅供娛樂，非嚴謹拼湊。</p>
+                    <p class="sub" id="ritualHint3">點封面展開祈辭。此卡為戲仿，非出土銘文。</p>
                     <div class="bless-card" id="blessCard"></div>
                     <div class="row" style="justify-content:center">
-                        <button class="btn" id="ritualBack3" type="button">上一步</button>
-                        <button class="btn solid" id="blessDl" type="button">一鍵下載圖片</button>
+                        <button class="btn" id="ritualBack3" type="button">改辭</button>
+                        <button class="btn solid" id="blessDl" type="button">帶走封面</button>
                     </div>
                 </div>
-                <p class="sub" style="margin-top:24px">本祝福生成器僅供娛樂體驗，非嚴謹青銅器銘文拼湊。</p>
+                <p class="sub" style="margin-top:24px">今人說壽比南山，金文說眉壽萬年。工坊只戲仿銘末套語，不僞造出土銘文。</p>
             </div>
         </div>
-        <div class="foot">金文祭祀祝福為現代互動，並非復原先秦祭儀。</div>
+        <div class="foot">金文吉辭為現代互動，並非復原先秦祭儀。</div>
     </section>
 
     <section class="paper-view" id="view-work">
@@ -1609,7 +1852,6 @@
         <div class="sheet" id="charSheet"></div>
     </div>
 
-    <script src="./js/vendor/mespeak.js"></script>
     <script>
         const SURNAME_STORIES = {
             '王': { location: '山西太原', story: '王姓源自周灵王太子晋，太子晋因谏被废，其子宗敬后人以王为姓' },
@@ -1648,10 +1890,13 @@
             { char: '目', how: '橫目，中瞳。', usage: '眼睛。金文目字多橫置。' }
         ];
         const MATCH_CHARS = ['日', '月', '山', '水', '王', '馬', '魚', '鹿', '木', '人'];
-        const BLESS_CHARS = ['福', '壽', '永', '安', '保'];
+        const BLESS_FAMILIES = [
+            { id: 'shou', label: '壽', hint: '祈年', chars: ['壽', '福', '康', '寧'] },
+            { id: 'chuan', label: '傳', hint: '永寶', chars: ['永', '保', '寶', '昌'] },
+            { id: 'an', label: '安', hint: '安居', chars: ['安', '宅', '吉', '慶'] }
+        ];
+        const BLESS_CHARS = BLESS_FAMILIES.flatMap(f => f.chars);
         const DICT_TAGS = ['王', '馬', '福', '壽', '寶', '侯', '車'];
-        const DICT_VESSELS = ['鼎', '簋', '尊'];
-        const DICT_RADICALS = ['人', '水', '木', '日', '口', '金', '馬', '車', '示', '貝'];
         const CHAR_RADICAL = {
             '人':'人','休':'人','保':'人','侯':'人','伐':'人',
             '水':'水','永':'水',
@@ -1749,11 +1994,237 @@
                 cite: '何尊'
             }
         };
-        const BLESS_PHRASE = {
-            '福壽': '福壽永昌', '福安': '永保福安', '福永': '福祿永綏', '福保': '永保厥福',
-            '壽永': '壽考永命', '壽安': '安壽無疆', '壽保': '保其眉壽',
-            '永安': '永安毋替', '永保': '永保用享', '安保': '安保其家'
+        const BLESS_TAIL_POOL = ['無疆', '萬年', '用享', '永寶', '綏福', '康寧'];
+        const BLESS_SINGLE = {
+            '福': ['以受大福', '受天百福'],
+            '壽': ['眉壽萬年', '用祈眉壽'],
+            '永': ['永保用享', '子孫永寶'],
+            '安': ['永安毋替', '家室永安'],
+            '保': ['保其眉壽', '永保用享'],
+            '康': ['康寧綏福', '康寧壽考'],
+            '寧': ['康寧綏祉', '寧壽康福'],
+            '吉': ['君子有吉', '降以大吉'],
+            '慶': ['有慶無疆', '慶餘永年'],
+            '昌': ['子孫永昌', '眉壽永昌'],
+            '寶': ['永寶用享', '子孫永寶'],
+            '宅': ['宅兹中國', '永宅毋遷']
         };
+        function _sortKey(chars) { return chars.slice().sort().join(''); }
+        const _BLESS_MULTI_RAW = {
+            '福壽': '用祈眉壽', '福安': '永安受福', '福永': '永保厥福', '福保': '永保厥福',
+            '福康': '康寧受福', '福寧': '寧綏百福', '福吉': '降祐大福', '福慶': '有慶受福',
+            '福昌': '福祚永昌',
+            '壽永': '眉壽永命', '壽安': '安壽無疆', '壽保': '保其眉壽',
+            '壽康': '康寧壽考', '壽寧': '寧壽康福', '壽吉': '吉慶壽考',
+            '壽慶': '慶集眉壽', '壽昌': '眉壽永昌', '壽寶': '眉壽永寶',
+            '永安': '永安毋替', '永保': '永保用享', '永寶': '永寶用享',
+            '永康': '康寧永年', '永寧': '寧壽永昌', '永吉': '永綏有吉',
+            '永慶': '有慶永年', '永昌': '子孫永昌', '永宅': '永宅毋遷',
+            '安保': '永安綏保', '安康': '康寧安泰', '安寧': '安寧綏福',
+            '安吉': '永安有吉', '安慶': '安居有慶', '安昌': '永安永昌',
+            '安宅': '宅兹中國',
+            '保康': '保其康寧', '保寧': '寧保眉壽', '保吉': '永保有吉',
+            '保慶': '保有慶餘', '保昌': '保其永昌', '保寶': '永保用享',
+            '康寧': '康寧綏福', '康吉': '康寧有吉', '康昌': '康寧永昌',
+            '寧吉': '寧綏有吉', '寧昌': '寧綏永昌',
+            '吉慶': '有吉有慶', '吉昌': '有吉永昌',
+            '慶昌': '有慶永昌',
+            '寶昌': '永寶永昌', '寶保': '永保用享',
+            '宅安': '宅兹中國',
+            '福壽康': '康寧壽考', '福壽永': '眉壽永命', '福壽安': '安壽受福',
+            '福永安': '永安受福', '福永保': '永保厥福', '福康寧': '康寧受福',
+            '壽永保': '永保眉壽', '壽康寧': '康寧壽考',
+            '安永保': '永安綏保', '康寧壽': '康寧眉壽',
+            '永保寶': '永保用享', '安宅永': '宅兹中國'
+        };
+        const BLESS_PHRASE_BANK = {};
+        Object.keys(_BLESS_MULTI_RAW).forEach(k => {
+            BLESS_PHRASE_BANK[_sortKey(k.split(''))] = _BLESS_MULTI_RAW[k];
+        });
+        function composePhrase(chars) {
+            if (!chars || !chars.length) return '';
+            if (chars.length === 1) {
+                const bank = BLESS_SINGLE[chars[0]];
+                if (bank && bank.length) return bank[Math.floor(Math.random() * bank.length)];
+                return chars[0] + BLESS_TAIL_POOL[Math.floor(Math.random() * BLESS_TAIL_POOL.length)];
+            }
+            const key = _sortKey(chars);
+            if (BLESS_PHRASE_BANK[key]) return BLESS_PHRASE_BANK[key];
+            // 沒直接命中：找子集 2 字命中再拼一個尾詞，保證 4 字以上
+            for (let i = 0; i < chars.length; i++) {
+                for (let j = i + 1; j < chars.length; j++) {
+                    const sub = _sortKey([chars[i], chars[j]]);
+                    if (BLESS_PHRASE_BANK[sub]) {
+                        const others = chars.filter((_, k) => k !== i && k !== j);
+                        if (!others.length) return BLESS_PHRASE_BANK[sub];
+                        return BLESS_PHRASE_BANK[sub] + '　' + others.join('') + BLESS_TAIL_POOL[Math.floor(Math.random() * BLESS_TAIL_POOL.length)];
+                    }
+                }
+            }
+            // 最後兜底：直接拼組 + 尾詞
+            return chars.join('') + BLESS_TAIL_POOL[Math.floor(Math.random() * BLESS_TAIL_POOL.length)];
+        }
+        function pickOne(arr) {
+            return arr[Math.floor(Math.random() * arr.length)];
+        }
+        // 器形起兴 + 所选金文织入祈愿，拼一段彝铭风祝福（非逐字复原）
+        let vesselKey = 'ding';
+        const VESSEL_RITE = {
+            ding: {
+                job: '薦牲烹養',
+                wish: '壽',
+                formula: '用祈眉壽',
+                note: '鼎烹牲以薦宗廟。鑄鼎求的是養與壽，不是把鼎當吉祥物。',
+                rec: ['壽', '福', '保', '康']
+            },
+            gui: {
+                job: '盛黍稷 · 追孝',
+                wish: '壽 · 傳',
+                formula: '用享孝 · 眉壽萬年',
+                note: '簋盛黍稷以追孝。先享先人，再祈眉壽，孝與壽常連寫。',
+                rec: ['壽', '永', '保', '福']
+            },
+            zun: {
+                job: '承酒 · 安居',
+                wish: '安',
+                formula: '宅兹中國',
+                note: '尊承嘉酒。何尊「宅兹中國」是安居於此土，不是祝壽。',
+                rec: ['宅', '安', '永', '寧']
+            },
+            pan: {
+                job: '沃盥 · 潔',
+                wish: '安',
+                formula: '永保用享',
+                note: '盤承沃盥之水。潔而後成禮，銘末仍歸於把器交給後世。',
+                rec: ['安', '永', '寧', '吉']
+            },
+            jue: {
+                job: '獻酒 · 告',
+                wish: '傳',
+                formula: '子子孫孫永寶用',
+                note: '爵溫酒以獻、以告。告成之後，把器留給子孫。',
+                rec: ['永', '保', '寶', '昌']
+            },
+            gu: {
+                job: '成禮',
+                wish: '傳',
+                formula: '永寶用享',
+                note: '觚成飲酒之禮。禮成，銘文把器交給後世。',
+                rec: ['永', '寶', '慶', '昌']
+            }
+        };
+        const VESSEL_BLESS_OPEN = {
+            ding: ['惟鑄茲鼎，薦於宗廟', '鑄鼎以烹，用享先人', '作寶鼎一，烹飪以祀'],
+            gui: ['惟作茲簋，盛以黍稷', '設簋薦新，粢盛是用', '作寶簋，以享以孝'],
+            zun: ['惟鑄茲尊，以承嘉酒', '作尊彝，用饗嘉客', '鑄尊承酒，以祀以宴'],
+            pan: ['惟作茲盤，盥潔是用', '鑄盤承水，沃盥成禮', '作寶盤，以洗以薦'],
+            jue: ['惟鑄茲爵，溫酒行禮', '作爵彝，獻酬是用', '鑄爵行獻，以告神明'],
+            gu: ['惟作茲觚，用成嘉禮', '鑄觚飲酒，禮成是用', '作寶觚，獻於宗室']
+        };
+        const CHAR_BLESS_CLAUSE = {
+            '福': ['以受大福', '受天百福'],
+            '壽': ['用祈眉壽', '眉壽萬年', '眉壽無疆'],
+            '永': ['永保用享', '子孫永寶', '永命毋替'],
+            '安': ['家室永安', '永安毋替'],
+            '保': ['永保厥身', '保其眉壽'],
+            '康': ['康寧綏福', '康寧壽考'],
+            '寧': ['康寧綏祉', '寧壽康福'],
+            '吉': ['降以大吉', '君子有吉'],
+            '慶': ['有慶無疆', '慶餘永年'],
+            '昌': ['子孫永昌', '眉壽永昌'],
+            '寶': ['永寶用享', '子子孫孫永寶'],
+            '宅': ['宅兹中國', '永宅毋遷'],
+            '王': ['王休是用', '對揚王休'],
+            '侯': ['侯于宜土', '保有侯封'],
+            '中': ['立中于土', '宅兹中國'],
+            '國': ['保有邦國', '宅兹中國']
+        };
+        const VESSEL_BLESS_CLOSE = {
+            ding: ['用祈眉壽，其萬年子子孫孫永寶用', '眉壽無疆，永保用享'],
+            gui: ['用享孝于前文人，眉壽萬年', '其萬年子子孫孫永寶用'],
+            zun: ['永宅毋遷，子子孫孫永寶用', '安居茲土，永保用享'],
+            pan: ['永保用享', '子子孫孫永寶用'],
+            jue: ['子子孫孫永寶用', '永保用享'],
+            gu: ['永寶用享', '子子孫孫永寶用']
+        };
+        function composeBlessingPassage(vKey, chars) {
+            const opens = VESSEL_BLESS_OPEN[vKey] || VESSEL_BLESS_OPEN.ding;
+            const open = pickOne(opens);
+            const used = new Set();
+            const clauses = [];
+            (chars || []).forEach(ch => {
+                const bank = CHAR_BLESS_CLAUSE[ch];
+                let clause;
+                if (bank && bank.length) {
+                    const unused = bank.filter(x => !used.has(x));
+                    clause = pickOne(unused.length ? unused : bank);
+                } else {
+                    clause = '用祈' + ch;
+                }
+                if (!used.has(clause)) {
+                    used.add(clause);
+                    clauses.push(clause);
+                }
+            });
+            const closes = VESSEL_BLESS_CLOSE[vKey] || VESSEL_BLESS_CLOSE.ding;
+            const close = pickOne(closes);
+            if (!clauses.length) return open + '。' + close + '。';
+            return open + '，' + clauses.join('，') + '。' + close + '。';
+        }
+
+        const VESSEL_ORDER = ['ding', 'gui', 'zun', 'pan', 'jue', 'gu'];
+        const VESSEL_NAMES = { ding: '鼎', gui: '簋', zun: '尊', pan: '盤', jue: '爵', gu: '觚' };
+        const VESSEL_HINTS = {
+            ding: '薦牲烹養 · 用祈眉壽',
+            gui: '盛黍稷追孝 · 眉壽萬年',
+            zun: '承酒安居 · 宅兹中國',
+            pan: '沃盥成禮 · 永保用享',
+            jue: '獻酒以告 · 子子孫孫永寶用',
+            gu: '飲酒成禮 · 永寶用享'
+        };
+        function vesselArt(key) {
+            return 'assets/vessels/' + key + '.png';
+        }
+        function renderVesselRite() {
+            const el = document.getElementById('vesselRite');
+            if (!el) return;
+            const rite = VESSEL_RITE[vesselKey] || VESSEL_RITE.ding;
+            const name = VESSEL_NAMES[vesselKey] || '';
+            el.innerHTML =
+                `<p class="job">${name} · ${rite.job}</p>` +
+                `<p class="note">${rite.note}</p>` +
+                `<p class="formula">此器常祈「${rite.formula}」　方向：${rite.wish}</p>`;
+        }
+        function ritualRecChars() {
+            return (VESSEL_RITE[vesselKey] || VESSEL_RITE.ding).rec || [];
+        }
+        function updateRitualStep2Copy() {
+            const hint = document.getElementById('ritualHint2');
+            if (!hint) return;
+            const rite = VESSEL_RITE[vesselKey] || VESSEL_RITE.ding;
+            const name = VESSEL_NAMES[vesselKey] || '';
+            hint.textContent = `你選了${name}。它在祭裡${rite.job}，金文常寫「${rite.formula}」。朱框是此器常見方向，點一到四字鑄一段戲仿銘末。`;
+        }
+        function renderVesselPicker() {
+            const box = document.getElementById('vesselPicker');
+            if (!box || box.childElementCount) return;
+            box.innerHTML = VESSEL_ORDER.map((key, i) => `
+                <button type="button" data-vessel="${key}" class="${i === 0 ? 'active' : ''}" title="${VESSEL_HINTS[key]}">
+                    <span class="vessel-art">
+                        <img src="${vesselArt(key)}" alt="${VESSEL_NAMES[key]}">
+                    </span>
+                    <span class="vessel-name">${VESSEL_NAMES[key]}</span>
+                </button>`).join('');
+            box.onclick = (e) => {
+                const b = e.target.closest('[data-vessel]');
+                if (!b) return;
+                box.querySelectorAll('[data-vessel]').forEach(x => x.classList.toggle('active', x === b));
+                vesselKey = b.dataset.vessel;
+                getVesselStamp(vesselKey);
+                renderVesselRite();
+            };
+            renderVesselRite();
+        }
         const WALL_SEED = [...new Set([
             ...Object.keys(SURNAME_STORIES),
             ...TRACE_BANK.map(x => x.char),
@@ -1817,10 +2288,10 @@
 
         let audioCtx = null;
         function isPhoneLite() {
-            if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return true;
-            if (window.matchMedia && window.matchMedia('(max-width: 820px)').matches) return true;
             const short = Math.min(screen.width || 0, screen.height || 0);
-            return (navigator.maxTouchPoints > 1 && short > 0 && short <= 920);
+            const touchPhone = navigator.maxTouchPoints > 1 && short > 0 && short <= 920;
+            const narrowTouch = !!(window.matchMedia && window.matchMedia('(max-width: 820px)').matches && navigator.maxTouchPoints > 1);
+            return touchPhone || narrowTouch;
         }
         if (isPhoneLite()) document.documentElement.classList.add('phone-lite');
         function ctx() {
@@ -1877,8 +2348,9 @@
         function setColdOpen() {
             introLanded = false;
             document.body.classList.add('intro-cold');
-            document.getElementById('view-home').classList.add('intro');
-            document.getElementById('view-home').classList.remove('tunneling');
+            const home = document.getElementById('view-home');
+            home.classList.add('intro');
+            home.classList.remove('tunneling', 'lite-diving', 'lite-landed');
             tellGalaxy({ type: 'intro-lock' });
         }
         function revealHome() {
@@ -1889,12 +2361,32 @@
             home.classList.remove('intro', 'tunneling');
         }
         function landHome() {
+            const home = document.getElementById('view-home');
+            home.classList.remove('lite-diving');
+            if (home.classList.contains('lite')) home.classList.add('lite-landed');
+            if (window.liteIntro) liteIntro.land();
             revealHome();
             tellGalaxy({ type: 'intro-land' });
         }
+        function startLiteIntro() {
+            const home = document.getElementById('view-home');
+            if (home.classList.contains('lite-diving')) return;
+            home.classList.add('lite-diving');
+            home.classList.remove('lite-landed', 'tunneling');
+            if (window.liteIntro) liteIntro.dive();
+            clearTimeout(introTimer);
+            introTimer = setTimeout(landHome, 5600);
+        }
         function startIntro() {
-            if (isPhoneLite() || (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches)) {
+            if (introLanded) return;
+            const home = document.getElementById('view-home');
+            if (home.classList.contains('tunneling') || home.classList.contains('lite-diving')) return;
+            if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
                 landHome();
+                return;
+            }
+            if (isPhoneLite()) {
+                startLiteIntro();
                 return;
             }
             document.getElementById('view-home').classList.add('tunneling');
@@ -1902,15 +2394,174 @@
             clearTimeout(introTimer);
             introTimer = setTimeout(landHome, 18000);
         }
+        (function bootLiteIntro() {
+            const canvas = document.getElementById('liteCanvas');
+            if (!canvas) return;
+            const ctx2 = canvas.getContext('2d');
+            const ZUN = [
+                [0, 50], [24, 48], [48, 54], [90, 56], [128, 46],
+                [168, 42], [210, 58], [242, 86], [270, 108]
+            ];
+            function zunR(y) {
+                const t = y * 270;
+                for (let i = 1; i < ZUN.length; i++) {
+                    if (t <= ZUN[i][0]) {
+                        const a = ZUN[i - 1], b = ZUN[i];
+                        const u = (t - a[0]) / (b[0] - a[0] || 1);
+                        return (a[1] + (b[1] - a[1]) * u) / 100;
+                    }
+                }
+                return 1;
+            }
+            let dots = [], glyphs = [], mode = 'idle', t0 = 0, raf = 0, spinning = 0;
+            const glyphRoot = document.getElementById('liteGlyphs');
+            function pickChars(n) {
+                const out = [], seen = {};
+                const src = '宅茲中國吉金' + (typeof BAIJIA === 'string' ? BAIJIA : '王日月馬魚子保永天年');
+                for (let i = 0; i < src.length && out.length < n; i++) {
+                    const ch = src[i];
+                    if (seen[ch]) continue;
+                    seen[ch] = 1;
+                    out.push(ch);
+                }
+                return out;
+            }
+            function zunTargets() {
+                const pts = [];
+                for (let i = 0; i < 18; i++) {
+                    const zy = i / 17;
+                    const r = zunR(zy) * 0.30;
+                    const y = (0.44 - zy) * 0.60;
+                    pts.push({ zx: -r, zz: y });
+                    pts.push({ zx: r, zz: y });
+                }
+                for (let i = 0; i < 8; i++) {
+                    const a = (i / 8) * Math.PI * 2;
+                    pts.push({ zx: Math.cos(a) * 0.33, zz: -0.16 + Math.sin(a) * 0.035 });
+                }
+                for (let i = 0; i < 4; i++) {
+                    const a = (i / 4) * Math.PI * 2;
+                    pts.push({ zx: Math.cos(a) * 0.16, zz: 0.26 + Math.sin(a) * 0.02 });
+                }
+                for (let s = -1; s <= 1; s += 2) {
+                    pts.push({ zx: s * 0.36, zz: -0.10 });
+                    pts.push({ zx: s * 0.34, zz: 0.04 });
+                    pts.push({ zx: s * 0.32, zz: 0.20 });
+                }
+                return pts;
+            }
+            function resize() {
+                const dpr = Math.min(window.devicePixelRatio || 1, 2);
+                canvas.width = canvas.clientWidth * dpr;
+                canvas.height = canvas.clientHeight * dpr;
+                ctx2.setTransform(dpr, 0, 0, dpr, 0, 0);
+            }
+            function seed() {
+                dots = [];
+                for (let i = 0; i < 40; i++) {
+                    const arm = i % 4;
+                    const u = Math.sqrt(Math.random());
+                    const r = 0.1 + u * 0.48;
+                    const th = arm * Math.PI / 2 + Math.log(r + 0.12) * 1.15 + (Math.random() - 0.5) * 0.4;
+                    dots.push({ r: r, th: th, s: 0.6 + Math.random() * 1.2, gold: Math.random() > 0.3 });
+                }
+                if (glyphRoot && !glyphs.length) {
+                    const pts = zunTargets();
+                    const chars = pickChars(pts.length);
+                    glyphRoot.innerHTML = chars.map(function (ch, i) {
+                        const arm = i % 4;
+                        const u = Math.sqrt((i + 1) / chars.length);
+                        glyphs.push({
+                            r: 0.14 + u * 0.38,
+                            th: arm * Math.PI / 2 + Math.log(u + 0.15) * 1.2 + i * 0.17,
+                            zx: pts[i].zx,
+                            zz: pts[i].zz
+                        });
+                        return '<img src="./jinwen_svg/' + encodeURIComponent(ch) + '.svg" alt="">';
+                    }).join('');
+                }
+            }
+            function draw(now) {
+                const w = canvas.clientWidth, h = canvas.clientHeight;
+                ctx2.clearRect(0, 0, w, h);
+                const cx = w * 0.5, cy = h * 0.46;
+                const scale = Math.min(w, h);
+                const elapsed = (now - t0) / 1000;
+                spinning += mode === 'dive' ? 0.034 : 0.006;
+                let morph = 0;
+                if (mode === 'dive') {
+                    if (elapsed < 1.6) morph = 0;
+                    else if (elapsed < 4.2) morph = (elapsed - 1.6) / 2.6;
+                    else morph = 1;
+                } else if (mode === 'land') morph = 1;
+                const shrink = mode === 'dive' ? Math.max(0.22, 1 - elapsed * 0.28) : 1;
+                dots.forEach(d => {
+                    const gth = d.th + spinning;
+                    const x = cx + Math.cos(gth) * d.r * shrink * scale;
+                    const y = cy + Math.sin(gth) * d.r * shrink * 0.38 * scale;
+                    const a = mode === 'land' ? 0.18 : 0.32;
+                    ctx2.fillStyle = d.gold ? 'rgba(244,213,138,' + a + ')' : 'rgba(255,255,255,' + (a * 0.5) + ')';
+                    ctx2.beginPath();
+                    ctx2.arc(x, y, d.s, 0, Math.PI * 2);
+                    ctx2.fill();
+                });
+                const imgs = glyphRoot ? glyphRoot.children : [];
+                for (let i = 0; i < glyphs.length; i++) {
+                    const g = glyphs[i];
+                    const gth = g.th + spinning * 0.7;
+                    const gx = Math.cos(gth) * g.r * shrink;
+                    const gy = Math.sin(gth) * g.r * 0.38 * shrink;
+                    const x = cx + (gx * (1 - morph) + g.zx * morph) * scale;
+                    const y = cy + (gy * (1 - morph) + g.zz * morph) * scale;
+                    const sz = 18 + (1 - morph) * 8;
+                    const img = imgs[i];
+                    if (img) {
+                        img.style.width = sz + 'px';
+                        img.style.height = sz + 'px';
+                        img.style.marginLeft = (-sz / 2) + 'px';
+                        img.style.marginTop = (-sz / 2) + 'px';
+                        img.style.left = x + 'px';
+                        img.style.top = y + 'px';
+                    }
+                }
+                raf = requestAnimationFrame(draw);
+            }
+            window.liteIntro = {
+                boot: function () {
+                    resize();
+                    if (!dots.length) seed();
+                    if (!raf) {
+                        t0 = performance.now();
+                        raf = requestAnimationFrame(draw);
+                    }
+                },
+                dive: function () {
+                    mode = 'dive';
+                    t0 = performance.now();
+                    this.boot();
+                },
+                land: function () {
+                    mode = 'land';
+                }
+            };
+            window.addEventListener('resize', function () {
+                if (document.getElementById('view-home').classList.contains('lite')) resize();
+            });
+        })();
         document.getElementById('homeBrand').onclick = () => {
             if (!document.getElementById('view-home').classList.contains('on')) return;
-            if (document.getElementById('view-home').classList.contains('tunneling')) return;
             startIntro();
         };
         document.getElementById('introSkip').onclick = (e) => {
             e.stopPropagation();
             landHome();
         };
+        document.getElementById('view-home').addEventListener('click', (e) => {
+            if (introLanded) return;
+            if (!document.getElementById('view-home').classList.contains('on')) return;
+            if (e.target.closest('#introSkip') || e.target.closest('[data-go]')) return;
+            startIntro();
+        });
         function applySkin(neo) {
             document.documentElement.classList.toggle('neo', neo);
             try {
@@ -1966,7 +2617,7 @@
                 document.getElementById('playTabs').style.display = lobby ? 'none' : '';
                 document.getElementById('playBackLobby').style.display = lobby ? 'none' : '';
                 document.getElementById('playTitle').textContent = lobby ? '趣味工坊 · 遊玩' : (
-                    tab === 'match' ? '金文連連看' : tab === 'trace' ? '青銅器描紅' : '祭祀祝福生成器'
+                    tab === 'match' ? '金文連連看' : tab === 'trace' ? '青銅器描紅' : '金文吉辭 · 鑄辭坊'
                 );
                 if (tab === 'match') startMatch();
                 if (tab === 'trace') drawTraceBase();
@@ -1988,8 +2639,13 @@
                     galaxyLoaded = true;
                     if (isPhoneLite()) {
                         document.getElementById('view-home').classList.add('lite');
+                        if (window.liteIntro) liteIntro.boot();
                     } else {
-                        frame.src = 'index.html?embed=1' + (q ? '&char=' + encodeURIComponent(q) : '');
+                        const want = 'index.html?embed=1' + (q ? '&char=' + encodeURIComponent(q) : '');
+                        const cur = frame.getAttribute('src') || '';
+                        if (!cur || cur === 'about:blank' || (q && !cur.includes('char='))) {
+                            frame.src = want;
+                        }
                     }
                     setColdOpen();
                 } else if (q) {
@@ -2014,6 +2670,7 @@
             if (view === 'work' && (t === 'search' || (!tab && q)) && q) runWorkSearch(q);
         }
         window.addEventListener('hashchange', () => applyRoute(parseHash()));
+        try { applyRoute(parseHash()); } catch (e) { console.error('[applyRoute]', e); }
         let lastStar = '';
         let enterTimer = 0;
         const DOOR_TAB = { learn: 'wall', play: 'lobby', work: 'rec' };
@@ -2091,10 +2748,21 @@
             const conv = ac.createConvolver(); conv.buffer = ir; return conv;
         }
         let mespeakReady = null, mespeakReadyDone = false;
+        function loadMeSpeakScript() {
+            if (typeof meSpeak !== 'undefined') return Promise.resolve();
+            return new Promise((resolve, reject) => {
+                const s = document.createElement('script');
+                s.src = './js/vendor/mespeak.js';
+                s.async = true;
+                s.onload = () => resolve();
+                s.onerror = () => reject(new Error('meSpeak 脚本失败'));
+                document.head.appendChild(s);
+            });
+        }
         function ensureMeSpeak() {
             if (mespeakReady) return mespeakReady;
-            if (typeof meSpeak === 'undefined') return Promise.reject(new Error('meSpeak 未加载'));
-            mespeakReady = new Promise((resolve, reject) => {
+            mespeakReady = loadMeSpeakScript().then(() => new Promise((resolve, reject) => {
+                if (typeof meSpeak === 'undefined') return reject(new Error('meSpeak 未加载'));
                 try { meSpeak.loadConfig('./js/vendor/mespeak_config.json'); } catch (e) { return reject(e); }
                 const t = setInterval(() => {
                     if (meSpeak.isConfigLoaded && meSpeak.isConfigLoaded()) {
@@ -2106,7 +2774,7 @@
                     }
                 }, 100);
                 setTimeout(() => { clearInterval(t); if (!mespeakReadyDone) reject(new Error('timeout')); }, 20000);
-            });
+            }));
             return mespeakReady;
         }
         function wavToAudioBuffer(ab, ac) {
@@ -2510,28 +3178,17 @@
             }
         }
         let lookupTimer = 0;
-        let dictVessel = '';
-        let dictRadical = '';
         function foldPy(s) {
             return String(s || '').toLowerCase().replace(/[āáǎà]/g, 'a').replace(/[ēéěè]/g, 'e')
                 .replace(/[īíǐì]/g, 'i').replace(/[ōóǒò]/g, 'o').replace(/[ūúǔù]/g, 'u')
                 .replace(/[üǖǘǚǜ]/g, 'v').replace(/[^a-z]/g, '');
-        }
-        function vesselKind(src) {
-            src = src || '';
-            if (/鼎/.test(src)) return '鼎';
-            if (/簋|𣪕/.test(src)) return '簋';
-            if (/尊/.test(src)) return '尊';
-            return '';
         }
         function radicalOf(ch) {
             return CHAR_RADICAL[ch] || '';
         }
         function searchDict(idx, q) {
             q = (q || '').trim();
-            let keys = Object.keys(idx);
-            if (dictVessel) keys = keys.filter(k => vesselKind(idx[k].src) === dictVessel);
-            if (dictRadical) keys = keys.filter(k => radicalOf(k) === dictRadical);
+            const keys = Object.keys(idx);
             const inKeys = (ch) => keys.includes(ch);
             if (!q) {
                 const featured = DICT_TAGS.map(c => resolveJinwen(idx, c)).filter(inKeys);
@@ -2555,10 +3212,6 @@
                     .map(e => resolveJinwen(idx, e.char))
                     .filter(inKeys);
                 if (pyHits.length) return [...new Set(pyHits)];
-            }
-            if (DICT_RADICALS.includes(q) || DICT_RADICALS.includes(S2T[q] || '')) {
-                const rad = S2T[q] || q;
-                return keys.filter(k => radicalOf(k) === rad || k === rad).slice(0, 36);
             }
             return keys.filter(k => k.includes(q) || (idx[k].src || '').includes(q)).slice(0, 36);
         }
@@ -2604,7 +3257,7 @@
                     <h3>跨界傳送門</h3>
                     <div class="dict-bridges">
                         <button class="btn" type="button" id="dictToWork">在金文字庫中查看（darkscope）</button>
-                        <button class="btn" type="button" id="dictToBless">將此字加入我的祭祀祝福卡</button>
+                        <button class="btn" type="button" id="dictToBless">將此字帶入鑄辭坊</button>
                     </div>
                 </section>`;
             document.getElementById('dictToWork').onclick = () => go('work', ch, 'search');
@@ -2617,8 +3270,6 @@
                 lead.textContent = '「' + hit + '」金文中未見記載。下列為可讀金文。';
             } else if (hit && idx[hit]) {
                 lead.textContent = '檢得「' + hit + '」。點字展開右側卡片。';
-            } else if (dictVessel || dictRadical) {
-                lead.textContent = (dictVessel ? dictVessel + '類' : '') + (dictRadical ? dictRadical + '部' : '') + '　' + chars.length + ' 字';
             } else {
                 lead.textContent = '高頻字與變體較多的金文。點一字展開卡片。';
             }
@@ -2640,35 +3291,13 @@
         }
         function bindDictChips() {
             const tags = document.getElementById('dictTags');
-            const vessels = document.getElementById('dictVessels');
-            const rads = document.getElementById('dictRadicals');
             if (!tags.childElementCount) {
                 tags.innerHTML = DICT_TAGS.map(ch => `<button type="button" data-tag="${ch}">${ch}</button>`).join('');
-                vessels.innerHTML = DICT_VESSELS.map(v => `<button type="button" data-vessel-filter="${v}">${v}類</button>`).join('');
-                rads.innerHTML = DICT_RADICALS.map(r => `<button type="button" data-rad="${r}">${r}部</button>`).join('');
                 tags.onclick = (e) => {
                     const b = e.target.closest('[data-tag]');
                     if (!b) return;
-                    dictVessel = '';
-                    dictRadical = '';
-                    vessels.querySelectorAll('button').forEach(x => x.classList.remove('on'));
-                    rads.querySelectorAll('button').forEach(x => x.classList.remove('on'));
                     tags.querySelectorAll('button').forEach(x => x.classList.toggle('on', x === b));
                     runLookup(b.dataset.tag, true);
-                };
-                vessels.onclick = (e) => {
-                    const b = e.target.closest('[data-vessel-filter]');
-                    if (!b) return;
-                    dictVessel = dictVessel === b.dataset.vesselFilter ? '' : b.dataset.vesselFilter;
-                    vessels.querySelectorAll('button').forEach(x => x.classList.toggle('on', x.dataset.vesselFilter === dictVessel));
-                    runLookup(document.getElementById('lookupQ').value, false);
-                };
-                rads.onclick = (e) => {
-                    const b = e.target.closest('[data-rad]');
-                    if (!b) return;
-                    dictRadical = dictRadical === b.dataset.rad ? '' : b.dataset.rad;
-                    rads.querySelectorAll('button').forEach(x => x.classList.toggle('on', x.dataset.rad === dictRadical));
-                    runLookup(document.getElementById('lookupQ').value, false);
                 };
             }
         }
@@ -2941,18 +3570,13 @@
         window.addEventListener('resize', drawLinks);
         document.getElementById('matchReset').onclick = startMatch;
 
-        let traceIdx = 0, tracing = false;
-        document.getElementById('tracePick').innerHTML = TRACE_BANK.map((item, i) =>
-            `<button type="button" data-ti="${i}">${item.char}</button>`
-        ).join('');
-        function markTracePick() {
-            document.querySelectorAll('#tracePick button').forEach(b => {
-                b.classList.toggle('active', Number(b.dataset.ti) === traceIdx);
-            });
+        let traceIdx = Math.floor(Math.random() * TRACE_BANK.length), tracing = false;
+        function pickNextTraceIdx() {
+            if (TRACE_BANK.length <= 1) return 0;
+            let n;
+            do { n = Math.floor(Math.random() * TRACE_BANK.length); } while (n === traceIdx);
+            return n;
         }
-        document.getElementById('tracePick').querySelectorAll('button').forEach(b => {
-            b.onclick = () => { traceIdx = Number(b.dataset.ti); drawTraceBase(); };
-        });
         function drawTraceBase() {
             const flip = document.getElementById('traceFlip');
             flip.classList.remove('done');
@@ -2961,7 +3585,6 @@
             const g = c.getContext('2d');
             g.fillStyle = '#e8e2d4'; g.fillRect(0, 0, c.width, c.height);
             const item = TRACE_BANK[traceIdx];
-            markTracePick();
             const img = new Image();
             img.onload = () => { g.globalAlpha = 0.18; g.drawImage(img, 40, 40, 420, 420); g.globalAlpha = 1; };
             img.src = svg(item.char);
@@ -2989,13 +3612,16 @@
         }
         function endTrace() { tracing = false; }
         const tc = document.getElementById('traceCanvas');
-        tc.addEventListener('mousedown', startTraceStroke);
-        tc.addEventListener('mousemove', moveTrace);
+        if (tc) {
+            tc.addEventListener('mousedown', startTraceStroke);
+            tc.addEventListener('mousemove', moveTrace);
+            tc.addEventListener('touchstart', startTraceStroke, { passive: false });
+            tc.addEventListener('touchmove', moveTrace, { passive: false });
+            tc.addEventListener('touchend', endTrace);
+        }
         window.addEventListener('mouseup', endTrace);
-        tc.addEventListener('touchstart', startTraceStroke, { passive: false });
-        tc.addEventListener('touchmove', moveTrace, { passive: false });
-        tc.addEventListener('touchend', endTrace);
         document.getElementById('traceClear').onclick = drawTraceBase;
+        let traceAutoTimer = 0;
         document.getElementById('traceDone').onclick = async () => {
             const item = TRACE_BANK[traceIdx];
             const idx = await getIndex();
@@ -3012,36 +3638,61 @@
                  <p class="sub">${info.period || ''}　${info.src || ''}</p>
                  <button class="btn" type="button" id="traceGal">回星河看這個字</button>`;
             document.getElementById('traceFlip').classList.add('done');
-            document.getElementById('traceGal').onclick = () => go('home', item.char);
+            document.getElementById('traceGal').onclick = () => {
+                clearTimeout(traceAutoTimer);
+                go('home', item.char);
+            };
             chime(true);
+            clearTimeout(traceAutoTimer);
+            traceAutoTimer = setTimeout(() => {
+                if (!document.getElementById('play-trace').offsetParent) return;
+                traceIdx = pickNextTraceIdx();
+                drawTraceBase();
+            }, 2500);
         };
 
-        let vessel = '鼎';
         const pickedBless = new Set();
         function setRitualStep(n) {
             document.querySelectorAll('#ritualSteps span').forEach(s => s.classList.toggle('on', s.dataset.step === String(n)));
             document.getElementById('ritualStep1').style.display = n === 1 ? '' : 'none';
             document.getElementById('ritualStep2').style.display = n === 2 ? '' : 'none';
             document.getElementById('ritualStep3').style.display = n === 3 ? '' : 'none';
+            if (n === 2) {
+                updateRitualStep2Copy();
+                renderBlessChips();
+            }
         }
-        document.querySelectorAll('[data-vessel]').forEach(b => {
-            b.onclick = () => {
-                document.querySelectorAll('[data-vessel]').forEach(x => x.classList.toggle('active', x === b));
-                vessel = b.dataset.vessel;
-            };
-        });
+        try {
+            renderVesselPicker();
+            getVesselStamp('ding');
+        } catch (e) { console.error('[ritual boot]', e); }
         function renderBlessChips() {
+            const rec = new Set(ritualRecChars());
             const extra = [...pickedBless].filter(ch => !BLESS_CHARS.includes(ch));
-            const chars = [...BLESS_CHARS, ...extra];
-            const box = document.getElementById('blessChips');
-            box.innerHTML = chars.map(ch =>
-                `<button type="button" data-b="${ch}" class="${pickedBless.has(ch) ? 'on' : ''}"><img src="${svg(ch)}" alt="${ch}" width="40" height="40"><br>${ch}</button>`
-            ).join('');
+            const box = document.getElementById('blessFamilies');
+            if (!box) return;
+            const familyHtml = BLESS_FAMILIES.map(fam => {
+                const chips = fam.chars.map(ch => {
+                    const recMark = rec.has(ch) ? '<span class="mark">此器常祈</span>' : '<span class="mark"></span>';
+                    const cls = [
+                        pickedBless.has(ch) ? 'on' : '',
+                        rec.has(ch) ? 'rec' : ''
+                    ].filter(Boolean).join(' ');
+                    return `<button type="button" data-b="${ch}" class="${cls}"><img src="${svg(ch)}" alt="${ch}" width="40" height="40"><br>${ch}${recMark}</button>`;
+                }).join('');
+                return `<div class="bless-family"><div class="lab">${fam.label}　${fam.hint}</div><div class="bless-chips">${chips}</div></div>`;
+            }).join('');
+            const extraHtml = extra.length
+                ? `<div class="bless-family"><div class="lab">從字典帶入</div><div class="bless-chips">${extra.map(ch =>
+                    `<button type="button" data-b="${ch}" class="on"><img src="${svg(ch)}" alt="${ch}" width="40" height="40"><br>${ch}<span class="mark"></span></button>`
+                ).join('')}</div></div>`
+                : '';
+            box.innerHTML = familyHtml + extraHtml;
             box.querySelectorAll('button').forEach(b => {
                 b.onclick = () => {
                     const ch = b.dataset.b;
                     if (pickedBless.has(ch)) pickedBless.delete(ch);
-                    else if (pickedBless.size < 3) pickedBless.add(ch);
+                    else if (pickedBless.size < 4) pickedBless.add(ch);
                     b.classList.toggle('on', pickedBless.has(ch));
                 };
             });
@@ -3050,7 +3701,7 @@
             const q = (ch || '').trim();
             if (!q) return;
             pickedBless.add(q);
-            while (pickedBless.size > 3) {
+            while (pickedBless.size > 4) {
                 const first = pickedBless.values().next().value;
                 if (first === q) break;
                 pickedBless.delete(first);
@@ -3058,29 +3709,29 @@
             renderBlessChips();
             setRitualStep(2);
         }
-        renderBlessChips();
-        function phraseOf(chars) {
-            if (chars.length >= 2) {
-                for (const [k, v] of Object.entries(BLESS_PHRASE)) {
-                    if (k.split('').every(x => chars.includes(x))) return v;
-                }
-            }
-            return chars.join('') + '永用';
-        }
-        document.getElementById('ritualNext1').onclick = () => setRitualStep(2);
-        document.getElementById('ritualBack2').onclick = () => setRitualStep(1);
-        document.getElementById('ritualBack3').onclick = () => setRitualStep(2);
-        document.getElementById('blessBtn').onclick = () => {
-            const chars = [...pickedBless];
-            if (chars.length < 2) { alert('請點選兩到三個吉祥字'); return; }
-            const phrase = phraseOf(chars);
-            const card = document.getElementById('blessCard');
-            card.innerHTML = `<div class="sub">${vessel} · 戲擬銘辭</div>
-                ${chars.map(c => `<img src="${svg(c)}" alt="${c}">`).join('')}
-                <h2>${phrase}</h2>
-                <p class="sub">借金文字形，送一句現代祝福。不是先秦祭儀。</p>`;
-            setRitualStep(3);
-        };
+        try {
+            renderBlessChips();
+            const ritualNext1 = document.getElementById('ritualNext1');
+            if (ritualNext1) ritualNext1.onclick = () => setRitualStep(2);
+            const ritualBack2 = document.getElementById('ritualBack2');
+            if (ritualBack2) ritualBack2.onclick = () => setRitualStep(1);
+            const ritualBack3 = document.getElementById('ritualBack3');
+            if (ritualBack3) ritualBack3.onclick = () => {
+                setGreetOpen(false);
+                setRitualStep(2);
+            };
+            const blessBtn = document.getElementById('blessBtn');
+            if (blessBtn) blessBtn.onclick = async () => {
+                const chars = [...pickedBless];
+                if (chars.length < 1) { alert('請先點一個祈辭字。朱框是此器常見方向。'); return; }
+                const phrase = composePhrase(chars);
+                const passage = composeBlessingPassage(vesselKey, chars);
+                lastPhrase = phrase;
+                setRitualStep(3);
+                await renderBlessPreview(chars, phrase, passage);
+            };
+        } catch (e) { console.error('[ritual bind]', e); }
+        let lastPhrase = '';
         function loadImg(src) {
             return new Promise((resolve, reject) => {
                 const img = new Image();
@@ -3089,31 +3740,156 @@
                 img.src = src;
             });
         }
-        document.getElementById('blessDl').onclick = async () => {
-            const chars = [...pickedBless];
-            if (chars.length < 2) return;
-            const phrase = phraseOf(chars);
+        const VESSEL_STAMP = Object.create(null);
+        const STAMP_W = 300, STAMP_H = 390;
+        function drawContained(g, img, tw, th) {
+            const ir = img.naturalWidth / (img.naturalHeight || 1);
+            const br = tw / th;
+            let dw = tw, dh = th, dx = 0, dy = 0;
+            if (ir > br) { dh = tw / ir; dy = (th - dh) / 2; }
+            else { dw = th * ir; dx = (tw - dw) / 2; }
+            g.drawImage(img, dx, dy, dw, dh);
+        }
+        async function makeVesselStamp(vKey, tw, th) {
+            const img = await loadImg(vesselArt(vKey));
             const c = document.createElement('canvas');
-            c.width = 800; c.height = 1000;
-            const x = c.getContext('2d');
-            x.fillStyle = '#e8e2d4'; x.fillRect(0, 0, 800, 1000);
-            x.strokeStyle = '#8b6914'; x.lineWidth = 4; x.strokeRect(36, 36, 728, 928);
-            x.fillStyle = '#2a2418'; x.textAlign = 'center';
-            x.font = '28px serif'; x.fillText(vessel + ' · 戲擬銘辭', 400, 100);
-            try {
-                for (let i = 0; i < chars.length; i++) {
-                    const img = await loadImg(svg(chars[i]));
-                    const left = 400 - (chars.length * 90) / 2 + i * 90;
-                    x.drawImage(img, left, 220, 80, 80);
+            c.width = tw;
+            c.height = th;
+            const g = c.getContext('2d');
+            g.fillStyle = '#f4efe4';
+            g.fillRect(0, 0, tw, th);
+            drawContained(g, img, tw, th);
+            return c;
+        }
+        function getVesselStamp(vKey) {
+            if (!VESSEL_STAMP[vKey]) {
+                VESSEL_STAMP[vKey] = makeVesselStamp(vKey, STAMP_W, STAMP_H);
+            }
+            return VESSEL_STAMP[vKey];
+        }
+        function drawHspaced(ctx, text, cx, cy, size, fill) {
+            const glyphs = [...String(text || '')];
+            if (!glyphs.length) return;
+            const tracking = size * 0.42;
+            const total = glyphs.length * size + (glyphs.length - 1) * tracking;
+            ctx.save();
+            ctx.fillStyle = fill;
+            ctx.font = size + 'px "Songti TC", "STSong", "PMingLiU", "Noto Serif TC", serif';
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            let x = cx - total / 2 + size / 2;
+            glyphs.forEach(ch => {
+                ctx.fillText(ch, x, cy);
+                x += size + tracking;
+            });
+            ctx.restore();
+        }
+        function setGreetOpen(open) {
+            const flip = document.querySelector('#blessCard .greet-card');
+            const hint = document.getElementById('ritualHint3');
+            if (flip) {
+                flip.classList.toggle('is-open', open);
+                flip.setAttribute('aria-pressed', open ? 'true' : 'false');
+            }
+            if (hint) hint.textContent = open ? '再點一下合上封面。' : '點封面展開祈辭。此卡為戲仿，非出土銘文。';
+        }
+        // 賀卡封面：器物居中，四字吉辭作封面題
+        async function renderPostcard(ctx, chars, phrase, vKey) {
+            const W = 720, H = 1008;
+            ctx.fillStyle = '#f4efe4';
+            ctx.fillRect(0, 0, W, H);
+
+            ctx.save();
+            ctx.strokeStyle = 'rgba(42, 36, 24, 0.22)';
+            ctx.lineWidth = 1.2;
+            ctx.strokeRect(40, 40, W - 80, H - 80);
+            ctx.strokeRect(50, 50, W - 100, H - 100);
+            ctx.restore();
+
+            ctx.save();
+            ctx.fillStyle = 'rgba(42, 36, 24, 0.42)';
+            ctx.font = '18px "Songti TC", "STSong", "Noto Serif TC", serif';
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.fillText('吉金智識', W / 2, 96);
+            ctx.restore();
+
+            const stamp = await getVesselStamp(vKey);
+            if (stamp) {
+                ctx.drawImage(stamp, Math.round((W - STAMP_W) / 2), 168, STAMP_W, STAMP_H);
+            }
+
+            const titleChars = [...String(phrase || '').replace(/[　\s]/g, '')].slice(0, 4);
+            if (titleChars.length) {
+                const glyphSize = 88;
+                const glyphGap = 26;
+                const n = titleChars.length;
+                const totalW = n * glyphSize + (n - 1) * glyphGap;
+                let gx = Math.round((W - totalW) / 2);
+                const gy = 596;
+                for (const ch of titleChars) {
+                    try {
+                        const gImg = await loadImg(svg(ch));
+                        ctx.drawImage(gImg, gx, gy, glyphSize, glyphSize);
+                    } catch (e) {
+                        ctx.save();
+                        ctx.fillStyle = 'rgba(42, 36, 24, 0.82)';
+                        ctx.font = '52px "Songti TC", "STSong", "Noto Serif TC", serif';
+                        ctx.textAlign = 'center';
+                        ctx.textBaseline = 'middle';
+                        ctx.fillText(ch, gx + glyphSize / 2, gy + glyphSize / 2);
+                        ctx.restore();
+                    }
+                    gx += glyphSize + glyphGap;
                 }
-            } catch (e) {}
-            x.font = '64px serif'; x.fillText(phrase, 400, 520);
-            x.font = '22px serif'; x.fillText('宅兹中國', 400, 860);
-            x.fillText('本祝福生成器僅供娛樂體驗，非嚴謹青銅器銘文拼湊', 400, 910);
-            c.toBlob(blob => {
+            } else {
+                drawHspaced(ctx, VESSEL_NAMES[vKey] || '', W / 2, 640, 36, 'rgba(42, 36, 24, 0.82)');
+            }
+            ctx.save();
+            ctx.fillStyle = 'rgba(42, 36, 24, 0.48)';
+            ctx.font = '18px "Songti TC", "STSong", "Noto Serif TC", serif';
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.fillText(VESSEL_NAMES[vKey] || '', W / 2, 732);
+            const rite = VESSEL_RITE[vKey];
+            if (rite) {
+                ctx.fillText(rite.formula, W / 2, 770);
+            }
+            ctx.restore();
+        }
+        async function renderBlessPreview(chars, phrase, passage) {
+            const card = document.getElementById('blessCard');
+            card.innerHTML = '<div class="bless-loading">正在鑄辭…</div>';
+            try {
+                const c = document.createElement('canvas');
+                c.width = 720; c.height = 1008;
+                const ctx = c.getContext('2d');
+                await renderPostcard(ctx, chars, phrase, vesselKey);
+                window._lastPostcard = c;
+                const safe = String(passage || '').replace(/</g, '&lt;');
+                card.innerHTML =
+                    `<div class="greet-stage">` +
+                    `<button type="button" class="greet-card" aria-pressed="false" aria-label="翻開賀卡看祈辭">` +
+                    `<span class="greet-face front"></span>` +
+                    `<span class="greet-face back"><span class="greet-back-inner">` +
+                    `<p class="passage">${safe}</p>` +
+                    `</span></span></button></div>`;
+                card.querySelector('.greet-face.front').appendChild(c);
+                const flip = card.querySelector('.greet-card');
+                flip.onclick = () => setGreetOpen(!flip.classList.contains('is-open'));
+                setGreetOpen(false);
+            } catch (err) {
+                console.error('[renderBlessPreview 頂層失敗]', err);
+                card.innerHTML = '<div class="bless-loading">鑄辭出錯，請看 Console。</div>';
+            }
+        }
+        document.getElementById('blessDl').onclick = () => {
+            const canvas = window._lastPostcard;
+            if (!canvas) return;
+            canvas.toBlob(blob => {
                 const a = document.createElement('a');
                 a.href = URL.createObjectURL(blob);
-                a.download = '金文祝福.png';
+                a.download = '金文吉辭-' + (lastPhrase || '祝福') + '.png';
                 a.click();
             });
         };
@@ -3546,7 +4322,6 @@
             checkOCRHealth();
         };
 
-        applyRoute(parseHash());
         ensureMeSpeak().catch(() => {});
         Promise.all([getIndex(), lexiconReady]).then(() => {
             nextQuiz();

@@ -8,9 +8,14 @@
     <link rel="stylesheet" href="https://fonts.loli.net/css2?family=Noto+Sans+TC:wght@400;500&family=Noto+Serif+TC:wght@400;600;700&family=Source+Sans+3:wght@400;500&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500&family=Noto+Serif+TC:wght@400;600;700&family=Source+Sans+3:wght@400;500&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap">
     <script>
-        if (!new URLSearchParams(location.search).has('embed')) {
-            location.replace('demo.html' + (location.hash || ''));
-        }
+        (function () {
+            var embedded = new URLSearchParams(location.search).has('embed') || window.parent !== window;
+            if (!embedded) {
+                location.replace('demo.html' + (location.hash || ''));
+                return;
+            }
+            document.documentElement.classList.add('embed', 'introing');
+        })();
     </script>
     <style>
         body {
@@ -557,7 +562,7 @@
         }).join('');
 
         // ============ Three.js 场景 ============
-        if (new URLSearchParams(location.search).has('embed')) {
+        if (new URLSearchParams(location.search).has('embed') || window.parent !== window) {
             document.documentElement.classList.add('embed', 'introing');
         }
         window.addEventListener('message', (e) => {
@@ -595,7 +600,7 @@
         const scene = new THREE.Scene();
         const starGroup = new THREE.Group();
         scene.add(starGroup);
-        const isEmbed = new URLSearchParams(location.search).has('embed');
+        const isEmbed = new URLSearchParams(location.search).has('embed') || window.parent !== window;
         const camera = new THREE.PerspectiveCamera(58, window.innerWidth / window.innerHeight, 0.1, 5000);
         if (isEmbed) {
             camera.position.set(0, 420, 160);
