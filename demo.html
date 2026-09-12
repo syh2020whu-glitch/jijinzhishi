@@ -91,6 +91,7 @@
         #galaxyFrame {
             position: absolute; inset: 0;
             width: 100%; height: 100%;
+            min-height: 100%;
             border: 0; display: block; background: var(--night);
             z-index: 1;
         }
@@ -1590,7 +1591,31 @@
         html.phone-lite #view-learn .brick .back { display: none; }
         html.phone-lite #view-learn .brick.is-open .front { display: none; }
         html.phone-lite #view-learn .brick.is-open .back { display: flex; }
-        html.phone-lite #view-learn .brick .front { font-size: clamp(22px, 6.2vw, 30px); }
+        html.phone-lite #view-learn .brick .front {
+            font-size: clamp(22px, 6.2vw, 30px);
+            flex-direction: column;
+            gap: 4px;
+        }
+        html.phone-lite #view-learn .brick .front img {
+            width: 72%;
+            height: 62%;
+            object-fit: contain;
+            filter: none !important;
+        }
+        html.phone-lite #view-learn .brick .front .lemma {
+            font-size: 11px;
+            letter-spacing: 1px;
+            color: #6a6358;
+        }
+        html.phone-lite .lite-glyphs img,
+        html.phone-lite .choice img,
+        html.phone-lite .glyph-card img,
+        html.phone-lite .hero-glyph,
+        html.phone-lite .link-item img,
+        html.phone-lite #view-learn .brick .back img {
+            filter: none !important;
+        }
+        html.phone-lite #view-home:not(.lite) .lite-sky { display: none; }
     </style>
 </head>
 <body class="intro-cold">
@@ -2387,10 +2412,6 @@
                 landHome();
                 return;
             }
-            if (isPhoneLite()) {
-                startLiteIntro();
-                return;
-            }
             document.getElementById('view-home').classList.add('tunneling');
             tellGalaxy({ type: 'intro-start' });
             clearTimeout(introTimer);
@@ -2649,15 +2670,10 @@
                 const frame = document.getElementById('galaxyFrame');
                 if (!galaxyLoaded) {
                     galaxyLoaded = true;
-                    if (isPhoneLite()) {
-                        document.getElementById('view-home').classList.add('lite');
-                        if (window.liteIntro) liteIntro.boot();
-                    } else {
-                        const want = 'index.html?embed=1' + (q ? '&char=' + encodeURIComponent(q) : '');
-                        const cur = frame.getAttribute('src') || '';
-                        if (!cur || cur === 'about:blank' || (q && !cur.includes('char='))) {
-                            frame.src = want;
-                        }
+                    const want = 'index.html?embed=1' + (isPhoneLite() ? '&lite=1' : '') + (q ? '&char=' + encodeURIComponent(q) : '');
+                    const cur = frame.getAttribute('src') || '';
+                    if (!cur || cur === 'about:blank' || (q && !cur.includes('char='))) {
+                        frame.src = want;
                     }
                     setColdOpen();
                 } else if (q) {
@@ -2744,6 +2760,11 @@
                 else tellGalaxy({ type: 'intro-lock' });
             }
             if (e.data.type === 'intro-done') revealHome();
+            if (e.data.type === 'webgl-fail') {
+                const home = document.getElementById('view-home');
+                home.classList.add('lite');
+                if (window.liteIntro) liteIntro.boot();
+            }
             if (e.data.type === 'navigate') {
                 clearTimeout(enterTimer);
                 enterTimer = 0;
@@ -3094,13 +3115,18 @@
             const idx = await getIndex();
             const root = wallRoot();
             if (!root) return;
+            const phone = document.documentElement.classList.contains('phone-lite');
             root.innerHTML = [...BAIJIA].map((lemma, i) => {
                 const key = resolveJinwen(idx, lemma);
-                const back = key
-                    ? `<img src="${svg(key)}" alt="" loading="lazy">`
+                const glyph = key
+                    ? `<img src="${svg(key)}" alt="" ${phone ? '' : 'loading="lazy"'}>`
                     : `<span class="void">未見</span>`;
+                const front = phone
+                    ? `${glyph}<span class="lemma">${lemma}</span>`
+                    : lemma;
+                const back = phone ? lemma : glyph;
                 return `<div class="brick${key ? '' : ' empty'}" role="button" tabindex="0" data-i="${i}" data-lemma="${lemma}" data-key="${key}">
-                    <div class="inner"><div class="face front">${lemma}</div><div class="face back">${back}</div></div>
+                    <div class="inner"><div class="face front">${front}</div><div class="face back">${back}</div></div>
                 </div>`;
             }).join('');
         }
