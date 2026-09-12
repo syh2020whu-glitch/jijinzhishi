@@ -2354,12 +2354,14 @@
             tellGalaxy({ type: 'intro-lock' });
         }
         function revealHome() {
+            if (introLanded) return;
             introLanded = true;
             clearTimeout(introTimer);
             document.body.classList.remove('intro-cold');
             const home = document.getElementById('view-home');
             home.classList.remove('intro', 'tunneling');
         }
+        window.__onGalaxyIntroDone = revealHome;
         function landHome() {
             const home = document.getElementById('view-home');
             home.classList.remove('lite-diving');
@@ -2375,7 +2377,7 @@
             home.classList.remove('lite-landed', 'tunneling');
             if (window.liteIntro) liteIntro.dive();
             clearTimeout(introTimer);
-            introTimer = setTimeout(landHome, 5600);
+            introTimer = setTimeout(landHome, 2600);
         }
         function startIntro() {
             if (introLanded) return;
@@ -2392,7 +2394,19 @@
             document.getElementById('view-home').classList.add('tunneling');
             tellGalaxy({ type: 'intro-start' });
             clearTimeout(introTimer);
-            introTimer = setTimeout(landHome, 18000);
+            setTimeout(() => { if (!introLanded) tellGalaxy({ type: 'intro-start' }); }, 160);
+            setTimeout(() => { if (!introLanded) tellGalaxy({ type: 'intro-start' }); }, 480);
+            introTimer = setTimeout(landHome, 2200);
+            const pollDone = setInterval(() => {
+                if (introLanded) {
+                    clearInterval(pollDone);
+                    return;
+                }
+                try {
+                    if (document.getElementById('galaxyFrame').contentWindow.__introDone) revealHome();
+                } catch (e) {}
+            }, 80);
+            setTimeout(() => clearInterval(pollDone), 3200);
         }
         (function bootLiteIntro() {
             const canvas = document.getElementById('liteCanvas');
@@ -2490,9 +2504,7 @@
                 spinning += mode === 'dive' ? 0.034 : 0.006;
                 let morph = 0;
                 if (mode === 'dive') {
-                    if (elapsed < 1.6) morph = 0;
-                    else if (elapsed < 4.2) morph = (elapsed - 1.6) / 2.6;
-                    else morph = 1;
+                    morph = Math.min(1, elapsed / 2.2);
                 } else if (mode === 'land') morph = 1;
                 const shrink = mode === 'dive' ? Math.max(0.22, 1 - elapsed * 0.28) : 1;
                 dots.forEach(d => {
@@ -2728,6 +2740,7 @@
             if (e.data.type === 'galaxy-ready') {
                 applySkin(document.documentElement.classList.contains('neo'));
                 if (introLanded) tellGalaxy({ type: 'intro-land' });
+                else if (document.getElementById('view-home').classList.contains('tunneling')) tellGalaxy({ type: 'intro-start' });
                 else tellGalaxy({ type: 'intro-lock' });
             }
             if (e.data.type === 'intro-done') revealHome();
