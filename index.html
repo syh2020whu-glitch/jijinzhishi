@@ -577,6 +577,7 @@
             }
             if (e.data.type === 'intro-lock') {
                 document.documentElement.classList.add('introing');
+                if (window.__introPlaying) return;
                 if (typeof controls !== 'undefined') {
                     controls.enabled = false;
                     controls.autoRotate = true;
@@ -589,7 +590,11 @@
             }
             if (e.data.type === 'intro-start') {
                 document.documentElement.classList.add('introing');
-                if (typeof introDive === 'function') introDive();
+                if (typeof introDive === 'function') {
+                    if (!introPlaying) introDive();
+                } else {
+                    window.__pendingIntroStart = true;
+                }
             }
             if (e.data.type === 'intro-land' || e.data.type === 'set-shape') {
                 document.documentElement.classList.remove('introing');
@@ -1582,74 +1587,41 @@
         function tellParent(payload) {
             if (window.parent !== window) {
                 try { window.parent.postMessage(payload, '*'); } catch (e) {}
+                try {
+                    if (payload && payload.type === 'intro-done' && typeof window.parent.__onGalaxyIntroDone === 'function') {
+                        window.parent.__onGalaxyIntroDone();
+                    }
+                } catch (e) {}
             }
         }
         function cancelCameraTweens() { camTweenGen++; }
-        async function waitForSprites() {
-            for (let i = 0; i < 80; i++) {
-                if (surnameSprites.length > 80) return;
-                await wait(100);
-            }
-        }
         async function introDive() {
             introToken++;
             const token = introToken;
             introPlaying = true;
+            window.__introPlaying = true;
+            window.__introDone = false;
+            window.__pendingIntroStart = false;
             cancelCameraTweens();
             document.documentElement.classList.add('introing');
             controls.enabled = false;
             controls.autoRotate = false;
-            await waitForSprites();
-            if (token !== introToken) return;
 
-            if (window.__cloud) window.__cloud.material.opacity = 0.16;
-
-            if (currentShape !== 'galaxy') {
-                applyLathe((s, a) => {
-                    const u = s.userData.galU != null ? s.userData.galU : galaxyUFromR(a.r);
-                    return {
-                        r: GALAXY_R_MIN + (GALAXY_R_MAX - GALAXY_R_MIN) * Math.sqrt(Math.max(u, 0.0008)),
-                        th: a.th,
-                        y: (s.userData.rand[2] - 0.5) * 5
-                    };
-                }, 800);
-                currentShape = 'galaxy';
-                await wait(850);
-                if (token !== introToken) return;
-            }
-
+            if (window.__cloud) window.__cloud.material.opacity = 0.08;
             stampGalaxyCoords();
-            introSpinTarget = 0.24;
-            applyLathe((s, a) => ({
-                r: a.r * 0.96,
-                th: a.th,
-                y: (s.userData.galU - 0.5) * 8
-            }), 2000);
-            await moveCamera(0, 400, 70, 0, 0, 0, 2000);
-            if (token !== introToken) return;
-
-            introSpinTarget = 0;
-            if (window.__cloud) window.__cloud.material.opacity = 0.05;
-            applyLathe((s, a) => {
-                const u = s.userData.galU;
-                return {
-                    r: 38 + u * 70,
-                    th: a.th + 0.5,
-                    y: 14 + (1 - u) * 240
-                };
-            }, 2800);
-            await moveCamera(210, 210, 460, 0, 130, 0, 2800);
-            if (token !== introToken) return;
-
+            introSpinTarget = 0.42;
             vesselScaleTarget = 0.4;
-            applyLathe((s, a) => zunCylFromGalaxy(s, a, 0.28), 2400);
             currentShape = 'zun';
-            await moveCamera(220, 200, 500, 0, 135, 0, 2400);
+            const D = 1800;
+            applyLathe((s, a) => zunCylFromGalaxy(s, a, 0.28), D);
+            await moveCamera(220, 200, 500, 0, 135, 0, D);
             if (token !== introToken) return;
 
             introSpinTarget = 0;
             introSpin = 0;
             introPlaying = false;
+            window.__introPlaying = false;
+            window.__introDone = true;
             document.documentElement.classList.remove('introing');
             controls.autoRotate = true;
             controls.autoRotateSpeed = 0.22;
@@ -1657,9 +1629,11 @@
             controls.update();
             tellParent({ type: 'intro-done' });
         }
+        if (window.__pendingIntroStart) introDive();
         function landAsHezun() {
             introToken++;
             introPlaying = false;
+            window.__introPlaying = false;
             cancelCameraTweens();
             introSpinTarget = 0;
             introSpin = 0;
