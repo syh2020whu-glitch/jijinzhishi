@@ -606,6 +606,9 @@
         const starGroup = new THREE.Group();
         scene.add(starGroup);
         const isEmbed = new URLSearchParams(location.search).has('embed') || window.parent !== window;
+        const isPhoneGalaxy = new URLSearchParams(location.search).has('lite') || (
+            Math.min(screen.width || 0, screen.height || 0) <= 920 && (navigator.maxTouchPoints || 0) > 1
+        );
         const camera = new THREE.PerspectiveCamera(58, window.innerWidth / window.innerHeight, 0.1, 5000);
         if (isEmbed) {
             camera.position.set(0, 420, 160);
@@ -615,11 +618,12 @@
 
         const renderer = new THREE.WebGLRenderer({
             canvas: document.getElementById('canvas'),
-            antialias: true,
-            alpha: true
+            antialias: !isPhoneGalaxy,
+            alpha: true,
+            powerPreference: isPhoneGalaxy ? 'low-power' : 'default'
         });
         renderer.setSize(window.innerWidth, window.innerHeight);
-        renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+        renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, isPhoneGalaxy ? 1 : 2));
         renderer.setClearColor(0x050810, 1);
 
         const controls = new THREE.OrbitControls(camera, renderer.domElement);
@@ -707,7 +711,7 @@
 
         // ============ 金文字符纹理（128×128 + 染色 + 光晕） ============
         async function createJinwenTexture(char, rgb) {
-            const size = 128;
+            const size = isPhoneGalaxy ? 64 : 128;
             const canvas = document.createElement('canvas');
             canvas.width = size; canvas.height = size;
             const ctx = canvas.getContext('2d');
@@ -715,7 +719,6 @@
             const svgUrl = `./jinwen_svg/${encodeURIComponent(char)}.svg`;
             await new Promise((resolve, reject) => {
                 const img = new Image();
-                img.crossOrigin = 'anonymous';
                 img.onload = () => {
                     ctx.drawImage(img, 0, 0, size, size);
                     const imageData = ctx.getImageData(0, 0, size, size);
@@ -1256,11 +1259,12 @@
                 return (b.variants || 0) - (a.variants || 0);
             });
 
-            const total = items.length;
+            const loadItems = isPhoneGalaxy ? items.slice(0, 280) : items;
+            const total = loadItems.length;
             loadingText.textContent = `0 / ${total}`;
 
             let done = 0, ok = 0;
-            const BATCH = 12;   // 每批并发数
+            const BATCH = isPhoneGalaxy ? 6 : 12;
             const YIELD_EVERY = 24;
 
             async function loadOne(item, i) {
@@ -1302,8 +1306,8 @@
             }
 
             // 分批并发（避免同时开 1690 个 <img> 请求）
-            for (let i = 0; i < items.length; i += BATCH) {
-                const chunk = items.slice(i, i + BATCH);
+            for (let i = 0; i < loadItems.length; i += BATCH) {
+                const chunk = loadItems.slice(i, i + BATCH);
                 await Promise.all(chunk.map((item, j) => loadOne(item, i + j)));
                 done += chunk.length;
                 loadingText.textContent = `${done} / ${total}`;
