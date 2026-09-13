@@ -588,7 +588,19 @@
             }
             if (e.data.type === 'intro-lock') {
                 document.documentElement.classList.add('introing');
-                if (window.__introPlaying) return;
+                if (e.data.resetShape && typeof introToken === 'number') {
+                    introToken++;
+                    introPlaying = false;
+                    window.__introPlaying = false;
+                    window.__introDone = false;
+                    if (typeof cancelCameraTweens === 'function') cancelCameraTweens();
+                    if (typeof setActiveShape === 'function') setActiveShape('galaxy');
+                    vesselScale = 1;
+                    vesselScaleTarget = 1;
+                    if (window.__cloud) window.__cloud.material.opacity = 0.18;
+                } else if (window.__introPlaying) {
+                    return;
+                }
                 if (typeof controls !== 'undefined') {
                     controls.enabled = false;
                     controls.autoRotate = true;
