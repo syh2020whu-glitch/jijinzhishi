@@ -238,6 +238,94 @@
         body.intro-cold #introSkip,
         #view-home.tunneling #introSkip { display: block; }
         #introSkip:hover { color: #f4d58a; }
+        #tourStart {
+            display: none;
+            position: absolute;
+            left: max(20px, env(safe-area-inset-left));
+            bottom: max(20px, env(safe-area-inset-bottom));
+            z-index: 50;
+            background: none;
+            border: 1px solid rgba(244, 213, 138, 0.35);
+            color: rgba(244, 213, 138, 0.85);
+            letter-spacing: 6px;
+            cursor: pointer;
+            font-size: 13px;
+            padding: 8px 14px;
+        }
+        #view-home.on:not(.intro):not(.tunneling) #tourStart { display: block; }
+        html.touring #tourStart { display: none !important; }
+        #tourStart:hover { color: #f4d58a; border-color: #f4d58a; }
+        #tourHud {
+            display: none;
+            position: fixed;
+            inset: auto 0 0 0;
+            z-index: 80;
+            pointer-events: none;
+            padding: 18px 22px 22px;
+            background: linear-gradient(180deg, transparent, rgba(8, 9, 12, 0.88) 36%);
+            color: #f4d58a;
+        }
+        html.touring #tourHud { display: block; }
+        #tourHud .tour-kicker {
+            letter-spacing: 8px;
+            font-size: 11px;
+            opacity: 0.55;
+            margin: 0 0 6px;
+        }
+        #tourHud h2 {
+            margin: 0 0 6px;
+            font-size: 22px;
+            letter-spacing: 4px;
+            font-weight: 600;
+        }
+        #tourHud p { margin: 0; color: #d8c9a0; letter-spacing: 1px; line-height: 1.6; max-width: 42em; }
+        #tourHud .tour-tools {
+            pointer-events: auto;
+            position: absolute;
+            right: 18px;
+            bottom: 22px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        #tourHud .tour-tools button {
+            background: none;
+            border: 1px solid rgba(244, 213, 138, 0.4);
+            color: #f4d58a;
+            letter-spacing: 3px;
+            cursor: pointer;
+            padding: 6px 12px;
+        }
+        #tourHud .tour-rec { letter-spacing: 2px; font-size: 12px; opacity: 0.7; }
+        #tourAsk {
+            display: none;
+            position: fixed;
+            inset: 0;
+            z-index: 90;
+            background: rgba(8, 9, 12, 0.62);
+            color: #f4d58a;
+            align-items: center;
+            justify-content: center;
+        }
+        #tourAsk.on { display: flex; }
+        #tourAsk .box {
+            width: min(440px, calc(100% - 40px));
+            padding: 28px 26px 22px;
+            background: #181a23;
+            border: 1px solid rgba(244, 213, 138, 0.28);
+        }
+        #tourAsk h2 { margin: 0 0 10px; letter-spacing: 4px; font-size: 20px; }
+        #tourAsk p { margin: 0 0 18px; color: #c8b892; line-height: 1.7; }
+        #tourAsk .row { display: flex; flex-wrap: wrap; gap: 8px; }
+        #tourAsk button {
+            background: none;
+            border: 1px solid rgba(244, 213, 138, 0.4);
+            color: #f4d58a;
+            letter-spacing: 2px;
+            cursor: pointer;
+            padding: 8px 12px;
+        }
+        #tourAsk button.primary { background: rgba(196, 160, 53, 0.16); }
         .home-doors button {
             min-width: 128px;
             padding: 10px 22px 12px;
@@ -1651,7 +1739,28 @@
             <button type="button" data-go="work"><i>智能實驗室</i><b>銘見</b></button>
         </div>
         <button type="button" id="introSkip">跳過</button>
+        <button type="button" id="tourStart">演示</button>
     </section>
+    <div id="tourHud" aria-live="polite">
+        <p class="tour-kicker">自動演示</p>
+        <h2 id="tourTitle">吉金智識</h2>
+        <p id="tourLine">把先秦金文重新變成可看、可聽、可寫、可考。</p>
+        <div class="tour-tools">
+            <span class="tour-rec" id="tourRec"></span>
+            <button type="button" id="tourStop">停止</button>
+        </div>
+    </div>
+    <div id="tourAsk">
+        <div class="box">
+            <h2>自動演示</h2>
+            <p>約一分半鐘，自動走完學習、遊玩、銘見。錄製時請在彈窗裡選「這個分頁」，不要選整個螢幕。</p>
+            <div class="row">
+                <button type="button" class="primary" id="tourPlay">開始演示</button>
+                <button type="button" id="tourRecStart">演示並錄製</button>
+                <button type="button" id="tourAskClose">取消</button>
+            </div>
+        </div>
+    </div>
 
     <section class="paper-view" id="view-learn">
         <div class="paper-bar">
@@ -4369,6 +4478,201 @@
             ocrBackendStatus = 'unknown';
             checkOCRHealth();
         };
+
+        let tourGen = 0;
+        let tourRecorder = null;
+        let tourChunks = [];
+        let tourStream = null;
+        function tourWait(ms, gen) {
+            return new Promise(resolve => {
+                const t = setTimeout(() => resolve(), ms);
+                if (gen !== tourGen) { clearTimeout(t); resolve(); }
+            });
+        }
+        function tourCap(title, line, recText) {
+            document.getElementById('tourTitle').textContent = title;
+            document.getElementById('tourLine').textContent = line;
+            if (recText != null) document.getElementById('tourRec').textContent = recText;
+        }
+        function tourGo(view, q, tab) {
+            applyRoute({ view: view, q: q || '', tab: tab || '' });
+            const p = new URLSearchParams();
+            if (q) p.set('q', q);
+            if (tab) p.set('tab', tab);
+            const qs = p.toString();
+            const hash = '#/' + (view === 'home' ? '' : view) + (qs ? '?' + qs : '');
+            if (location.hash !== hash) history.replaceState(null, '', location.pathname + location.search + hash);
+        }
+        function stopTourCapture(download) {
+            const rec = tourRecorder;
+            const stream = tourStream;
+            tourRecorder = null;
+            tourStream = null;
+            if (rec && rec.state !== 'inactive') {
+                try { rec.stop(); } catch (e) {}
+            }
+            if (stream) stream.getTracks().forEach(t => t.stop());
+            if (download && tourChunks.length) {
+                const blob = new Blob(tourChunks, { type: (rec && rec.mimeType) || 'video/webm' });
+                const ext = (blob.type || '').indexOf('mp4') >= 0 ? 'mp4' : 'webm';
+                const a = document.createElement('a');
+                a.href = URL.createObjectURL(blob);
+                a.download = '吉金智識-演示.' + ext;
+                a.click();
+                setTimeout(() => URL.revokeObjectURL(a.href), 4000);
+            }
+            tourChunks = [];
+        }
+        function endTour(download) {
+            tourGen += 1;
+            document.documentElement.classList.remove('touring');
+            document.getElementById('tourRec').textContent = '';
+            stopTourCapture(download);
+            tourGo('home');
+        }
+        async function startTourCapture() {
+            if (!navigator.mediaDevices || !navigator.mediaDevices.getDisplayMedia || !window.MediaRecorder) {
+                alert('當前瀏覽器不能錄屏，將只播放演示。請用 Chrome / Edge。');
+                return false;
+            }
+            try {
+                const stream = await navigator.mediaDevices.getDisplayMedia({
+                    video: { frameRate: 30, displaySurface: 'browser' },
+                    audio: false,
+                    preferCurrentTab: true,
+                    selfBrowserSurface: 'include',
+                    surfaceSwitching: 'exclude',
+                    systemAudio: 'exclude'
+                });
+                const mimes = ['video/webm;codecs=vp9', 'video/webm;codecs=vp8', 'video/webm', 'video/mp4'];
+                const mime = mimes.find(m => MediaRecorder.isTypeSupported(m)) || '';
+                const rec = new MediaRecorder(stream, mime ? { mimeType: mime, videoBitsPerSecond: 8000000 } : undefined);
+                tourChunks = [];
+                rec.ondataavailable = e => { if (e.data && e.data.size) tourChunks.push(e.data); };
+                stream.getVideoTracks()[0].addEventListener('ended', () => {
+                    if (document.documentElement.classList.contains('touring')) endTour(true);
+                });
+                rec.start(800);
+                tourStream = stream;
+                tourRecorder = rec;
+                return true;
+            } catch (e) {
+                return false;
+            }
+        }
+        async function runSiteTour(record) {
+            const gen = ++tourGen;
+            document.getElementById('tourAsk').classList.remove('on');
+            document.documentElement.classList.add('touring');
+            if (record) {
+                tourCap('準備錄製', '請在彈窗裡選擇「這個分頁」，不要選整個螢幕。', '等待分享本頁…');
+                const ok = await startTourCapture();
+                if (gen !== tourGen) return;
+                if (!ok) tourCap('改為只演示', '未授權錄屏，仍自動走完三個板塊。', '');
+                else tourCap('開始', '正在錄製本頁。', '● 錄製中');
+                await tourWait(700, gen);
+            } else {
+                tourCap('吉金智識', '把先秦金文重新變成可看、可聽、可寫、可考。', '');
+            }
+            if (gen !== tourGen) return;
+
+            tourGo('home');
+            tourCap('星河', '每一顆星都是真字，按朝代染色，聚成一件器。');
+            await tourWait(3200, gen);
+            if (gen !== tourGen) return;
+
+            tourGo('learn', '王', 'wall');
+            await tourWait(200, gen);
+            try { await seekWall('王'); } catch (e) {}
+            tourCap('學習 · 方格牆', '輸入自己的姓。有金文就翻開；沒有，就寫「此姓在金文中未見記載」。');
+            await tourWait(5200, gen);
+            if (gen !== tourGen) return;
+
+            tourGo('learn', '宅', 'listen');
+            await tourWait(240, gen);
+            try { nextQuiz('宅'); } catch (e) {}
+            tourCap('學習 · 聽音室', '聽構擬上古音，從金文裡認出它。音值依鄭張尚芳，僅供參考。');
+            await tourWait(4800, gen);
+            if (gen !== tourGen) return;
+
+            tourGo('learn', '宅', 'lookup');
+            await tourWait(240, gen);
+            try { await runLookup('宅', true); } catch (e) {}
+            tourCap('學習 · 吉金字典', '給出處、辭例與白話。未見的不補造。');
+            await tourWait(5000, gen);
+            if (gen !== tourGen) return;
+
+            tourGo('play', '', 'lobby');
+            tourCap('趣味工坊', '連字形、描一筆，再按禮器職司寫一段吉辭。');
+            await tourWait(2800, gen);
+            if (gen !== tourGen) return;
+
+            tourGo('play', '', 'match');
+            await tourWait(280, gen);
+            try {
+                const left = document.querySelector('#linkLeft .link-item');
+                if (left && matchLeft[0]) {
+                    const ch = matchLeft[0].char;
+                    const right = Array.from(document.querySelectorAll('#linkRight .link-item')).find((b, i) => matchRight[i] && matchRight[i].char === ch);
+                    if (right) { left.click(); await tourWait(350, gen); right.click(); }
+                }
+            } catch (e) {}
+            tourCap('遊玩 · 連連看', '左側金文，右側今字。連對有編鐘聲。');
+            await tourWait(4200, gen);
+            if (gen !== tourGen) return;
+
+            tourGo('play', '', 'trace');
+            await tourWait(200, gen);
+            try { drawTraceBase(); } catch (e) {}
+            tourCap('遊玩 · 描紅', '順淡底描一筆。完成後翻出出處。');
+            await tourWait(4000, gen);
+            if (gen !== tourGen) return;
+
+            tourGo('play', '', 'ritual');
+            await tourWait(240, gen);
+            try {
+                const ding = document.querySelector('#vesselPicker [data-vessel="ding"]');
+                if (ding) ding.click();
+                pickedBless.clear();
+                pickedBless.add('壽');
+                setRitualStep(2);
+                await tourWait(400, gen);
+                const blessBtn = document.getElementById('blessBtn');
+                if (blessBtn) blessBtn.click();
+            } catch (e) {}
+            tourCap('遊玩 · 鑄辭坊', '先選器，再選祈辭。賀卡是銘末套語的戲仿，不是出土銘文。');
+            await tourWait(6200, gen);
+            if (gen !== tourGen) return;
+
+            tourGo('work', '', 'rec');
+            await tourWait(240, gen);
+            tourCap('銘見 · 識圖', '上傳拓片做初稿。金點是把握較高的字，灰點標疑。');
+            try { await runRecognition(null); } catch (e) {}
+            if (gen !== tourGen) return;
+            await tourWait(3600, gen);
+            if (gen !== tourGen) return;
+
+            tourGo('work', '王', 'search');
+            await tourWait(240, gen);
+            try { runWorkSearch('王'); } catch (e) {}
+            tourCap('銘見 · 金文字庫', '對真拓與變體。詳庫外鏈，版權歸原庫。');
+            await tourWait(4800, gen);
+            if (gen !== tourGen) return;
+
+            tourGo('home');
+            tourCap('同一套字', '公眾、課堂、研究走同一條路，只是深淺不同。瀏覽器打開即可。', record && tourRecorder ? '即將儲存影片' : '');
+            await tourWait(3200, gen);
+            if (gen !== tourGen) return;
+            endTour(!!(record && (tourRecorder || tourChunks.length)));
+        }
+        document.getElementById('tourStart').onclick = () => document.getElementById('tourAsk').classList.add('on');
+        document.getElementById('tourAskClose').onclick = () => document.getElementById('tourAsk').classList.remove('on');
+        document.getElementById('tourPlay').onclick = () => runSiteTour(false);
+        document.getElementById('tourRecStart').onclick = () => runSiteTour(true);
+        document.getElementById('tourStop').onclick = () => endTour(!!tourChunks.length);
+        document.getElementById('tourAsk').addEventListener('click', e => {
+            if (e.target.id === 'tourAsk') e.currentTarget.classList.remove('on');
+        });
 
         ensureMeSpeak().catch(() => {});
         Promise.all([getIndex(), lexiconReady]).then(() => {
