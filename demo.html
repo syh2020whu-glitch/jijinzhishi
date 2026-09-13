@@ -3964,7 +3964,7 @@
                 }
             } catch (e) {}
             if (/github\.io$/i.test(location.hostname)) {
-                OCR_CONFIG.endpoint = 'https://findlaw-naturals-wax-regardless.trycloudflare.com';
+                OCR_CONFIG.endpoint = 'https://full-ontario-colour-pressed.trycloudflare.com';
                 return OCR_CONFIG.endpoint;
             }
             OCR_CONFIG.endpoint = 'http://localhost:8000';
@@ -4323,6 +4323,10 @@
         };
         async function runRecognition(file) {
             document.getElementById('ocrList').innerHTML = '<p class="sub">識別中……</p>';
+            if (!file) {
+                const demoBlob = await makeDemoRubbing(['宅', '茲', '中', '國']);
+                file = new File([demoBlob], 'demo-宅兹中國.png', { type: 'image/png' });
+            }
             let quality = null;
             if (file) {
                 quality = await assessImageFile(file);
@@ -4338,7 +4342,6 @@
             }
             if (out.source === 'real') quality = refineCheckWithBoxes(quality, out.detections || []);
             let blob = file;
-            if (!blob) blob = await makeDemoRubbing(['宅', '茲', '中', '國']);
             ocrState = {
                 detections: out.detections || [],
                 imageUrl: URL.createObjectURL(blob),
