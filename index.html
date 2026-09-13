@@ -1282,7 +1282,7 @@
                 return (b.variants || 0) - (a.variants || 0);
             });
 
-            const loadItems = isPhoneGalaxy ? items.slice(0, 280) : items;
+            const loadItems = isPhoneGalaxy ? items.slice(0, 900) : items;
             const total = loadItems.length;
             loadingText.textContent = `0 / ${total}`;
 
@@ -1641,10 +1641,16 @@
             controls.enabled = false;
             controls.autoRotate = false;
 
+            for (let i = 0; i < 12; i++) {
+                if (surnameSprites.length >= 80) break;
+                await wait(40);
+            }
+            if (token !== introToken) return;
+
             if (window.__cloud) window.__cloud.material.opacity = 0.08;
             stampGalaxyCoords();
             introSpinTarget = 0.42;
-            vesselScaleTarget = 0.4;
+            vesselScaleTarget = 0.72;
             currentShape = 'zun';
             const D = 1800;
             applyLathe((s, a) => zunCylFromGalaxy(s, a, 0.28), D);
@@ -1673,8 +1679,8 @@
             introSpin = 0;
             starGroup.rotation.y = 0;
             if (window.__cloud) window.__cloud.material.opacity = 0.06;
-            vesselScaleTarget = 0.4;
-            vesselScale = 0.4;
+            vesselScaleTarget = 0.72;
+            vesselScale = 0.72;
             setActiveShape('zun');
             camera.position.set(220, 200, 500);
             controls.target.set(0, 135, 0);
