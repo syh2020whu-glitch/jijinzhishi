@@ -3939,12 +3939,18 @@
                 return u.hostname === 'localhost' || u.hostname === '127.0.0.1';
             } catch (e) { return false; }
         }
+        function isStaleOcrHost(url) {
+            try {
+                return /findlaw-naturals-wax-regardless\.trycloudflare\.com$/i.test(new URL(url, location.href).hostname);
+            } catch (e) { return false; }
+        }
         function defaultOcrEndpoint() {
             const q = new URLSearchParams(location.search).get('ocr');
-            if (q) return q;
+            if (q && !isStaleOcrHost(q)) return q;
             const saved = localStorage.getItem('ocrEndpoint');
+            if (saved && isStaleOcrHost(saved)) localStorage.removeItem('ocrEndpoint');
             // 本地静态页的 localhost:8000 不是识图 API，不能盖住 ocr-endpoint.json
-            if (saved && !isLocalOcrHost(saved)) return saved;
+            if (saved && !isLocalOcrHost(saved) && !isStaleOcrHost(saved)) return saved;
             return '';
         }
         const OCR_CONFIG = {
@@ -3957,7 +3963,7 @@
                 const r = await fetch('ocr-endpoint.json', { cache: 'no-store' });
                 if (r.ok) {
                     const j = await r.json();
-                    if (j && j.endpoint) {
+                    if (j && j.endpoint && !isStaleOcrHost(j.endpoint)) {
                         OCR_CONFIG.endpoint = String(j.endpoint).replace(/\/$/, '');
                         return OCR_CONFIG.endpoint;
                     }
