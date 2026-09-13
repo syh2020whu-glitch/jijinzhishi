@@ -246,11 +246,22 @@
         }
         .info-panel.show { display: block; }
         .info-panel .surname {
-            font-size: 72px;
             text-align: center;
             margin-bottom: 10px;
+            min-height: 96px;
+            color: #f4d58a;
             text-shadow: 0 0 20px rgba(244, 213, 138, 0.6);
             font-family: "Source Serif 4", "Noto Serif TC", "Source Han Serif TC", serif;
+            font-size: 72px;
+        }
+        .info-panel .surname img {
+            width: 96px;
+            height: 96px;
+            object-fit: contain;
+            display: block;
+            margin: 0 auto;
+            /* 汉典 SVG 带浅色纸面路径，反相后纸面变暗、墨迹成金 */
+            filter: invert(1) sepia(1) saturate(4.2) hue-rotate(6deg) brightness(1.12);
         }
         .info-panel .modern {
             text-align: center;
@@ -438,8 +449,8 @@
             box-shadow: 0 0 32px rgba(196,164,106,.12);
         }
         html.embed.neo .info-panel .surname {
-            color: #f1f5f9;
-            text-shadow: 0 0 18px rgba(196,164,106,.28);
+            color: #e8c56a;
+            text-shadow: none;
         }
         html.embed.neo .info-panel .modern,
         html.embed.neo .info-panel .story,
@@ -1341,8 +1352,15 @@
             return raycaster.intersectObjects(surnameSprites);
         }
 
+        function infoChar() {
+            return (document.getElementById('infoSurname').dataset.char || '').trim();
+        }
         function showInfo(d) {
-            document.getElementById('infoSurname').textContent = d.char;
+            const el = document.getElementById('infoSurname');
+            el.dataset.char = d.char || '';
+            el.innerHTML = '<img alt="" src="./jinwen_svg/' + encodeURIComponent(d.char) + '.svg">';
+            const img = el.querySelector('img');
+            if (img) img.onerror = () => { el.textContent = d.char; };
             document.getElementById('infoModern').textContent = d.char;
 
             const metaTop = document.getElementById('infoMetaTop');
@@ -1381,7 +1399,7 @@
         }
         function pickStar(preferred) {
             const has = (c) => c && surnameSprites.some(x => x.userData.char === c);
-            const shown = (document.getElementById('infoSurname').textContent || '').trim();
+            const shown = infoChar();
             if (has(preferred)) return preferred;
             if (has(shown)) return shown;
             for (const ch of ['宅', '王', '中', '周']) {
@@ -1420,15 +1438,15 @@
             sendNavigate(mapped, ch || char || '', mappedTab);
         }
         document.getElementById('btnWall').addEventListener('click', () => {
-            const ch = document.getElementById('infoSurname').textContent;
+            const ch = infoChar();
             if (ch) flyThenNavigate('learn', 'wall', ch);
         });
         document.getElementById('btnListen').addEventListener('click', () => {
-            const ch = document.getElementById('infoSurname').textContent;
+            const ch = infoChar();
             if (ch) flyThenNavigate('learn', 'listen', ch);
         });
         document.getElementById('btnKao').addEventListener('click', () => {
-            const ch = document.getElementById('infoSurname').textContent;
+            const ch = infoChar();
             if (ch) flyThenNavigate('work', 'search', ch);
         });
 
