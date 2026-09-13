@@ -253,8 +253,49 @@
             padding: 8px 14px;
         }
         #view-home.on:not(.intro):not(.tunneling) #tourStart { display: block; }
-        html.touring #tourStart { display: none !important; }
+        html.touring #tourStart, html.recording #tourStart { display: none !important; }
         #tourStart:hover { color: #f4d58a; border-color: #f4d58a; }
+        #recStart {
+            display: none;
+            position: absolute;
+            left: max(108px, calc(env(safe-area-inset-left) + 88px));
+            bottom: max(20px, env(safe-area-inset-bottom));
+            z-index: 50;
+            background: none;
+            border: 1px solid rgba(244, 213, 138, 0.35);
+            color: rgba(244, 213, 138, 0.85);
+            letter-spacing: 6px;
+            cursor: pointer;
+            font-size: 13px;
+            padding: 8px 14px;
+        }
+        #view-home.on:not(.intro):not(.tunneling) #recStart { display: block; }
+        html.touring #recStart, html.recording #recStart { display: none !important; }
+        #recStart:hover { color: #f4d58a; border-color: #f4d58a; }
+        #recHud {
+            display: none;
+            position: fixed;
+            right: 18px;
+            top: 16px;
+            z-index: 85;
+            background: rgba(8, 9, 12, 0.72);
+            border: 1px solid rgba(244, 213, 138, 0.35);
+            color: #f4d58a;
+            padding: 8px 10px;
+            letter-spacing: 2px;
+            font-size: 13px;
+            align-items: center;
+            gap: 10px;
+        }
+        html.recording #recHud { display: flex; }
+        #recHud button {
+            background: none;
+            border: 1px solid rgba(244, 213, 138, 0.45);
+            color: #f4d58a;
+            cursor: pointer;
+            letter-spacing: 2px;
+            padding: 4px 8px;
+        }
         #tourHud {
             display: none;
             position: fixed;
@@ -1740,6 +1781,7 @@
         </div>
         <button type="button" id="introSkip">跳過</button>
         <button type="button" id="tourStart">演示</button>
+        <button type="button" id="recStart">錄製</button>
     </section>
     <div id="tourHud" aria-live="polite">
         <p class="tour-kicker">自動演示</p>
@@ -1750,10 +1792,14 @@
             <button type="button" id="tourStop">停止</button>
         </div>
     </div>
+    <div id="recHud">
+        <span id="recHudText">● 錄製中</span>
+        <button type="button" id="recStop">結束並下載</button>
+    </div>
     <div id="tourAsk">
         <div class="box">
             <h2>自動演示</h2>
-            <p>從夜空開場錄到學習、遊玩、銘見，約兩分鐘。錄製時請選「這個分頁」，不要選整個螢幕。</p>
+            <p>自動路線約兩分鐘。若要自己規劃鏡頭，請關此窗，改點左下「錄製」：只錄像、不代你點。</p>
             <div class="row">
                 <button type="button" class="primary" id="tourPlay">開始演示</button>
                 <button type="button" id="tourRecStart">演示並錄製</button>
@@ -4535,7 +4581,7 @@
         }
         function endTour(download) {
             tourGen += 1;
-            document.documentElement.classList.remove('touring');
+            document.documentElement.classList.remove('touring', 'recording');
             document.getElementById('tourRec').textContent = '';
             stopTourCapture(download);
             tourGo('home');
@@ -4699,6 +4745,28 @@
         document.getElementById('tourAsk').addEventListener('click', e => {
             if (e.target.id === 'tourAsk') e.currentTarget.classList.remove('on');
         });
+        let recTicker = 0;
+        async function startManualRecord() {
+            if (document.documentElement.classList.contains('recording') || document.documentElement.classList.contains('touring')) return;
+            document.getElementById('tourAsk').classList.remove('on');
+            const ok = await startTourCapture();
+            if (!ok) return;
+            document.documentElement.classList.add('recording');
+            const t0 = Date.now();
+            const text = document.getElementById('recHudText');
+            clearInterval(recTicker);
+            recTicker = setInterval(() => {
+                text.textContent = '● 錄製中  ' + Math.floor((Date.now() - t0) / 1000) + 's';
+            }, 400);
+        }
+        function stopManualRecord() {
+            clearInterval(recTicker);
+            document.documentElement.classList.remove('recording');
+            document.getElementById('recHudText').textContent = '● 錄製中';
+            stopTourCapture(true);
+        }
+        document.getElementById('recStart').onclick = () => startManualRecord();
+        document.getElementById('recStop').onclick = () => stopManualRecord();
 
         ensureMeSpeak().catch(() => {});
         Promise.all([getIndex(), lexiconReady]).then(() => {
