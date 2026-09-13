@@ -1753,7 +1753,7 @@
     <div id="tourAsk">
         <div class="box">
             <h2>自動演示</h2>
-            <p>約一分半鐘，自動走完學習、遊玩、銘見。錄製時請在彈窗裡選「這個分頁」，不要選整個螢幕。</p>
+            <p>從夜空開場錄到學習、遊玩、銘見，約兩分鐘。錄製時請選「這個分頁」，不要選整個螢幕。</p>
             <div class="row">
                 <button type="button" class="primary" id="tourPlay">開始演示</button>
                 <button type="button" id="tourRecStart">演示並錄製</button>
@@ -2481,11 +2481,15 @@
         }
         function setColdOpen() {
             introLanded = false;
+            clearTimeout(introTimer);
             document.body.classList.add('intro-cold');
             const home = document.getElementById('view-home');
-            home.classList.add('intro');
-            home.classList.remove('tunneling', 'lite-diving', 'lite-landed');
-            tellGalaxy({ type: 'intro-lock' });
+            home.classList.add('intro', 'on');
+            home.classList.remove('tunneling', 'lite-diving', 'lite-landed', 'leaving');
+            if (window.liteIntro) {
+                try { window.liteIntro.idle(); } catch (e) {}
+            }
+            tellGalaxy({ type: 'intro-lock', resetShape: true });
         }
         function revealHome() {
             if (introLanded) return;
@@ -2684,6 +2688,12 @@
                 },
                 land: function () {
                     mode = 'land';
+                },
+                idle: function () {
+                    mode = 'idle';
+                    spinning = 0;
+                    t0 = performance.now();
+                    this.boot();
                 }
             };
             window.addEventListener('resize', function () {
@@ -4560,24 +4570,40 @@
                 return false;
             }
         }
+        function waitIntroLand(gen, ms) {
+            return new Promise(resolve => {
+                const t0 = Date.now();
+                const id = setInterval(() => {
+                    if (gen !== tourGen || introLanded || Date.now() - t0 > ms) {
+                        clearInterval(id);
+                        resolve();
+                    }
+                }, 80);
+            });
+        }
         async function runSiteTour(record) {
             const gen = ++tourGen;
             document.getElementById('tourAsk').classList.remove('on');
             document.documentElement.classList.add('touring');
+            tourGo('home');
+            setColdOpen();
             if (record) {
-                tourCap('準備錄製', '請在彈窗裡選擇「這個分頁」，不要選整個螢幕。', '等待分享本頁…');
+                tourCap('準備錄製', '請在彈窗裡選擇「這個分頁」，不要選整個螢幕。先錄夜空開場。', '等待分享本頁…');
                 const ok = await startTourCapture();
                 if (gen !== tourGen) return;
-                if (!ok) tourCap('改為只演示', '未授權錄屏，仍自動走完三個板塊。', '');
-                else tourCap('開始', '正在錄製本頁。', '● 錄製中');
-                await tourWait(700, gen);
+                if (!ok) tourCap('改為只演示', '未授權錄屏，仍從開場走完三個板塊。', '');
+                else tourCap('開場', '夜空與篆書「吉金智識」。字本來鑄在器上。', '● 錄製中');
             } else {
-                tourCap('吉金智識', '把先秦金文重新變成可看、可聽、可寫、可考。', '');
+                tourCap('開場', '夜空與篆書「吉金智識」。字本來鑄在器上。', '');
             }
             if (gen !== tourGen) return;
-
-            tourGo('home');
-            tourCap('星河', '每一顆星都是真字，按朝代染色，聚成一件器。');
+            await tourWait(2800, gen);
+            if (gen !== tourGen) return;
+            startIntro();
+            await waitIntroLand(gen, 4200);
+            if (gen !== tourGen) return;
+            if (!introLanded) landHome();
+            tourCap('星河', '每一顆星都是真字，按朝代染色，聚成一件器。下面三條路：學習、遊玩、銘見。');
             await tourWait(3200, gen);
             if (gen !== tourGen) return;
 
