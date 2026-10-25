@@ -27,9 +27,7 @@
             });
         })();
     </script>
-    <link rel="preconnect" href="https://fonts.loli.net" crossorigin>
-    <link rel="stylesheet" href="https://fonts.loli.net/css2?family=Noto+Sans+TC:wght@400;500&family=Noto+Serif+TC:wght@400;600;700&family=Source+Sans+3:wght@400;500&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500&family=Noto+Serif+TC:wght@400;600;700&family=Source+Sans+3:wght@400;500&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap">
+    <link rel="stylesheet" href="./assets/fonts/web/fonts.css">
     <style>
         :root {
             --night: #050810;
@@ -1799,7 +1797,7 @@
     <div id="tourAsk">
         <div class="box">
             <h2>自動演示</h2>
-            <p>自動路線約兩分鐘。若要自己規劃鏡頭，請關此窗，改點左下「錄製」：只錄像、不代你點。</p>
+            <p>自動路線約三分半。會聽一聲上古音、描一筆再翻出處。若要自己規劃鏡頭，請關此窗，改點左下「錄製」：只錄像、不代你點。</p>
             <div class="row">
                 <button type="button" class="primary" id="tourPlay">開始演示</button>
                 <button type="button" id="tourRecStart">演示並錄製</button>
@@ -2951,7 +2949,7 @@
             if (typeof meSpeak !== 'undefined') return Promise.resolve();
             return new Promise((resolve, reject) => {
                 const s = document.createElement('script');
-                s.src = './js/vendor/mespeak.js';
+                s.src = './build/vendor/mespeak.js';
                 s.async = true;
                 s.onload = () => resolve();
                 s.onerror = () => reject(new Error('meSpeak 脚本失败'));
@@ -2962,11 +2960,11 @@
             if (mespeakReady) return mespeakReady;
             mespeakReady = loadMeSpeakScript().then(() => new Promise((resolve, reject) => {
                 if (typeof meSpeak === 'undefined') return reject(new Error('meSpeak 未加载'));
-                try { meSpeak.loadConfig('./js/vendor/mespeak_config.json'); } catch (e) { return reject(e); }
+                try { meSpeak.loadConfig('./build/vendor/mespeak_config.json'); } catch (e) { return reject(e); }
                 const t = setInterval(() => {
                     if (meSpeak.isConfigLoaded && meSpeak.isConfigLoaded()) {
                         clearInterval(t);
-                        meSpeak.loadVoice('./js/vendor/voice-en.json', (ok, msg) => {
+                        meSpeak.loadVoice('./build/vendor/voice-en.json', (ok, msg) => {
                             if (ok) { mespeakReadyDone = true; resolve(); }
                             else reject(new Error(msg));
                         });
@@ -3083,9 +3081,30 @@
             }
             return false;
         }
-        function playIPA(ipa) {
+        let ipaClips = null;
+        fetch('./assets/audio/ipa/manifest.json')
+            .then(r => r.ok ? r.json() : null)
+            .then(j => { ipaClips = j; })
+            .catch(() => {});
+        function ipaClipUrl(ipa, ch) {
+            if (!ipaClips) return '';
+            const hit = (ch && ipaClips[ch]) || Object.values(ipaClips).find(x => x.ipa === ipa);
+            return hit ? './assets/audio/ipa/' + encodeURIComponent(hit.file) : '';
+        }
+        function playIPA(ipa, ch) {
             const hint = document.getElementById('ipaHint');
             unlockAudio();
+            const clip = ipaClipUrl(ipa, ch);
+            if (clip) {
+                const a = new Audio(clip);
+                a.play().then(() => {
+                    hint.textContent = '上古音由 IPA 合成，僅供參考。';
+                }).catch(() => {
+                    const said = playIpaByVoice(ipa);
+                    hint.textContent = said ? '音頻播放失敗，已改讀近似 ' + said + '。' : '這條擬音無法播放。';
+                });
+                return;
+            }
             if (isMobileSound()) {
                 const said = playIpaByVoice(ipa);
                 hint.textContent = said
@@ -3533,7 +3552,17 @@
             { id: 'qxk', label: 'QXK' }
         ];
         let libState = { token: 0, cp: '', q: '', items: [], idx: 0, filter: '', pending: 0, left: 0 };
+        const OFFLINE = new URLSearchParams(location.search).get('offline') === '1';
+        let localThumbs = null;
+        const localThumbsReady = fetch('./assets/thumbs/manifest.json')
+            .then(r => r.ok ? r.json() : null)
+            .then(j => { localThumbs = j; })
+            .catch(() => {});
+        function localThumbCount(src, cp) {
+            return (localThumbs && localThumbs.chars[cp] && localThumbs.chars[cp][src]) || 0;
+        }
         function rubUrl(src, cp, i) {
+            if (i < localThumbCount(src, cp)) return './assets/thumbs/' + src + '/' + cp + '/' + i + '.webp';
             return JINWEN_DATA_BASE + 'thumbs/' + src + '/' + cp + '/' + i + '.webp';
         }
         function sortLibItems(a, b) {
@@ -3575,7 +3604,9 @@
                 img.removeAttribute('src');
                 empty.hidden = false;
                 empty.textContent = libState.q
-                    ? (libState.left ? '正在載入拓片…' : '此字暫無真拓片。可開詳庫查看字典字形。')
+                    ? (libState.left ? '正在載入拓片…'
+                        : OFFLINE ? '離線模式只收錄百家姓與演示字的拓片，此字需聯網查看。'
+                        : '此字暫無真拓片。可開詳庫查看字典字形。')
                     : '檢索一字，在此看真拓片。';
                 cap.textContent = '';
                 film.innerHTML = '';
@@ -3602,6 +3633,13 @@
         function pumpRubSource(token, src, cp, i) {
             if (libState.token !== token) return;
             if (i > 80) {
+                libState.left = Math.max(0, libState.left - 1);
+                renderLibViewer();
+                return;
+            }
+            const have = localThumbCount(src.id, cp);
+            const exhausted = have && have < localThumbs.cap;
+            if (i >= have && (OFFLINE || exhausted)) {
                 libState.left = Math.max(0, libState.left - 1);
                 renderLibViewer();
                 return;
@@ -3634,7 +3672,10 @@
             if (zoom) zoom.textContent = '放大';
             renderLibViewer();
             if (!cp) return;
-            RUB_SOURCES.forEach(src => pumpRubSource(libState.token, src, cp, 0));
+            const token = libState.token;
+            localThumbsReady.then(() => {
+                RUB_SOURCES.forEach(src => pumpRubSource(token, src, cp, 0));
+            });
         }
         function stepLib(delta) {
             const vis = visibleLibItems();
@@ -3789,9 +3830,20 @@
             const g = c.getContext('2d');
             g.fillStyle = '#e8e2d4'; g.fillRect(0, 0, c.width, c.height);
             const item = TRACE_BANK[traceIdx];
-            const img = new Image();
-            img.onload = () => { g.globalAlpha = 0.18; g.drawImage(img, 40, 40, 420, 420); g.globalAlpha = 1; };
-            img.src = svg(item.char);
+            return new Promise(resolve => {
+                let settled = false;
+                const done = () => { if (!settled) { settled = true; resolve(); } };
+                const img = new Image();
+                img.onload = () => {
+                    g.globalAlpha = 0.18;
+                    g.drawImage(img, 40, 40, 420, 420);
+                    g.globalAlpha = 1;
+                    done();
+                };
+                img.onerror = done;
+                img.src = svg(item.char);
+                setTimeout(done, 1600);
+            });
         }
         function startTraceStroke(e) {
             tracing = true;
@@ -3849,6 +3901,7 @@
             chime(true);
             clearTimeout(traceAutoTimer);
             traceAutoTimer = setTimeout(() => {
+                if (document.documentElement.classList.contains('touring')) return;
                 if (!document.getElementById('play-trace').offsetParent) return;
                 traceIdx = pickNextTraceIdx();
                 drawTraceBase();
@@ -4616,6 +4669,81 @@
                 return false;
             }
         }
+        function tourWarmSound() {
+            unlockAudio();
+            warmSpeech();
+            ensureMeSpeak().catch(() => {});
+            if ('speechSynthesis' in window) {
+                try {
+                    const u = new SpeechSynthesisUtterance(' ');
+                    u.volume = 0.01;
+                    u.rate = 2;
+                    speechSynthesis.speak(u);
+                } catch (e) {}
+            }
+        }
+        async function tourPlayListen(gen) {
+            try {
+                unlockAudio();
+                warmSpeech();
+                try { ctx().resume(); } catch (e) {}
+                await ensureMeSpeak().catch(() => {});
+                if (gen !== tourGen) return;
+                if (!currentQ) nextQuiz('宅');
+                await tourWait(400, gen);
+                if (gen !== tourGen) return;
+                if (currentQ) playIPA(currentQ.answer.ipa, currentQ.answer.char);
+            } catch (e) {}
+            await tourWait(4800, gen);
+            if (gen !== tourGen) return;
+            try {
+                if (currentQ) {
+                    const ans = document.querySelector('#choices .choice[data-char="' + currentQ.answer.char + '"]');
+                    if (ans) ans.click();
+                }
+            } catch (e) {}
+        }
+        async function tourDrawTrace(gen) {
+            const wang = TRACE_BANK.findIndex(x => x.char === '王');
+            if (wang >= 0) traceIdx = wang;
+            await drawTraceBase();
+            await tourWait(500, gen);
+            if (gen !== tourGen) return;
+            const c = document.getElementById('traceCanvas');
+            if (!c) return;
+            const g = c.getContext('2d');
+            g.strokeStyle = '#9c3b2e';
+            g.lineWidth = 10;
+            g.lineCap = 'round';
+            g.lineJoin = 'round';
+            const strokes = [
+                [[120, 168], [380, 168]],
+                [[250, 168], [250, 372]],
+                [[138, 356], [362, 356]]
+            ];
+            for (const stroke of strokes) {
+                g.beginPath();
+                g.moveTo(stroke[0][0], stroke[0][1]);
+                for (let i = 1; i < stroke.length; i++) {
+                    const [x1, y1] = stroke[i - 1];
+                    const [x2, y2] = stroke[i];
+                    const steps = 14;
+                    for (let s = 1; s <= steps; s++) {
+                        const t = s / steps;
+                        const x = x1 + (x2 - x1) * t;
+                        const y = y1 + (y2 - y1) * t;
+                        g.lineTo(x, y);
+                        g.stroke();
+                        g.beginPath();
+                        g.moveTo(x, y);
+                        await tourWait(70, gen);
+                        if (gen !== tourGen) return;
+                    }
+                }
+                await tourWait(420, gen);
+                if (gen !== tourGen) return;
+            }
+        }
         function waitIntroLand(gen, ms) {
             return new Promise(resolve => {
                 const t0 = Date.now();
@@ -4633,6 +4761,7 @@
             document.documentElement.classList.add('touring');
             tourGo('home');
             setColdOpen();
+            tourWarmSound();
             if (record) {
                 tourCap('準備錄製', '請在彈窗裡選擇「這個分頁」，不要選整個螢幕。先錄夜空開場。', '等待分享本頁…');
                 const ok = await startTourCapture();
@@ -4643,97 +4772,105 @@
                 tourCap('開場', '夜空與篆書「吉金智識」。字本來鑄在器上。', '');
             }
             if (gen !== tourGen) return;
-            await tourWait(2800, gen);
+            await tourWait(4000, gen);
             if (gen !== tourGen) return;
             startIntro();
-            await waitIntroLand(gen, 4200);
+            await waitIntroLand(gen, 6000);
             if (gen !== tourGen) return;
             if (!introLanded) landHome();
             tourCap('星河', '每一顆星都是真字，按朝代染色，聚成一件器。下面三條路：學習、遊玩、銘見。');
-            await tourWait(3200, gen);
+            await tourWait(4500, gen);
             if (gen !== tourGen) return;
 
             tourGo('learn', '王', 'wall');
-            await tourWait(200, gen);
+            await tourWait(400, gen);
             try { await seekWall('王'); } catch (e) {}
             tourCap('學習 · 方格牆', '輸入自己的姓。有金文就翻開；沒有，就寫「此姓在金文中未見記載」。');
-            await tourWait(5200, gen);
+            await tourWait(6500, gen);
             if (gen !== tourGen) return;
 
             tourGo('learn', '宅', 'listen');
-            await tourWait(240, gen);
+            await tourWait(500, gen);
             try { nextQuiz('宅'); } catch (e) {}
-            tourCap('學習 · 聽音室', '聽構擬上古音，從金文裡認出它。音值依鄭張尚芳，僅供參考。');
-            await tourWait(4800, gen);
+            tourCap('學習 · 聽音室', '先聽一聲構擬上古音，再從金文裡認出它。音值依鄭張尚芳，僅供參考。');
+            await tourPlayListen(gen);
+            if (gen !== tourGen) return;
+            await tourWait(4200, gen);
             if (gen !== tourGen) return;
 
             tourGo('learn', '宅', 'lookup');
-            await tourWait(240, gen);
+            await tourWait(400, gen);
             try { await runLookup('宅', true); } catch (e) {}
             tourCap('學習 · 吉金字典', '給出處、辭例與白話。未見的不補造。');
-            await tourWait(5000, gen);
+            await tourWait(6500, gen);
             if (gen !== tourGen) return;
 
             tourGo('play', '', 'lobby');
             tourCap('趣味工坊', '連字形、描一筆，再按禮器職司寫一段吉辭。');
-            await tourWait(2800, gen);
+            await tourWait(3600, gen);
             if (gen !== tourGen) return;
 
             tourGo('play', '', 'match');
-            await tourWait(280, gen);
+            await tourWait(500, gen);
             try {
                 const left = document.querySelector('#linkLeft .link-item');
                 if (left && matchLeft[0]) {
                     const ch = matchLeft[0].char;
                     const right = Array.from(document.querySelectorAll('#linkRight .link-item')).find((b, i) => matchRight[i] && matchRight[i].char === ch);
-                    if (right) { left.click(); await tourWait(350, gen); right.click(); }
+                    if (right) { left.click(); await tourWait(900, gen); right.click(); }
                 }
             } catch (e) {}
             tourCap('遊玩 · 連連看', '左側金文，右側今字。連對有編鐘聲。');
-            await tourWait(4200, gen);
+            await tourWait(5500, gen);
             if (gen !== tourGen) return;
 
             tourGo('play', '', 'trace');
-            await tourWait(200, gen);
-            try { drawTraceBase(); } catch (e) {}
-            tourCap('遊玩 · 描紅', '順淡底描一筆。完成後翻出出處。');
-            await tourWait(4000, gen);
+            await tourWait(400, gen);
+            tourCap('遊玩 · 描紅', '順淡底描「王」字。完成後翻出出處。');
+            try { await tourDrawTrace(gen); } catch (e) {}
+            if (gen !== tourGen) return;
+            await tourWait(700, gen);
+            try {
+                const done = document.getElementById('traceDone');
+                if (done) done.click();
+            } catch (e) {}
+            await tourWait(5000, gen);
             if (gen !== tourGen) return;
 
             tourGo('play', '', 'ritual');
-            await tourWait(240, gen);
+            await tourWait(400, gen);
             try {
                 const ding = document.querySelector('#vesselPicker [data-vessel="ding"]');
                 if (ding) ding.click();
                 pickedBless.clear();
                 pickedBless.add('壽');
                 setRitualStep(2);
-                await tourWait(400, gen);
+                await tourWait(900, gen);
                 const blessBtn = document.getElementById('blessBtn');
                 if (blessBtn) blessBtn.click();
             } catch (e) {}
             tourCap('遊玩 · 鑄辭坊', '先選器，再選祈辭。賀卡是銘末套語的戲仿，不是出土銘文。');
-            await tourWait(6200, gen);
+            await tourWait(7500, gen);
             if (gen !== tourGen) return;
 
             tourGo('work', '', 'rec');
-            await tourWait(240, gen);
+            await tourWait(400, gen);
             tourCap('銘見 · 識圖', '上傳拓片做初稿。金點是把握較高的字，灰點標疑。');
             try { await runRecognition(null); } catch (e) {}
             if (gen !== tourGen) return;
-            await tourWait(3600, gen);
+            await tourWait(5000, gen);
             if (gen !== tourGen) return;
 
             tourGo('work', '王', 'search');
-            await tourWait(240, gen);
+            await tourWait(400, gen);
             try { runWorkSearch('王'); } catch (e) {}
             tourCap('銘見 · 金文字庫', '對真拓與變體。詳庫外鏈，版權歸原庫。');
-            await tourWait(4800, gen);
+            await tourWait(5500, gen);
             if (gen !== tourGen) return;
 
             tourGo('home');
             tourCap('同一套字', '公眾、課堂、研究走同一條路，只是深淺不同。瀏覽器打開即可。', record && tourRecorder ? '即將儲存影片' : '');
-            await tourWait(3200, gen);
+            await tourWait(4200, gen);
             if (gen !== tourGen) return;
             endTour(!!(record && (tourRecorder || tourChunks.length)));
         }
