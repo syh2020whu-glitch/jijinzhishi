@@ -1,2 +1,4 @@
 node_modules/
 package-lock.json
+cases_bundle/
+cases_pick.json

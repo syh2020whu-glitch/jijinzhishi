@@ -1184,6 +1184,26 @@
             padding: 4px 10px; letter-spacing: 2px; font-size: 14px;
         }
         .ocr-chips button:hover { border-color: var(--bronze); color: var(--bronze); }
+        /* 預存案例：縮略圖牆 + 目錄釋文對照 */
+        .case-head { color: rgba(244,239,228,.78); padding: 18px 18px 0; font-size: 13px; letter-spacing: 1px; line-height: 1.8; }
+        .case-head b { color: #f4efe4; font-weight: normal; letter-spacing: 3px; font-size: 15px; }
+        .case-wall { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 12px; padding: 14px 18px 24px; }
+        .case-card {
+            background: #1c1914; border: 1px solid rgba(244,239,228,.14); color: #f4efe4;
+            cursor: pointer; text-align: left; padding: 0; font: inherit;
+        }
+        .case-card:hover, .case-card:focus-visible { border-color: var(--gold-box); outline: none; }
+        .case-card img { width: 100%; aspect-ratio: 1; object-fit: cover; display: block; opacity: .92; }
+        .case-card b { display: block; padding: 7px 8px 0; font-weight: normal; letter-spacing: 1px; font-size: 13px; }
+        .case-card span { display: block; padding: 2px 8px 8px; font-size: 11px; color: rgba(244,239,228,.58); letter-spacing: .5px; }
+        .case-cmp { margin: 0 0 12px; padding: 10px 10px 8px; background: #fffdf8; border: 1px solid var(--line); }
+        .case-cmp h4 { margin: 0 0 6px; font-weight: normal; font-size: 13px; letter-spacing: 2px; color: var(--ink-dim); }
+        .case-cmp .slots { font-size: 20px; line-height: 1.75; letter-spacing: 3px; word-break: break-all; }
+        .case-cmp .slots i { font-style: normal; color: rgba(42,36,24,.38); }
+        .case-cmp .slots i.hit { color: var(--ink); background: rgba(196,160,53,.30); }
+        .case-cmp .slots i.cand { color: var(--ink); border-bottom: 1px dashed var(--gold-box); }
+        .case-cmp .sub { margin: 6px 0 0; font-size: 12px; }
+        .ocr-box-item .hit-mark { color: #2d5a2d; letter-spacing: 0; }
         .gold-dot, .gray-dot {
             width: 10px; height: 10px; border-radius: 50%; display: inline-block;
         }
@@ -2073,6 +2093,7 @@
                 <span id="ocrBadge" class="ocr-badge">檢測後端…</span>
                 <button class="btn" id="ocrConfig" type="button">後端</button>
                 <label class="btn file-btn">上傳拓片<input type="file" id="ocrFile" accept="image/*"></label>
+                <button class="btn" id="ocrCases" type="button">案例</button>
                 <button class="btn" id="ocrDemo" type="button">Demo</button>
                 <button class="btn" id="ocrExpand" type="button">全屏看拓</button>
             </div>
@@ -2926,6 +2947,7 @@
                 // 直接打開 #/work 時首次 applyRoute 跑在識圖/字庫狀態聲明之前（TDZ），推遲到腳本跑完
                 setTimeout(() => {
                     if (tab === 'rec' && ocrBackendStatus === 'unknown') checkOCRHealth();
+                    if (tab === 'rec' && !ocrState.imageUrl) renderWorkbench();   // 空白時鋪出預存案例牆
                     if (tab === 'search') runWorkSearch(parseHash().q);
                 }, 0);
             }
@@ -4391,6 +4413,48 @@
             const nums = [cat.jicheng ? '集成 ' + cat.jicheng : '', cat.mingtu ? '銘圖 ' + cat.mingtu : ''].filter(Boolean).join(' · ');
             return (cat.title || cs.id || '驗證集拓片') + (cat.period ? ' · ' + cat.period : '') + (nums ? ' · ' + nums : '');
         }
+        // 目錄釋文對照：kept 且未刪的框按把握從高到低，各去釋文裡佔一個還沒被佔的字位（原形或通讀相同都算）。
+        // 每次重繪都重算，所以學者在右欄改字後，相合數會跟着變。
+        function isPuaChar(ch) { const cp = ch ? ch.codePointAt(0) : 0; return cp >= 0xE000 && cp <= 0xF8FF || cp >= 0xF0000; }
+        function slotGlyph(s) { return !isPuaChar(s.orig) ? s.orig : (!isPuaChar(s.read) ? s.read : '□'); }
+        function matchCaseSlots(slots, dets) {
+            const used = slots.map(() => false);
+            const hitDet = new Set();
+            dets.filter(d => d.kept).slice().sort((a, b) => b.confidence - a.confidence).forEach(d => {
+                const i = slots.findIndex((s, k) => !used[k] && (d.text === s.orig || d.text === s.read));
+                if (i >= 0) { used[i] = true; hitDet.add(d); }
+            });
+            const cand = new Set();
+            dets.forEach(d => (d.top5 || []).forEach(t => cand.add(t.text)));
+            const cover = slots.map(s => cand.has(s.orig) || cand.has(s.read));
+            return { used, hitDet, cover, hits: used.filter(Boolean).length, covered: cover.filter(Boolean).length };
+        }
+        function caseCompareHtml(cs, m) {
+            const slots = cs.slots || [];
+            if (!slots.length) return '';
+            const glyphs = slots.map((s, i) => {
+                const cls = m.used[i] ? 'hit' : (m.cover[i] ? 'cand' : '');
+                const tip = s.read !== s.orig ? ' title="讀作 ' + s.read + '"' : '';
+                return '<i class="' + cls + '"' + tip + '>' + slotGlyph(s) + '</i>';
+            }).join('');
+            const cat = cs.catalog || {};
+            return '<div class="case-cmp"><h4>《中華字庫》目錄釋文 · ' + (cat.volume || '') + '</h4>'
+                + '<div class="slots">' + glyphs + '</div>'
+                + '<p class="sub">釋文 ' + slots.length + ' 字　初稿相合 ' + m.hits + '　前五候選含 ' + m.covered
+                + '<br>底色＝初稿已對上　虛線＝正確字在候選裡，待學者點選</p></div>';
+        }
+        function caseCardHtml(cs, i) {
+            const cat = cs.catalog || {};
+            const cst = cs.catalog_stats;
+            const line = [cat.period || cat.volume || '', cst ? '釋文 ' + cst.slots + ' 字 · 相合 ' + cst.hit : ''].filter(Boolean).join(' · ');
+            return '<button class="case-card" type="button" data-case="' + i + '">'
+                + '<img src="' + cs.image + '" alt="" loading="lazy"><b>' + (cat.title || cs.id) + '</b><span>' + line + '</span></button>';
+        }
+        function caseWallHtml(lib) {
+            return '<div class="case-head"><b>預存案例 · ' + lib.cases.length + ' 張驗證集拓片</b><br>'
+                + '模型訓練時沒有用過這些拓片。點開看初稿與《中華字庫》目錄釋文逐字對照；後端在線時會現場重新識別。</div>'
+                + '<div class="case-wall">' + lib.cases.map(caseCardHtml).join('') + '</div>';
+        }
         function caseResult(cs, prefix) {
             return {
                 source: 'case',
@@ -4573,6 +4637,12 @@
                     + qualityHtml(ocrState.quality);
                 list.innerHTML = '<p class="sub">尚未識圖。</p>';
                 if (chips) chips.innerHTML = '';
+                loadCaseLibrary().then(lib => {
+                    if (!lib || ocrState.imageUrl) return;
+                    stage.innerHTML = caseWallHtml(lib) + qualityHtml(ocrState.quality);
+                    stage.querySelectorAll('[data-case]').forEach(b => { b.onclick = () => openCase(Number(b.dataset.case)); });
+                    list.innerHTML = '<p class="sub">選一張案例，或上傳自己的拓片。</p>';
+                });
                 return;
             }
             const dets = liveDets();
@@ -4593,14 +4663,25 @@
                 + '<div class="ocr-stack"><img id="ocrSrcImg" src="' + ocrState.imageUrl + '" alt=""><canvas id="ocrOverlay"></canvas></div>'
                 + '<p class="ocr-cap">' + ocrState.sourceLabel + ' · 初稿 ' + kept.length + ' · 標疑 ' + dets.filter(d => !d.kept).length + '</p>'
                 + '<button class="tiny ocr-zoom" id="ocrZoom" type="button">原大</button></div>';
-            list.innerHTML = dets.map((d, i) => {
+            const cs = ocrState.caseRef;
+            const cmp = cs && cs.slots && cs.slots.length ? matchCaseSlots(cs.slots, dets) : null;
+            // 案例按閱讀習慣排：先右列後左列、列內自上而下（金文直行右起）
+            let ordered = dets;
+            if (cs && dets.length) {
+                const ws = dets.map(d => d.bbox[2]).sort((a, b) => a - b);
+                const colW = Math.max(8, ws[Math.floor(ws.length / 2)] || 40);
+                const col = d => Math.round((d.bbox[0] + d.bbox[2] / 2) / colW);
+                ordered = dets.slice().sort((a, b) => (col(b) - col(a)) || (a.bbox[1] - b.bbox[1]));
+            }
+            list.innerHTML = (cmp ? caseCompareHtml(cs, cmp) : '') + ordered.map((d, i) => {
                 const alts = (d.top5 || []).slice(1, 4).map(a => a.text);
                 const realIdx = ocrState.detections.indexOf(d);
                 return '<div class="ocr-box-item" data-idx="' + realIdx + '">'
                     + '<span class="' + (d.kept ? 'gold-dot' : 'gray-dot') + '"></span>'
-                    + '<img src="' + svg(d.text) + '" width="40" height="40" alt="">'
+                    + '<img src="' + svg(d.text) + '" width="40" height="40" alt="" onerror="this.style.visibility=\'hidden\'">'
                     + '<div><input value="' + d.text + '" data-idx="' + realIdx + '">'
                     + '<div class="sub">' + Math.round(d.confidence * 100) + '%　' + (d.kept ? '初稿' : '標疑')
+                    + (cmp && cmp.hitDet.has(d) ? '　<span class="hit-mark">合釋文</span>' : '')
                     + (alts.length ? '　候選 ' + alts.join(' · ') : '') + '</div></div>'
                     + '<div class="ocr-box-actions">'
                     + '<button class="tiny" type="button" data-lookup="' + realIdx + '">查字</button>'
@@ -4679,14 +4760,18 @@
         // Demo = 輪流載入預存案例。後端在線時把同一張真拓片送去現場識別，離線時顯示預存結果。
         let demoCaseIdx = 0;
         async function runDemoCase() {
+            return openCase(demoCaseIdx++);
+        }
+        async function openCase(idx) {
             const lib = await loadCaseLibrary();
             if (!lib) {
                 document.getElementById('ocrList').innerHTML =
                     '<p class="sub">預存案例尚未生成（缺 assets/cases/cases.json，見 tools/README-cases.md）。請直接上傳拓片。</p>';
                 return;
             }
-            const cs = lib.cases[demoCaseIdx % lib.cases.length];
-            demoCaseIdx++;
+            const cs = lib.cases[((idx % lib.cases.length) + lib.cases.length) % lib.cases.length];
+            demoCaseIdx = lib.cases.indexOf(cs) + 1;
+            document.getElementById('ocrList').innerHTML = '<p class="sub">載入中……</p>';
             if (ocrBackendStatus === 'unknown') await checkOCRHealth();
             let out = null;
             if (ocrBackendStatus === 'ok') {
@@ -4739,6 +4824,10 @@
             renderWorkbench();
         }
         document.getElementById('ocrDemo').onclick = () => runRecognition(null);
+        document.getElementById('ocrCases').onclick = () => {
+            ocrState = { detections: [], imageUrl: '', meta: null, sourceLabel: '', quality: null, notice: '', caseRef: null };
+            renderWorkbench();
+        };
         document.getElementById('ocrFile').onchange = e => runRecognition((e.target.files && e.target.files[0]) || null);
         document.getElementById('ocrConfig').onclick = () => {
             const next = prompt('OCR 後端地址（留空恢復默認）', OCR_CONFIG.endpoint);
