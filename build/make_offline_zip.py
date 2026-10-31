@@ -4,7 +4,7 @@
     python build/make_offline_zip.py            # 输出 dist/吉金智识-离线包-YYYYMMDD.zip
     python build/make_offline_zip.py --list     # 只列清单和大小，不打包
 
-包里没有识图模型，识图仍要连后端；后端不在时 Demo 显示 assets/cases/ 里的预存结果。
+识图页只展示 assets/cases/ 里 20 张预存的真实识别结果（demo.html 的 OCR_LIVE = false），不连后端，包里也不带模型。
 """
 from __future__ import annotations
 
@@ -32,7 +32,6 @@ INCLUDE_FILES = [
     "demo.html",
     "index.html",
     "serve.py",
-    "ocr-endpoint.json",
     "启动服务器.bat",
 ]
 # 器物图只要 webp，原始 png/jpg 每张 3–5MB，页面已不再引用
@@ -46,7 +45,7 @@ LAUNCHER_NOTE = """吉金智识 · 离线包
 3. 关闭黑色窗口即停止服务。
 
 不能直接双击 demo.html（file:// 下浏览器会拦截字表和音频加载）。
-识图需要联网连后端；断网时识图页的 Demo 显示预存的真实识别结果。
+识图页展示 20 张验证集拓片的预存识别结果（模型训练时未见），全程不需要联网。
 """
 
 

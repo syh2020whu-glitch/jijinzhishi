@@ -2090,7 +2090,7 @@
                 <button data-tab="search">金文字庫</button>
             </div>
             <div class="work-tools" id="workRecTools">
-                <span id="ocrBadge" class="ocr-badge">檢測後端…</span>
+                <span id="ocrBadge" class="ocr-badge">預存案例</span>
                 <button class="btn" id="ocrConfig" type="button">後端</button>
                 <label class="btn file-btn">上傳拓片<input type="file" id="ocrFile" accept="image/*"></label>
                 <button class="btn" id="ocrCases" type="button">案例</button>
@@ -2107,7 +2107,7 @@
         </div>
         <div id="work-rec" class="workbench">
             <div class="wb-stage" id="ocrStage">
-                <p class="ocr-empty">上傳拓片或載入 Demo。整幅拓片在此查看，右側校對。</p>
+                <p class="ocr-empty">載入預存案例……</p>
             </div>
             <aside class="wb-right">
                 <p class="sub"><span class="gold-dot"></span> 初稿　<span class="gray-dot"></span> 標疑　查字進金文字庫</p>
@@ -4283,6 +4283,9 @@
                 return u.hostname === 'localhost' || u.hostname === '127.0.0.1';
             } catch (e) { return false; }
         }
+        // 決賽版只展示 assets/cases 裡 20 張預存的真實識別結果：不探測、不連接識圖後端，也不提供上傳。
+        // 以後要接回後端（上傳拓片、現場識別），把這裡改成 true，下面的後端代碼原樣可用。
+        const OCR_LIVE = false;
         // 識圖後端候選地址：並行探測 /health，按順序取第一個活著的。
         // 固定域名放第一位，臨時 trycloudflare 隧道放後面。GitHub Pages 上讀不到 ocr-endpoint.json
         //（已 gitignore），所以線上版靠這個列表；換地址時改這裡 + ocr-endpoint.json 兩處即可。
@@ -4340,13 +4343,17 @@
             } catch (e) { return false; }
             finally { clearTimeout(timer); }
         }
-        let ocrBackendStatus = 'unknown';
+        let ocrBackendStatus = OCR_LIVE ? 'unknown' : 'off';
         let ocrState = { detections: [], imageUrl: '', meta: null, sourceLabel: '', quality: null, notice: '', caseRef: null };
         function updateOCRBadge(text, cls) {
             const b = document.getElementById('ocrBadge');
             if (!b) return;
             if (text != null) { b.textContent = text; b.className = 'ocr-badge ' + (cls || ''); return; }
-            if (ocrBackendStatus === 'ok') {
+            if (ocrBackendStatus === 'off') {
+                b.textContent = '預存案例 · 驗證集真實識別結果';
+                b.className = 'ocr-badge';
+                b.title = '模型對 20 張驗證集拓片的真實識別結果，訓練時未見';
+            } else if (ocrBackendStatus === 'ok') {
                 b.textContent = '後端已連接 · RF-DETR + ResNet50';
                 b.className = 'ocr-badge ok';
                 b.title = OCR_CONFIG.endpoint;
@@ -4357,6 +4364,7 @@
             } else { b.textContent = '檢測後端…'; b.className = 'ocr-badge'; }
         }
         async function checkOCRHealth() {
+            if (!OCR_LIVE) { updateOCRBadge(); return false; }
             updateOCRBadge('檢測後端…');
             const list = await ocrCandidates();
             const alive = await Promise.all(list.map(probeHealth));
@@ -4470,7 +4478,8 @@
         }
         function caseWallHtml(lib) {
             return '<div class="case-head"><b>預存案例 · ' + lib.cases.length + ' 張驗證集拓片</b><br>'
-                + '模型訓練時沒有用過這些拓片。點開看初稿與《中華字庫》目錄釋文逐字對照；後端在線時會現場重新識別。</div>'
+                + '模型訓練時沒有用過這些拓片。點開看初稿與《中華字庫》目錄釋文逐字對照'
+                + (OCR_LIVE ? '；後端在線時會現場重新識別。' : '。') + '</div>'
                 + '<div class="case-wall">' + lib.cases.map(caseCardHtml).join('') + '</div>';
         }
         function caseResult(cs, prefix) {
@@ -4651,15 +4660,16 @@
             const list = document.getElementById('ocrList');
             const chips = document.getElementById('ocrChips');
             if (!ocrState.imageUrl) {
-                stage.innerHTML = '<p class="ocr-empty">上傳拓片或載入 Demo。整幅拓片在此查看，右側校對。</p>'
+                stage.innerHTML = '<p class="ocr-empty">'
+                    + (OCR_LIVE ? '上傳拓片或載入 Demo。整幅拓片在此查看，右側校對。' : '載入預存案例……') + '</p>'
                     + qualityHtml(ocrState.quality);
-                list.innerHTML = '<p class="sub">尚未識圖。</p>';
+                list.innerHTML = '<p class="sub">' + (OCR_LIVE ? '尚未識圖。' : '選一張案例。') + '</p>';
                 if (chips) chips.innerHTML = '';
                 loadCaseLibrary().then(lib => {
                     if (!lib || ocrState.imageUrl) return;
                     stage.innerHTML = caseWallHtml(lib) + qualityHtml(ocrState.quality);
                     stage.querySelectorAll('[data-case]').forEach(b => { b.onclick = () => openCase(Number(b.dataset.case)); });
-                    list.innerHTML = '<p class="sub">選一張案例，或上傳自己的拓片。</p>';
+                    list.innerHTML = '<p class="sub">' + (OCR_LIVE ? '選一張案例，或上傳自己的拓片。' : '選一張案例，看模型初稿和目錄釋文的逐字對照。') + '</p>';
                 });
                 return;
             }
@@ -4775,7 +4785,7 @@
                 detections: ocrState.detections
             }, null, 2), 'application/json');
         };
-        // Demo = 輪流載入預存案例。後端在線時把同一張真拓片送去現場識別，離線時顯示預存結果。
+        // Demo（只展示預存案例時叫「下一張」）= 輪流載入預存案例。OCR_LIVE 且後端在線時才把同一張真拓片送去現場識別。
         let demoCaseIdx = 0;
         async function runDemoCase() {
             return openCase(demoCaseIdx++);
@@ -4800,7 +4810,7 @@
                     out.sourceLabel = '現場識別 · ' + caseLabel(cs) + ' · 訓練時未見';
                 } catch (e) { ocrBackendStatus = 'down'; updateOCRBadge(); }
             }
-            if (!out) out = caseResult(cs, '離線 · 預存結果');
+            if (!out) out = caseResult(cs, OCR_LIVE ? '離線 · 預存結果' : '預存結果');
             ocrState = {
                 detections: out.detections || [],
                 imageUrl: cs.image,
@@ -4858,6 +4868,13 @@
             ocrBackendStatus = 'unknown';
             checkOCRHealth();
         };
+        if (!OCR_LIVE) {
+            document.getElementById('ocrConfig').style.display = 'none';
+            document.getElementById('ocrFile').closest('label').style.display = 'none';
+            document.getElementById('ocrDemo').textContent = '下一張';
+            document.getElementById('ocrDemo').title = '輪流看 20 張預存案例';
+            updateOCRBadge();
+        }
 
         let tourGen = 0;
         let tourRecorder = null;
@@ -5126,7 +5143,8 @@
 
             tourGo('work', '', 'rec');
             await tourWait(400, gen);
-            tourCap('銘見 · 識圖', '上傳拓片做初稿。金點是把握較高的字，灰點標疑。');
+            tourCap('銘見 · 識圖', OCR_LIVE ? '上傳拓片做初稿。金點是把握較高的字，灰點標疑。'
+                : '驗證集拓片的真實識別結果。金點是把握較高的字，灰點標疑。');
             try { await runRecognition(null); } catch (e) {}
             if (gen !== tourGen) return;
             await tourWait(5000, gen);
