@@ -1,0 +1,8 @@
+{
+  "name": "baijia-jinwen-build",
+  "private": true,
+  "description": "离线构建工具依赖：lamejs 用于 prerender_ipa.py 的 MP3 编码（lame.min.js 已复制到 vendor/）",
+  "dependencies": {
+    "lamejs": "^1.2.1"
+  }
+}

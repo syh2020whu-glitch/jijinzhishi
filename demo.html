@@ -27,12 +27,17 @@
             });
         })();
     </script>
-    <link rel="preconnect" href="https://fonts.loli.net" crossorigin>
-    <link rel="stylesheet" href="https://fonts.loli.net/css2?family=Noto+Sans+TC:wght@400;500&family=Noto+Serif+TC:wght@400;600;700&family=Source+Sans+3:wght@400;500&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500&family=Noto+Serif+TC:wght@400;600;700&family=Source+Sans+3:wght@400;500&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap">
+    <link rel="stylesheet" href="./assets/fonts/web/fonts.css">
     <style>
         :root {
-            --night: #050810;
+            --night: #16130f;
+            /* 吉金色板：新铸未氧化青铜（锡少偏赤、锡多偏白）+ 锈色 */
+            --jijin: #c9a15b;
+            --jijin-hi: #ebd3a0;
+            --jijin-deep: #8a5f2a;
+            --chitong: #b06a3b;
+            --xibai: #d9d4c5;
+            --tonglv: #5e8c7a;
             --paper: #f4efe4;
             --ink: #2a2418;
             --ink-dim: rgba(42, 36, 24, 0.55);
@@ -112,6 +117,7 @@
             border: none;
             cursor: pointer;
             padding: 0;
+            width: max-content;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -129,18 +135,95 @@
             line-height: 1;
             font-family: inherit;
         }
-        #view-home.intro .home-brand {
-            top: 36%;
-            transform: translate(-50%, -50%);
-            font-size: clamp(48px, 16vw, 88px);
-            gap: 0.1em;
-            opacity: 1;
-            text-shadow: 0 0 36px rgba(244, 213, 138, 0.45);
-            animation: brandFloat 4.8s ease-in-out infinite;
+        /* 新铸青铜的金属面：上亮下沉，一道高光缓慢掠过 */
+        .home-brand .seal-ch {
+            color: transparent;
+            background-image:
+                linear-gradient(105deg, transparent 38%, rgba(255, 246, 222, 0.85) 50%, transparent 62%),
+                linear-gradient(180deg, var(--jijin-hi) 0%, var(--jijin) 46%, var(--jijin-deep) 100%);
+            background-size: 260% 100%, 100% 100%;
+            background-position: 160% 0, 0 0;
+            background-repeat: no-repeat;
+            -webkit-background-clip: text;
+            background-clip: text;
         }
-        @keyframes brandFloat {
-            0%, 100% { transform: translate(-50%, -50%) translateY(0); }
-            50% { transform: translate(-50%, -50%) translateY(-12px); }
+        #view-home.intro .home-brand {
+            top: 47%;
+            transform: translate(-50%, -50%);
+            font-size: clamp(64px, 10.5vw, 196px);
+            gap: 0.08em;
+            opacity: 1;
+            filter: drop-shadow(0 0 0.35em rgba(201, 161, 91, 0.32)) drop-shadow(0 0.04em 0 rgba(0, 0, 0, 0.6));
+        }
+        #view-home.intro .home-brand .seal-ch {
+            animation: jijinSheen 7s ease-in-out infinite;
+        }
+        #view-home.intro .home-brand .seal-ch:nth-child(2) { animation-delay: .18s; }
+        #view-home.intro .home-brand .seal-ch:nth-child(3) { animation-delay: .36s; }
+        #view-home.intro .home-brand .seal-ch:nth-child(4) { animation-delay: .54s; }
+        @keyframes jijinSheen {
+            0%, 55% { background-position: 160% 0, 0 0; }
+            85%, 100% { background-position: -60% 0, 0 0; }
+        }
+        /* 标题背后的留白 + 四周压暗：粒子退到背景，视线落在标题 */
+        .home-veil {
+            position: absolute; inset: 0;
+            z-index: 5;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity .9s ease;
+            background:
+                radial-gradient(ellipse 34% 22% at 50% 49%, rgba(22, 19, 15, 0.86) 0%, rgba(22, 19, 15, 0.55) 55%, rgba(22, 19, 15, 0) 100%),
+                radial-gradient(ellipse 80% 75% at 50% 50%, rgba(22, 19, 15, 0) 55%, rgba(12, 10, 8, 0.72) 100%);
+        }
+        #view-home.intro .home-veil { opacity: 1; }
+        .home-tagline,
+        .home-hint {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 30;
+            margin: 0;
+            pointer-events: none;
+            white-space: nowrap;
+            opacity: 0;
+            transition: opacity .6s ease;
+            font-family: var(--font-serif);
+        }
+        .home-tagline {
+            top: calc(47% + clamp(64px, 10.5vw, 196px) * 0.62 + 18px);
+            color: var(--xibai);
+            font-size: clamp(13px, 1.15vw, 20px);
+            letter-spacing: 0.6em;
+            text-indent: 0.6em;
+        }
+        .home-tagline::before,
+        .home-tagline::after {
+            content: "";
+            display: inline-block;
+            width: 3.2em;
+            height: 1px;
+            margin: 0 1.2em 0.3em;
+            vertical-align: middle;
+            background: linear-gradient(90deg, transparent, var(--jijin));
+        }
+        .home-tagline::after { background: linear-gradient(90deg, var(--jijin), transparent); }
+        .home-hint {
+            bottom: max(48px, calc(24px + env(safe-area-inset-bottom)));
+            color: var(--jijin);
+            font-size: 13px;
+            letter-spacing: 0.8em;
+            text-indent: 0.8em;
+        }
+        #view-home.intro .home-tagline { opacity: 0.82; }
+        #view-home.intro .home-hint { opacity: 0.7; animation: hintBreath 3.2s ease-in-out infinite; }
+        @keyframes hintBreath {
+            0%, 100% { opacity: 0.35; }
+            50% { opacity: 0.85; }
+        }
+        @media (prefers-reduced-motion: reduce) {
+            #view-home.intro .home-brand .seal-ch,
+            #view-home.intro .home-hint { animation: none; }
         }
         #view-home.intro .home-doors {
             opacity: 0;
@@ -163,7 +246,7 @@
             overflow: hidden;
             background:
                 radial-gradient(ellipse 90% 46% at 50% 78%, rgba(196, 160, 53, 0.16), transparent 58%),
-                #050810;
+                var(--night);
         }
         #liteCanvas {
             position: absolute;
@@ -238,6 +321,135 @@
         body.intro-cold #introSkip,
         #view-home.tunneling #introSkip { display: block; }
         #introSkip:hover { color: #f4d58a; }
+        #tourStart {
+            display: none;
+            position: absolute;
+            left: max(20px, env(safe-area-inset-left));
+            bottom: max(20px, env(safe-area-inset-bottom));
+            z-index: 50;
+            background: none;
+            border: 1px solid rgba(244, 213, 138, 0.35);
+            color: rgba(244, 213, 138, 0.85);
+            letter-spacing: 6px;
+            cursor: pointer;
+            font-size: 13px;
+            padding: 8px 14px;
+        }
+        #view-home.on:not(.intro):not(.tunneling) #tourStart { display: block; }
+        html.touring #tourStart, html.recording #tourStart { display: none !important; }
+        #tourStart:hover { color: #f4d58a; border-color: #f4d58a; }
+        #recStart {
+            display: none;
+            position: absolute;
+            left: max(108px, calc(env(safe-area-inset-left) + 88px));
+            bottom: max(20px, env(safe-area-inset-bottom));
+            z-index: 50;
+            background: none;
+            border: 1px solid rgba(244, 213, 138, 0.35);
+            color: rgba(244, 213, 138, 0.85);
+            letter-spacing: 6px;
+            cursor: pointer;
+            font-size: 13px;
+            padding: 8px 14px;
+        }
+        #view-home.on:not(.intro):not(.tunneling) #recStart { display: block; }
+        html.touring #recStart, html.recording #recStart { display: none !important; }
+        #recStart:hover { color: #f4d58a; border-color: #f4d58a; }
+        #recHud {
+            display: none;
+            position: fixed;
+            right: 18px;
+            top: 16px;
+            z-index: 85;
+            background: rgba(8, 9, 12, 0.72);
+            border: 1px solid rgba(244, 213, 138, 0.35);
+            color: #f4d58a;
+            padding: 8px 10px;
+            letter-spacing: 2px;
+            font-size: 13px;
+            align-items: center;
+            gap: 10px;
+        }
+        html.recording #recHud { display: flex; }
+        #recHud button {
+            background: none;
+            border: 1px solid rgba(244, 213, 138, 0.45);
+            color: #f4d58a;
+            cursor: pointer;
+            letter-spacing: 2px;
+            padding: 4px 8px;
+        }
+        #tourHud {
+            display: none;
+            position: fixed;
+            inset: auto 0 0 0;
+            z-index: 80;
+            pointer-events: none;
+            padding: 18px 22px 22px;
+            background: linear-gradient(180deg, transparent, rgba(8, 9, 12, 0.88) 36%);
+            color: #f4d58a;
+        }
+        html.touring #tourHud { display: block; }
+        #tourHud .tour-kicker {
+            letter-spacing: 8px;
+            font-size: 11px;
+            opacity: 0.55;
+            margin: 0 0 6px;
+        }
+        #tourHud h2 {
+            margin: 0 0 6px;
+            font-size: 22px;
+            letter-spacing: 4px;
+            font-weight: 600;
+        }
+        #tourHud p { margin: 0; color: #d8c9a0; letter-spacing: 1px; line-height: 1.6; max-width: 42em; }
+        #tourHud .tour-tools {
+            pointer-events: auto;
+            position: absolute;
+            right: 18px;
+            bottom: 22px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        #tourHud .tour-tools button {
+            background: none;
+            border: 1px solid rgba(244, 213, 138, 0.4);
+            color: #f4d58a;
+            letter-spacing: 3px;
+            cursor: pointer;
+            padding: 6px 12px;
+        }
+        #tourHud .tour-rec { letter-spacing: 2px; font-size: 12px; opacity: 0.7; }
+        #tourAsk {
+            display: none;
+            position: fixed;
+            inset: 0;
+            z-index: 90;
+            background: rgba(8, 9, 12, 0.62);
+            color: #f4d58a;
+            align-items: center;
+            justify-content: center;
+        }
+        #tourAsk.on { display: flex; }
+        #tourAsk .box {
+            width: min(440px, calc(100% - 40px));
+            padding: 28px 26px 22px;
+            background: #211c16;
+            border: 1px solid rgba(244, 213, 138, 0.28);
+        }
+        #tourAsk h2 { margin: 0 0 10px; letter-spacing: 4px; font-size: 20px; }
+        #tourAsk p { margin: 0 0 18px; color: #c8b892; line-height: 1.7; }
+        #tourAsk .row { display: flex; flex-wrap: wrap; gap: 8px; }
+        #tourAsk button {
+            background: none;
+            border: 1px solid rgba(244, 213, 138, 0.4);
+            color: #f4d58a;
+            letter-spacing: 2px;
+            cursor: pointer;
+            padding: 8px 12px;
+        }
+        #tourAsk button.primary { background: rgba(196, 160, 53, 0.16); }
         .home-doors button {
             min-width: 128px;
             padding: 10px 22px 12px;
@@ -1037,54 +1249,55 @@
             .lib-nav.next { right: 4px; }
         }
 
-        html.neo .home-brand { color: #f1f5f9; opacity: .88; }
+        html.neo .home-brand { opacity: .92; }
+        html.neo #view-home.intro .home-brand { opacity: 1; }
         html.neo .home-doors button {
-            background: #181a23;
-            color: #f1f5f9;
-            box-shadow: 0 0 28px rgba(196,164,106,.16), 0 10px 28px rgba(0,0,0,.4);
+            background: #211c16;
+            color: #ede3cf;
+            box-shadow: 0 0 28px rgba(201,161,91,.16), 0 10px 28px rgba(0,0,0,.4);
         }
-        html.neo .home-doors button i { color: #94a3b8; opacity: 1; }
-        html.neo .home-doors button:hover { background: #1e2130; }
+        html.neo .home-doors button i { color: #a39684; opacity: 1; }
+        html.neo .home-doors button:hover { background: #2b241b; }
 
-        html.neo #view-work.paper-view { background: #0f1015; color: #f1f5f9; }
+        html.neo #view-work.paper-view { background: #16130f; color: #ede3cf; }
         html.neo #view-work .paper-bar {
             background: rgba(24,26,35,.94);
-            border-bottom-color: rgba(241,245,249,.08);
-            color: #f1f5f9;
+            border-bottom-color: rgba(237,227,207,.08);
+            color: #ede3cf;
         }
-        html.neo #view-work .paper-bar h1 { color: #f1f5f9; }
-        html.neo #view-work .back { color: #94a3b8; }
-        html.neo #view-work .back:hover { color: #f1f5f9; }
+        html.neo #view-work .paper-bar h1 { color: #ede3cf; }
+        html.neo #view-work .back { color: #a39684; }
+        html.neo #view-work .back:hover { color: #ede3cf; }
         html.neo #view-work .metric {
-            color: #94a3b8;
-            border-color: rgba(241,245,249,.1);
+            color: #a39684;
+            border-color: rgba(237,227,207,.1);
         }
-        html.neo #view-work .tabs button { color: #94a3b8; }
-        html.neo #view-work .tabs button.active { color: #c4a46a; border-color: #c4a46a; }
-        html.neo #view-work .wb-left { background: #0f1015; border-right-color: rgba(241,245,249,.08); }
-        html.neo #view-work .wb-stage { background: #0a0b10; }
-        html.neo #view-work .wb-right { background: #181a23; color: #f1f5f9; }
-        html.neo #view-work .work-lib-chips { background: rgba(15,16,21,.92); border-color: rgba(241,245,249,.12); }
-        html.neo #view-work .sub { color: #94a3b8; }
+        html.neo #view-work .tabs button { color: #a39684; }
+        html.neo #view-work .tabs button.active { color: #c9a15b; border-color: #c9a15b; }
+        html.neo #view-work .wb-left { background: #16130f; border-right-color: rgba(237,227,207,.08); }
+        html.neo #view-work .wb-stage { background: #0f0d0a; }
+        html.neo #view-work .wb-right { background: #211c16; color: #ede3cf; }
+        html.neo #view-work .work-lib-chips { background: rgba(15,16,21,.92); border-color: rgba(237,227,207,.12); }
+        html.neo #view-work .sub { color: #a39684; }
         html.neo #view-work .upload-box {
-            background: #181a23;
-            border-color: rgba(241,245,249,.12);
-            color: #94a3b8;
+            background: #211c16;
+            border-color: rgba(237,227,207,.12);
+            color: #a39684;
         }
         html.neo #view-work .ocr-canvas-wrap {
             background: #d9d0bc;
-            box-shadow: inset 0 0 0 1px rgba(196,164,106,.28);
+            box-shadow: inset 0 0 0 1px rgba(201,161,91,.28);
         }
-        html.neo #view-work .ocr-box-item { border-bottom-color: rgba(241,245,249,.08); }
+        html.neo #view-work .ocr-box-item { border-bottom-color: rgba(237,227,207,.08); }
         html.neo #view-work .ocr-box-item.active {
-            background: #1e2130;
-            outline-color: #c4a46a;
-            box-shadow: 0 0 22px rgba(196,164,106,.14);
+            background: #2b241b;
+            outline-color: #c9a15b;
+            box-shadow: 0 0 22px rgba(201,161,91,.14);
         }
         html.neo #view-work .ocr-box-item input {
-            background: #0f1015;
-            color: #f1f5f9;
-            border-color: rgba(241,245,249,.12);
+            background: #16130f;
+            color: #ede3cf;
+            border-color: rgba(237,227,207,.12);
         }
         html.neo #view-work .ocr-box-item img,
         html.neo #view-work .glyph-card img,
@@ -1092,26 +1305,26 @@
             background: #d9d0bc;
             padding: 3px;
         }
-        html.neo #view-work .btn { color: #c4a46a; border-color: rgba(196,164,106,.45); }
-        html.neo #view-work .btn:hover { background: rgba(196,164,106,.08); }
-        html.neo #view-work .tiny { color: #94a3b8; border-color: rgba(241,245,249,.12); }
-        html.neo #view-work .ocr-badge { color: #94a3b8; border-color: rgba(241,245,249,.12); }
+        html.neo #view-work .btn { color: #c9a15b; border-color: rgba(201,161,91,.45); }
+        html.neo #view-work .btn:hover { background: rgba(201,161,91,.08); }
+        html.neo #view-work .tiny { color: #a39684; border-color: rgba(237,227,207,.12); }
+        html.neo #view-work .ocr-badge { color: #a39684; border-color: rgba(237,227,207,.12); }
         html.neo #view-work .ocr-badge.ok { color: #86c9a0; }
         html.neo #view-work #work-search.pane,
-        html.neo #view-work .lib-hero { background: #0a0b10; color: #f1f5f9; }
-        html.neo #view-work .lib-film { background: #0f1015; border-top-color: rgba(241,245,249,.08); }
+        html.neo #view-work .lib-hero { background: #0f0d0a; color: #ede3cf; }
+        html.neo #view-work .lib-film { background: #16130f; border-top-color: rgba(237,227,207,.08); }
         html.neo #view-work .detail,
         html.neo #view-work .glyph-card {
-            background: #181a23;
-            border-color: rgba(241,245,249,.08);
-            color: #f1f5f9;
+            background: #211c16;
+            border-color: rgba(237,227,207,.08);
+            color: #ede3cf;
         }
         html.neo #view-work .ink {
-            background: #0f1015;
-            color: #f1f5f9;
-            border-color: rgba(241,245,249,.12);
+            background: #16130f;
+            color: #ede3cf;
+            border-color: rgba(237,227,207,.12);
         }
-        html.neo #view-work .foot { color: #94a3b8; }
+        html.neo #view-work .foot { color: #a39684; }
 
         /* —— 第一步：學習頁 · 報紙印刷（只作用於此頁） —— */
         #view-learn.paper-view {
@@ -1523,7 +1736,9 @@
         }
         @media (max-width: 720px) {
             .home-brand { font-size: 18px; top: max(12px, env(safe-area-inset-top)); }
-            #view-home.intro .home-brand { top: 34%; font-size: clamp(42px, 17vw, 72px); }
+            #view-home.intro .home-brand { top: 44%; font-size: clamp(48px, 18vw, 96px); }
+            .home-tagline { top: calc(44% + clamp(48px, 18vw, 96px) * 0.62 + 12px); letter-spacing: 0.35em; text-indent: 0.35em; }
+            .home-tagline::before, .home-tagline::after { width: 1.6em; margin: 0 0.6em 0.3em; }
             .home-doors {
                 flex-direction: column;
                 width: min(86vw, 320px);
@@ -1621,6 +1836,7 @@
 <body class="intro-cold">
     <section id="view-home" class="on intro">
         <iframe id="galaxyFrame" title="金文星河" src="index.html?embed=1"></iframe>
+        <div class="home-veil" aria-hidden="true"></div>
         <div class="lite-sky" aria-hidden="true">
             <canvas id="liteCanvas"></canvas>
             <div class="lite-glyphs" id="liteGlyphs"></div>
@@ -1645,13 +1861,41 @@
             </div>
         </div>
         <button type="button" class="home-brand" id="homeBrand" aria-label="吉金智識" title="篆字：敬峰中山王篆（OFL）"><span class="seal-ch">吉</span><span class="seal-ch">金</span><span class="seal-ch">智</span><span class="seal-ch">識</span></button>
+        <p class="home-tagline" aria-hidden="true">擇其吉金 · 金文數字星河</p>
+        <p class="home-hint" aria-hidden="true">輕觸入場</p>
         <div class="home-doors">
             <button type="button" data-go="learn"><i>探索星河</i><b>學習</b></button>
             <button type="button" data-go="play"><i>趣味工坊</i><b>遊玩</b></button>
             <button type="button" data-go="work"><i>智能實驗室</i><b>銘見</b></button>
         </div>
         <button type="button" id="introSkip">跳過</button>
+        <button type="button" id="tourStart">演示</button>
+        <button type="button" id="recStart">錄製</button>
     </section>
+    <div id="tourHud" aria-live="polite">
+        <p class="tour-kicker">自動演示</p>
+        <h2 id="tourTitle">吉金智識</h2>
+        <p id="tourLine">把先秦金文重新變成可看、可聽、可寫、可考。</p>
+        <div class="tour-tools">
+            <span class="tour-rec" id="tourRec"></span>
+            <button type="button" id="tourStop">停止</button>
+        </div>
+    </div>
+    <div id="recHud">
+        <span id="recHudText">● 錄製中</span>
+        <button type="button" id="recStop">結束並下載</button>
+    </div>
+    <div id="tourAsk">
+        <div class="box">
+            <h2>自動演示</h2>
+            <p>自動路線約三分半。會聽一聲上古音、描一筆再翻出處。若要自己規劃鏡頭，請關此窗，改點左下「錄製」：只錄像、不代你點。</p>
+            <div class="row">
+                <button type="button" class="primary" id="tourPlay">開始演示</button>
+                <button type="button" id="tourRecStart">演示並錄製</button>
+                <button type="button" id="tourAskClose">取消</button>
+            </div>
+        </div>
+    </div>
 
     <section class="paper-view" id="view-learn">
         <div class="paper-bar">
@@ -2372,11 +2616,15 @@
         }
         function setColdOpen() {
             introLanded = false;
+            clearTimeout(introTimer);
             document.body.classList.add('intro-cold');
             const home = document.getElementById('view-home');
-            home.classList.add('intro');
-            home.classList.remove('tunneling', 'lite-diving', 'lite-landed');
-            tellGalaxy({ type: 'intro-lock' });
+            home.classList.add('intro', 'on');
+            home.classList.remove('tunneling', 'lite-diving', 'lite-landed', 'leaving');
+            if (window.liteIntro) {
+                try { window.liteIntro.idle(); } catch (e) {}
+            }
+            tellGalaxy({ type: 'intro-lock', resetShape: true });
         }
         function revealHome() {
             if (introLanded) return;
@@ -2575,6 +2823,12 @@
                 },
                 land: function () {
                     mode = 'land';
+                },
+                idle: function () {
+                    mode = 'idle';
+                    spinning = 0;
+                    t0 = performance.now();
+                    this.boot();
                 }
             };
             window.addEventListener('resize', function () {
@@ -2624,7 +2878,7 @@
             ['learn', 'play', 'work'].forEach(v => {
                 document.getElementById('view-' + v).classList.toggle('on', v === id);
             });
-            document.body.style.background = id === 'home' ? '#050810' : '#f4efe4';
+            document.body.style.background = id === 'home' ? '#16130f' : '#f4efe4';
             document.body.style.overflow = id === 'home' ? 'hidden' : (id === 'work' ? 'hidden' : 'auto');
         }
         function setTab(view, tab) {
@@ -2786,7 +3040,7 @@
             if (typeof meSpeak !== 'undefined') return Promise.resolve();
             return new Promise((resolve, reject) => {
                 const s = document.createElement('script');
-                s.src = './js/vendor/mespeak.js';
+                s.src = './build/vendor/mespeak.js';
                 s.async = true;
                 s.onload = () => resolve();
                 s.onerror = () => reject(new Error('meSpeak 脚本失败'));
@@ -2797,11 +3051,11 @@
             if (mespeakReady) return mespeakReady;
             mespeakReady = loadMeSpeakScript().then(() => new Promise((resolve, reject) => {
                 if (typeof meSpeak === 'undefined') return reject(new Error('meSpeak 未加载'));
-                try { meSpeak.loadConfig('./js/vendor/mespeak_config.json'); } catch (e) { return reject(e); }
+                try { meSpeak.loadConfig('./build/vendor/mespeak_config.json'); } catch (e) { return reject(e); }
                 const t = setInterval(() => {
                     if (meSpeak.isConfigLoaded && meSpeak.isConfigLoaded()) {
                         clearInterval(t);
-                        meSpeak.loadVoice('./js/vendor/voice-en.json', (ok, msg) => {
+                        meSpeak.loadVoice('./build/vendor/voice-en.json', (ok, msg) => {
                             if (ok) { mespeakReadyDone = true; resolve(); }
                             else reject(new Error(msg));
                         });
@@ -2918,9 +3172,30 @@
             }
             return false;
         }
-        function playIPA(ipa) {
+        let ipaClips = null;
+        fetch('./assets/audio/ipa/manifest.json')
+            .then(r => r.ok ? r.json() : null)
+            .then(j => { ipaClips = j; })
+            .catch(() => {});
+        function ipaClipUrl(ipa, ch) {
+            if (!ipaClips) return '';
+            const hit = (ch && ipaClips[ch]) || Object.values(ipaClips).find(x => x.ipa === ipa);
+            return hit ? './assets/audio/ipa/' + encodeURIComponent(hit.file) : '';
+        }
+        function playIPA(ipa, ch) {
             const hint = document.getElementById('ipaHint');
             unlockAudio();
+            const clip = ipaClipUrl(ipa, ch);
+            if (clip) {
+                const a = new Audio(clip);
+                a.play().then(() => {
+                    hint.textContent = '上古音由 IPA 合成，僅供參考。';
+                }).catch(() => {
+                    const said = playIpaByVoice(ipa);
+                    hint.textContent = said ? '音頻播放失敗，已改讀近似 ' + said + '。' : '這條擬音無法播放。';
+                });
+                return;
+            }
             if (isMobileSound()) {
                 const said = playIpaByVoice(ipa);
                 hint.textContent = said
@@ -3368,7 +3643,17 @@
             { id: 'qxk', label: 'QXK' }
         ];
         let libState = { token: 0, cp: '', q: '', items: [], idx: 0, filter: '', pending: 0, left: 0 };
+        const OFFLINE = new URLSearchParams(location.search).get('offline') === '1';
+        let localThumbs = null;
+        const localThumbsReady = fetch('./assets/thumbs/manifest.json')
+            .then(r => r.ok ? r.json() : null)
+            .then(j => { localThumbs = j; })
+            .catch(() => {});
+        function localThumbCount(src, cp) {
+            return (localThumbs && localThumbs.chars[cp] && localThumbs.chars[cp][src]) || 0;
+        }
         function rubUrl(src, cp, i) {
+            if (i < localThumbCount(src, cp)) return './assets/thumbs/' + src + '/' + cp + '/' + i + '.webp';
             return JINWEN_DATA_BASE + 'thumbs/' + src + '/' + cp + '/' + i + '.webp';
         }
         function sortLibItems(a, b) {
@@ -3410,7 +3695,9 @@
                 img.removeAttribute('src');
                 empty.hidden = false;
                 empty.textContent = libState.q
-                    ? (libState.left ? '正在載入拓片…' : '此字暫無真拓片。可開詳庫查看字典字形。')
+                    ? (libState.left ? '正在載入拓片…'
+                        : OFFLINE ? '離線模式只收錄百家姓與演示字的拓片，此字需聯網查看。'
+                        : '此字暫無真拓片。可開詳庫查看字典字形。')
                     : '檢索一字，在此看真拓片。';
                 cap.textContent = '';
                 film.innerHTML = '';
@@ -3437,6 +3724,13 @@
         function pumpRubSource(token, src, cp, i) {
             if (libState.token !== token) return;
             if (i > 80) {
+                libState.left = Math.max(0, libState.left - 1);
+                renderLibViewer();
+                return;
+            }
+            const have = localThumbCount(src.id, cp);
+            const exhausted = have && have < localThumbs.cap;
+            if (i >= have && (OFFLINE || exhausted)) {
                 libState.left = Math.max(0, libState.left - 1);
                 renderLibViewer();
                 return;
@@ -3469,7 +3763,10 @@
             if (zoom) zoom.textContent = '放大';
             renderLibViewer();
             if (!cp) return;
-            RUB_SOURCES.forEach(src => pumpRubSource(libState.token, src, cp, 0));
+            const token = libState.token;
+            localThumbsReady.then(() => {
+                RUB_SOURCES.forEach(src => pumpRubSource(token, src, cp, 0));
+            });
         }
         function stepLib(delta) {
             const vis = visibleLibItems();
@@ -3624,9 +3921,20 @@
             const g = c.getContext('2d');
             g.fillStyle = '#e8e2d4'; g.fillRect(0, 0, c.width, c.height);
             const item = TRACE_BANK[traceIdx];
-            const img = new Image();
-            img.onload = () => { g.globalAlpha = 0.18; g.drawImage(img, 40, 40, 420, 420); g.globalAlpha = 1; };
-            img.src = svg(item.char);
+            return new Promise(resolve => {
+                let settled = false;
+                const done = () => { if (!settled) { settled = true; resolve(); } };
+                const img = new Image();
+                img.onload = () => {
+                    g.globalAlpha = 0.18;
+                    g.drawImage(img, 40, 40, 420, 420);
+                    g.globalAlpha = 1;
+                    done();
+                };
+                img.onerror = done;
+                img.src = svg(item.char);
+                setTimeout(done, 1600);
+            });
         }
         function startTraceStroke(e) {
             tracing = true;
@@ -3684,6 +3992,7 @@
             chime(true);
             clearTimeout(traceAutoTimer);
             traceAutoTimer = setTimeout(() => {
+                if (document.documentElement.classList.contains('touring')) return;
                 if (!document.getElementById('play-trace').offsetParent) return;
                 traceIdx = pickNextTraceIdx();
                 drawTraceBase();
@@ -3939,12 +4248,18 @@
                 return u.hostname === 'localhost' || u.hostname === '127.0.0.1';
             } catch (e) { return false; }
         }
+        function isStaleOcrHost(url) {
+            try {
+                return /findlaw-naturals-wax-regardless\.trycloudflare\.com$/i.test(new URL(url, location.href).hostname);
+            } catch (e) { return false; }
+        }
         function defaultOcrEndpoint() {
             const q = new URLSearchParams(location.search).get('ocr');
-            if (q) return q;
+            if (q && !isStaleOcrHost(q)) return q;
             const saved = localStorage.getItem('ocrEndpoint');
+            if (saved && isStaleOcrHost(saved)) localStorage.removeItem('ocrEndpoint');
             // 本地静态页的 localhost:8000 不是识图 API，不能盖住 ocr-endpoint.json
-            if (saved && !isLocalOcrHost(saved)) return saved;
+            if (saved && !isLocalOcrHost(saved) && !isStaleOcrHost(saved)) return saved;
             return '';
         }
         const OCR_CONFIG = {
@@ -3957,7 +4272,7 @@
                 const r = await fetch('ocr-endpoint.json', { cache: 'no-store' });
                 if (r.ok) {
                     const j = await r.json();
-                    if (j && j.endpoint) {
+                    if (j && j.endpoint && !isStaleOcrHost(j.endpoint)) {
                         OCR_CONFIG.endpoint = String(j.endpoint).replace(/\/$/, '');
                         return OCR_CONFIG.endpoint;
                     }
@@ -4363,6 +4678,323 @@
             ocrBackendStatus = 'unknown';
             checkOCRHealth();
         };
+
+        let tourGen = 0;
+        let tourRecorder = null;
+        let tourChunks = [];
+        let tourStream = null;
+        function tourWait(ms, gen) {
+            return new Promise(resolve => {
+                const t = setTimeout(() => resolve(), ms);
+                if (gen !== tourGen) { clearTimeout(t); resolve(); }
+            });
+        }
+        function tourCap(title, line, recText) {
+            document.getElementById('tourTitle').textContent = title;
+            document.getElementById('tourLine').textContent = line;
+            if (recText != null) document.getElementById('tourRec').textContent = recText;
+        }
+        function tourGo(view, q, tab) {
+            applyRoute({ view: view, q: q || '', tab: tab || '' });
+            const p = new URLSearchParams();
+            if (q) p.set('q', q);
+            if (tab) p.set('tab', tab);
+            const qs = p.toString();
+            const hash = '#/' + (view === 'home' ? '' : view) + (qs ? '?' + qs : '');
+            if (location.hash !== hash) history.replaceState(null, '', location.pathname + location.search + hash);
+        }
+        function stopTourCapture(download) {
+            const rec = tourRecorder;
+            const stream = tourStream;
+            tourRecorder = null;
+            tourStream = null;
+            if (rec && rec.state !== 'inactive') {
+                try { rec.stop(); } catch (e) {}
+            }
+            if (stream) stream.getTracks().forEach(t => t.stop());
+            if (download && tourChunks.length) {
+                const blob = new Blob(tourChunks, { type: (rec && rec.mimeType) || 'video/webm' });
+                const ext = (blob.type || '').indexOf('mp4') >= 0 ? 'mp4' : 'webm';
+                const a = document.createElement('a');
+                a.href = URL.createObjectURL(blob);
+                a.download = '吉金智識-演示.' + ext;
+                a.click();
+                setTimeout(() => URL.revokeObjectURL(a.href), 4000);
+            }
+            tourChunks = [];
+        }
+        function endTour(download) {
+            tourGen += 1;
+            document.documentElement.classList.remove('touring', 'recording');
+            document.getElementById('tourRec').textContent = '';
+            stopTourCapture(download);
+            tourGo('home');
+        }
+        async function startTourCapture() {
+            if (!navigator.mediaDevices || !navigator.mediaDevices.getDisplayMedia || !window.MediaRecorder) {
+                alert('當前瀏覽器不能錄屏，將只播放演示。請用 Chrome / Edge。');
+                return false;
+            }
+            try {
+                const stream = await navigator.mediaDevices.getDisplayMedia({
+                    video: { frameRate: 30, displaySurface: 'browser' },
+                    audio: false,
+                    preferCurrentTab: true,
+                    selfBrowserSurface: 'include',
+                    surfaceSwitching: 'exclude',
+                    systemAudio: 'exclude'
+                });
+                const mimes = ['video/webm;codecs=vp9', 'video/webm;codecs=vp8', 'video/webm', 'video/mp4'];
+                const mime = mimes.find(m => MediaRecorder.isTypeSupported(m)) || '';
+                const rec = new MediaRecorder(stream, mime ? { mimeType: mime, videoBitsPerSecond: 8000000 } : undefined);
+                tourChunks = [];
+                rec.ondataavailable = e => { if (e.data && e.data.size) tourChunks.push(e.data); };
+                stream.getVideoTracks()[0].addEventListener('ended', () => {
+                    if (document.documentElement.classList.contains('touring')) endTour(true);
+                });
+                rec.start(800);
+                tourStream = stream;
+                tourRecorder = rec;
+                return true;
+            } catch (e) {
+                return false;
+            }
+        }
+        function tourWarmSound() {
+            unlockAudio();
+            warmSpeech();
+            ensureMeSpeak().catch(() => {});
+            if ('speechSynthesis' in window) {
+                try {
+                    const u = new SpeechSynthesisUtterance(' ');
+                    u.volume = 0.01;
+                    u.rate = 2;
+                    speechSynthesis.speak(u);
+                } catch (e) {}
+            }
+        }
+        async function tourPlayListen(gen) {
+            try {
+                unlockAudio();
+                warmSpeech();
+                try { ctx().resume(); } catch (e) {}
+                await ensureMeSpeak().catch(() => {});
+                if (gen !== tourGen) return;
+                if (!currentQ) nextQuiz('宅');
+                await tourWait(400, gen);
+                if (gen !== tourGen) return;
+                if (currentQ) playIPA(currentQ.answer.ipa, currentQ.answer.char);
+            } catch (e) {}
+            await tourWait(4800, gen);
+            if (gen !== tourGen) return;
+            try {
+                if (currentQ) {
+                    const ans = document.querySelector('#choices .choice[data-char="' + currentQ.answer.char + '"]');
+                    if (ans) ans.click();
+                }
+            } catch (e) {}
+        }
+        async function tourDrawTrace(gen) {
+            const wang = TRACE_BANK.findIndex(x => x.char === '王');
+            if (wang >= 0) traceIdx = wang;
+            await drawTraceBase();
+            await tourWait(500, gen);
+            if (gen !== tourGen) return;
+            const c = document.getElementById('traceCanvas');
+            if (!c) return;
+            const g = c.getContext('2d');
+            g.strokeStyle = '#9c3b2e';
+            g.lineWidth = 10;
+            g.lineCap = 'round';
+            g.lineJoin = 'round';
+            const strokes = [
+                [[120, 168], [380, 168]],
+                [[250, 168], [250, 372]],
+                [[138, 356], [362, 356]]
+            ];
+            for (const stroke of strokes) {
+                g.beginPath();
+                g.moveTo(stroke[0][0], stroke[0][1]);
+                for (let i = 1; i < stroke.length; i++) {
+                    const [x1, y1] = stroke[i - 1];
+                    const [x2, y2] = stroke[i];
+                    const steps = 14;
+                    for (let s = 1; s <= steps; s++) {
+                        const t = s / steps;
+                        const x = x1 + (x2 - x1) * t;
+                        const y = y1 + (y2 - y1) * t;
+                        g.lineTo(x, y);
+                        g.stroke();
+                        g.beginPath();
+                        g.moveTo(x, y);
+                        await tourWait(70, gen);
+                        if (gen !== tourGen) return;
+                    }
+                }
+                await tourWait(420, gen);
+                if (gen !== tourGen) return;
+            }
+        }
+        function waitIntroLand(gen, ms) {
+            return new Promise(resolve => {
+                const t0 = Date.now();
+                const id = setInterval(() => {
+                    if (gen !== tourGen || introLanded || Date.now() - t0 > ms) {
+                        clearInterval(id);
+                        resolve();
+                    }
+                }, 80);
+            });
+        }
+        async function runSiteTour(record) {
+            const gen = ++tourGen;
+            document.getElementById('tourAsk').classList.remove('on');
+            document.documentElement.classList.add('touring');
+            tourGo('home');
+            setColdOpen();
+            tourWarmSound();
+            if (record) {
+                tourCap('準備錄製', '請在彈窗裡選擇「這個分頁」，不要選整個螢幕。先錄夜空開場。', '等待分享本頁…');
+                const ok = await startTourCapture();
+                if (gen !== tourGen) return;
+                if (!ok) tourCap('改為只演示', '未授權錄屏，仍從開場走完三個板塊。', '');
+                else tourCap('開場', '夜空與篆書「吉金智識」。字本來鑄在器上。', '● 錄製中');
+            } else {
+                tourCap('開場', '夜空與篆書「吉金智識」。字本來鑄在器上。', '');
+            }
+            if (gen !== tourGen) return;
+            await tourWait(4000, gen);
+            if (gen !== tourGen) return;
+            startIntro();
+            await waitIntroLand(gen, 6000);
+            if (gen !== tourGen) return;
+            if (!introLanded) landHome();
+            tourCap('星河', '每一顆星都是真字，按朝代染色，聚成一件器。下面三條路：學習、遊玩、銘見。');
+            await tourWait(4500, gen);
+            if (gen !== tourGen) return;
+
+            tourGo('learn', '王', 'wall');
+            await tourWait(400, gen);
+            try { await seekWall('王'); } catch (e) {}
+            tourCap('學習 · 方格牆', '輸入自己的姓。有金文就翻開；沒有，就寫「此姓在金文中未見記載」。');
+            await tourWait(6500, gen);
+            if (gen !== tourGen) return;
+
+            tourGo('learn', '宅', 'listen');
+            await tourWait(500, gen);
+            try { nextQuiz('宅'); } catch (e) {}
+            tourCap('學習 · 聽音室', '先聽一聲構擬上古音，再從金文裡認出它。音值依鄭張尚芳，僅供參考。');
+            await tourPlayListen(gen);
+            if (gen !== tourGen) return;
+            await tourWait(4200, gen);
+            if (gen !== tourGen) return;
+
+            tourGo('learn', '宅', 'lookup');
+            await tourWait(400, gen);
+            try { await runLookup('宅', true); } catch (e) {}
+            tourCap('學習 · 吉金字典', '給出處、辭例與白話。未見的不補造。');
+            await tourWait(6500, gen);
+            if (gen !== tourGen) return;
+
+            tourGo('play', '', 'lobby');
+            tourCap('趣味工坊', '連字形、描一筆，再按禮器職司寫一段吉辭。');
+            await tourWait(3600, gen);
+            if (gen !== tourGen) return;
+
+            tourGo('play', '', 'match');
+            await tourWait(500, gen);
+            try {
+                const left = document.querySelector('#linkLeft .link-item');
+                if (left && matchLeft[0]) {
+                    const ch = matchLeft[0].char;
+                    const right = Array.from(document.querySelectorAll('#linkRight .link-item')).find((b, i) => matchRight[i] && matchRight[i].char === ch);
+                    if (right) { left.click(); await tourWait(900, gen); right.click(); }
+                }
+            } catch (e) {}
+            tourCap('遊玩 · 連連看', '左側金文，右側今字。連對有編鐘聲。');
+            await tourWait(5500, gen);
+            if (gen !== tourGen) return;
+
+            tourGo('play', '', 'trace');
+            await tourWait(400, gen);
+            tourCap('遊玩 · 描紅', '順淡底描「王」字。完成後翻出出處。');
+            try { await tourDrawTrace(gen); } catch (e) {}
+            if (gen !== tourGen) return;
+            await tourWait(700, gen);
+            try {
+                const done = document.getElementById('traceDone');
+                if (done) done.click();
+            } catch (e) {}
+            await tourWait(5000, gen);
+            if (gen !== tourGen) return;
+
+            tourGo('play', '', 'ritual');
+            await tourWait(400, gen);
+            try {
+                const ding = document.querySelector('#vesselPicker [data-vessel="ding"]');
+                if (ding) ding.click();
+                pickedBless.clear();
+                pickedBless.add('壽');
+                setRitualStep(2);
+                await tourWait(900, gen);
+                const blessBtn = document.getElementById('blessBtn');
+                if (blessBtn) blessBtn.click();
+            } catch (e) {}
+            tourCap('遊玩 · 鑄辭坊', '先選器，再選祈辭。賀卡是銘末套語的戲仿，不是出土銘文。');
+            await tourWait(7500, gen);
+            if (gen !== tourGen) return;
+
+            tourGo('work', '', 'rec');
+            await tourWait(400, gen);
+            tourCap('銘見 · 識圖', '上傳拓片做初稿。金點是把握較高的字，灰點標疑。');
+            try { await runRecognition(null); } catch (e) {}
+            if (gen !== tourGen) return;
+            await tourWait(5000, gen);
+            if (gen !== tourGen) return;
+
+            tourGo('work', '王', 'search');
+            await tourWait(400, gen);
+            try { runWorkSearch('王'); } catch (e) {}
+            tourCap('銘見 · 金文字庫', '對真拓與變體。詳庫外鏈，版權歸原庫。');
+            await tourWait(5500, gen);
+            if (gen !== tourGen) return;
+
+            tourGo('home');
+            tourCap('同一套字', '公眾、課堂、研究走同一條路，只是深淺不同。瀏覽器打開即可。', record && tourRecorder ? '即將儲存影片' : '');
+            await tourWait(4200, gen);
+            if (gen !== tourGen) return;
+            endTour(!!(record && (tourRecorder || tourChunks.length)));
+        }
+        document.getElementById('tourStart').onclick = () => document.getElementById('tourAsk').classList.add('on');
+        document.getElementById('tourAskClose').onclick = () => document.getElementById('tourAsk').classList.remove('on');
+        document.getElementById('tourPlay').onclick = () => runSiteTour(false);
+        document.getElementById('tourRecStart').onclick = () => runSiteTour(true);
+        document.getElementById('tourStop').onclick = () => endTour(!!tourChunks.length);
+        document.getElementById('tourAsk').addEventListener('click', e => {
+            if (e.target.id === 'tourAsk') e.currentTarget.classList.remove('on');
+        });
+        let recTicker = 0;
+        async function startManualRecord() {
+            if (document.documentElement.classList.contains('recording') || document.documentElement.classList.contains('touring')) return;
+            document.getElementById('tourAsk').classList.remove('on');
+            const ok = await startTourCapture();
+            if (!ok) return;
+            document.documentElement.classList.add('recording');
+            const t0 = Date.now();
+            const text = document.getElementById('recHudText');
+            clearInterval(recTicker);
+            recTicker = setInterval(() => {
+                text.textContent = '● 錄製中  ' + Math.floor((Date.now() - t0) / 1000) + 's';
+            }, 400);
+        }
+        function stopManualRecord() {
+            clearInterval(recTicker);
+            document.documentElement.classList.remove('recording');
+            document.getElementById('recHudText').textContent = '● 錄製中';
+            stopTourCapture(true);
+        }
+        document.getElementById('recStart').onclick = () => startManualRecord();
+        document.getElementById('recStop').onclick = () => stopManualRecord();
 
         ensureMeSpeak().catch(() => {});
         Promise.all([getIndex(), lexiconReady]).then(() => {

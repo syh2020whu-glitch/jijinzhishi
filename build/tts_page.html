@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="utf-8">
+<title>IPA prerender</title>
+<script src="vendor/mespeak.js"></script>
+<script src="vendor/lame.min.js"></script>
+</head>
+<body>
+<script>
+// 与 js/demo/ipa.js 保持一致的 IPA → Kirshenbaum 映射
+function ipaToKirshenbaum(s) {
+    const map = {
+        'ɢ':'g','ɡ':'g','ʔ':'?','ŋ':'N','ɲ':'n','ɑ':'A','ə':'@','ɔ':'O','ɛ':'E',
+        'æ':'a','ɨ':'i','ɯ':'u','ʊ':'u','ɪ':'i','ʰ':'h','ʷ':'w','ʲ':'j','ː':':',
+        'ˀ':'?','ɣ':'g','ɦ':'h','ɕ':'s','ʑ':'z','ʈ':'t','ɖ':'d','ɬ':'l','θ':'T',
+        '*':'','˥':'','˩':'','¹':'','²':'','³':'','⁴':''
+    };
+    return [...String(s || '')].map(ch => map[ch] === undefined ? ch : map[ch]).join('').replace(/[^a-zA-Z@:?N0-9-]/g, '');
+}
+function ipaToRoughLatin(s) {
+    return ipaToKirshenbaum(s).replace(/[@:?N]/g, function (ch) {
+        return ({ '@': 'e', ':': '', '?': '', N: 'ng' }[ch] || '');
+    }) || 'a';
+}
+
+function synth(text, phoneme) {
+    return meSpeak.speak(phoneme ? '[[' + text + ']]' : text, {
+        amplitude: 140, pitch: 48, speed: 120, variant: 'm3', rawdata: 'ArrayBuffer'
+    });
+}
+
+function parseWav(ab) {
+    const v = new DataView(ab);
+    let offset = 12, channels = 1, rate = 22050, bits = 16, dataOff = 44, dataLen = v.byteLength - 44;
+    while (offset + 8 <= v.byteLength) {
+        const id = String.fromCharCode(v.getUint8(offset), v.getUint8(offset + 1), v.getUint8(offset + 2), v.getUint8(offset + 3));
+        const size = v.getUint32(offset + 4, true);
+        if (id === 'fmt ') {
+            channels = v.getUint16(offset + 10, true) || 1;
+            rate = v.getUint32(offset + 12, true) || 22050;
+            bits = v.getUint16(offset + 22, true) || 16;
+        } else if (id === 'data') { dataOff = offset + 8; dataLen = size; break; }
+        offset += 8 + size + (size % 2);
+    }
+    const step = (bits / 8) * channels;
+    const n = Math.floor(dataLen / step);
+    const pcm = new Int16Array(n);
+    let energy = 0;
+    for (let i = 0; i < n; i++) {
+        const p = dataOff + i * step;
+        const s = bits === 16 ? v.getInt16(p, true) : (v.getUint8(p) - 128) * 256;
+        pcm[i] = s;
+        energy += (s / 32768) * (s / 32768);
+    }
+    return { pcm, rate, rms: Math.sqrt(energy / Math.max(1, n)) };
+}
+
+function trimSilence(pcm, rate) {
+    const thr = 300;
+    let a = 0, b = pcm.length - 1;
+    while (a < b && Math.abs(pcm[a]) < thr) a++;
+    while (b > a && Math.abs(pcm[b]) < thr) b--;
+    const pad = Math.floor(rate * 0.04);
+    a = Math.max(0, a - pad); b = Math.min(pcm.length, b + pad);
+    return pcm.subarray(a, b);
+}
+
+function toMp3(pcm, rate, kbps) {
+    const enc = new lamejs.Mp3Encoder(1, rate, kbps);
+    const parts = [];
+    const block = 1152;
+    for (let i = 0; i < pcm.length; i += block) {
+        const buf = enc.encodeBuffer(pcm.subarray(i, i + block));
+        if (buf.length) parts.push(buf);
+    }
+    const tail = enc.flush();
+    if (tail.length) parts.push(tail);
+    let total = 0; parts.forEach(p => total += p.length);
+    const out = new Uint8Array(total);
+    let o = 0; parts.forEach(p => { out.set(p, o); o += p.length; });
+    return out;
+}
+
+function b64(u8) {
+    let s = '';
+    for (let i = 0; i < u8.length; i += 0x8000) s += String.fromCharCode.apply(null, u8.subarray(i, i + 0x8000));
+    return btoa(s);
+}
+
+window.ttsReady = new Promise((resolve, reject) => {
+    meSpeak.loadConfig('vendor/mespeak_config.json');
+    const t = setInterval(() => {
+        if (meSpeak.isConfigLoaded && meSpeak.isConfigLoaded()) {
+            clearInterval(t);
+            meSpeak.loadVoice('vendor/voice-en.json', (ok, msg) => ok ? resolve() : reject(new Error(msg)));
+        }
+    }, 50);
+    setTimeout(() => { clearInterval(t); reject(new Error('meSpeak timeout')); }, 30000);
+});
+
+// 返回 {mp3: base64, mode: 'ipa'|'latin', ms}
+window.renderIpa = function (ipa, kbps) {
+    const tries = [
+        { mode: 'ipa', run: () => synth(ipaToKirshenbaum(ipa), true) },
+        { mode: 'latin', run: () => synth(ipaToRoughLatin(ipa), false) }
+    ];
+    for (let i = 0; i < tries.length; i++) {
+        const wav = tries[i].run();
+        if (!wav || wav.byteLength <= 44) continue;
+        const { pcm, rate, rms } = parseWav(wav);
+        if (pcm.length < 200) continue;
+        if (rms < 0.004 && i === 0) continue;
+        const trimmed = trimSilence(pcm, rate);
+        const mp3 = toMp3(trimmed, rate, kbps || 40);
+        return { mp3: b64(mp3), mode: tries[i].mode, ms: Math.round(trimmed.length / rate * 1000) };
+    }
+    return null;
+};
+</script>
+</body>
+</html>

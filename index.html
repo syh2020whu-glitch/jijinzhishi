@@ -4,9 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
     <title>百家金文 · 星河</title>
-    <link rel="preconnect" href="https://fonts.loli.net" crossorigin>
-    <link rel="stylesheet" href="https://fonts.loli.net/css2?family=Noto+Sans+TC:wght@400;500&family=Noto+Serif+TC:wght@400;600;700&family=Source+Sans+3:wght@400;500&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500&family=Noto+Serif+TC:wght@400;600;700&family=Source+Sans+3:wght@400;500&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap">
+    <link rel="stylesheet" href="./assets/fonts/web/fonts.css">
     <script>
         (function () {
             var embedded = new URLSearchParams(location.search).has('embed') || window.parent !== window;
@@ -22,7 +20,7 @@
             margin: 0;
             padding: 0;
             overflow: hidden;
-            background: #050810;
+            background: #16130f;
             font-family: "Source Serif 4", "Noto Serif TC", "Source Han Serif TC", serif;
             cursor: grab;
         }
@@ -439,32 +437,32 @@
         html.embed.introing .info-panel,
         html.embed.introing .loading { display: none !important; }
 
-        html.embed.neo body { background: #0f1015; }
+        html.embed.neo body { background: #16130f; }
         html.embed.neo .legend,
-        html.embed.neo .counter { color: #f1f5f9; opacity: .88; }
+        html.embed.neo .counter { color: #ede3cf; opacity: .88; }
         html.embed.neo .info-panel {
-            background: #181a23;
-            border-color: rgba(241,245,249,.1);
-            color: #f1f5f9;
-            box-shadow: 0 0 32px rgba(196,164,106,.12);
+            background: #211c16;
+            border-color: rgba(237,227,207,.1);
+            color: #ede3cf;
+            box-shadow: 0 0 32px rgba(201,161,91,.12);
         }
         html.embed.neo .info-panel .surname {
-            color: #e8c56a;
+            color: #ebd3a0;
             text-shadow: none;
         }
         html.embed.neo .info-panel .modern,
         html.embed.neo .info-panel .story,
-        html.embed.neo .info-panel .meta { color: #94a3b8; }
+        html.embed.neo .info-panel .meta { color: #a39684; }
         html.embed.neo .info-panel .meta {
-            border-top-color: rgba(241,245,249,.1);
+            border-top-color: rgba(237,227,207,.1);
         }
         html.embed.neo .info-panel .actions button {
-            color: #f1f5f9;
-            border-color: rgba(196,164,106,.4);
-            background: rgba(196,164,106,.08);
+            color: #ede3cf;
+            border-color: rgba(201,161,91,.4);
+            background: rgba(201,161,91,.08);
         }
         html.embed.neo .info-panel .actions button:hover {
-            background: rgba(196,164,106,.18);
+            background: rgba(201,161,91,.18);
         }
 
         @media (max-width: 720px) {
@@ -523,8 +521,8 @@
         </div>
     </div>
 
-    <script src="https://unpkg.com/three@0.128.0/build/three.min.js"></script>
-    <script src="https://unpkg.com/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+    <script src="./js/vendor/three/three.min.js"></script>
+    <script src="./js/vendor/three/OrbitControls.js"></script>
 
     <script>
         // ============ 20 个已知姓氏的深度故事（其余字用 index.json 里的元数据） ============
@@ -551,18 +549,18 @@
             '白': { location: '陕西韩城', story: '白姓源自嬴姓，秦国大将白乙丙之后，或楚平王孙白公胜之后' }
         };
 
-        // ============ 朝代 → 颜色（分层染色） ============
+        // ============ 朝代 → 颜色：同一套新铸青铜色阶（赤铜 → 吉金 → 淡金 → 锡白） ============
         const periodColorMap = [
-            { match: /商/,        color: [255, 176, 96],  label: '商' },
-            { match: /西周/,      color: [244, 213, 138], label: '西周' },
-            { match: /春秋/,      color: [220, 225, 150], label: '春秋' },
-            { match: /戰國|战国/, color: [170, 220, 170], label: '戰國' },
+            { match: /商/,        color: [224, 150, 96],  label: '商' },
+            { match: /西周/,      color: [232, 196, 124], label: '西周' },
+            { match: /春秋/,      color: [240, 218, 168], label: '春秋' },
+            { match: /戰國|战国/, color: [222, 216, 200], label: '戰國' },
         ];
         function getPeriodStyle(period) {
             for (const p of periodColorMap) {
                 if (p.match.test(period || '')) return p;
             }
-            return { color: [244, 213, 138], label: period || '未知' };
+            return { color: [232, 196, 124], label: period || '未知' };
         }
 
         // 图例
@@ -647,7 +645,7 @@
         });
         renderer.setSize(window.innerWidth, window.innerHeight);
         renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, isPhoneGalaxy ? 1 : 2));
-        renderer.setClearColor(0x050810, 1);
+        renderer.setClearColor(0x16130f, 1);
 
         const controls = new THREE.OrbitControls(camera, renderer.domElement);
         controls.enableDamping = true;
@@ -690,9 +688,9 @@
                 pos[i*3+1] = r * Math.sin(phi) * Math.sin(theta);
                 pos[i*3+2] = r * Math.cos(phi);
                 const cc = Math.random();
-                if (cc < 0.55)      { col[i*3]=1.00; col[i*3+1]=0.69; col[i*3+2]=0.38; }
-                else if (cc < 0.82){ col[i*3]=0.96; col[i*3+1]=0.84; col[i*3+2]=0.54; }
-                else               { col[i*3]=0.86; col[i*3+1]=0.88; col[i*3+2]=0.59; }
+                if (cc < 0.55)      { col[i*3]=0.79; col[i*3+1]=0.63; col[i*3+2]=0.36; }
+                else if (cc < 0.82){ col[i*3]=0.92; col[i*3+1]=0.83; col[i*3+2]=0.63; }
+                else               { col[i*3]=0.69; col[i*3+1]=0.42; col[i*3+2]=0.23; }
             }
             geo.setAttribute('position', new THREE.BufferAttribute(pos, 3));
             geo.setAttribute('color', new THREE.BufferAttribute(col, 3));
@@ -732,6 +730,72 @@
             window.__cloud = cloud;
         }
 
+        // 约 1/4 的 SVG 是拓片式（黑底镂空字），按 alpha 染色会变成实心方块。
+        // 外接框填充率 ≥ 0.5 即判为拓片（实测 1690 字两侧分得很干净），把拓片内部 alpha 反相，只留笔画。
+        function invertRubbingTile(data, size) {
+            const N = size * size;
+            let x0 = size, y0 = size, x1 = -1, y1 = -1, n = 0;
+            for (let p = 0; p < N; p++) {
+                if (data[p * 4 + 3] > 127) {
+                    n++;
+                    const x = p % size, y = (p / size) | 0;
+                    if (x < x0) x0 = x; if (x > x1) x1 = x;
+                    if (y < y0) y0 = y; if (y > y1) y1 = y;
+                }
+            }
+            const box = (x1 - x0 + 1) * (y1 - y0 + 1);
+            if (!n || n / box < 0.5) return;
+            // 与画布边缘连通的透明区是拓片外部，保持透明；其余像素反相
+            const outside = new Uint8Array(N);
+            const stack = [];
+            for (let i = 0; i < size; i++) {
+                for (const p of [i, (size - 1) * size + i, i * size, i * size + size - 1]) {
+                    if (!outside[p] && data[p * 4 + 3] <= 127) { outside[p] = 1; stack.push(p); }
+                }
+            }
+            while (stack.length) {
+                const p = stack.pop();
+                const x = p % size;
+                const nb = [x > 0 ? p - 1 : -1, x < size - 1 ? p + 1 : -1, p - size, p + size];
+                for (const q of nb) {
+                    if (q < 0 || q >= N || outside[q] || data[q * 4 + 3] > 127) continue;
+                    outside[q] = 1;
+                    stack.push(q);
+                }
+            }
+            for (let p = 0; p < N; p++) {
+                data[p * 4 + 3] = outside[p] ? 0 : 255 - data[p * 4 + 3];
+            }
+        }
+
+        // ============ 预烘焙字形图集（build/build_atlas.py），缺失时回退逐个 SVG ============
+        const glyphAtlas = fetch('./assets/atlas/glyphs.json')
+            .then(r => r.ok ? r.json() : null)
+            .catch(() => null);
+        const atlasSheets = [];
+        function loadAtlasSheet(i) {
+            if (!atlasSheets[i]) {
+                atlasSheets[i] = new Promise((resolve, reject) => {
+                    const img = new Image();
+                    img.onload = () => resolve(img);
+                    img.onerror = () => reject(new Error('atlas sheet failed'));
+                    img.src = `./assets/atlas/glyphs-${i}.png`;
+                });
+            }
+            return atlasSheets[i];
+        }
+        glyphAtlas.then(a => {
+            if (a) for (let i = 0; i < a.sheets; i++) loadAtlasSheet(i).catch(() => {});
+        });
+        function loadSvgImage(char) {
+            return new Promise((resolve, reject) => {
+                const img = new Image();
+                img.onload = () => resolve(img);
+                img.onerror = () => reject(new Error('svg load failed'));
+                img.src = `./jinwen_svg/${encodeURIComponent(char)}.svg`;
+            });
+        }
+
         // ============ 金文字符纹理（128×128 + 染色 + 光晕） ============
         async function createJinwenTexture(char, rgb) {
             const size = isPhoneGalaxy ? 64 : 128;
@@ -739,31 +803,32 @@
             canvas.width = size; canvas.height = size;
             const ctx = canvas.getContext('2d');
 
-            const svgUrl = `./jinwen_svg/${encodeURIComponent(char)}.svg`;
-            await new Promise((resolve, reject) => {
-                const img = new Image();
-                img.onload = () => {
-                    ctx.drawImage(img, 0, 0, size, size);
-                    const imageData = ctx.getImageData(0, 0, size, size);
-                    const data = imageData.data;
-                    for (let i = 0; i < data.length; i += 4) {
-                        if (data[i + 3] > 0) {
-                            data[i]   = rgb[0];
-                            data[i+1] = rgb[1];
-                            data[i+2] = rgb[2];
-                        }
-                    }
-                    ctx.putImageData(imageData, 0, 0);
-                    ctx.globalCompositeOperation = 'source-over';
-                    ctx.shadowColor = `rgba(${rgb[0]},${rgb[1]},${rgb[2]},0.9)`;
-                    ctx.shadowBlur = 8;
-                    ctx.drawImage(canvas, 0, 0);
-                    ctx.shadowBlur = 0;
-                    resolve();
-                };
-                img.onerror = () => reject(new Error('svg load failed'));
-                img.src = svgUrl;
-            });
+            const atlas = await glyphAtlas;
+            const slot = atlas && atlas.chars[char];
+            let fromAtlas = false;
+            if (slot) {
+                try {
+                    const sheet = await loadAtlasSheet(slot[0]);
+                    const c = atlas.cell;
+                    ctx.drawImage(sheet, slot[1] * c, slot[2] * c, c, c, 0, 0, size, size);
+                    fromAtlas = true;
+                } catch (e) { /* 图集坏了就走 SVG */ }
+            }
+            if (!fromAtlas) {
+                ctx.drawImage(await loadSvgImage(char), 0, 0, size, size);
+                const imageData = ctx.getImageData(0, 0, size, size);
+                invertRubbingTile(imageData.data, size);
+                ctx.putImageData(imageData, 0, 0);
+            }
+            // source-in 染色：保留 alpha、整片换成朝代色，避免逐像素回读
+            ctx.globalCompositeOperation = 'source-in';
+            ctx.fillStyle = `rgb(${rgb[0]},${rgb[1]},${rgb[2]})`;
+            ctx.fillRect(0, 0, size, size);
+            ctx.globalCompositeOperation = 'source-over';
+            ctx.shadowColor = `rgba(${rgb[0]},${rgb[1]},${rgb[2]},0.9)`;
+            ctx.shadowBlur = 8;
+            ctx.drawImage(canvas, 0, 0);
+            ctx.shadowBlur = 0;
 
             const tex = new THREE.CanvasTexture(canvas);
             tex.needsUpdate = true;
@@ -1508,7 +1573,7 @@
             const counts = { '商':0, '西周':0, '春秋':0, '戰國':0, '未标注':0 };
             for (const s of surnameSprites) counts[periodLabelOf(s.userData.period)]++;
             const max = Math.max(1, ...Object.values(counts));
-            const colors = { '商':'#ffb060', '西周':'#f4d58a', '春秋':'#dce196', '戰國':'#aadcaa', '未标注':'#8a8070' };
+            const colors = { '商':'#e09660', '西周':'#e8c47c', '春秋':'#f0daa8', '戰國':'#ded8c8', '未标注':'#8a8070' };
             const el = document.getElementById('timeline');
             el.innerHTML = order.map(k => {
                 const w = Math.round(counts[k] / max * 100);
