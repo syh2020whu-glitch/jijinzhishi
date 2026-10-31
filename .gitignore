@@ -21,3 +21,5 @@ md_to_html.py
 
 dist/
 assets/cases/
+# 教材等受版权保护的参考文本，只在本机阅读
+参考资料/

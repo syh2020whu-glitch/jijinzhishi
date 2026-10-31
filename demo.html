@@ -4413,23 +4413,38 @@
             const nums = [cat.jicheng ? '集成 ' + cat.jicheng : '', cat.mingtu ? '銘圖 ' + cat.mingtu : ''].filter(Boolean).join(' · ');
             return (plainTitle(cat.title) || cs.id || '驗證集拓片') + (cat.period ? ' · ' + cat.period : '') + (nums ? ' · ' + nums : '');
         }
-        // 目錄釋文對照：kept 且未刪的框按把握從高到低，各去釋文裡佔一個還沒被佔的字位（原形或通讀相同都算）。
-        // 每次重繪都重算，所以學者在右欄改字後，相合數會跟着變。
-        // 私用區，以及《中華字庫》用來編造字的第 4–15 平面（Unicode 未分配，任何字體都畫不出來）
-        function isPuaChar(ch) { const cp = ch ? ch.codePointAt(0) : 0; return cp >= 0xE000 && cp <= 0xF8FF || cp >= 0x40000; }
-        // 器名裡的私用區造字在任何字體下都是空白，換成 □
+        // 目錄釋文對照：kept 且未刪的框按把握從高到低，各去釋文裡佔一個還沒被佔的字位（原字、隸定、正字、讀為任一相同都算）。
+        // 每次重繪都重算，所以學者在右欄改字後，相合數會跟着變。字位由 tools/catalog_slots.py 切分。
+        // 私用區、《中華字庫》用來編造字的第 4–16 平面（Unicode 未分配），以及被抽成韓文音節碼位的造字，任何字體都畫不出來
+        function isPuaChar(ch) {
+            const cp = ch ? ch.codePointAt(0) : 0;
+            return cp >= 0xE000 && cp <= 0xF8FF || cp >= 0xAC00 && cp <= 0xD7AF || cp >= 0x40000;
+        }
+        // 器名裡的造字在任何字體下都是空白或亂碼，換成 □
         function plainTitle(s) { return [...String(s || '')].map(ch => isPuaChar(ch) ? '□' : ch).join(''); }
-        function slotGlyph(s) { return !isPuaChar(s.orig) ? s.orig : (!isPuaChar(s.read) ? s.read : '□'); }
+        function shownChars(s) { return s && ![...s].some(isPuaChar); }
+        // 造字顯示不出來時，先用隸定字，再用讀為字
+        function slotGlyph(s) { return [s.orig, s.li, s.zheng, s.read].find(shownChars) || '□'; }
+        function slotChars(s) { return [s.orig, s.li, s.zheng, s.read].filter(Boolean); }
+        function slotTip(s) {
+            const parts = [];
+            if (s.li && s.li !== s.orig) parts.push('隸定 ' + (shownChars(s.li) ? s.li : '□'));
+            if (s.zheng) parts.push('正字 ' + (shownChars(s.zheng) ? s.zheng : '□'));
+            if (s.he) parts.push('合文 ' + (shownChars(s.he) ? s.he : '□'));
+            if (s.read && s.read !== s.orig && s.read !== s.li && s.read !== s.zheng) parts.push('讀為 ' + (shownChars(s.read) ? s.read : '□'));
+            if (s.sup) parts.push('目錄補出的字');
+            return parts.join('；');
+        }
         function matchCaseSlots(slots, dets) {
             const used = slots.map(() => false);
             const hitDet = new Set();
             dets.filter(d => d.kept).slice().sort((a, b) => b.confidence - a.confidence).forEach(d => {
-                const i = slots.findIndex((s, k) => !used[k] && (d.text === s.orig || d.text === s.read));
+                const i = slots.findIndex((s, k) => !used[k] && slotChars(s).includes(d.text));
                 if (i >= 0) { used[i] = true; hitDet.add(d); }
             });
             const cand = new Set();
             dets.forEach(d => (d.top5 || []).forEach(t => cand.add(t.text)));
-            const cover = slots.map(s => cand.has(s.orig) || cand.has(s.read));
+            const cover = slots.map(s => slotChars(s).some(c => cand.has(c)));
             return { used, hitDet, cover, hits: used.filter(Boolean).length, covered: cover.filter(Boolean).length };
         }
         function caseCompareHtml(cs, m) {
@@ -4437,8 +4452,8 @@
             if (!slots.length) return '';
             const glyphs = slots.map((s, i) => {
                 const cls = m.used[i] ? 'hit' : (m.cover[i] ? 'cand' : '');
-                const tip = s.read !== s.orig ? ' title="讀作 ' + s.read + '"' : '';
-                return '<i class="' + cls + '"' + tip + '>' + slotGlyph(s) + '</i>';
+                const t = slotTip(s);
+                return '<i class="' + cls + '"' + (t ? ' title="' + t + '"' : '') + '>' + slotGlyph(s) + '</i>';
             }).join('');
             const cat = cs.catalog || {};
             return '<div class="case-cmp"><h4>《中華字庫》目錄釋文 · ' + (cat.volume || '') + '</h4>'
