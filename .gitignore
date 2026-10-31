@@ -18,3 +18,5 @@ download_*.py
 enrich_index.py
 find_more.py
 md_to_html.py
+
+dist/

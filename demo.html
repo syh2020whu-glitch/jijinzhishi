@@ -2452,7 +2452,7 @@
             gu: '飲酒成禮 · 永寶用享'
         };
         function vesselArt(key) {
-            return 'assets/vessels/' + key + '.png';
+            return 'assets/vessels/' + key + '.webp';
         }
         function renderVesselRite() {
             const el = document.getElementById('vesselRite');
@@ -2702,8 +2702,9 @@
                 const out = [], seen = {};
                 const src = '宅茲中國吉金' + (typeof BAIJIA === 'string' ? BAIJIA : '王日月馬魚子保永天年');
                 for (let i = 0; i < src.length && out.length < n; i++) {
-                    const ch = src[i];
-                    if (seen[ch]) continue;
+                    // 字表已載入時只取金文裡真有的字（百家姓有 166 個不見於金文），避免碎圖
+                    const ch = jinwenIndex ? resolveJinwen(jinwenIndex, src[i]) : src[i];
+                    if (!ch || seen[ch]) continue;
                     seen[ch] = 1;
                     out.push(ch);
                 }
@@ -2749,6 +2750,14 @@
                     dots.push({ r: r, th: th, s: 0.6 + Math.random() * 1.2, gold: Math.random() > 0.3 });
                 }
                 if (glyphRoot && !glyphs.length) {
+                    // 等字表到了再挑字，免得先把百家姓裡金文沒有的字請求一遍（一串 404）
+                    if (jinwenIndex) buildGlyphs();
+                    else getIndex().then(buildGlyphs, buildGlyphs);
+                }
+            }
+            function buildGlyphs() {
+                if (!glyphRoot || glyphs.length) return;
+                {
                     const pts = zunTargets();
                     const chars = pickChars(pts.length);
                     glyphRoot.innerHTML = chars.map(function (ch, i) {
@@ -2760,7 +2769,7 @@
                             zx: pts[i].zx,
                             zz: pts[i].zz
                         });
-                        return '<img src="./jinwen_svg/' + encodeURIComponent(ch) + '.svg" alt="">';
+                        return '<img src="./jinwen_svg/' + encodeURIComponent(ch) + '.svg" alt="" onerror="this.style.visibility=\'hidden\'">';
                     }).join('');
                 }
             }
@@ -2914,8 +2923,11 @@
                 work.classList.toggle('is-search', tab === 'search');
                 work.classList.toggle('is-rec', tab === 'rec');
                 if (tab !== 'search') work.classList.remove('lib-focus');
-                if (tab === 'rec' && ocrBackendStatus === 'unknown') checkOCRHealth();
-                if (tab === 'search') runWorkSearch(parseHash().q);
+                // 直接打開 #/work 時首次 applyRoute 跑在識圖/字庫狀態聲明之前（TDZ），推遲到腳本跑完
+                setTimeout(() => {
+                    if (tab === 'rec' && ocrBackendStatus === 'unknown') checkOCRHealth();
+                    if (tab === 'search') runWorkSearch(parseHash().q);
+                }, 0);
             }
         }
         function applyRoute({ view, q, tab }) {
@@ -2949,7 +2961,7 @@
             if (view === 'learn' && t === 'wall' && q) seekWall(q);
             if (view === 'learn' && t === 'lookup' && q) runLookup(q, true);
             if (view === 'play' && t === 'ritual' && q) seedBlessFromDict(q);
-            if (view === 'work' && (t === 'search' || (!tab && q)) && q) runWorkSearch(q);
+            if (view === 'work' && (t === 'search' || (!tab && q)) && q) setTimeout(() => runWorkSearch(q), 0);
         }
         window.addEventListener('hashchange', () => applyRoute(parseHash()));
         try { applyRoute(parseHash()); } catch (e) { console.error('[applyRoute]', e); }
@@ -4012,8 +4024,9 @@
         }
         try {
             renderVesselPicker();
-            getVesselStamp('ding');
         } catch (e) { console.error('[ritual boot]', e); }
+        // VESSEL_STAMP 在下文才聲明，預熱推到本腳本跑完之後，否則 TDZ 報錯
+        setTimeout(() => { try { getVesselStamp('ding'); } catch (e) { console.error('[ritual boot]', e); } }, 0);
         function renderBlessChips() {
             const rec = new Set(ritualRecChars());
             const extra = [...pickedBless].filter(ch => !BLESS_CHARS.includes(ch));
@@ -4248,64 +4261,86 @@
                 return u.hostname === 'localhost' || u.hostname === '127.0.0.1';
             } catch (e) { return false; }
         }
+        // 識圖後端候選地址：並行探測 /health，按順序取第一個活著的。
+        // 固定域名放第一位，臨時 trycloudflare 隧道放後面。GitHub Pages 上讀不到 ocr-endpoint.json
+        //（已 gitignore），所以線上版靠這個列表；換地址時改這裡 + ocr-endpoint.json 兩處即可。
+        const OCR_ENDPOINT_FALLBACKS = [
+            // TODO 固定域名就緒後填在第一位，例如 'https://ocr.example.com'
+            'https://full-ontario-colour-pressed.trycloudflare.com'
+        ];
+        const STALE_OCR_HOSTS = [/findlaw-naturals-wax-regardless\.trycloudflare\.com$/i];
         function isStaleOcrHost(url) {
             try {
-                return /findlaw-naturals-wax-regardless\.trycloudflare\.com$/i.test(new URL(url, location.href).hostname);
+                const h = new URL(url, location.href).hostname;
+                return STALE_OCR_HOSTS.some(re => re.test(h));
             } catch (e) { return false; }
         }
-        function defaultOcrEndpoint() {
+        function cleanEndpoint(u) { return String(u || '').trim().replace(/\/$/, ''); }
+        function pinnedOcrEndpoint() {
             const q = new URLSearchParams(location.search).get('ocr');
-            if (q && !isStaleOcrHost(q)) return q;
+            if (q && !isStaleOcrHost(q)) return cleanEndpoint(q);
             const saved = localStorage.getItem('ocrEndpoint');
             if (saved && isStaleOcrHost(saved)) localStorage.removeItem('ocrEndpoint');
             // 本地静态页的 localhost:8000 不是识图 API，不能盖住 ocr-endpoint.json
-            if (saved && !isLocalOcrHost(saved) && !isStaleOcrHost(saved)) return saved;
+            if (saved && !isLocalOcrHost(saved) && !isStaleOcrHost(saved)) return cleanEndpoint(saved);
             return '';
         }
         const OCR_CONFIG = {
-            endpoint: defaultOcrEndpoint(),
-            healthTimeout: 8000, inferTimeout: 90000
+            endpoint: pinnedOcrEndpoint(),
+            candidates: null,
+            healthTimeout: 5000, inferTimeout: 90000
         };
-        async function resolveOcrEndpoint() {
-            if (OCR_CONFIG.endpoint) return OCR_CONFIG.endpoint;
+        async function ocrCandidates() {
+            if (OCR_CONFIG.candidates) return OCR_CONFIG.candidates;
+            const list = [];
+            const push = (u) => { u = cleanEndpoint(u); if (u && !isStaleOcrHost(u) && !list.includes(u)) list.push(u); };
+            push(OCR_CONFIG.endpoint);
             try {
                 const r = await fetch('ocr-endpoint.json', { cache: 'no-store' });
                 if (r.ok) {
                     const j = await r.json();
-                    if (j && j.endpoint && !isStaleOcrHost(j.endpoint)) {
-                        OCR_CONFIG.endpoint = String(j.endpoint).replace(/\/$/, '');
-                        return OCR_CONFIG.endpoint;
-                    }
+                    push(j && j.endpoint);
+                    ((j && j.fallbacks) || []).forEach(push);
                 }
             } catch (e) {}
-            if (/github\.io$/i.test(location.hostname)) {
-                OCR_CONFIG.endpoint = 'https://full-ontario-colour-pressed.trycloudflare.com';
-                return OCR_CONFIG.endpoint;
-            }
-            OCR_CONFIG.endpoint = 'http://localhost:8000';
-            return OCR_CONFIG.endpoint;
+            OCR_ENDPOINT_FALLBACKS.forEach(push);
+            push('http://localhost:8000');
+            OCR_CONFIG.candidates = list;
+            return list;
+        }
+        async function probeHealth(base) {
+            const ctrl = new AbortController();
+            const timer = setTimeout(() => ctrl.abort(), OCR_CONFIG.healthTimeout);
+            try {
+                const r = await fetch(base + '/health', { signal: ctrl.signal, cache: 'no-store' });
+                const j = await r.json();
+                return !!(j && j.model_loaded);
+            } catch (e) { return false; }
+            finally { clearTimeout(timer); }
         }
         let ocrBackendStatus = 'unknown';
-        let ocrState = { detections: [], imageUrl: '', meta: null, sourceLabel: '', quality: null };
+        let ocrState = { detections: [], imageUrl: '', meta: null, sourceLabel: '', quality: null, notice: '', caseRef: null };
         function updateOCRBadge(text, cls) {
             const b = document.getElementById('ocrBadge');
             if (!b) return;
             if (text != null) { b.textContent = text; b.className = 'ocr-badge ' + (cls || ''); return; }
-            if (ocrBackendStatus === 'ok') { b.textContent = '後端已連接 · RF-DETR + ResNet50'; b.className = 'ocr-badge ok'; }
-            else if (ocrBackendStatus === 'down') { b.textContent = '示範模式 · 後端未連接'; b.className = 'ocr-badge off'; }
-            else { b.textContent = '檢測後端…'; b.className = 'ocr-badge'; }
+            if (ocrBackendStatus === 'ok') {
+                b.textContent = '後端已連接 · RF-DETR + ResNet50';
+                b.className = 'ocr-badge ok';
+                b.title = OCR_CONFIG.endpoint;
+            } else if (ocrBackendStatus === 'down') {
+                b.textContent = '後端未連接 · 僅看預存案例';
+                b.className = 'ocr-badge off';
+                b.title = '已探測：' + (OCR_CONFIG.candidates || []).join('\n');
+            } else { b.textContent = '檢測後端…'; b.className = 'ocr-badge'; }
         }
         async function checkOCRHealth() {
             updateOCRBadge('檢測後端…');
-            await resolveOcrEndpoint();
-            try {
-                const ctrl = new AbortController();
-                const timer = setTimeout(() => ctrl.abort(), OCR_CONFIG.healthTimeout);
-                const r = await fetch(ocrUrl('/health'), { signal: ctrl.signal });
-                clearTimeout(timer);
-                const j = await r.json();
-                ocrBackendStatus = (j && j.model_loaded) ? 'ok' : 'down';
-            } catch (e) { ocrBackendStatus = 'down'; }
+            const list = await ocrCandidates();
+            const alive = await Promise.all(list.map(probeHealth));
+            const hit = alive.indexOf(true);
+            if (hit >= 0) { OCR_CONFIG.endpoint = list[hit]; ocrBackendStatus = 'ok'; }
+            else { ocrBackendStatus = 'down'; if (!OCR_CONFIG.endpoint) OCR_CONFIG.endpoint = list[0] || 'http://localhost:8000'; }
             updateOCRBadge();
             return ocrBackendStatus === 'ok';
         }
@@ -4326,48 +4361,42 @@
                 return await r.json();
             } finally { clearTimeout(timer); }
         }
-        async function makeDemoRubbing(chars) {
-            const c = document.createElement('canvas');
-            c.width = 800; c.height = 280;
-            const x = c.getContext('2d');
-            x.fillStyle = '#d9d0bc'; x.fillRect(0, 0, 800, 280);
-            for (let i = 0; i < chars.length; i++) {
-                try {
-                    const img = await loadImg(svg(chars[i]));
-                    x.drawImage(img, 40 + i * 180, 40, 160, 160);
-                } catch (e) {}
-            }
-            return await new Promise(res => c.toBlob(res, 'image/png'));
-        }
-        async function mockRecognize(file) {
-            const idx = await getIndex();
-            let chars, base;
-            if (!file) {
-                chars = ['宅', '茲', '中', '國'];
-                base = [0.91, 0.84, 0.88, 0.42];
-            } else {
-                let s = (file.size || 1) >>> 0;
-                const keys = Object.keys(idx); chars = [];
-                while (chars.length < 5 && keys.length) {
-                    s = (s * 1103515245 + 12345) >>> 0;
-                    const k = keys[s % keys.length];
-                    if (!chars.includes(k)) chars.push(k);
+        // 預存案例：assets/cases/cases.json 由 tools/export_cases.py 在服務器上生成
+        //（驗證集拓片 + 模型真實輸出 + 《中華字庫》目錄釋文）。沒有這個文件就沒有 Demo，不編造結果。
+        let caseLibrary = null, caseLibraryTried = false;
+        async function loadCaseLibrary() {
+            if (caseLibraryTried) return caseLibrary;
+            caseLibraryTried = true;
+            try {
+                const r = await fetch('./assets/cases/cases.json', { cache: 'no-store' });
+                if (r.ok) {
+                    const j = await r.json();
+                    if (j && Array.isArray(j.cases) && j.cases.length) caseLibrary = j;
                 }
-                base = [0.87, 0.71, 0.55, 0.42, 0.31];
-            }
-            const detections = chars.map((ch, i) => {
-                const conf = Math.max(0.05, base[i]);
-                const alts = similarChars(idx, ch, 3);
-                const top5 = [{ text: ch, score: conf }].concat(alts.map((a, j) => ({ text: a, score: Math.max(0.03, 0.18 - j * 0.05) })));
-                return {
-                    bbox: file ? [20 + i * 90, 20, 80, 80] : [40 + i * 180, 40, 160, 160],
-                    text: ch, confidence: conf, kept: conf >= 0.5, top5, deleted: false
-                };
-            });
+            } catch (e) {}
+            return caseLibrary;
+        }
+        function caseDetections(cs) {
+            return (cs.pred || []).map(p => ({
+                bbox: p.bbox,
+                text: p.text || '',
+                confidence: Number(p.rec_conf != null ? p.rec_conf : (p.det_conf || 0)),
+                kept: p.kept === true,
+                deleted: false,
+                top5: (p.top5 || []).map(t => Array.isArray(t) ? { text: t[0], score: Number(t[1] || 0) } : t)
+            }));
+        }
+        function caseLabel(cs) {
+            const cat = cs.catalog || {};
+            const nums = [cat.jicheng ? '集成 ' + cat.jicheng : '', cat.mingtu ? '銘圖 ' + cat.mingtu : ''].filter(Boolean).join(' · ');
+            return (cat.title || cs.id || '驗證集拓片') + (cat.period ? ' · ' + cat.period : '') + (nums ? ' · ' + nums : '');
+        }
+        function caseResult(cs, prefix) {
             return {
-                source: 'mock',
-                sourceLabel: file ? '已接收圖像 · 示範數據' : 'Demo · 何尊銘文 · 宅兹中國',
-                detections, meta: { f1: 0.2441, precision: 0.2705, recall: 0.2224 }
+                source: 'case',
+                sourceLabel: (prefix || '預存結果') + ' · ' + caseLabel(cs) + ' · 訓練時未見',
+                detections: caseDetections(cs),
+                meta: cs.stats || null
             };
         }
         function assessImageFile(file) {
@@ -4506,7 +4535,14 @@
                     try { return normalizeReal(await callRealOCR(file), file); }
                     catch (e) { ocrBackendStatus = 'down'; updateOCRBadge(); }
                 }
-                return mockRecognize(file);
+                // 後端不在：只展示上傳的圖，不給任何框。台上寧可空着，也不能把假字當結果。
+                return {
+                    source: 'offline',
+                    sourceLabel: '後端未連接 · 此圖未識別',
+                    detections: [],
+                    meta: null,
+                    notice: '識圖後端未連接，這張圖沒有識別。點「Demo」看預存的真實識別結果，或點「後端」填入地址後重試。'
+                };
             }
         };
         function liveDets() { return ocrState.detections.filter(d => !d.deleted); }
@@ -4552,6 +4588,7 @@
                 });
             }
             stage.innerHTML = qualityHtml(ocrState.quality)
+                + (ocrState.notice ? '<div class="ocr-quality warn"><b>' + ocrState.notice + '</b></div>' : '')
                 + '<div class="ocr-canvas-wrap" id="ocrWrap">'
                 + '<div class="ocr-stack"><img id="ocrSrcImg" src="' + ocrState.imageUrl + '" alt=""><canvas id="ocrOverlay"></canvas></div>'
                 + '<p class="ocr-cap">' + ocrState.sourceLabel + ' · 初稿 ' + kept.length + ' · 標疑 ' + dets.filter(d => !d.kept).length + '</p>'
@@ -4569,7 +4606,9 @@
                     + '<button class="tiny" type="button" data-lookup="' + realIdx + '">查字</button>'
                     + '<button class="tiny" type="button" data-del="' + realIdx + '">刪框</button>'
                     + '</div></div>';
-            }).join('') || '<p class="sub">框已全部刪除。</p>';
+            }).join('') || (ocrState.detections.length
+                ? '<p class="sub">框已全部刪除。</p>'
+                : '<p class="sub">' + (ocrState.notice ? '這張圖沒有識別結果。' : '未檢出字框。') + '</p>');
             const img = document.getElementById('ocrSrcImg');
             if (img.complete && img.naturalWidth) drawOcrOverlay(); else img.onload = drawOcrOverlay;
             const zoomBtn = document.getElementById('ocrZoom');
@@ -4632,16 +4671,47 @@
             downloadText('銘見全部.json', JSON.stringify({
                 sourceLabel: ocrState.sourceLabel,
                 quality: ocrState.quality,
-                metric: { f1: 0.2441, precision: 0.2705, recall: 0.2224 },
+                metric: ocrState.meta || null,
+                caseId: ocrState.caseRef ? ocrState.caseRef.id : undefined,
                 detections: ocrState.detections
             }, null, 2), 'application/json');
         };
+        // Demo = 輪流載入預存案例。後端在線時把同一張真拓片送去現場識別，離線時顯示預存結果。
+        let demoCaseIdx = 0;
+        async function runDemoCase() {
+            const lib = await loadCaseLibrary();
+            if (!lib) {
+                document.getElementById('ocrList').innerHTML =
+                    '<p class="sub">預存案例尚未生成（缺 assets/cases/cases.json，見 tools/README-cases.md）。請直接上傳拓片。</p>';
+                return;
+            }
+            const cs = lib.cases[demoCaseIdx % lib.cases.length];
+            demoCaseIdx++;
+            if (ocrBackendStatus === 'unknown') await checkOCRHealth();
+            let out = null;
+            if (ocrBackendStatus === 'ok') {
+                try {
+                    const blob = await (await fetch(cs.image)).blob();
+                    const f = new File([blob], (cs.stem || cs.id) + '.webp', { type: blob.type || 'image/webp' });
+                    out = normalizeReal(await callRealOCR(f), f);
+                    out.sourceLabel = '現場識別 · ' + caseLabel(cs) + ' · 訓練時未見';
+                } catch (e) { ocrBackendStatus = 'down'; updateOCRBadge(); }
+            }
+            if (!out) out = caseResult(cs, '離線 · 預存結果');
+            ocrState = {
+                detections: out.detections || [],
+                imageUrl: cs.image,
+                meta: out.meta,
+                sourceLabel: out.sourceLabel,
+                quality: null,
+                notice: '',
+                caseRef: cs
+            };
+            renderWorkbench();
+        }
         async function runRecognition(file) {
             document.getElementById('ocrList').innerHTML = '<p class="sub">識別中……</p>';
-            if (!file) {
-                const demoBlob = await makeDemoRubbing(['宅', '茲', '中', '國']);
-                file = new File([demoBlob], 'demo-宅兹中國.png', { type: 'image/png' });
-            }
+            if (!file) return runDemoCase();
             let quality = null;
             if (file) {
                 quality = await assessImageFile(file);
@@ -4662,7 +4732,9 @@
                 imageUrl: URL.createObjectURL(blob),
                 meta: out.meta,
                 sourceLabel: out.sourceLabel,
-                quality
+                quality,
+                notice: out.notice || '',
+                caseRef: null
             };
             renderWorkbench();
         }
@@ -4672,7 +4744,8 @@
             const next = prompt('OCR 後端地址（留空恢復默認）', OCR_CONFIG.endpoint);
             if (next == null) return;
             const trimmed = next.trim().replace(/\/$/, '');
-            OCR_CONFIG.endpoint = trimmed || 'http://localhost:8000';
+            OCR_CONFIG.endpoint = trimmed;
+            OCR_CONFIG.candidates = null;
             if (trimmed) localStorage.setItem('ocrEndpoint', OCR_CONFIG.endpoint);
             else localStorage.removeItem('ocrEndpoint');
             ocrBackendStatus = 'unknown';

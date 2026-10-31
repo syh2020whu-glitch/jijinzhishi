@@ -637,12 +637,30 @@
             camera.position.set(0, 220, 700);
         }
 
-        const renderer = new THREE.WebGLRenderer({
-            canvas: document.getElementById('canvas'),
-            antialias: !isPhoneGalaxy,
-            alpha: true,
-            powerPreference: isPhoneGalaxy ? 'low-power' : 'default'
-        });
+        // WebGL 不可用（虛擬機、遠程桌面、老顯卡）時：通知外層 demo.html 切 lite，單開時給提示，不再白屏。
+        function reportWebglFail(err) {
+            try { if (window.parent !== window) window.parent.postMessage({ type: 'webgl-fail' }, '*'); } catch (e) {}
+            const note = document.createElement('div');
+            note.style.cssText = 'position:fixed;inset:0;display:flex;align-items:center;justify-content:center;'
+                + 'background:#16130f;color:#d9d0bc;font:16px/1.9 serif;text-align:center;padding:24px;z-index:9';
+            note.innerHTML = '此設備不支持 WebGL，星河無法繪製。<br>請改用 Chrome / Edge，或打開 demo.html 使用其他板塊。';
+            document.body.appendChild(note);
+            console.warn('WebGL unavailable', err);
+        }
+        let renderer;
+        try {
+            const probe = document.createElement('canvas');
+            if (!(probe.getContext('webgl2') || probe.getContext('webgl'))) throw new Error('WebGL context unavailable');
+            renderer = new THREE.WebGLRenderer({
+                canvas: document.getElementById('canvas'),
+                antialias: !isPhoneGalaxy,
+                alpha: true,
+                powerPreference: isPhoneGalaxy ? 'low-power' : 'default'
+            });
+        } catch (err) {
+            reportWebglFail(err);
+            throw err;
+        }
         renderer.setSize(window.innerWidth, window.innerHeight);
         renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, isPhoneGalaxy ? 1 : 2));
         renderer.setClearColor(0x16130f, 1);

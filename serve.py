@@ -4,7 +4,7 @@
 from http.server import SimpleHTTPRequestHandler, ThreadingHTTPServer
 
 HOST = "127.0.0.1"
-PORT = 8000
+PORT = 8080  # 8000 留給本機自建的識圖後端（api_server.py），避免撞口
 
 
 class Handler(SimpleHTTPRequestHandler):
