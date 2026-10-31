@@ -57,7 +57,8 @@ def collect() -> list[Path]:
         if not p.exists():
             print(f"  [跳过] 缺目录 {d}", file=sys.stderr)
             continue
-        files += [f for f in p.rglob("*") if f.is_file() and f.name not in {"Thumbs.db", ".DS_Store"}]
+        # zhjwd_catalog.csv 是做案例用的中间数据（3.8MB），网站运行时不读
+        files += [f for f in p.rglob("*") if f.is_file() and f.name not in {"Thumbs.db", ".DS_Store", "zhjwd_catalog.csv"}]
     for f in INCLUDE_FILES:
         p = ROOT / f
         if p.exists():
