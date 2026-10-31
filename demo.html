@@ -4411,11 +4411,14 @@
         function caseLabel(cs) {
             const cat = cs.catalog || {};
             const nums = [cat.jicheng ? '集成 ' + cat.jicheng : '', cat.mingtu ? '銘圖 ' + cat.mingtu : ''].filter(Boolean).join(' · ');
-            return (cat.title || cs.id || '驗證集拓片') + (cat.period ? ' · ' + cat.period : '') + (nums ? ' · ' + nums : '');
+            return (plainTitle(cat.title) || cs.id || '驗證集拓片') + (cat.period ? ' · ' + cat.period : '') + (nums ? ' · ' + nums : '');
         }
         // 目錄釋文對照：kept 且未刪的框按把握從高到低，各去釋文裡佔一個還沒被佔的字位（原形或通讀相同都算）。
         // 每次重繪都重算，所以學者在右欄改字後，相合數會跟着變。
-        function isPuaChar(ch) { const cp = ch ? ch.codePointAt(0) : 0; return cp >= 0xE000 && cp <= 0xF8FF || cp >= 0xF0000; }
+        // 私用區，以及《中華字庫》用來編造字的第 4–15 平面（Unicode 未分配，任何字體都畫不出來）
+        function isPuaChar(ch) { const cp = ch ? ch.codePointAt(0) : 0; return cp >= 0xE000 && cp <= 0xF8FF || cp >= 0x40000; }
+        // 器名裡的私用區造字在任何字體下都是空白，換成 □
+        function plainTitle(s) { return [...String(s || '')].map(ch => isPuaChar(ch) ? '□' : ch).join(''); }
         function slotGlyph(s) { return !isPuaChar(s.orig) ? s.orig : (!isPuaChar(s.read) ? s.read : '□'); }
         function matchCaseSlots(slots, dets) {
             const used = slots.map(() => false);
@@ -4448,7 +4451,7 @@
             const cst = cs.catalog_stats;
             const line = [cat.period || cat.volume || '', cst ? '釋文 ' + cst.slots + ' 字 · 相合 ' + cst.hit : ''].filter(Boolean).join(' · ');
             return '<button class="case-card" type="button" data-case="' + i + '">'
-                + '<img src="' + cs.image + '" alt="" loading="lazy"><b>' + (cat.title || cs.id) + '</b><span>' + line + '</span></button>';
+                + '<img src="' + cs.image + '" alt="" loading="lazy"><b>' + (plainTitle(cat.title) || cs.id) + '</b><span>' + line + '</span></button>';
         }
         function caseWallHtml(lib) {
             return '<div class="case-head"><b>預存案例 · ' + lib.cases.length + ' 張驗證集拓片</b><br>'
