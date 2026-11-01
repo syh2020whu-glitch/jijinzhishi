@@ -1204,6 +1204,81 @@
         .case-cmp .slots i.cand { color: var(--ink); border-bottom: 1px dashed var(--gold-box); }
         .case-cmp .sub { margin: 6px 0 0; font-size: 12px; }
         .ocr-box-item .hit-mark { color: #2d5a2d; letter-spacing: 0; }
+        .ocr-box-item .ks-mark { color: var(--bronze); letter-spacing: 0; }
+        .ocr-box-item .alt { border: 0; background: none; padding: 0 2px; color: inherit; cursor: pointer; font: inherit; border-bottom: 1px dotted currentColor; }
+        .ocr-box-item .alt:hover { color: var(--bronze); }
+        .case-cmp h4 .tiny { float: right; letter-spacing: 0; padding: 1px 6px; }
+        /* 考釋助手面板：選中字框後出現在右欄頂部 */
+        @media (min-width: 1100px) { .workbench { grid-template-columns: minmax(0, 1fr) 420px; } }
+        @media (min-width: 721px) and (max-width: 1099px) { .workbench { grid-template-columns: minmax(0, 1fr) 340px; } }
+        .ks-hint { font-size: 12px; color: var(--ink-dim); margin: 0 0 10px; letter-spacing: 1px; }
+        .ks-panel { border: 1px solid var(--line); background: #fffdf8; margin: 0 0 12px; font-size: 13px; }
+        .ks-head { display: flex; align-items: center; gap: 8px; padding: 8px 10px; border-bottom: 1px solid var(--line); }
+        .ks-head b { font-size: 22px; font-weight: normal; min-width: 1.2em; text-align: center; }
+        .ks-head .sub { margin: 0; flex: 1; font-size: 12px; }
+        .ks-nb { padding: 6px 10px; font-size: 12px; color: var(--ink-dim); border-bottom: 1px solid var(--line); letter-spacing: 1px; }
+        .ks-nb span { display: inline-block; min-width: 1.6em; text-align: center; font-size: 16px; color: var(--ink); }
+        .ks-nb span.q { color: var(--gray-box); }
+        .ks-nb span.me { color: var(--bronze); }
+        .ks-tabs { display: flex; border-bottom: 1px solid var(--line); }
+        .ks-tabs button { flex: 1; border: 0; background: none; padding: 7px 0; cursor: pointer; font: inherit; font-size: 13px; letter-spacing: 1px; color: var(--ink-dim); border-bottom: 2px solid transparent; }
+        .ks-tabs button.on { color: var(--bronze); border-bottom-color: var(--bronze); }
+        .ks-body { padding: 10px; }
+        .ks-body .note { font-size: 11px; color: var(--ink-dim); line-height: 1.6; margin: 8px 0 0; }
+        .ks-seg { display: inline-flex; border: 1px solid var(--line); margin: 0 6px 8px 0; }
+        .ks-seg button { border: 0; background: none; padding: 3px 8px; cursor: pointer; font: inherit; font-size: 12px; color: var(--ink-dim); }
+        .ks-seg button.on { background: var(--bronze); color: #fffdf8; }
+        .ks-levels { display: flex; flex-wrap: wrap; gap: 4px; margin: 0 0 8px; }
+        .ks-levels span { font-size: 11px; padding: 1px 6px; border: 1px solid var(--line); color: var(--ink-dim); }
+        .ks-levels span.on { border-color: var(--bronze); color: var(--bronze); }
+        .ks-query { font-size: 18px; letter-spacing: 4px; margin: 0 0 8px; }
+        .ks-group { border-top: 1px solid var(--line); padding: 8px 0 4px; }
+        .ks-group-top { display: flex; align-items: baseline; gap: 8px; flex-wrap: wrap; }
+        .ks-group-top b { font-size: 22px; font-weight: normal; }
+        .ks-group-top em, .ks-tag { font-style: normal; font-size: 11px; padding: 0 5px; border: 1px solid var(--line); color: var(--ink-dim); }
+        .ks-group ol { margin: 4px 0 0; padding-left: 18px; font-size: 12px; line-height: 1.7; color: var(--ink-dim); }
+        .ks-group mark { background: rgba(196,160,53,.35); color: inherit; padding: 0 1px; }
+        .ks-pair { width: 100%; border-collapse: collapse; font-size: 13px; }
+        .ks-pair th, .ks-pair td { border-bottom: 1px solid var(--line); padding: 5px 4px; text-align: left; }
+        .ks-pair th { font-weight: normal; font-size: 11px; color: var(--ink-dim); }
+        .ks-pair td:first-child { font-size: 18px; }
+        .ks-pair .same { color: var(--bronze); }
+        .ks-crop { display: block; max-width: 120px; max-height: 120px; background: #0f0d0a; margin: 0 0 8px; }
+        .ks-cand { border-top: 1px solid var(--line); padding: 6px 0; }
+        .ks-cand-top { display: flex; gap: 8px; align-items: baseline; }
+        .ks-cand-top b { font-size: 20px; font-weight: normal; }
+        .ks-imgs { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 4px; }
+        .ks-imgs figure { margin: 0; width: 76px; }
+        .ks-imgs img { width: 76px; height: 76px; object-fit: contain; background: #0f0d0a; display: block; }
+        .ks-imgs figcaption { font-size: 10px; line-height: 1.3; color: var(--ink-dim); margin-top: 2px; word-break: break-all; }
+        .ks-form label { display: inline-flex; align-items: center; gap: 4px; margin: 0 10px 6px 0; font-size: 13px; }
+        .ks-form .row2 { display: grid; grid-template-columns: 1fr auto; gap: 6px; align-items: center; margin: 0 0 6px; }
+        .ks-form select, .ks-form input[type=text], .ks-form textarea { font: inherit; font-size: 12px; border: 1px solid var(--line); background: #fffdf8; padding: 3px 5px; }
+        .ks-form textarea { width: 100%; min-height: 48px; }
+        .ks-form .final { width: 56px; font-size: 18px; text-align: center; }
+        .ks-msg { font-size: 12px; color: var(--cinnabar); margin: 6px 0 0; }
+        .ks-yin { border-top: 1px dashed var(--line); margin-top: 10px; padding-top: 8px; font-size: 12px; line-height: 1.7; }
+        html.neo #view-work .ks-panel { background: #2a241c; border-color: rgba(237,227,207,.12); color: #ede3cf; }
+        html.neo #view-work .ks-head, html.neo #view-work .ks-nb, html.neo #view-work .ks-tabs,
+        html.neo #view-work .ks-group, html.neo #view-work .ks-cand, html.neo #view-work .ks-pair th,
+        html.neo #view-work .ks-pair td, html.neo #view-work .ks-yin { border-color: rgba(237,227,207,.1); }
+        html.neo #view-work .ks-nb span, html.neo #view-work .ks-head b { color: #ede3cf; }
+        html.neo #view-work .ks-nb span.me, html.neo #view-work .ks-tabs button.on, html.neo #view-work .ks-pair .same,
+        html.neo #view-work .ks-levels span.on, html.neo #view-work .ocr-box-item .ks-mark { color: #c9a15b; border-color: #c9a15b; }
+        html.neo #view-work .ks-nb, html.neo #view-work .ks-tabs button, html.neo #view-work .ks-body .note,
+        html.neo #view-work .ks-group ol, html.neo #view-work .ks-imgs figcaption, html.neo #view-work .ks-pair th,
+        html.neo #view-work .ks-levels span, html.neo #view-work .ks-group-top em, html.neo #view-work .ks-tag,
+        html.neo #view-work .ks-hint, html.neo #view-work .ks-seg button { color: #a39684; }
+        html.neo #view-work .ks-seg, html.neo #view-work .ks-levels span, html.neo #view-work .ks-group-top em,
+        html.neo #view-work .ks-tag { border-color: rgba(237,227,207,.16); }
+        html.neo #view-work .ks-seg button.on { background: #c9a15b; color: #16130f; }
+        html.neo #view-work .ks-form select, html.neo #view-work .ks-form input[type=text], html.neo #view-work .ks-form textarea {
+            background: #16130f; color: #ede3cf; border-color: rgba(237,227,207,.16);
+        }
+        html.neo #view-work .case-cmp { background: #2a241c; border-color: rgba(237,227,207,.12); }
+        html.neo #view-work .case-cmp .slots i { color: rgba(237,227,207,.38); }
+        html.neo #view-work .case-cmp .slots i.hit, html.neo #view-work .case-cmp .slots i.cand { color: #ede3cf; }
+        html.neo #view-work .ocr-box-item .alt:hover { color: #c9a15b; }
         .gold-dot, .gray-dot {
             width: 10px; height: 10px; border-radius: 50%; display: inline-block;
         }
@@ -2112,6 +2187,7 @@
             <aside class="wb-right">
                 <p class="sub"><span class="gold-dot"></span> 初稿　<span class="gray-dot"></span> 標疑　查字進金文字庫</p>
                 <div id="ocrChips" class="ocr-chips"></div>
+                <div id="ksPanel"></div>
                 <div id="ocrList"><p class="sub">尚未識圖。</p></div>
                 <div class="row" style="margin-top:16px">
                     <button class="btn" id="expDraft" type="button">導出初稿</button>
@@ -4416,9 +4492,14 @@
                 top5: (p.top5 || []).map(t => Array.isArray(t) ? { text: t[0], score: Number(t[1] || 0) } : t)
             }));
         }
+        // 目錄裡《銘圖續》的號寫成「續3」加四位數（續30169），「3」是庫內前綴；顯示成學界習慣的「銘圖續 0169」
+        function mingtuLabel(m) {
+            const x = /^續3(\d{4})$/.exec(m || '');
+            return x ? '銘圖續 ' + x[1] : (m ? '銘圖 ' + m : '');
+        }
         function caseLabel(cs) {
             const cat = cs.catalog || {};
-            const nums = [cat.jicheng ? '集成 ' + cat.jicheng : '', cat.mingtu ? '銘圖 ' + cat.mingtu : ''].filter(Boolean).join(' · ');
+            const nums = [cat.jicheng ? '集成 ' + cat.jicheng : '', mingtuLabel(cat.mingtu)].filter(Boolean).join(' · ');
             return (plainTitle(cat.title) || cs.id || '驗證集拓片') + (cat.period ? ' · ' + cat.period : '') + (nums ? ' · ' + nums : '');
         }
         // 目錄釋文對照：kept 且未刪的框按把握從高到低，各去釋文裡佔一個還沒被佔的字位（原字、隸定、正字、讀為任一相同都算）。
@@ -4436,7 +4517,8 @@
         function slotChars(s) { return [s.orig, s.li, s.zheng, s.read].filter(Boolean); }
         function slotTip(s) {
             const parts = [];
-            if (s.li && s.li !== s.orig) parts.push('隸定 ' + (shownChars(s.li) ? s.li : '□'));
+            // 目錄（）內：原字是造字時是它的隸定；原字已是通行字時是釋字（如 亯（享）、𫦐（割）），不能都叫隸定
+            if (s.li && s.li !== s.orig) parts.push((isPuaChar(s.orig) ? '隸定 ' : '釋字 ') + (shownChars(s.li) ? s.li : '□'));
             if (s.zheng) parts.push('正字 ' + (shownChars(s.zheng) ? s.zheng : '□'));
             if (s.he) parts.push('合文 ' + (shownChars(s.he) ? s.he : '□'));
             if (s.read && s.read !== s.orig && s.read !== s.li && s.read !== s.zheng) parts.push('讀為 ' + (shownChars(s.read) ? s.read : '□'));
@@ -4464,10 +4546,15 @@
                 return '<i class="' + cls + '"' + (t ? ' title="' + t + '"' : '') + '>' + slotGlyph(s) + '</i>';
             }).join('');
             const cat = cs.catalog || {};
-            return '<div class="case-cmp"><h4>《中華字庫》目錄釋文 · ' + (cat.volume || '') + '</h4>'
-                + '<div class="slots">' + glyphs + '</div>'
-                + '<p class="sub">釋文 ' + slots.length + ' 字　初稿相合 ' + m.hits + '　前五候選含 ' + m.covered
-                + '<br>底色＝初稿已對上　虛線＝正確字在候選裡，待學者點選</p></div>';
+            // 釋文默認遮住：核對時答案不該挨着灰框。遮住時連相合數一起不顯示，否則改一個字數字就變，等於逐字洩露答案
+            const shown = !!ksUI.showCmp;
+            return '<div class="case-cmp"><h4>《中華字庫》目錄釋文 · ' + (cat.volume || '')
+                + '<button class="tiny" id="cmpToggle" type="button">' + (shown ? '遮住釋文' : '顯示釋文') + '</button></h4>'
+                + (shown ? '<div class="slots">' + glyphs + '</div>'
+                    + '<p class="sub">釋文 ' + slots.length + ' 字　初稿相合 ' + m.hits + '　前五候選含 ' + m.covered
+                    + '<br>底色＝初稿與目錄釋讀相合　虛線＝這個字出現在某一框的前五候選裡（未必是對應位置）。相合是整篇集合比對，不判對錯。</p>'
+                    : '<p class="sub">釋文 ' + slots.length + ' 字，先遮住；核對完再點「顯示釋文」對照。</p>')
+                + '</div>';
         }
         function caseCardHtml(cs, i) {
             const cat = cs.catalog || {};
@@ -4637,23 +4724,38 @@
             }
         };
         function liveDets() { return ocrState.detections.filter(d => !d.deleted); }
+        // 圖還沒排好版（剛切到識圖頁、面板剛顯示）時寬度是 0：隔一幀再畫；之後圖的尺寸一變就重畫
+        let overlayRetry = 0, overlayObserver = null;
         function drawOcrOverlay() {
             const img = document.getElementById('ocrSrcImg');
             const overlay = document.getElementById('ocrOverlay');
             if (!img || !overlay) return;
+            if (!img.clientWidth || !img.naturalWidth) {
+                if (overlayRetry++ < 60) requestAnimationFrame(drawOcrOverlay);
+                return;
+            }
+            overlayRetry = 0;
             overlay.width = img.clientWidth; overlay.height = img.clientHeight;
             const sx = img.clientWidth / (img.naturalWidth || 1);
             const sy = img.clientHeight / (img.naturalHeight || 1);
             const c = overlay.getContext('2d');
             c.clearRect(0, 0, overlay.width, overlay.height);
-            liveDets().forEach((d, i) => {
+            const sel = ocrState.detections[ocrState.sel];
+            liveDets().forEach(d => {
                 const [x, y, w, h] = d.bbox;
-                c.lineWidth = d._active ? 3 : 2;
-                c.strokeStyle = d.kept ? '#c4a035' : '#8a8478';
+                const on = d === sel;
+                c.lineWidth = on ? 4 : 2;
+                c.strokeStyle = on ? '#e8c46a' : (d.kept ? '#c4a035' : '#8a8478');
                 c.strokeRect(x * sx, y * sy, w * sx, h * sy);
-                c.fillStyle = d.kept ? 'rgba(196,160,53,.12)' : 'rgba(138,132,120,.1)';
+                c.fillStyle = on ? 'rgba(232,196,106,.22)' : (d.kept ? 'rgba(196,160,53,.12)' : 'rgba(138,132,120,.1)');
                 c.fillRect(x * sx, y * sy, w * sx, h * sy);
             });
+        }
+        function watchOverlay(img) {
+            if (overlayObserver) overlayObserver.disconnect();
+            if (!img || typeof ResizeObserver === 'undefined') return;
+            overlayObserver = new ResizeObserver(() => drawOcrOverlay());
+            overlayObserver.observe(img);
         }
         function renderWorkbench() {
             const stage = document.getElementById('ocrStage');
@@ -4665,6 +4767,9 @@
                     + qualityHtml(ocrState.quality);
                 list.innerHTML = '<p class="sub">' + (OCR_LIVE ? '尚未識圖。' : '選一張案例。') + '</p>';
                 if (chips) chips.innerHTML = '';
+                const kp = document.getElementById('ksPanel');
+                if (kp) kp.innerHTML = '';
+                if (overlayObserver) { overlayObserver.disconnect(); overlayObserver = null; }
                 loadCaseLibrary().then(lib => {
                     if (!lib || ocrState.imageUrl) return;
                     stage.innerHTML = caseWallHtml(lib) + qualityHtml(ocrState.quality);
@@ -4679,7 +4784,7 @@
             dets.forEach(d => { if (d.text && !uniq.includes(d.text)) uniq.push(d.text); });
             if (chips) {
                 chips.innerHTML = uniq.length
-                    ? uniq.map(ch => '<button type="button" data-lookup-char="' + ch + '">' + ch + '</button>').join('')
+                    ? uniq.map(ch => '<button type="button" data-lookup-char="' + ksEsc(ch) + '">' + ksText(ch) + '</button>').join('')
                     : '';
                 chips.querySelectorAll('[data-lookup-char]').forEach(btn => {
                     btn.onclick = () => go('work', btn.dataset.lookupChar, 'search');
@@ -4687,29 +4792,26 @@
             }
             stage.innerHTML = qualityHtml(ocrState.quality)
                 + (ocrState.notice ? '<div class="ocr-quality warn"><b>' + ocrState.notice + '</b></div>' : '')
-                + '<div class="ocr-canvas-wrap" id="ocrWrap">'
+                + '<div class="ocr-canvas-wrap' + (ksUI.zoom ? ' zoom' : '') + '" id="ocrWrap">'
                 + '<div class="ocr-stack"><img id="ocrSrcImg" src="' + ocrState.imageUrl + '" alt=""><canvas id="ocrOverlay"></canvas></div>'
                 + '<p class="ocr-cap">' + ocrState.sourceLabel + ' · 初稿 ' + kept.length + ' · 標疑 ' + dets.filter(d => !d.kept).length + '</p>'
-                + '<button class="tiny ocr-zoom" id="ocrZoom" type="button">原大</button></div>';
+                + '<button class="tiny ocr-zoom" id="ocrZoom" type="button">' + (ksUI.zoom ? '適應' : '原大') + '</button></div>';
             const cs = ocrState.caseRef;
             const cmp = cs && cs.slots && cs.slots.length ? matchCaseSlots(cs.slots, dets) : null;
-            // 案例按閱讀習慣排：先右列後左列、列內自上而下（金文直行右起）
-            let ordered = dets;
-            if (cs && dets.length) {
-                const ws = dets.map(d => d.bbox[2]).sort((a, b) => a - b);
-                const colW = Math.max(8, ws[Math.floor(ws.length / 2)] || 40);
-                const col = d => Math.round((d.bbox[0] + d.bbox[2] / 2) / colW);
-                ordered = dets.slice().sort((a, b) => (col(b) - col(a)) || (a.bbox[1] - b.bbox[1]));
-            }
+            const ordered = readingOrder(dets);
             list.innerHTML = (cmp ? caseCompareHtml(cs, cmp) : '') + ordered.map((d, i) => {
-                const alts = (d.top5 || []).slice(1, 4).map(a => a.text);
                 const realIdx = ocrState.detections.indexOf(d);
-                return '<div class="ocr-box-item" data-idx="' + realIdx + '">'
+                // 候選可點：點一下就把這個框改成該字（原值留在 origText，釋讀意見裡記錄）
+                const alts = (d.top5 || []).filter(a => a.text && a.text !== d.text).slice(0, 3)
+                    .map(a => '<button class="alt" type="button" data-pick="' + realIdx + '" data-ch="' + ksEsc(a.text) + '">' + ksEsc(a.text) + '</button>');
+                const rv = cs ? getReview(d) : null;
+                return '<div class="ocr-box-item' + (realIdx === ocrState.sel ? ' active' : '') + '" data-idx="' + realIdx + '">'
                     + '<span class="' + (d.kept ? 'gold-dot' : 'gray-dot') + '"></span>'
                     + '<img src="' + svg(d.text) + '" width="40" height="40" alt="" onerror="this.style.visibility=\'hidden\'">'
-                    + '<div><input value="' + d.text + '" data-idx="' + realIdx + '">'
+                    + '<div><input value="' + ksEsc(d.text) + '" data-idx="' + realIdx + '">'
                     + '<div class="sub">' + Math.round(d.confidence * 100) + '%　' + (d.kept ? '初稿' : '標疑')
-                    + (cmp && cmp.hitDet.has(d) ? '　<span class="hit-mark">合釋文</span>' : '')
+                    + (cmp && ksUI.showCmp && cmp.hitDet.has(d) ? '　<span class="hit-mark">合釋文</span>' : '')
+                    + (rv ? '　<span class="ks-mark">已記錄·' + ksEsc(rv.status) + '</span>' : '')
                     + (alts.length ? '　候選 ' + alts.join(' · ') : '') + '</div></div>'
                     + '<div class="ocr-box-actions">'
                     + '<button class="tiny" type="button" data-lookup="' + realIdx + '">查字</button>'
@@ -4719,33 +4821,63 @@
                 ? '<p class="sub">框已全部刪除。</p>'
                 : '<p class="sub">' + (ocrState.notice ? '這張圖沒有識別結果。' : '未檢出字框。') + '</p>');
             const img = document.getElementById('ocrSrcImg');
+            overlayRetry = 0;
+            watchOverlay(img);
             if (img.complete && img.naturalWidth) drawOcrOverlay(); else img.onload = drawOcrOverlay;
             const zoomBtn = document.getElementById('ocrZoom');
             if (zoomBtn) {
                 zoomBtn.onclick = () => {
                     const wrap = document.getElementById('ocrWrap');
-                    wrap.classList.toggle('zoom');
-                    zoomBtn.textContent = wrap.classList.contains('zoom') ? '適應' : '原大';
+                    ksUI.zoom = !ksUI.zoom;      // 記在狀態裡，改字、記錄觸發重繪後縮放不丟
+                    wrap.classList.toggle('zoom', ksUI.zoom);
+                    zoomBtn.textContent = ksUI.zoom ? '適應' : '原大';
                     requestAnimationFrame(drawOcrOverlay);
                 };
             }
+            // 在拓片上點框：只認點在圖上的（說明條、按鈕都不算），換算到原圖坐標，框重疊時取面積最小的
+            const wrapEl = document.getElementById('ocrWrap');
+            if (wrapEl) wrapEl.onclick = (e) => {
+                if (e.target !== img) return;
+                const r = img.getBoundingClientRect();
+                if (!r.width || !img.naturalWidth) return;
+                const x = (e.clientX - r.left) * img.naturalWidth / r.width;
+                const y = (e.clientY - r.top) * img.naturalHeight / r.height;
+                let best = -1, area = Infinity;
+                ocrState.detections.forEach((d, k) => {
+                    if (d.deleted) return;
+                    const [bx, by, bw, bh] = d.bbox;
+                    if (x >= bx && x <= bx + bw && y >= by && y <= by + bh && bw * bh < area) { best = k; area = bw * bh; }
+                });
+                if (best >= 0) selectBox(best);
+            };
             list.querySelectorAll('.ocr-box-item').forEach(item => {
                 item.onclick = (e) => {
                     if (e.target.closest('button') || e.target.tagName === 'INPUT') return;
-                    ocrState.detections.forEach(d => d._active = false);
-                    const d = ocrState.detections[Number(item.dataset.idx)];
-                    if (d) d._active = true;
-                    list.querySelectorAll('.ocr-box-item').forEach(x => x.classList.remove('active'));
-                    item.classList.add('active');
-                    drawOcrOverlay();
+                    selectBox(Number(item.dataset.idx));
                 };
             });
             list.querySelectorAll('input').forEach(inp => {
                 inp.onchange = () => {
                     const d = ocrState.detections[Number(inp.dataset.idx)];
-                    if (d) { d.text = inp.value.trim() || d.text; renderWorkbench(); }
+                    const v = inp.value.trim();
+                    if (d && v && v !== d.text) { if (d.origText == null) d.origText = d.text; d.text = v; }
+                    renderWorkbench();
                 };
             });
+            list.querySelectorAll('[data-pick]').forEach(btn => {
+                btn.onclick = (e) => {
+                    e.stopPropagation();
+                    const d = ocrState.detections[Number(btn.dataset.pick)];
+                    if (!d) return;
+                    if (d.origText == null) d.origText = d.text;
+                    d.text = btn.dataset.ch;
+                    ocrState.sel = Number(btn.dataset.pick);
+                    renderWorkbench();
+                };
+            });
+            const cmpBtn = document.getElementById('cmpToggle');
+            if (cmpBtn) cmpBtn.onclick = (e) => { e.stopPropagation(); ksUI.showCmp = !ksUI.showCmp; renderWorkbench(); };
+            renderKsPanel();
             list.querySelectorAll('[data-lookup]').forEach(btn => {
                 btn.onclick = (e) => {
                     e.stopPropagation();
@@ -4762,27 +4894,482 @@
                 };
             });
         }
+        // ============ 釋讀輔助（考釋助手）：選中字框後的四個標籤頁（見 考释助手-功能设计.md 第三節） ============
+        // 只服務 20 張預存案例：閱讀順序、辭例分組、候選圖、古音都由 build/build_kaoshi_data.py 預先算好，網頁裡不放整份目錄釋文。
+        let kaoshiData = null, kaoshiPromise = null, kaoshiFailed = false, changbianData = null, changbianTried = false;
+        const ksUI = { tab: 'cilu', layer: 'R', scope: 'vol', showCmp: false, zoom: false, draft: {} };
+        // 共用一個 Promise：下載中點框顯示「載入中」，到了自動重繪；失敗可以重試
+        function loadKaoshi() {
+            if (kaoshiData) return Promise.resolve(kaoshiData);
+            if (!kaoshiPromise) {
+                kaoshiFailed = false;
+                kaoshiPromise = fetch('./assets/cases/kaoshi.json', { cache: 'no-cache' })
+                    .then(r => r.ok ? r.json() : null).catch(() => null)
+                    .then(j => { kaoshiData = j; kaoshiFailed = !j; if (!j) kaoshiPromise = null; return j; });
+            }
+            return kaoshiPromise;
+        }
+        async function loadChangbian() {
+            if (changbianTried) return changbianData;
+            changbianTried = true;
+            try {
+                const r = await fetch('./data/changbian_index.json', { cache: 'no-cache' });
+                if (r.ok) changbianData = await r.json();
+            } catch (e) {}
+            return changbianData;
+        }
+        function ksEsc(s) {
+            return String(s == null ? '' : s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+        }
+        // 造字在任何字體下都畫不出來，顯示成 ▣（缺字仍是 □）
+        function ksText(s) { return ksEsc([...String(s || '')].map(ch => isPuaChar(ch) ? '▣' : ch).join('')); }
+        const KS_NORM = { '匄': '匃' };   // 同字異碼歸一，與預計算一致
+        function ksNorm(ch) { return KS_NORM[ch] || ch; }
+        function ksShow(ch) { return ch === '匃' ? '匃（含匄）' : ksText(ch); }
+        // 頁碼一律用印本頁碼（本機 PDF 掃描件的頁碼減 33）
+        const KS_BOOK = '《教程》＝復旦大學出土文獻與古文字研究中心編《出土文獻與古文字教程》（2024）上編第一章〈古文字考釋〉（陳劍撰），頁碼為印本頁碼。';
+
+        // 釋讀意見只存在本機：{ 案例 stem: { 框坐標: 意見 } }
+        const REVIEW_KEY = 'jj_reviews_v1';
+        let reviewCache = null;
+        function allReviews() {
+            if (!reviewCache) { try { reviewCache = JSON.parse(localStorage.getItem(REVIEW_KEY) || '{}'); } catch (e) { reviewCache = {}; } }
+            return reviewCache;
+        }
+        function boxKey(d) { return d.bbox.map(v => Math.round(v)).join(','); }
+        function ksKey(d) { return ((ocrState.caseRef || {}).stem || '') + '|' + boxKey(d); }
+        function getReview(d) {
+            const cs = ocrState.caseRef;
+            return cs && d ? ((allReviews()[cs.stem] || {})[boxKey(d)] || null) : null;
+        }
+        function putReview(d, rv) {
+            const cs = ocrState.caseRef;
+            if (!cs) return;
+            const all = allReviews();
+            all[cs.stem] = all[cs.stem] || {};
+            if (rv) all[cs.stem][boxKey(d)] = rv; else delete all[cs.stem][boxKey(d)];
+            try { localStorage.setItem(REVIEW_KEY, JSON.stringify(all)); } catch (e) {}
+        }
+        // 打開案例時，把已「選定」「改字」的意見套回字框
+        function applySavedReviews() {
+            ocrState.detections.forEach(d => {
+                const rv = getReview(d);
+                if (rv && (rv.status === '選定' || rv.status === '改字') && rv.final && rv.final !== d.text) {
+                    if (d.origText == null) d.origText = d.text;
+                    d.text = rv.final;
+                }
+            });
+        }
+
+        // 閱讀順序：預存案例直接用 kaoshi.json 裡 build 算好的順序；沒有時用同一套聚類現算。
+        // 金文直行右起：按框中心 x 從右往左聚類分列（與列均值相距 < 0.45 列寬、縱向重疊不超過較小框高一半才並列），列內自上而下。
+        // 不用 round(中心x/列寬)：列稍斜或中心落在格線附近時，同一列會被劈成兩列。
+        function readingOrder(dets) {
+            const cs = ocrState.caseRef;
+            const kc = cs && ocrState.ksPred && kaoshiData && kaoshiData.cases[cs.stem];
+            if (kc && kc.order) {
+                const live = new Set(dets);
+                return kc.order.map(i => ocrState.detections[i]).filter(d => d && live.has(d));
+            }
+            if (!dets.length) return [];
+            const ws = dets.map(d => d.bbox[2]).sort((a, b) => a - b);
+            const colW = Math.max(8, ws[Math.floor(ws.length / 2)]);
+            const cx = d => d.bbox[0] + d.bbox[2] / 2;
+            const cols = [];
+            dets.slice().sort((a, b) => cx(b) - cx(a)).forEach(d => {
+                const y = d.bbox[1], h = d.bbox[3];
+                let best = null;
+                cols.forEach(c => {
+                    const dist = Math.abs(c.cx - cx(d));
+                    if (dist >= 0.45 * colW) return;
+                    if (c.items.some(e => Math.min(y + h, e.bbox[1] + e.bbox[3]) - Math.max(y, e.bbox[1]) > 0.5 * Math.min(h, e.bbox[3]))) return;
+                    if (!best || dist < Math.abs(best.cx - cx(d))) best = c;
+                });
+                if (!best) cols.push({ cx: cx(d), items: [d] });
+                else { best.items.push(d); best.cx = best.items.reduce((s, e) => s + cx(e), 0) / best.items.length; }
+            });
+            cols.sort((a, b) => b.cx - a.cx);
+            return cols.flatMap(c => c.items.sort((a, b) => a.bbox[1] - b.bbox[1]));
+        }
+
+        function selectBox(idx) {
+            // 點的還是同一個框：面板不重建，填到一半的釋讀意見不會丟
+            if (idx >= 0 && idx === ocrState.sel && document.querySelector('#ksPanel .ks-panel')) return;
+            ocrState.sel = idx;
+            document.querySelectorAll('#ocrList .ocr-box-item').forEach(x => x.classList.toggle('active', Number(x.dataset.idx) === idx));
+            drawOcrOverlay();
+            renderKsPanel();
+            const panel = document.getElementById('ksPanel');
+            if (idx >= 0 && panel && panel.firstElementChild) panel.firstElementChild.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+        }
+
+        const KS_TABS = [['form', '字形'], ['cilu', '辭例'], ['pair', '形·例'], ['review', '釋讀意見']];
+        const KS_BASIS = ['字形', '同銘對勘', '辭例（目錄釋讀）', '古書證據', '讀音', '其他'];
+        const KS_STATUS = ['選定', '改字', '存兩說', '存疑', '闕疑'];
+        function ksContext() {
+            const cs = ocrState.caseRef;
+            const d = ocrState.detections[ocrState.sel];
+            if (!cs || !d || d.deleted || !kaoshiData || !ocrState.ksPred) return null;
+            const kc = kaoshiData.cases[cs.stem];
+            const box = kc && kc.boxes[ocrState.sel];
+            return box ? { cs, d, kc, box, v: box.v[ksUI.layer + '_' + ksUI.scope] } : null;
+        }
+        function ksLevel(v) { return v && v.at != null ? (kaoshiData.levels || [])[v.at] || [0, 0] : null; }
+        function ksQueryText(box, v) { return (v && v.q) || ''; }
+        function ksQueryHtml(v) {
+            const q = ksQueryText(null, v);
+            return q ? ksText(q).replace('□', '<span style="color:var(--bronze)">□</span>') : '';
+        }
+        // 鄰字按預存時的模型結果算；學者刪框、改字後，現在的鄰字可能已不同
+        function ksNeighborsNow(kc) {
+            const order = kc.order || [];
+            const k = order.indexOf(ocrState.sel);
+            if (k < 0) return null;
+            const at = j => {
+                if (j < 0 || j >= order.length) return null;
+                const d = ocrState.detections[order[j]];
+                return !d || d.deleted ? '×' : (d.kept || d.origText != null ? ksNorm(d.text) : '?');
+            };
+            return [at(k - 2), at(k - 1), at(k + 1), at(k + 2)];
+        }
+        function readKsForm(el) {
+            const q = s => el.querySelector(s);
+            return {
+                status: (q('input[name=ksSt]:checked') || {}).value || '存疑',
+                final: (q('#ksFinal').value || '').trim(),
+                read: (q('#ksRead').value || '').trim(),
+                alt: (q('#ksAlt').value || '').trim(),
+                basis: KS_BASIS.map((k, i) => {
+                    const on = q('[data-basis="' + i + '"]').checked, pt = q('[data-pt="' + i + '"]').value;
+                    if (!on && !pt) return null;
+                    const b = { k, pt };
+                    if (k === '古書證據') b.txt = (q('#ksBook').value || '').trim();
+                    return b;
+                }).filter(Boolean),
+                note: (q('#ksNote').value || '').trim(),
+                draft: true
+            };
+        }
+        // 面板每次重繪前先把表單讀回草稿：點候選、切標籤、顯示釋文都不會清掉填到一半的意見
+        function ksSaveDraft(el) {
+            if (el.dataset.ksKey && el.querySelector('#ksSave')) ksUI.draft[el.dataset.ksKey] = readKsForm(el);
+        }
+        function renderKsPanel() {
+            const el = document.getElementById('ksPanel');
+            if (!el) return;
+            ksSaveDraft(el);
+            el.dataset.ksKey = '';
+            if (!ocrState.caseRef || !ocrState.imageUrl) { el.innerHTML = ''; return; }
+            const d = ocrState.detections[ocrState.sel];
+            if (!d || d.deleted) {
+                el.innerHTML = '<p class="ks-hint">點拓片上的框，或點下面列表裡的一個字，打開釋讀輔助面板：字形 · 辭例 · 形·例對照 · 釋讀意見。</p>';
+                return;
+            }
+            if (!ocrState.ksPred) {
+                el.innerHTML = '<p class="ks-hint">現場識別結果與預存數據的框不對應，釋讀輔助面板只用於預存結果。</p>';
+                return;
+            }
+            if (!kaoshiData) {
+                if (kaoshiFailed) {
+                    el.innerHTML = '<p class="ks-hint">讀不到 assets/cases/kaoshi.json（由 build/build_kaoshi_data.py 生成）。 <button class="tiny" type="button" id="ksRetry">重試</button></p>';
+                    el.querySelector('#ksRetry').onclick = () => { kaoshiFailed = false; renderKsPanel(); };
+                    return;
+                }
+                el.innerHTML = '<p class="ks-hint">載入釋讀輔助數據……</p>';
+                const cs = ocrState.caseRef;
+                loadKaoshi().then(() => { if (ocrState.caseRef === cs) renderWorkbench(); });
+                return;
+            }
+            const ctx = ksContext();
+            if (!ctx) { el.innerHTML = '<p class="ks-hint">這張案例沒有預存的釋讀輔助數據。</p>'; return; }
+            const now = ksNeighborsNow(ctx.kc);
+            const stale = now && now.some((x, i) => x !== ctx.box.nb[i]);
+            const nb = ctx.box.nb.map(x => x == null ? '' : '<span class="' + (x === '?' ? 'q' : '') + '">' + (x === '?' ? '？' : ksText(x)) + '</span>');
+            const tab = ksUI.tab;
+            const body = tab === 'form' ? ksFormHtml(ctx) : tab === 'pair' ? ksPairHtml(ctx) : tab === 'review' ? ksReviewHtml(ctx) : ksCiluHtml(ctx);
+            el.dataset.ksKey = ksKey(d);
+            el.innerHTML = '<div class="ks-panel">'
+                + '<div class="ks-head"><b>' + ksText(d.text) + '</b><p class="sub">' + (d.kept ? '初稿' : '標疑') + ' · 把握 ' + Math.round(d.confidence * 100) + '%'
+                + (d.origText != null ? ' · 模型原為「' + ksText(d.origText) + '」' : '') + '</p>'
+                + '<button class="tiny" type="button" id="ksClose">收起</button></div>'
+                + '<div class="ks-nb">鄰字　' + nb[0] + nb[1] + '<span class="me">■</span>' + nb[2] + nb[3]
+                + '<br>取自模型初稿（金框首選），可能有錯；灰框記作 ？，匹配任一字；漏檢的字不留位置，前後字未必真相鄰。預存版不能手改。'
+                + (stale ? '<br><b>這張拓片已有刪框或改字，上面的鄰字和辭例仍按模型原始結果預存。</b>' : '') + '</div>'
+                + '<div class="ks-tabs">' + KS_TABS.map(([k, n]) => '<button type="button" data-ks-tab="' + k + '" class="' + (k === tab ? 'on' : '') + '">' + n + '</button>').join('') + '</div>'
+                + '<div class="ks-body">' + body + '<p class="note">' + KS_BOOK + '</p></div></div>';
+            el.querySelectorAll('[data-ks-tab]').forEach(b => { b.onclick = () => { ksUI.tab = b.dataset.ksTab; renderKsPanel(); }; });
+            el.querySelector('#ksClose').onclick = () => selectBox(-1);
+            el.querySelectorAll('[data-ks-layer]').forEach(b => { b.onclick = () => { ksUI.layer = b.dataset.ksLayer; renderKsPanel(); }; });
+            el.querySelectorAll('[data-ks-scope]').forEach(b => { b.onclick = () => { ksUI.scope = b.dataset.ksScope; renderKsPanel(); }; });
+            if (tab === 'form') drawKsCrop(ctx);
+            if (tab === 'review') bindKsReview(ctx);
+        }
+        function ksSwitches() {
+            const seg = (attr, val, now, name) => '<button type="button" data-' + attr + '="' + val + '" class="' + (val === now ? 'on' : '') + '">' + name + '</button>';
+            return '<div><span class="ks-seg">' + seg('ks-layer', 'R', ksUI.layer, '讀為層') + seg('ks-layer', 'L', ksUI.layer, '隸定層') + '</span>'
+                + '<span class="ks-seg">' + seg('ks-scope', 'vol', ksUI.scope, '本卷') + seg('ks-scope', 'all', ksUI.scope, '全部卷') + '</span></div>';
+        }
+        function ksEntryLine(kc, s, ch) {
+            const e = kc.ents[s[0]] || [];
+            const nums = [e[2] ? '集成 ' + e[2] : '', mingtuLabel(e[3])].filter(Boolean).join(' · ');
+            return '<li>' + ksText(e[1]) + (nums ? ' · ' + ksEsc(nums) : '') + ' · ' + ksEsc(e[4] || '')
+                + '<br>…' + ksText(s[1]) + '<mark>' + ksText(ch) + '</mark>' + ksText(s[2]) + '…</li>';
+        }
+        // ② 辭例：設計稿 2a/2b
+        function ksCiluHtml(ctx) {
+            const { kc, v } = ctx;
+            const lv = ((v && v.lv) || []).map((s, i) => s ? '<span class="' + (i === v.at ? 'on' : '') + '">前' + s[0] + '後' + s[1] + ' ' + s[2] + ' 條</span>' : '').join('');
+            const body = !v || v.at == null || !v.gr.length
+                ? '<p class="ks-hint">各級檢索都沒有結果（或鄰字都是 ？）。</p>'
+                : v.gr.map(g => '<div class="ks-group"><div class="ks-group-top"><b>' + ksShow(g.c) + '</b>'
+                    + '<span title="條＝不同條目；器＝按近同銘文合併計數。條數是常見度，不是證據強度">' + g.n + ' 條 · ' + g.g + ' 器</span>'
+                    + (g.few ? '<em title="這個字在本層不足 5 例">少例</em>' : '') + (g.cls ? '' : '<em>模型無此類</em>')
+                    + (g.li && g.li.length ? '<span class="ks-tag">隸定作 ' + g.li.map(x => ksText(x[0]) + '×' + x[1]).join(' ') + '</span>' : '')
+                    + '</div><ol>' + g.src.map(s => ksEntryLine(kc, s, g.c)).join('') + '</ol></div>').join('');
+            const vol = kc.vol || '本器所在卷';
+            return ksSwitches()
+                + (v && v.q ? '<p class="ks-query">' + ksQueryHtml(v) + '</p>' : '')
+                + '<div class="ks-levels">' + lv + '</div>' + body
+                + (v && v.cz ? '<p class="ks-hint">另有 ' + v.cz + ' 條填入的是造字（任何字體都顯示不出），未計入。</p>' : '')
+                + '<p class="note">先用前後各兩字，少於 ' + (kaoshiData.minHits || 3) + ' 條依次退到前後各一字、單側兩字、單側一字（上面一排是各級條數，按不同條目計）。'
+                + '讀為層檢索時，鄰字並入目錄裡常見的讀為寫法（如 乍〔作〕），隸定層反之。'
+                + '「本卷」指 ' + ksEsc(vol) + (vol === '銘圖續' ? '（著錄來源分卷，不是時代或地域分卷，建議對照全部卷）' : '') + '。'
+                + '條數反映套語常見度，不是證據強度；同一套語在他器重複出現說明是通例，但不等於同一疑字多處用法的互相限制（《教程》頁36）。'
+                + '辭例為《中華字庫》目錄釋讀（含舊釋），只作線索；已排除本器、近同銘文及同名同套器。</p>';
+        }
+        // ③ 形·例對照：設計稿 3a
+        function ksPairHtml(ctx) {
+            const { d, v } = ctx;
+            const groups = (v && v.gr) || [];
+            const lv = ksLevel(v);
+            const single = !!lv && lv[0] + lv[1] === 1;
+            const rows = new Map();
+            (d.top5 || []).forEach(t => { const c = ksNorm(t.text); if (c) rows.set(c, Object.assign(rows.get(c) || { c }, { form: t.score })); });
+            groups.forEach(g => rows.set(g.c, Object.assign(rows.get(g.c) || { c: g.c }, { ex: g })));
+            // 形例同字：模型候選等於某組的讀為字，或等於組內任一隸定寫法（亯/享、乍/作、白/伯 歸並）
+            const linked = new Set();
+            rows.forEach(r => {
+                if (r.form == null) return;
+                const g = r.ex || groups.find(x => (x.li || []).some(y => y[0] === r.c));
+                if (!g) return;
+                r.same = true;
+                if (!r.ex) { r.ex = g; r.via = g.c; linked.add(g.c); }
+            });
+            const list = [...rows.values()].filter(r => !(r.form == null && linked.has(r.c)))
+                .sort((a, b) => (b.same ? 1 : 0) - (a.same ? 1 : 0) || (b.form || 0) - (a.form || 0) || ((b.ex && b.ex.n) || 0) - ((a.ex && a.ex.n) || 0));
+            const tag = r => r.same
+                ? (single ? '僅搭配' : '<span class="same">形例同字' + (r.via ? '（讀為' + ksText(r.via) + '）' : '') + '</span>')
+                : r.form != null ? '僅形' : '僅例' + (r.ex && !r.ex.cls ? ' · 模型無此類' : '');
+            return '<p class="note" style="margin-top:0">機器近似，不含構形分析和破讀；兩頭湊由學者完成。</p>' + ksSwitches()
+                + (v && v.q ? '<p class="ks-query">' + ksQueryHtml(v) + (lv ? ' <span class="ks-tag">前' + lv[0] + '後' + lv[1] + '</span>' : '') + '</p>' : '')
+                + (single ? '<p class="ks-msg">這一級只用了單側一字：只是搭配頻率，不構成辭例勘同，下表不標「形例同字」。</p>' : '')
+                + '<table class="ks-pair"><tr><th>字</th><th>形（模型）</th><th>例（條 / 器）</th><th>對照</th></tr>'
+                + list.map(r => '<tr><td>' + ksShow(r.c) + '</td><td>' + (r.form != null ? Math.round(r.form * 100) + '%' : '—') + '</td>'
+                    + '<td>' + (r.ex ? r.ex.n + ' / ' + r.ex.g : '—') + '</td><td>' + tag(r) + '</td></tr>').join('') + '</table>'
+                + '<p class="note">不把兩邊結果直接取交集，也不給推薦釋讀。表中的讀為歸併全部承自《中華字庫》目錄釋文，目錄已收的讀為會照樣歸併。'
+                + '例如《教程》頁28 伯上父鼎「用𫦐（从索从刀）眉壽」，郭永秉、鄔可晶釋為「割」的表意初文，讀「匄」；目錄作 𫦐（割）{匄}，'
+                + '所以模型候選有 𫦐 或 割 時會標「形例同字（讀為匃）」。這是目錄已吸收的結論，不是工具推出來的；目錄未收的讀為關係，工具發現不了，要學者論證。</p>';
+        }
+        // ① 字形：設計稿 1a
+        function ksThumbs(ch, kc) {
+            const items = ((kaoshiData.thumbs || {})[ch] || []).filter(t => !(t[0] === 'sais' && t[4] && t[4] === kc.z11)).slice(0, 3);
+            const cp = cpToken(ch);
+            if (items.length) {
+                return items.map(t => '<figure><img src="./assets/thumbs/' + t[0] + '/' + cp + '/' + t[1] + '.webp" alt="" loading="lazy">'
+                    + '<figcaption>' + ksEsc(t[2]) + ' · ' + ksEsc(t[0].toUpperCase()) + (t[3] ? '<br>' + ksText(t[3]) : '') + '</figcaption></figure>').join('');
+            }
+            if (jinwenIndex && !jinwenIndex[ch]) return '<span class="ks-hint">本機沒有這個字的圖</span>';
+            return '<figure><img src="' + svg(ch) + '" alt="" style="background:#e8e2d4"><figcaption>摹形 · 金文字形庫</figcaption></figure>';
+        }
+        function ksFormHtml(ctx) {
+            const { d, kc, v } = ctx;
+            const seen = new Set(), cands = [];
+            (d.top5 || []).forEach(t => { const c = ksNorm(t.text); if (c && !seen.has(c)) { seen.add(c); cands.push({ c, p: t.score }); } });
+            // 字形只放隸定字：讀為層的組（如「享」）多半隸定作某字（「亯」）時，放隸定字的字形，註明讀為
+            ((v && v.gr) || []).slice(0, 3).forEach(g => {
+                const li = ksUI.layer === 'R' && g.li && g.li[0] && g.li[0][1] * 2 >= g.n ? g.li[0][0] : '';
+                const c = li || g.c;
+                if (!seen.has(c)) { seen.add(c); cands.push({ c, n: g.n, read: li ? g.c : '' }); }
+            });
+            return '<canvas class="ks-crop" id="ksCrop"></canvas>'
+                + cands.map(x => '<div class="ks-cand"><div class="ks-cand-top"><b>' + ksText(x.c) + '</b><span class="sub">'
+                    + (x.p != null ? '模型 ' + Math.round(x.p * 100) + '%'
+                        : '辭例填入 ' + x.n + ' 條' + (x.read ? '（讀為' + ksText(x.read) + '）' : '')) + '</span></div>'
+                    + '<div class="ks-imgs">' + ksThumbs(x.c, kc) + '</div></div>').join('')
+                + '<p class="note">上面是本框從原圖裁下的字。候選字的圖只用本機已緩存的：KAOM（kaom.net）為拓本；QXK（qxk.bnu.edu.cn）混有摹本和書影，標「未知」；'
+                + 'SAIS（本次比賽數據集）為裁圖，已排除本器。沒有圖時用金文字形庫的摹形。圖像相似不等於同字。</p>';
+        }
+        function drawKsCrop(ctx) {
+            const cv = document.getElementById('ksCrop');
+            const img = document.getElementById('ocrSrcImg');
+            if (!cv || !img || !img.naturalWidth) return;
+            const [x, y, w, h] = ctx.d.bbox;
+            const pad = Math.max(w, h) * 0.12;
+            const sx = Math.max(0, x - pad), sy = Math.max(0, y - pad);
+            const sw = Math.min(img.naturalWidth - sx, w + pad * 2), sh = Math.min(img.naturalHeight - sy, h + pad * 2);
+            const k = 120 / Math.max(sw, sh, 1);
+            cv.width = Math.max(1, Math.round(sw * k)); cv.height = Math.max(1, Math.round(sh * k));
+            cv.getContext('2d').drawImage(img, sx, sy, sw, sh, 0, 0, cv.width, cv.height);
+        }
+        // ④ 釋讀意見與記錄：設計稿 4a；下面附 4b 候選字古音信息
+        function ksReviewHtml(ctx) {
+            const { d } = ctx;
+            const draft = ksUI.draft[ksKey(d)];
+            const saved = getReview(d) || {};
+            const rv = draft || saved;
+            const bOf = k => (rv.basis || []).find(b => b.k === k) || {};
+            const st = rv.status || (d.kept ? '選定' : '存疑');
+            const orig = d.origText != null ? d.origText : (saved.orig || d.text);
+            return '<div class="ks-form">'
+                + (draft ? '<p class="ks-msg" style="margin-top:0">這是還沒記錄的草稿。</p>' : '')
+                + '<div>' + KS_STATUS.map(s => '<label><input type="radio" name="ksSt" value="' + s + '"' + (s === st ? ' checked' : '') + '>' + s + '</label>').join('') + '</div>'
+                + '<div class="row2"><span>釋讀為 <input type="text" class="final" id="ksFinal" value="' + ksEsc(rv.final || d.text) + '"> 讀為 <input type="text" class="final" id="ksRead" value="' + ksEsc(rv.read || '') + '"></span>'
+                + '<span class="sub">模型原為「' + ksText(orig) + '」</span></div>'
+                + '<div class="row2"><span>第二說（存兩說時填） <input type="text" class="final" id="ksAlt" value="' + ksEsc(rv.alt || '') + '"></span><span></span></div>'
+                + '<div class="sub" style="margin:4px 0">依據（可多選；標了「定點」或「準定點」的才計入）</div>'
+                + KS_BASIS.map((k, i) => {
+                    const b = bOf(k);
+                    return '<div class="row2"><label><input type="checkbox" data-basis="' + i + '"' + (b.k ? ' checked' : '') + '>' + k
+                        + (k === '古書證據' ? ' <input type="text" id="ksBook" placeholder="書名篇章" value="' + ksEsc(b.txt || '') + '">' : '')
+                        + (k.startsWith('辭例') ? ' <span class="sub" title="目錄含舊釋（《教程》頁42）">目錄釋讀本身不宜單獨作定點</span>' : '') + '</label>'
+                        + '<select data-pt="' + i + '">' + ['', '準定點', '定點'].map(p => '<option value="' + p + '"' + ((b.pt || '') === p ? ' selected' : '') + '>' + (p || '—') + '</option>').join('') + '</select></div>';
+                }).join('')
+                + '<textarea id="ksNote" placeholder="備註：論證要點、存疑理由等">' + ksEsc(rv.note || '') + '</textarea>'
+                + '<div class="row" style="margin-top:6px"><button class="btn" type="button" id="ksSave">記錄</button>'
+                + (saved.status ? '<button class="tiny" type="button" id="ksClear">刪除這條記錄</button>' : '') + '</div>'
+                + (saved.ts ? '<p class="note">上次記錄：' + ksEsc(saved.ts.slice(0, 16).replace('T', ' ')) + ' · ' + ksEsc(saved.status)
+                    + (ksUI.showCmp && saved.catalogDiff ? ' · 整篇目錄釋文中未見此字（非逐字位比對）' : '') + '</p>' : '')
+                + '<p class="ks-msg" id="ksMsg"></p>'
+                + '<p class="note">存疑：有線索、尚未論定；闕疑：現有條件下無法解決（《教程》頁42）。「選定」「改字」至少要有一項依據標了定點或準定點，否則記作「存疑」。記錄只存在這臺電腦，導出 JSON 和疑字表時一併帶上。</p>'
+                + '</div><div class="ks-yin" id="ksYin">古音信息載入中……</div>';
+        }
+        function bindKsReview(ctx) {
+            const { d, cs, box, v } = ctx;
+            const el = document.getElementById('ksPanel');
+            const restore = () => { if (d.origText != null) { d.text = d.origText; d.origText = null; } };
+            el.querySelector('#ksSave').onclick = () => {
+                const f = readKsForm(el);
+                let status = f.status;
+                const final = f.final || d.text;
+                const lv = ksLevel(v);
+                // 辭例依據帶上檢索式、層、範圍、級別和條數（同一檢索式在四種組合下條數不同）
+                f.basis.forEach(b => {
+                    if (!b.k.startsWith('辭例')) return;
+                    Object.assign(b, {
+                        query: ksQueryText(box, v), layer: ksUI.layer === 'R' ? '讀為層' : '隸定層', scope: ksUI.scope === 'vol' ? '本卷' : '全部卷',
+                        level: lv ? '前' + lv[0] + '後' + lv[1] : '', hits: v && v.at != null && v.lv[v.at] ? v.lv[v.at][2] : 0
+                    });
+                });
+                let msg = '已記錄。';
+                if ((status === '選定' || status === '改字') && !f.basis.some(b => b.pt)) {
+                    status = '存疑';
+                    msg = '「選定」「改字」至少要有一項依據標定點或準定點，已先記作「存疑」。';
+                }
+                const inCatalog = new Set((cs.slots || []).flatMap(slotChars));
+                putReview(d, {
+                    orig: d.origText != null ? d.origText : d.text, final, read: f.read, alt: f.alt, status, basis: f.basis,
+                    note: f.note, query: ksQueryText(box, v), ts: new Date().toISOString(), catalogDiff: !inCatalog.has(final)
+                });
+                delete ksUI.draft[ksKey(d)];
+                el.dataset.ksKey = '';
+                if (status === '選定' || status === '改字') {
+                    if (d.origText == null && final !== d.text) d.origText = d.text;
+                    d.text = final;
+                } else restore();   // 不再是「選定」「改字」：框上恢復模型原字，和重開案例時一致
+                renderWorkbench();
+                const m = document.getElementById('ksMsg');
+                if (m) m.textContent = msg;
+            };
+            const clr = el.querySelector('#ksClear');
+            if (clr) clr.onclick = () => {
+                putReview(d, null);
+                delete ksUI.draft[ksKey(d)];
+                el.dataset.ksKey = '';
+                restore();
+                renderWorkbench();
+            };
+            renderKsYin(ctx);
+        }
+        // 4b 候選字古音信息（參考）：古音以古音小鏡各家構擬為主（經 darkscope.cn/jinwen-data 整理、預存進 kaoshi.json），
+        // 下面附一行《古文字考釋意見長編》目錄（考釋文獻有幾條）。
+        async function renderKsYin(ctx) {
+            const box = document.getElementById('ksYin');
+            if (!box) return;
+            const cb = await loadChangbian();
+            if (!document.body.contains(box)) return;
+            const ph = (kaoshiData && kaoshiData.phono) || {};
+            const chars = [...new Set([ctx.d.text, ...(ctx.d.top5 || []).slice(0, 2).map(t => t.text)].map(ksNorm).filter(Boolean))];
+            const rows = chars.map(ch => {
+                const p = ph[ch];
+                let yin;
+                if (!p) yin = 'jinwen-data 未收此字古音';
+                else {
+                    yin = (p.oc.length ? '上古 ' + p.oc.slice(0, 5).map(r => ksEsc(r[0]) + ' *' + ksEsc(r[1])
+                        + '（' + [r[2], r[3] ? '頁' + r[3].replace('頁', '') : ''].filter(Boolean).map(ksEsc).join('，') + (r[4] ? '；另 ' + r[4] + ' 讀' : '') + '）').join('；') : '')
+                        + (p.mc ? '<br>中古 ' + ksEsc(p.mc.pos) + ' · ' + ksEsc(p.mc.fq) + '切'
+                            + (p.mc.head && p.mc.head.replace(/[①②③]/g, '') !== ch ? ' · 鄭張表聲首「' + ksText(p.mc.head) + '」' : '') : '')
+                        + (p.via ? '<br><span class="sub">據簡體字頭「' + ksText(p.via) + '」取得；一簡對多繁時讀音可能不同。</span>' : '');
+                }
+                let cbLine = '';
+                if (cb) {
+                    const hits = (cb.index || {})[ch];
+                    cbLine = '<br><span class="sub">長編：' + (hits && hits.length ? hits.slice(0, 2).map(([yi, si, hi]) => {
+                        const y = cb.yunbu[yi], s = y.sgy[si], h = s.heads[hi];
+                        return ksEsc(y.name) + '部 · 諧聲系 ' + ksEsc(s.code) + ' · ' + (h.n ? h.n + ' 條' : '收此字頭，0 條');
+                    }).join('；') : '未收') + '</span>';
+                }
+                return '<div><b>' + ksText(ch) + '</b>　' + yin + cbLine
+                    + '　<a href="' + ksEsc(charUrl(ch)) + '" target="_blank" rel="noopener">jinwen-data</a></div>';
+            }).join('');
+            const src = (cb && cb.source) || {};
+            box.innerHTML = '<div class="sub">候選字古音信息（參考）</div>' + rows
+                + '<p class="note">古音據古音小鏡（kaom.net）各家構擬，經 darkscope.cn/jinwen-data 整理；括號內是韻部和該家出處頁，「另 N 讀」表示該家還有別的讀音。'
+                + '長編據騰訊文檔《古文字考釋意見長編》（11 位編者合編）的目錄層級：韻部依新三家；諧聲系是布之道《廣韻形聲考》的編碼，據《廣韻》繫聯，不等於上古諧聲判斷。'
+                + '構擬僅供參考；同聲符、同韻部都不是通假證據，通假須例、理結合（《教程》頁30）；這也不是第一章說的「字音定點」。'
+                + (src.url ? ' <a href="' + ksEsc(src.url) + '" target="_blank" rel="noopener">長編原文</a>' : '')
+                + ' <a href="http://www.kaom.net/sgy_bzd.php" target="_blank" rel="noopener">廣韻形聲考</a>（鏈接需聯網）</p>';
+        }
+
         function downloadText(name, text, mime) {
             const a = document.createElement('a');
             a.href = URL.createObjectURL(new Blob([text], { type: mime || 'text/plain' }));
             a.download = name;
             a.click();
         }
+        const isDecided = rv => !!rv && (rv.status === '選定' || rv.status === '改字');
+        // 兩份導出都按閱讀順序，和列表一致；「序」是閱讀序
+        // 初稿：金框，加上學者「選定」「改字」的灰框；來源一列標模型或學者
         document.getElementById('expDraft').onclick = () => {
-            const rows = liveDets().filter(d => d.kept).map((d, i) => (i + 1) + '\t' + d.text + '\t' + Math.round(d.confidence * 100) + '%');
-            downloadText('銘見初稿.txt', '序\t今字\t把握\n' + rows.join('\n'));
+            const rows = readingOrder(liveDets()).map((d, i) => [i + 1, d]).filter(([, d]) => d.kept || isDecided(getReview(d)))
+                .map(([n, d]) => n + '\t' + d.text + '\t' + Math.round(d.confidence * 100) + '%\t' + (isDecided(getReview(d)) ? '學者' + getReview(d).status : '模型'));
+            downloadText('銘見初稿.txt', '閱讀序\t今字\t把握\t來源\n' + rows.join('\n'));
         };
+        // 疑字表：灰框，加上釋讀意見不是「選定」「改字」的框；補釋讀為、讀為、模型原字、框坐標，依據帶上辭例檢索式
         document.getElementById('expDoubt').onclick = () => {
-            const rows = liveDets().filter(d => !d.kept).map((d, i) => (i + 1) + '\t' + d.text + '\t' + Math.round(d.confidence * 100) + '%\t' + ((d.top5 || []).map(a => a.text).join('/')));
-            downloadText('銘見疑字表.txt', '序\t今字\t把握\t候選\n' + rows.join('\n'));
+            const basisText = rv => (rv.basis || []).map(b => b.k + (b.pt ? '（' + b.pt + '）' : '') + (b.txt ? '：' + b.txt : '')
+                + (b.query ? '：' + b.query + ' ' + (b.layer || '') + (b.scope ? '/' + b.scope : '') + (b.level ? ' ' + b.level : '') + ' ' + (b.hits || 0) + ' 條' : '')).join('；');
+            const one = s => String(s || '').replace(/\s+/g, ' ');
+            const rows = readingOrder(liveDets()).map((d, i) => [i + 1, d]).filter(([, d]) => {
+                const rv = getReview(d);
+                return !d.kept && !isDecided(rv) || (rv && !isDecided(rv));
+            }).map(([n, d]) => {
+                const rv = getReview(d) || {};
+                return [n, d.text, Math.round(d.confidence * 100) + '%', (d.top5 || []).map(a => a.text).join('/'),
+                    rv.status || '', rv.final && rv.final !== d.text ? rv.final : '', rv.read || '', rv.alt || '',
+                    d.origText != null ? d.origText : (rv.orig || ''), boxKey(d), basisText(rv), one(rv.note)].map(one).join('\t');
+            });
+            downloadText('銘見疑字表.txt', '閱讀序\t今字\t把握\t候選\t釋讀意見\t釋讀為\t讀為\t第二說\t模型原字\t框\t依據\t備註\n' + rows.join('\n'));
         };
         document.getElementById('expJson').onclick = () => {
+            const cs = ocrState.caseRef;
+            const order = readingOrder(liveDets());
             downloadText('銘見全部.json', JSON.stringify({
                 sourceLabel: ocrState.sourceLabel,
                 quality: ocrState.quality,
                 metric: ocrState.meta || null,
-                caseId: ocrState.caseRef ? ocrState.caseRef.id : undefined,
-                detections: ocrState.detections
+                caseId: cs ? cs.id : undefined,
+                detections: ocrState.detections.map(d => Object.assign({}, d, { readingIndex: order.indexOf(d) + 1 || null, box: boxKey(d) })),
+                reviews: cs ? (allReviews()[cs.stem] || {}) : undefined
             }, null, 2), 'application/json');
         };
         // Demo（只展示預存案例時叫「下一張」）= 輪流載入預存案例。OCR_LIVE 且後端在線時才把同一張真拓片送去現場識別。
@@ -4818,9 +5405,16 @@
                 sourceLabel: out.sourceLabel,
                 quality: null,
                 notice: '',
-                caseRef: cs
+                caseRef: cs,
+                sel: -1,
+                ksPred: out.source === 'case'   // 只有預存結果的框和 kaoshi.json 一一對應
             };
+            ksUI.showCmp = false;      // 換一張就重新遮住釋文
+            ksUI.draft = {};
+            applySavedReviews();
             renderWorkbench();
+            // 釋讀輔助數據（含閱讀順序）到了再重繪一次，列表順序和面板才用得上
+            if (!kaoshiData) loadKaoshi().then(() => { if (ocrState.caseRef === cs) renderWorkbench(); });
         }
         async function runRecognition(file) {
             document.getElementById('ocrList').innerHTML = '<p class="sub">識別中……</p>';
