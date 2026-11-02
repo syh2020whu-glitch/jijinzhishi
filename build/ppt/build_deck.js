@@ -103,7 +103,7 @@ const frame = (s, x, y, w, h) => s.addShape(pres.shapes.RECTANGLE, { x, y, w, h,
     txt(s, '吉金智识团队', { x: 0.8, y: 6.55, w: 6, h: 0.4, fontSize: 15, bold: true, color: C.ink });
     s.addImage({ path: A('hezun_vessel.png'), x: 8.55, y: 1.45, w: 4.1, h: 4.78, objectName: 'hezun' });
     txt(s, '何尊（西周早期），铭文“宅兹中国”是“中国”一词目前所见最早的文字记录', { x: 8.3, y: 6.35, w: 4.6, h: 0.5, fontSize: 11, color: C.muted, align: 'center' });
-    s.addNotes('【约 12 秒｜先点左下播放键，放 3 秒拟音】\n各位评委老师好，我们是吉金智识团队。刚才播放的，是何尊铭文“宅兹中国”四个字的上古音构拟。');
+    s.addNotes('【约 12 秒｜进页自动播放 3 秒拟音，放完再开口】\n各位评委老师好，我们是吉金智识团队。刚才播放的，是何尊铭文“宅兹中国”四个字的上古音构拟。');
   }
 
   // ══ 2 总书记 ══
@@ -315,7 +315,7 @@ const frame = (s, x, y, w, h) => s.addShape(pres.shapes.RECTANGLE, { x, y, w, h,
       txt(s, body, { x: x + 0.9, y: y + 0.4, w: 2.9, h: 0.65, fontSize: 10.5, color: C.text });
     });
     summary(s, 's8');
-    s.addNotes('【约 35 秒，压着录屏说】\n第三部分是四个功能模块，请看录屏。“看”，输入一个姓氏，比如“周”，就能看到它在金文里的写法，宋本《百家姓》四百零八个单姓中，有二百四十二个可以在金文中找到；“听”，根据郑张尚芳先生的构拟，听这个字的上古音；“写”，选一件青铜器，挑几个吉祥字，生成一张金文祝福明信片，页面上注明这是仿写；“考”，打开一张拓片，模型会框出每个字，并列出相关辞例和字形，供研究参考。');
+    s.addNotes('【约 35 秒｜录屏进页自动播放，压着录屏说】\n第三部分是四个功能模块，请看录屏。“看”，输入一个姓氏，比如“周”，就能看到它在金文里的写法，宋本《百家姓》四百零八个单姓中，有二百四十二个可以在金文中找到；“听”，根据郑张尚芳先生的构拟，听这个字的上古音；“写”，选一件青铜器，挑几个吉祥字，生成一张金文祝福明信片，页面上注明这是仿写；“考”，打开一张拓片，模型会框出每个字，并列出相关辞例和字形，供研究参考。');
   }
 
   // ══ 9 在趣味互动中记住金文 ══
@@ -374,4 +374,8 @@ const frame = (s, x, y, w, h) => s.addShape(pres.shapes.RECTANGLE, { x, y, w, h,
 
   await pres.writeFile({ fileName: OUT });
   console.log('wrote', OUT);
+  // pptxgenjs 的媒体只能单击播放；Windows 上接着用 PowerPoint 设成进页自动播放
+  if (process.platform === 'win32') {
+    require('child_process').execFileSync('powershell', ['-ExecutionPolicy', 'Bypass', '-File', path.join(ROOT, 'autoplay.ps1'), '-Pptx', OUT], { stdio: 'inherit' });
+  }
 })();
