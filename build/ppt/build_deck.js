@@ -250,7 +250,7 @@ const txt = (slide, text, o) => slide.addText(text, { fontFace: F.body, color: C
     header(s, '書', '我们的家底：每个字都有出处', 'WHAT WE HAVE COMPILED');
     const stats = [
       ['58 万', '张古文字字形图', '汇编甲骨、金文、小篆等 10 个字形来源'],
-      ['25,285', '条《中华字库》金文目录', '6 卷著录逐条整理成表，对上拓片编号'],
+      ['25,285', '条自建金文数据库目录', '器名、释文、时代、著录号逐条整理，对上拓片编号'],
       ['6,236', '张真拓片', '61,268 个字逐框标注，我们按隶定清洗重标'],
       ['5,930', '个金文变体', '1,690 个字头，标出时代与出土器物'],
       ['24.6 万', '条上古、中古音韵记录', '覆盖 7,909 个字，听音室据此构拟'],
@@ -268,7 +268,7 @@ const txt = (slide, text, o) => slide.addText(text, { fontFace: F.body, color: C
     const books = [
       ['殷周金文集成', '1727', '5A2E22', 4.25], ['商周青铜器铭文暨图像集成续编', '998', '2F4A40', 4.45], ['商周青铜器铭文暨图像集成', '785', '6B5326', 4.45],
       ['三代吉金文存', '455', '3D3024', 3.75], ['汉金文录', '394', '7A3B2A', 3.45], ['小校经阁金文拓本', '256', '35473F', 3.95],
-      ['古镜聚英', '86', '5C4A2A', 3.3], ['中华字库 · 金文目录', '6 卷', '4A2A22', 3.95],
+      ['古镜聚英', '86', '5C4A2A', 3.3], ['商周青铜器铭文选', '59', '4A2A22', 3.25],
     ];
     const bx0 = 7.85, base = 6.1;
     books.forEach(([name, n, col, h], i) => {
@@ -281,7 +281,7 @@ const txt = (slide, text, o) => slide.addText(text, { fontFace: F.body, color: C
     s.addShape(pres.shapes.RECTANGLE, { x: bx0 - 0.15, y: base, w: 8 * 0.6 + 0.22, h: 0.08, fill: { color: C.goldDeep }, line: { color: C.goldDeep, width: 0 } });
     txt(s, '拓片出自 150 余种著录与期刊（书脊下为数据集中的拓片张数）', { x: 7.7, y: 1.45, w: 5.1, h: 0.3, fontSize: 11, color: C.muted });
     takeaway(s, '数量是底气：每一个字，都能追到出处');
-    s.addNotes('【约 18 秒】\n第三是底座。我们整理了五十八万张古文字字形、两万五千多条《中华字库》金文目录、六千多张真拓片，拓片出自一百五十多种著录，每个字都能追到出处。\n\n口径：58 万 = jinwen-data 10 个字形来源图片合计 582,527（KAOM、殷契文渊、汉典、比赛拓片切字、EVOBC、Chronicles、说文、故宫甲骨、HUST-OBC、qxk）；24.6 万 = 古音小镜音韵记录 246,485 条；书脊张数按 6,236 张拓片文件名前缀统计。');
+    s.addNotes('【约 18 秒】\n第三是底座。我们整理了五十八万张古文字字形、两万五千多条自建数据库目录、六千多张真拓片，拓片出自一百五十多种著录，每个字都能追到出处。\n\n口径：58 万 = jinwen-data 10 个字形来源图片合计 582,527（KAOM、殷契文渊、汉典、比赛拓片切字、EVOBC、Chronicles、说文、故宫甲骨、HUST-OBC、qxk）；24.6 万 = 古音小镜音韵记录 246,485 条；书脊张数按 6,236 张拓片文件名前缀统计。');
   }
 
   // ══ 8 模型 ══
@@ -308,11 +308,11 @@ const txt = (slide, text, o) => slide.addText(text, { fontFace: F.body, color: C
     s.addShape(pres.shapes.RECTANGLE, { x: 0.6, y: 4.45, w: 2.59, h: 1.91, fill: { type: 'none' }, line: { color: C.goldDeep, width: 0.75 } });
     txt(s, '金框初稿 · 灰框存疑', { x: 0.6, y: 6.38, w: 2.59, h: 0.25, fontSize: 10, color: C.muted, align: 'center' });
     card(s, 3.45, 4.45, 9.28, 1.91, { fill: C.panel2, t: 5, lt: 35, name: 'score' });
-    s.addText('F1 0.80', { x: 3.7, y: 4.62, w: 3.3, h: 0.9, fontFace: F.en, fontSize: 44, bold: true, color: C.gold, margin: 0, isTextBox: true });
-    txt(s, '世界科学智能大赛 · 古文字识别赛道\n决赛系统（单字框对且字对才算对）', { x: 3.72, y: 5.5, w: 3.6, h: 0.75, fontSize: 12, color: C.goldLight });
+    s.addText('F1 0.803', { x: 3.7, y: 4.62, w: 3.3, h: 0.9, fontFace: F.en, fontSize: 44, bold: true, color: C.gold, margin: 0, isTextBox: true });
+    txt(s, '世界科学智能大赛 · 古文字识别赛道 二等奖\n第一名 0.8071；单字框对且字对才算对', { x: 3.72, y: 5.5, w: 3.7, h: 0.75, fontSize: 12, color: C.goldLight });
     txt(s, '训练：RTX 3090 / RTX 5090\n底座模型：DINOv3 视觉大模型\n网站展示的是 20 张验证集拓片的单模型离线结果', { x: 7.6, y: 4.72, w: 4.95, h: 1.5, fontSize: 12, color: C.text, lineSpacingMultiple: 1.3 });
     takeaway(s, '机器先给初稿和疑字，释读的最后一笔留给学者');
-    s.addNotes('【约 22 秒】\n在这批拓片上，我们训练了识读模型：四个检测器找字，七个识别器认字，每个字给五个候选。这套系统在世界科学智能大赛古文字识别赛道决赛中，F1 达到 0.80。机器给初稿，学者定稿。\n\n【定稿前确认】F1 0.80 的赛事名称、赛段、名次口径；检测 mAP50 0.946 为 RF-DETR + DINOv3 ViT-L 单检测器本地验证值。被问网站准确率时：网站是单模型离线结果，不要把相合率当准确率。');
+    s.addNotes('【约 22 秒】\n在这批拓片上，我们训练了识读模型：四个检测器找字，七个识别器认字，每个字给五个候选。这套系统拿了世界科学智能大赛古文字识别赛道的二等奖，F1 零点八零三，和第一名只差千分之四。机器给初稿，学者定稿。\n\n口径：决赛 F1 0.8030，第一名 0.8071；检测 mAP50 0.946 为 RF-DETR + DINOv3 ViT-L 单检测器本地验证值。被问网站准确率时：网站是单模型离线结果，不要把相合率当准确率。');
   }
 
   // ══ 9 体验：看听写考 ══
