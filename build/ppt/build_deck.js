@@ -290,7 +290,7 @@ const frame = (s, x, y, w, h) => s.addShape(pres.shapes.RECTANGLE, { x, y, w, h,
     card(s, 3.45, 4.15, 9.28, 1.91, { fill: C.panel2, name: 'score' });
     s.addText('F1 0.803', { x: 3.7, y: 4.3, w: 3.3, h: 0.9, fontFace: F.en, fontSize: 44, bold: true, color: C.cinnabar, margin: 0, isTextBox: true });
     txt(s, '世界科学智能大赛古文字识别赛道二等奖\n第一名 F1 为 0.8071\n评测要求字的位置与释文同时正确', { x: 3.72, y: 5.2, w: 3.8, h: 0.75, fontSize: 12, color: C.ink });
-    txt(s, '训练设备：RTX 3090、RTX 5090\n基础模型：DINOv3 视觉大模型\n网站展示的是 20 张验证集拓片的单模型离线结果', { x: 7.7, y: 4.4, w: 4.9, h: 1.5, fontSize: 12, color: C.text, lineSpacingMultiple: 1.3 });
+    txt(s, '训练设备：RTX 3090、RTX 5090\n基础模型：DINOv3 视觉大模型', { x: 7.7, y: 4.4, w: 4.9, h: 1.5, fontSize: 12, color: C.text, lineSpacingMultiple: 1.3 });
     summary(s, 's7');
     s.addNotes('【约 22 秒】\n在此基础上，我们训练了古文字识读模型，先定位每个字，再给出五个候选。这套系统在世界科学智能大赛古文字识别赛道获得二等奖，F1 值为 0.803。模型给出的是初稿，最终释读仍由学者确定。');
   }
