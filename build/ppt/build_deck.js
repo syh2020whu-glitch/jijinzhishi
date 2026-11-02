@@ -131,11 +131,16 @@ const frame = (s, x, y, w, h) => s.addShape(pres.shapes.RECTANGLE, { x, y, w, h,
     // 左：课本 + 文件
     frame(s, 0.57, 1.47, 2.32, 2.84);
     s.addImage({ path: A('textbook_cover.jpg'), x: 0.6, y: 1.5, w: 2.26, h: 2.78, objectName: 'textbook' });
-    txt(s, '2024 年秋季', { x: 3.1, y: 1.55, w: 3.5, h: 0.4, fontSize: 20, bold: true, color: C.cinnabar });
-    txt(s, '人教版七年级上册《中国历史》教材启用新封面，主体为何尊，背景为甲骨文。', { x: 3.1, y: 2.0, w: 3.55, h: 2.3, fontSize: 13, color: C.text, lineSpacingMultiple: 1.2 });
     frame(s, 0.57, 4.52, 6.08, 1.55);
     s.addImage({ path: A('moe_doc.jpg'), x: 0.6, y: 4.55, w: 6.02, h: 1.49, objectName: 'moe-doc' });
-    txt(s, '2025 年 12 月，教育部等七部门印发《关于深入推进中华优秀语言文化传承发展 提高全民语言文化素养的意见》（教语信〔2025〕3 号），明确“开展追溯甲骨文、金文、篆书等文字发展演变”。', { x: 0.6, y: 6.1, w: 6.1, h: 0.5, fontSize: 10.5, color: C.muted });
+    // 中：两条时间，三角分别指向左边的课本和下面的文件（队友 V2 P3 的改法）
+    [[1.55, 270, '2024年秋季', '人教版七年级上册《中国历史》教材启用新封面，主体为何尊，背景为甲骨文。', 0.75],
+     [2.75, 180, '2025年12月', '教育部等七部门印发《关于深入推进中华优秀语言文化传承发展 提高全民语言文化素养的意见》（教语信〔2025〕3 号），明确“开展追溯甲骨文、金文、篆书等文字发展演变”。', 1.45]]
+      .forEach(([y, rot, head, body, h], i) => {
+        s.addShape(pres.shapes.FLOWCHART_EXTRACT, { x: 3.1, y: y + 0.1, w: 0.24, h: 0.21, rotate: rot, fill: { color: C.cinnabar }, line: { color: C.cinnabar, width: 0 }, objectName: `time-mark-${i}` });
+        txt(s, head, { x: 3.45, y, w: 3.2, h: 0.4, fontSize: 20, bold: true, color: C.cinnabar });
+        txt(s, body, { x: 3.1, y: y + 0.45, w: 3.55, h, fontSize: 12.5, color: C.text, lineSpacingMultiple: 1.2 });
+      });
     // 右：三道门槛
     txt(s, '公众接触古文字的三个难点', { x: 7.1, y: 1.5, w: 5.6, h: 0.4, fontSize: 17, bold: true, color: C.ink });
     const pains = [
