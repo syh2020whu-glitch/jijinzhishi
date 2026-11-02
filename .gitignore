@@ -23,3 +23,14 @@ dist/
 assets/cases/
 # 教材等受版权保护的参考文本，只在本机阅读
 参考资料/
+
+# 决赛 PPT 生成链的中间产物（可用 build/ppt 下脚本重新生成）
+build/ppt/node_modules/
+build/ppt/package-lock.json
+build/ppt/dl/
+build/ppt/render/
+build/ppt/icons/
+build/ppt/assets/semi/
+build/ppt/assets/shots/
+build/ppt/assets/*_sheet.jpg
+build/ppt/assets/check_*.jpg
