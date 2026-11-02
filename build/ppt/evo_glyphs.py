@@ -7,7 +7,7 @@ ROOT = Path(__file__).parent
 SRC = ROOT / "dl" / "jwd"
 OUT = ROOT / "assets" / "evo"
 OUT.mkdir(parents=True, exist_ok=True)
-INK = (232, 199, 122)   # 与 PPT 金色一致
+INK = (42, 36, 24)   # 墨色，配浅色底
 KAI = "C:/Windows/Fonts/simkai.ttf"
 
 CHAINS = {
