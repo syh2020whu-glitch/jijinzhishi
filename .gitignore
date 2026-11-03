@@ -34,3 +34,7 @@ build/ppt/assets/semi/
 build/ppt/assets/shots/
 build/ppt/assets/*_sheet.jpg
 build/ppt/assets/check_*.jpg
+
+# 决赛海报：组委会模板（12 MB，只放本机）和看图用的中间产物
+“文化中国”总决赛现场展示海报设计模板.jpg
+build/poster/_work/
