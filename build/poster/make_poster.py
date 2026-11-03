@@ -9,6 +9,7 @@ python build/poster/make_poster.py --prep          # 重新生成 build/poster/a
 全稿不放本队校名、人名；文案不拿金文和其他古文字比较。
 """
 import argparse
+import re
 from pathlib import Path
 
 from PIL import Image, ImageDraw, ImageFilter, ImageFont
@@ -66,17 +67,17 @@ NO_LINE_START = set("，。、；：？！”’）》」』…·%")
 
 
 def wrap(text, f, max_w):
-    """按宽度折行，标点不放行首。"""
+    """按宽度折行：中文逐字、英文按词，标点不放行首。"""
     lines = []
     for para in text.split("\n"):
         cur = ""
-        for ch in para:
-            if cur and f.getlength(cur + ch) > max_w and ch not in NO_LINE_START:
-                lines.append(cur)
-                cur = ch
+        for tok in re.findall(r"[A-Za-z0-9.,:;?!'’–@()\-]+ ?|.", para):
+            if cur and f.getlength((cur + tok).rstrip()) > max_w and tok[0] not in NO_LINE_START:
+                lines.append(cur.rstrip())
+                cur = tok.lstrip()
             else:
-                cur += ch
-        lines.append(cur)
+                cur += tok
+        lines.append(cur.rstrip())
     return lines
 
 
@@ -185,9 +186,19 @@ PA = ROOT / "assets"            # 海报专用素材（已去掉姓名、校名�
 PROOF = A / "proof" / "png"      # 证明材料的脱敏图（不入库），只在 --prep 时读
 VR_BRANCH = "claude/vr-galaxy-fb0eec"
 
+# ── 仿往届海报的绿色系（与模板青绿呼应），朱砂只用在印章和少量强调 ──
+G_DARK = (38, 84, 58)        # 小节标题、竖签
+G_MID = (86, 140, 98)
+G_LIGHT = (214, 232, 206)
+G_HL = (226, 232, 128)       # 标题下的黄绿高光（样本里的荧光笔效果）
+F_BRUSH = FONTS + "STXINGKA.TTF"   # 华文行楷：主标题、小节标题、口号
+F_SONG = FONTS + "STSONG.TTF"      # 华文宋体：正文
+NUMS = "壹贰叁肆伍"
+
 
 def prep_assets():
-    """从证明材料和 VR 分支截图生成 build/poster/assets/。一般不用重跑，素材已入库。"""
+    """从证明材料、VR 分支截图生成 build/poster/assets/。一般不用重跑，素材已入库。
+    小红书截图另见 shot_xhs.py；课堂照片放 assets/class_1.jpg … class_4.jpg 即可自动替换占位框。"""
     import subprocess
     from io import BytesIO
     PA.mkdir(exist_ok=True)
@@ -195,18 +206,26 @@ def prep_assets():
     for key, n in [("vr_carve", "03-carve"), ("vr_pour", "05-pour"), ("vr_open", "06-open"), ("vr_rise", "08-rise")]:
         raw = subprocess.run(["git", "show", f"{VR_BRANCH}:build/vr-slide/out/{n}.png"], cwd=REPO, capture_output=True, check=True).stdout
         Image.open(BytesIO(raw)).convert("RGB").crop((240, 100, 1680, 910)).resize((1080, 608), Image.LANCZOS).save(PA / f"{key}.jpg", quality=90)
-    # 证书：世界科学智能大赛裁到赛道名为止（不露队名、姓名、主办方校名）；CCL 已转正并遮掉高校校徽
-    s = Image.open(PROOF / "sais_award_crop.png").convert("RGB")
-    s.crop((0, 0, s.width, 1535)).resize((900, round(900 * 1535 / s.width)), Image.LANCZOS).save(PA / "award_sais.jpg", quality=90)
-    for key, src in [("award_ccl", "ccl2026_award_crop.png"), ("cert_confucius", "confucius_cert_crop.png")]:
-        c = Image.open(PROOF / src).convert("RGB")
-        c.resize((1200, round(1200 * c.height / c.width)), Image.LANCZOS).save(PA / f"{key}.jpg", quality=90)
     # 论文首页：只取上半页（题目 + 摘要），作者栏已涂掉 / 本是匿名稿
     for key, src in [("paper_lt4hala", "paper_lt4hala2026_p1_anon.png"), ("paper_arr", "paper_arr2026-10_p1.png")]:
         c = Image.open(PROOF / src).convert("RGB")
         c = c.crop((0, int(c.height * 0.05), c.width, int(c.height * 0.50)))
         c.resize((1000, round(1000 * c.height / c.width)), Image.LANCZOS).save(PA / f"{key}.jpg", quality=90)
     print("prepared", sorted(f.name for f in PA.iterdir()))
+
+
+def cloud(d, cx, cy, s, color, flip=False):
+    """简笔祥云：一大一小两个回旋，样本里小标题两侧的纹样。"""
+    import math
+    k = -1 if flip else 1
+    for r0, ox, oy in [(s, 0, 0), (s * 0.6, s * 1.25, s * 0.35)]:
+        pts = []
+        for t in range(0, 300):
+            th = t / 300 * 2.2 * math.pi
+            r = r0 * (1 - th / (2.6 * math.pi))
+            pts.append((cx + k * (ox + r * math.cos(th)), cy + oy - r * math.sin(th)))
+        d.line(pts, fill=color, width=max(3, int(s / 9)), joint="curve")
+    d.line((cx - k * s * 0.2, cy + s, cx + k * s * 3.6, cy + s), fill=color, width=max(3, int(s / 9)))
 
 
 def build(key, template):
@@ -217,242 +236,277 @@ def build(key, template):
     p.text((1385, 2691), "吉金智识", F_TITLE, 150, NAVY, anchor="lm", bold=2)
     p.text((2560, 2691), "所属赛题：赛题五 开放赛题", F_TITLE, 112, NAVY, anchor="lm", bold=1)
 
-    # ── 内容面板：半透明宣纸色圆角大板，底部露出模板山水 ──
-    PY0, PY1 = 2900, 10240
-    p.shadow_box((PX0, PY0, PX1, PY1), radius=80, blur=40, offset=16, alpha=70)
+    # ── 内容面板：半透明浅绿白圆角大板（同往届海报），底部露出模板山水 ──
+    PY0, PY1 = 2900, 10250
+    p.shadow_box((PX0, PY0, PX1, PY1), radius=80, blur=40, offset=16, alpha=60)
     panel = Image.new("RGBA", p.im.size, (0, 0, 0, 0))
-    ImageDraw.Draw(panel).rounded_rectangle((PX0, PY0, PX1, PY1), radius=80, fill=PANEL + (236,))
+    ImageDraw.Draw(panel).rounded_rectangle((PX0, PY0, PX1, PY1), radius=80, fill=(246, 251, 244, 226))
     p.im.alpha_composite(panel)
-    d.rounded_rectangle((PX0 + 28, PY0 + 28, PX1 - 28, PY1 - 28), radius=60, outline=(214, 192, 140), width=4)
+    d.rounded_rectangle((PX0 + 28, PY0 + 28, PX1 - 28, PY1 - 28), radius=60, outline=(196, 222, 190), width=4)
 
-    # ══ 主标题 ══
-    y = 3050
-    title = TITLES[key]
-    size = 200 if key == "A" else 230
-    th = 215                    # 两个方案的标题行同高，后面版面不动
-    tw = font(F_TITLE, size).getlength(title)
-    seal = int(size * 0.95)
-    tx = (W - tw - seal - 60) / 2
-    p.text((tx, y + th / 2), title, F_TITLE, size, INK, anchor="lm", bold=4)
-    p.paste(A / "seal_中.png", (int(tx + tw + 60), int(y + th / 2 - seal / 2), int(tx + tw + 60 + seal), int(y + th / 2 + seal / 2)))
-    y += th + 60
-    p.rect((W / 2 - 90, y, W / 2 + 90, y + 8), fill=GOLD)
-    y += 50
-    p.text((W / 2, y), "吉金智识　金文数字化传承与互动体验平台", F_TITLE, 96, CINNABAR, anchor="ma", bold=1, spacing=8)
-    y += 96 + 100
+    def hl(x0, y0, x1):
+        """标题下的黄绿高光条。"""
+        p.rect((x0, y0, x1, y0 + 34), fill=G_HL)
 
-    # ══ 何尊 + 项目简介 ══
-    hy0, hh = y, 720
-    p.paste(A / "hezun_vessel.png", (CX0, hy0, CX0 + 680, hy0 + hh))
-    rx0 = CX0 + 710
+    def section(y, title, pinyin):
+        """样本式小节标题：行楷大字 + 拼音 + 一条通到右边的细线。"""
+        tw = font(F_BRUSH, 128).getlength(title)
+        hl(CX0 - 10, y + 104, CX0 + tw * 0.55)
+        p.text((CX0, y), title, F_BRUSH, 128, G_DARK, bold=1)
+        px = CX0 + tw + 60
+        p.text((px, y + 98), pinyin, F_NUM, 60, G_DARK, anchor="ls", spacing=4)
+        pw = font(F_NUM, 60).getlength(pinyin) + 4 * len(pinyin)
+        d.line((px, y + 118, CX1, y + 118), fill=G_DARK, width=5)
+        d.line((px + pw + 30, y + 98 - 22, CX1, y + 98 - 22), fill=G_MID, width=2)
+        return y + 190
+
+    # ══ 主标题（行楷，后半句绿色，句末印章） ══
+    y = 3040
+    head, tail = {"A": ("“中国”二字，", "最早写在这件青铜器上"), "B": ("以字为桥，", "连起三千年")}[key]
+    size = 196 if key == "A" else 250
+    fh = font(F_BRUSH, size)
+    tw = fh.getlength(head + tail)
+    seal = 170
+    tx = (W - tw - seal - 50) / 2
+    cy = y + 125
+    p.text((tx, cy), head, F_BRUSH, size, INK, anchor="lm", bold=2)
+    p.text((tx + fh.getlength(head), cy), tail, F_BRUSH, size, G_DARK, anchor="lm", bold=2)
+    p.paste(A / "seal_中.png", (int(tx + tw + 50), int(cy - seal / 2), int(tx + tw + 50 + seal), int(cy + seal / 2)))
+    y += 270
+    p.text((W / 2, y), "吉金智识　金文数字化传承与互动体验平台", F_TITLE, 92, CINNABAR, anchor="ma", bold=1, spacing=8)
+    y += 92 + 100
+
+    # ══ 项目简介 ══
+    y = section(y, "项目简介", "XIANGMU JIANJIE")
+    hy0, hh = y, 700
+    p.paste(A / "hezun_vessel.png", (CX0, hy0, CX0 + 660, hy0 + hh))
+    rx0 = CX0 + 690
     rw = int(hh * 1000 / 932)
     rb = p.paste(A / "hezun_rubbing.jpg", (rx0, hy0, rx0 + rw, hy0 + hh))
     k = rw / 1000
     bx, by, bw, bh = rb[0] + 405 * k, rb[1] + 180 * k, 110 * k, 235 * k
     d.rectangle((bx, by, bx + bw, by + bh), outline=CINNABAR, width=9)
-    zx0 = rx0 + rw + 110
+    zx0 = rx0 + rw + 100
     zw = int(hh * 0.86 * 330 / 705)
     zb = (zx0, hy0, zx0 + zw, hy0 + int(hh * 0.86))
     p.dashed_line((bx + bw, by), (zb[0], zb[1]), CINNABAR, 4)
     p.dashed_line((bx + bw, by + bh), (zb[0], zb[3]), CINNABAR, 4)
     p.paste(A / "hezun_zhongguo.png", zb, mode="cover")
     d.rectangle(zb, outline=CINNABAR, width=9)
-    p.text(((zb[0] + zb[2]) / 2, zb[3] + 14), "中或", F_TITLE, 80, CINNABAR, anchor="ma", bold=2)
-    p.para(CX0, hy0 + hh + 25, "何尊（西周早期），铭文“宅兹中或”是“中国”一词目前所见最早的文字记录", 46, MUTED, zb[2] - CX0 + 200)
-
-    ix0 = zb[2] + 120
-    iw = CX1 - ix0
-    p.text((ix0, hy0), "项目简介", F_TITLE, 104, INK, bold=2)
-    p.text((ix0 + 450, hy0 + 62), "ABOUT", F_EN, 46, MUTED, anchor="ls", spacing=6)
-    p.rect((ix0, hy0 + 140, ix0 + 140, hy0 + 148), fill=GOLD)
-    p.para(ix0, hy0 + 185,
+    p.text(((zb[0] + zb[2]) / 2, zb[3] + 12), "中或", F_TITLE, 76, CINNABAR, anchor="ma", bold=2)
+    p.para(CX0, hy0 + hh + 22, "何尊（西周早期），铭文“宅兹中或”是“中国”一词目前所见最早的文字记录", 44, MUTED, zb[2] - CX0 + 300)
+    ix0 = zb[2] + 110
+    p.para(ix0, hy0 + 10,
            "吉金智识是一个金文数字化传承与互动体验平台。我们整理古文字字形、自建金文数据库目录和拓片，"
            "训练古文字识读模型，帮助观众在博物馆里读懂青铜铭文。同一套字库，还能用来认源流、听古音、练书写、助研究，"
            "也能带观众用 VR 走进青铜器。",
-           56, TEXT, iw, lh=1.58)
-    y = hy0 + hh + 110
+           58, TEXT, CX1 - ix0, path=F_SONG, lh=1.62)
+    y = hy0 + hh + 120
 
-    # ══ 核心场景：博物馆四步 ══
-    y = p.header(y, "見", "走进博物馆，读懂青铜铭文", "CORE SCENARIO")
-    gap = 90
-    cw = (CW - 3 * gap) // 4
-    ch = 460
-    cards = [("拍下铭文", "观众在展柜前扫码，\n拍下器物上的铭文"),
-             ("拆成单字", "模型找出铭文中的每一个字，\n逐个切分"),
-             ("匹配今字", "到字库中逐字匹配，\n给出对应的现代汉字"),
-             ("读懂历史", "连字成句、配上白话，\n读懂铭文记载的历史")]
-    for i, (head, body) in enumerate(cards):
-        x = CX0 + i * (cw + gap)
-        box = (x, y, x + cw, y + ch)
-        p.shadow_box(box, blur=20, offset=10, alpha=55)
-        p.rect(box, fill=PANEL2 if i in (0, 3) else DARK)
+    # ══ 口号（两侧祥云） ══
+    slogan = "让书写在青铜器上的文字活起来"
+    sw_ = font(F_BRUSH, 120).getlength(slogan)
+    p.text((W / 2, y + 60), slogan, F_BRUSH, 120, G_DARK, anchor="mm", bold=1)
+    cloud(d, W / 2 - sw_ / 2 - 120, y + 50, 36, G_MID, flip=True)
+    cloud(d, W / 2 + sw_ / 2 + 120, y + 50, 36, G_MID)
+    y += 200
+
+    # ══ 体验体系：四格，左侧竖签（仿样本“理念/技术/方法/模式创新”） ══
+    y = section(y, "体验体系", "TIYAN TIXI")
+    gx, gy = 70, 60
+    cw = (CW - gx) // 2
+    chh = 1300
+    lab_w = 130
+
+    def cell(ix, iy, label, heading):
+        x0 = CX0 + ix * (cw + gx)
+        y0 = y + iy * (chh + gy)
+        # 竖签：深绿底、浅色内框、竖排四字
+        p.rect((x0, y0 + 60, x0 + lab_w, y0 + 60 + 560), fill=G_DARK, radius=18)
+        d.rounded_rectangle((x0 + 12, y0 + 72, x0 + lab_w - 12, y0 + 60 + 548), radius=12, outline=G_LIGHT, width=3)
+        for j, ch in enumerate(label):
+            p.text((x0 + lab_w / 2, y0 + 130 + j * 125), ch, F_BRUSH, 96, PAPER, anchor="mm")
+        cx0 = x0 + lab_w + 50
+        cwid = cw - lab_w - 50
+        p.text((cx0 + cwid / 2, y0 + 10), heading, F_TITLE, 66, G_DARK, anchor="ma", bold=1, spacing=4)
+        return cx0, y0 + 120, cwid
+
+    # 1 核心场景：博物馆四步
+    cx0, cy0, cwid = cell(0, 0, "核心场景", "走进博物馆，读懂青铜铭文")
+    sw4 = (cwid - 3 * 30) // 4
+    steps = [("拍下铭文", None), ("拆成单字", "story_split.png"), ("匹配今字", "story_match.png"), ("读懂历史", None)]
+    for i, (lab, img) in enumerate(steps):
+        x = cx0 + i * (sw4 + 30)
+        box = (x, cy0, x + sw4, cy0 + 760)
+        p.rect(box, fill=DARK if img else PANEL2)
         if i == 0:
-            p.paste(A / "hezun_rubbing.jpg", (x + 25, y + 25, x + cw - 25, y + ch - 25), mode="cover")
-            p.dot(x + cw - 105, y + ch - 105, 150, CINNABAR, icon=A / "icons" / "camera_light.png")
-        elif i == 1:
-            p.paste(A / "story_split.png", box)
-        elif i == 2:
-            p.paste(A / "story_match.png", box)
+            p.paste(A / "hezun_vessel.png", (x + 15, cy0 + 60, x + sw4 - 15, cy0 + 700))
+        elif img:
+            p.paste(A / img, box)
         else:
-            p.text((x + 55, y + 55), "余其宅兹中国，", F_TITLE, 74, INK, bold=2)
-            p.text((x + 55, y + 160), "自之乂民。", F_TITLE, 74, INK, bold=2)
-            p.rect((x + 55, y + 280, x + 175, y + 288), fill=GOLD)
-            p.para(x + 55, y + 320, "我要定居在天下的中心，从这里治理百姓。", 48, TEXT, cw - 110, lh=1.45)
-        p.dot(x - 10, y - 10, 110, CINNABAR, label=str(i + 1), label_size=60)
-        if i < 3:
-            p.tri(x + cw + gap / 2, y + ch / 2, 40, "right")
-        p.text((x + cw / 2, y + ch + 40), head, F_TITLE, 80, INK, anchor="ma", bold=2)
-        p.para(x + 20, y + ch + 150, body, 48, TEXT, cw - 40, lh=1.45, align="center")
-    y += ch + 150 + 2 * 48 * 1.45 + 70
+            for j, l in enumerate(["余其宅", "兹中国，", "自之乂民。"]):
+                p.text((x + 30, cy0 + 40 + j * 90), l, F_TITLE, 64, INK, bold=1)
+            p.rect((x + 30, cy0 + 330, x + 130, cy0 + 337), fill=GOLD)
+            p.para(x + 30, cy0 + 365, "我要定居在天下的中心，从这里治理百姓。", 40, TEXT, sw4 - 50, lh=1.4)
+        p.dot(x + 6, cy0 + 6, 80, G_DARK, label=str(i + 1), label_size=44)
+        p.text((x + sw4 / 2, cy0 + 795), lab, F_TITLE, 62, INK, anchor="ma", bold=1)
+    p.para(cx0, cy0 + 920, "观众在展柜前扫码拍下铭文，模型找出每一个字，到字库中逐字匹配，给出现代汉字，再连成句子、配上白话。",
+           44, TEXT, cwid, path=F_SONG, lh=1.5)
 
-    # ══ 我们的积累：大数字（口径同 决赛讲稿-v3 第四节） ══
-    y = p.header(y, "書", "我们的积累", "DATA AND MODEL")
-    stats = [("58万", "张古文字字形图", "汇集 10 个字形来源"),
-             ("25,285", "条自建金文数据库目录", "器名、释文、时代、著录号"),
-             ("6,236", "张拓片", "逐字标注 61,268 个字框"),
-             ("150余种", "拓片来源著录", "每张拓片都注明出处"),
-             ("5,930", "个金文变体", "分属 1,690 个字头"),
-             ("24.6万", "条音韵记录", "覆盖 7,909 个字"),
-             ("242", "个百家姓见于金文", "宋本《百家姓》408 个单姓"),
-             ("F1 0.803", "识读模型得分", "4 个检测器 + 7 个识别器集成")]
-    sw, sh, sg = (CW - 3 * 60) // 4, 300, 60
-    for i, (num, unit, note) in enumerate(stats):
-        x = CX0 + (i % 4) * (sw + sg)
-        yy = y + (i // 4) * (sh + 36)
-        p.rect((x, yy, x + sw, yy + sh), fill=PANEL, outline=LINE, width=3)
-        p.rect((x, yy, x + 14, yy + sh), fill=CINNABAR)
-        nx = x + 55
+    # 2 资料与模型：六个大数字
+    cx0, cy0, cwid = cell(1, 0, "资料模型", "汇集整理资料，训练识读模型")
+    stats = [("58万", "张古文字字形图"), ("25,285", "条自建金文数据库目录"), ("6,236", "张拓片"),
+             ("61,268", "个逐字标注的字框"), ("150余种", "拓片来源著录"), ("5,930", "个金文变体"),
+             ("24.6万", "条音韵记录"), ("242", "个百家姓见于金文"), ("F1 0.803", "古文字识读模型")]
+    sw3 = (cwid - 2 * 30) // 3
+    for i, (num, unit) in enumerate(stats):
+        x = cx0 + (i % 3) * (sw3 + 30)
+        yy = cy0 + (i // 3) * 300
+        p.rect((x, yy, x + sw3, yy + 270), fill=(255, 255, 255), outline=G_LIGHT, width=4)
+        p.rect((x, yy, x + sw3, yy + 12), fill=G_MID)
+        nx = x + (sw3 - sum(font(F_NUM if s.isascii() else F_TITLE, 104 if s.isascii() else 74).getlength(s) for s in _split_num(num))) / 2
         for part in _split_num(num):
             path = F_NUM if part.isascii() else F_TITLE
-            sz = 130 if part.isascii() else 92
-            p.text((nx, yy + 135), part, path, sz, CINNABAR, anchor="ls", bold=0 if part.isascii() else 2)
+            sz = 104 if part.isascii() else 74
+            p.text((nx, yy + 140), part, path, sz, G_DARK, anchor="ls", bold=0 if part.isascii() else 2)
             nx += font(path, sz).getlength(part)
-        p.text((x + 55, yy + 162), unit, F_BOLD, 52, INK)
-        p.text((x + 55, yy + 236), note, F_BODY, 42, MUTED)
-    y += 2 * sh + 36 + 80
+        p.para(x + 20, yy + 175, unit, 40, TEXT, sw3 - 40, lh=1.3, align="center")
+    p.para(cx0, cy0 + 920, "每个字形、每张拓片都注明出处；识读模型由 4 个检测器、7 个识别器集成，给出初稿，最终由专家审定。",
+           44, TEXT, cwid, path=F_SONG, lh=1.5)
 
-    # ══ 更多场景：四可 + VR ══
-    y = p.header(y, "樂", "更多场景：让古文字可看、可听、可写、可考", "MORE WAYS TO EXPERIENCE")
-    four = [("看", "认源流", "看一个字怎样一步步\n演变成今天的样子"),
-            ("听", "听古音", "听《诗经》“关关雎鸠”\n在上古的读法"),
-            ("写", "练书写", "描红古文字，\n铸一句金文祝福"),
-            ("考", "助研究", "模型框出拓片上的字，\n列出候选字和辞例")]
-    cw4 = (CW - 3 * gap) // 4
-    dd = 230
+    # 3 四可体验
+    cx0, cy0, cwid = cell(0, 1, "四可体验", "让古文字可看、可听、可写、可考")
+    four = [("看", "认源流", "一个字怎样演变\n成今天的样子"), ("听", "听古音", "《诗经》首句\n在上古的读法"),
+            ("写", "练书写", "描红古文字，\n铸一句金文祝福"), ("考", "助研究", "框出拓片上的字，\n列出候选和辞例")]
+    q = cwid / 4
     for i, (c, head, body) in enumerate(four):
-        cx = CX0 + i * (cw4 + gap) + cw4 / 2
-        col = CINNABAR if i == 3 else PATINA
-        d.ellipse((cx - dd / 2, y, cx + dd / 2, y + dd), fill=col)
-        d.ellipse((cx - dd / 2 + 14, y + 14, cx + dd / 2 - 14, y + dd - 14), outline=PAPER, width=4)
-        p.text((cx, y + dd / 2 + 5), c, F_TITLE, 140, PAPER, anchor="mm", bold=3)
-        p.text((cx, y + dd + 35), head, F_TITLE, 72, INK, anchor="ma", bold=2)
+        mx = cx0 + q * i + q / 2
+        col = CINNABAR if i == 3 else G_MID
+        d.ellipse((mx - 150, cy0 + 30, mx + 150, cy0 + 330), fill=col)
+        d.ellipse((mx - 132, cy0 + 48, mx + 132, cy0 + 312), outline=PAPER, width=5)
+        p.text((mx, cy0 + 184), c, F_BRUSH, 200, PAPER, anchor="mm")
+        p.text((mx, cy0 + 380), head, F_TITLE, 68, INK, anchor="ma", bold=1)
         for j, l in enumerate(body.split("\n")):
-            p.text((cx, y + dd + 135 + j * 66), l, F_BODY, 46, TEXT, anchor="ma")
-    by = y + dd + 135 + 2 * 66 + 40
-    # 看听写 = 创造性转化；考 = 创新性发展
-    xa0, xa1 = CX0 + 40, CX0 + 3 * cw4 + 2 * gap - 40
-    xb0, xb1 = CX0 + 3 * (cw4 + gap) + 40, CX1 - 40
-    for x0, x1, col, lab in [(xa0, xa1, PATINA, "创造性转化"), (xb0, xb1, CINNABAR, "创新性发展")]:
+            p.text((mx, cy0 + 490 + j * 66), l, F_BODY, 46, TEXT, anchor="ma")
+    by = cy0 + 720
+    for x0, x1, col, lab in [(cx0 + 20, cx0 + 3 * q - 20, G_MID, "创造性转化"), (cx0 + 3 * q + 20, cx0 + cwid - 20, CINNABAR, "创新性发展")]:
         d.line((x0, by, x1, by), fill=col, width=6)
-        d.line((x0, by - 28, x0, by), fill=col, width=6)
-        d.line((x1, by - 28, x1, by), fill=col, width=6)
-        mid = (x0 + x1) / 2
-        lw = font(F_TITLE, 64).getlength(lab) + 80
-        p.rect((mid - lw / 2, by - 42, mid + lw / 2, by + 42), fill=PANEL)
-        p.text((mid, by), lab, F_TITLE, 64, col, anchor="mm", bold=1)
-    y = by + 90
+        d.line((x0, by - 26, x0, by), fill=col, width=6)
+        d.line((x1, by - 26, x1, by), fill=col, width=6)
+        lw = font(F_TITLE, 56).getlength(lab) + 60
+        p.rect(((x0 + x1) / 2 - lw / 2, by - 38, (x0 + x1) / 2 + lw / 2, by + 38), fill=(246, 251, 244))
+        p.text(((x0 + x1) / 2, by), lab, F_TITLE, 56, col, anchor="mm", bold=1)
+    p.para(cx0, cy0 + 840, "看、听、写把金文变成可感可玩的体验；考把识读模型交到研究者手上，辅助释读整篇拓片。",
+           44, TEXT, cwid, path=F_SONG, lh=1.5)
 
-    # VR：化身工匠，走进何尊
-    VRH = 1190
-    p.rect((CX0, y, CX1, y + VRH), fill=DARK)
-    p.text((CX0 + 70, y + 60), "VR", F_NUM, 96, GOLD, anchor="la")
-    p.text((CX0 + 270, y + 66), "化身工匠，走进何尊", F_TITLE, 92, PAPER, anchor="la", bold=2)
-    p.para(CX0 + 70, y + 200,
-           "观众在博物馆看得到青铜器，却看不到铸在器内底的铭文。手机套上纸盒眼镜，坐进铸铜作坊，亲手刻铭、浇铸，再走进铸好的尊里读铭文。无需安装应用。",
-           48, (226, 214, 190), CW - 140, lh=1.5)
-    vr = [("vr_carve", "内范刻铭", "亲手反刻“宅兹中国”"),
-          ("vr_pour", "合范浇铸", "铜液灌入范中"),
-          ("vr_open", "脱范出器", "敲开外范，铜尊出范"),
-          ("vr_rise", "入器读铭", "122 字从脚下升起，\n注视一字即显示今译和古音")]
-    vg = 40
-    vw = (CW - 140 - 3 * vg) // 4
+    # 4 沉浸体验：VR
+    cx0, cy0, cwid = cell(1, 1, "沉浸体验", "VR：化身工匠，走进何尊")
+    vw = (cwid - 30) // 2
     vh = int(vw * 608 / 1080)
-    vy = y + 350
-    for i, (f, head, body) in enumerate(vr):
-        x = CX0 + 70 + i * (vw + vg)
-        p.paste(PA / f"{f}.jpg", (x, vy, x + vw, vy + vh), mode="cover")
-        d.rectangle((x, vy, x + vw, vy + vh), outline=GOLD, width=3)
-        p.dot(x + 50, vy + 50, 76, CINNABAR, label=str(i + 1), label_size=42)
-        p.text((x, vy + vh + 30), head, F_TITLE, 62, PAPER, bold=1)
-        p.para(x, vy + vh + 115, body, 40, (206, 194, 170), vw, lh=1.4)
-    p.text((CX0 + 70, y + VRH - 45), "三维模型为明尼阿波利斯美术馆 CC0 开放扫描的西周同类器；范铸过程为示意。",
-           F_BODY, 36, (170, 158, 136), anchor="ls")
-    y += VRH + 90
+    vr = [("vr_carve", "内范刻铭"), ("vr_pour", "合范浇铸"), ("vr_open", "脱范出器"), ("vr_rise", "入器读铭")]
+    for i, (f, lab) in enumerate(vr):
+        x = cx0 + (i % 2) * (vw + 30)
+        yy = cy0 + (i // 2) * (vh + 30)
+        p.paste(PA / f"{f}.jpg", (x, yy, x + vw, yy + vh), mode="cover")
+        p.rect((x, yy + vh - 70, x + vw, yy + vh), fill=(30, 26, 20))
+        p.text((x + 24, yy + vh - 35), f"{i + 1}  {lab}", F_TITLE, 46, PAPER, anchor="lm", bold=1)
+    p.para(cx0, cy0 + 2 * vh + 60, "手机套上纸盒眼镜，亲手在内范上反刻“宅兹中国”，浇铸、脱范后走进尊里，122 字铭文从脚下升起。",
+           44, TEXT, cwid, path=F_SONG, lh=1.5)
+    p.text((cx0, cy0 + 1110), "三维模型为明尼阿波利斯美术馆 CC0 开放扫描的西周同类器；范铸过程为示意。", F_BODY, 32, MUTED)
+    y += 2 * chh + gy + 70
 
-    # ══ 研究与应用成果（证书、论文、落地，参照往届海报的“实践成果”） ══
-    y = p.header(y, "古", "研究与应用成果", "ACHIEVEMENTS AND APPLICATIONS")
-    cg = 70
+    # ══ 实践成果：三栏，祥云小标题 + 壹贰叁 ══
+    y = section(y, "实践成果", "SHIJIAN CHENGGUO")
+    cg = 60
     colw = (CW - 2 * cg) // 3
     cols = [CX0 + i * (colw + cg) for i in range(3)]
 
     def col_head(x, t):
-        tw = font(F_TITLE, 70).getlength(t)
         mid = x + colw / 2
-        p.text((mid, y + 40), t, F_TITLE, 70, CINNABAR, anchor="mm", bold=2)
-        for sgn in (-1, 1):
-            a0 = mid + sgn * (tw / 2 + 30)
-            a1 = mid + sgn * (colw / 2 - 10)
-            d.line((a0, y + 40, a1, y + 40), fill=GOLD, width=4)
-            d.ellipse((a1 - 9, y + 31, a1 + 9, y + 49), fill=GOLD)
+        tw_ = font(F_BRUSH, 96).getlength(t)
+        p.text((mid, y + 50), t, F_BRUSH, 96, G_DARK, anchor="mm")
+        cloud(d, mid - tw_ / 2 - 80, y + 40, 26, G_MID, flip=True)
+        cloud(d, mid + tw_ / 2 + 80, y + 40, 26, G_MID)
+        return y + 150
 
-    # 获奖与证书
+    def item(x, yy, n, head, body=None):
+        d.ellipse((x, yy, x + 96, yy + 96), fill=G_DARK)
+        d.ellipse((x + 8, yy + 8, x + 88, yy + 88), outline=G_LIGHT, width=3)
+        p.text((x + 48, yy + 50), NUMS[n], F_BRUSH, 60, PAPER, anchor="mm")
+        p.text((x + 125, yy + 4), head, F_TITLE, 54, INK, bold=1)
+        ny = yy + 80
+        if body:
+            ny = p.para(x + 125, yy + 82, body, 40, TEXT, colw - 125, lh=1.4)
+        return max(ny, yy + 100) + 20
+
+    def photo_or_slot(box, path, label):
+        if path.exists():
+            p.paste(path, box, mode="cover")
+            d.rectangle(box, outline=G_LIGHT, width=3)
+        else:   # 课堂照片还没拍：先留虚线框
+            p.rect(box, fill=(234, 242, 230))
+            x0, y0, x1, y1 = box
+            for t in range(0, int(x1 - x0), 50):
+                d.line((x0 + t, y0, min(x0 + t + 26, x1), y0), fill=G_MID, width=4)
+                d.line((x0 + t, y1, min(x0 + t + 26, x1), y1), fill=G_MID, width=4)
+            for t in range(0, int(y1 - y0), 50):
+                d.line((x0, y0 + t, x0, min(y0 + t + 26, y1)), fill=G_MID, width=4)
+                d.line((x1, y0 + t, x1, min(y0 + t + 26, y1)), fill=G_MID, width=4)
+            p.text(((x0 + x1) / 2, (y0 + y1) / 2), label, F_BODY, 40, G_MID, anchor="mm")
+
+    # 教学成果
     x = cols[0]
-    col_head(x, "获奖与证书")
-    iy = y + 120
-    for f, lines in [("award_sais", ["第四届世界科学智能大赛", "古文字识别赛道", "二等奖"]),
-                     ("award_ccl", ["CCL 2026 第二届", "古诗词赏析评测", "第三名"]),
-                     ("cert_confucius", ["巴黎西岱大学孔子学院", "中文线上辅导项目", "实习证书"])]:
-        img_w = 360
-        b = p.paste(PA / f"{f}.jpg", (x, iy, x + img_w, iy + 400), align="top")
-        d.rectangle(b, outline=LINE, width=3)
-        ty = iy + 5
-        for j, l in enumerate(lines):
-            last = j == len(lines) - 1
-            p.text((x + img_w + 36, ty), l, F_TITLE if last else F_BODY, 70 if last else 42,
-                   CINNABAR if last else INK, bold=2 if last else 0)
-            ty += 64
-        iy = max(b[3], ty + 70) + 40
+    yy = col_head(x, "教学成果")
+    yy = item(x, yy, 0, "课堂展示", "15 分钟古文字入门课，课前课后同一套测试题")
+    pw2 = (colw - 30) // 2
+    for i in range(4):
+        bx0, by0 = x + (i % 2) * (pw2 + 30), yy + (i // 2) * 530
+        photo_or_slot((bx0, by0, bx0 + pw2, by0 + 500), PA / f"class_{i + 1}.jpg", "课堂照片待补")
+    yy += 1080
+    yy = item(x, yy, 1, "海外中文教学", "参与巴黎西岱大学孔子学院 2025–2026 学年中文线上辅导")
+    yy = item(x, yy, 2, "展位体验", "输入你的姓，铸一句金文祝福，领取 PDF 明信片")
+    end_y = yy
 
-    # 学术论文
+    # 研发成果
     x = cols[1]
-    col_head(x, "学术论文")
-    pw = (colw - 40) // 2
-    papers = [("paper_lt4hala", "已发表", "LT4HALA 2026\n（LREC 2026）", "古籍 OCR 中视觉语言\n模型的多任务权衡"),
-              ("paper_arr", "在审", "ACL Rolling Review\n2026 年 10 月", "字形能否为青铜器\n铭文断代")]
-    for i, (f, status, venue, gist) in enumerate(papers):
-        px = x + i * (pw + 40)
-        b = p.paste(PA / f"{f}.jpg", (px, y + 120, px + pw, y + 120 + 620), align="top")
-        d.rectangle(b, outline=LINE, width=3)
-        sw2 = font(F_BOLD, 40).getlength(status) + 40
-        p.rect((px, b[3] + 25, px + sw2, b[3] + 85), fill=CINNABAR if status == "已发表" else PATINA)
-        p.text((px + sw2 / 2, b[3] + 55), status, F_BOLD, 40, PAPER, anchor="mm")
-        p.para(px, b[3] + 110, venue, 38, MUTED, pw, lh=1.35)
-        p.para(px, b[3] + 225, gist, 44, INK, pw, path=F_BOLD, lh=1.35)
+    yy = col_head(x, "研发成果")
+    yy = item(x, yy, 0, "学术论文", "已发表 1 篇，在投 3 篇")
+    for i, f in enumerate(["paper_lt4hala", "paper_arr"]):
+        b = p.paste(PA / f"{f}.jpg", (x + i * (pw2 + 30), yy, x + i * (pw2 + 30) + pw2, yy + 460), align="top")
+        d.rectangle(b, outline=G_LIGHT, width=3)
+    yy = b[3] + 40
+    papers = [("已发表", CINNABAR, "LT4HALA 2026 @ LREC 2026",
+               "Multi-Task Learning Trade-offs in Vision–Language Models for Ancient Chinese OCR"),
+              ("在投", G_MID, "ACL Rolling Review, Oct. 2026",
+               "Does Glyph Form Date Chinese Bronze Inscriptions? Controlling for Lexicon and Medium"),
+              ("在投", G_MID, "ICDAR 2027",
+               "Learning to Read Bronze Inscriptions from Catalogue Transcriptions")]
+    for status, col, venue, title in papers:
+        stw = font(F_BOLD, 38).getlength(status) + 36
+        p.rect((x, yy, x + stw, yy + 58), fill=col)
+        p.text((x + stw / 2, yy + 29), status, F_BOLD, 38, PAPER, anchor="mm")
+        p.text((x + stw + 20, yy + 29), venue, F_NUM, 38, G_DARK, anchor="lm")
+        yy = p.para(x, yy + 78, title, 38, TEXT, colw, path=F_EN, lh=1.3) + 26
+    yy += 10
+    yy = item(x, yy, 1, "识读工作台", "整篇拓片自动框字、给出候选字和辞例")
+    b = p.paste(A / "rec_crop.png", (x + 125, yy, x + colw, yy + 430), align="top")
+    end_y = max(end_y, b[3])
 
-    # 落地应用
+    # 宣传成果
     x = cols[2]
-    col_head(x, "落地应用")
-    apps = [("展位", "输入你的姓，铸一句金文祝福，\n领取 PDF 明信片"),
-            ("小红书", "手机小工具：听古音、描红、连连看"),
-            ("课堂", "15 分钟古文字入门课"),
-            ("海外中文教学", "参与巴黎西岱大学孔子学院\n2025–2026 学年中文线上辅导"),
-            ("离线包", "无网络环境解压即用")]
-    ay = y + 120
-    for head, body in apps:
-        d.ellipse((x, ay + 16, x + 26, ay + 42), fill=PATINA)
-        p.text((x + 50, ay), head, F_BOLD, 50, INK)
-        ay = p.para(x + 50, ay + 72, body, 42, TEXT, colw - 50, lh=1.4) + 34
-    end_y = max(iy, ay)
+    yy = col_head(x, "宣传成果")
+    yy = item(x, yy, 0, "小红书小工具", "姓氏墙、听音室每日挑战、连连看、描红，成绩可分享")
+    sw_ph = (colw - 2 * 24) // 3
+    for i, f in enumerate(["xhs_name", "xhs_listen", "xhs_match"]):
+        bx0 = x + i * (sw_ph + 24)
+        b = p.paste(PA / f"{f}.png", (bx0, yy, bx0 + sw_ph, yy + int(sw_ph * 760 / 390)), mode="cover")
+        d.rounded_rectangle((b[0] - 4, b[1] - 4, b[2] + 4, b[3] + 4), radius=18, outline=DARK, width=6)
+    yy = b[3] + 50
+    yy = item(x, yy, 1, "文创产品", "金文姓氏明信片、器形版画卡片")
+    pc = p.paste(A / "postcard_shadow_light.png", (x, yy, x + (colw - 30) // 2, yy + 720), align="top")
+    zc = p.paste(REPO / "assets" / "posters" / "jijin-zhishi-zine-poster.png", (pc[2] + 30, yy, x + colw, yy + 720), align="top")
+    d.rectangle(zc, outline=LINE, width=3)
+    end_y = max(end_y, pc[3], zc[3])
 
     OUT.mkdir(exist_ok=True)
     final = p.im.convert("RGB").resize(OUT_SIZE, Image.LANCZOS)
