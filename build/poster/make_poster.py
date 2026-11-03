@@ -71,7 +71,8 @@ def wrap(text, f, max_w):
     lines = []
     for para in text.split("\n"):
         cur = ""
-        for tok in re.findall(r"[A-Za-z0-9.,:;?!'’–@()\-]+ ?|.", para):
+        # 数字/英文词连同后面紧跟的一个汉字算一段（“15 分”“58 万”不拆行）
+        for tok in re.findall(r"[A-Za-z0-9.,:;?!'’–@()\-]+ ?[一-鿿]?|.", para):
             if cur and f.getlength((cur + tok).rstrip()) > max_w and tok[0] not in NO_LINE_START:
                 lines.append(cur.rstrip())
                 cur = tok.lstrip()
@@ -297,10 +298,10 @@ def build(key, template):
     p.para(CX0, hy0 + hh + 22, "何尊（西周早期），铭文“宅兹中或”是“中国”一词目前所见最早的文字记录", 44, MUTED, zb[2] - CX0 + 300)
     ix0 = zb[2] + 110
     p.para(ix0, hy0 + 10,
-           "吉金智识是一个金文数字化传承与互动体验平台。我们整理古文字字形、自建金文数据库目录和拓片，"
-           "训练古文字识读模型，帮助观众在博物馆里读懂青铜铭文。同一套字库，还能用来认源流、听古音、练书写、助研究，"
-           "也能带观众用 VR 走进青铜器。",
-           58, TEXT, CX1 - ix0, path=F_SONG, lh=1.62)
+           "吉金智识以字为桥，致力于古文字的数字化普及与传承。项目汇集 10 类来源的 58 万张古文字字形，"
+           "自建 2.5 万条金文数据库目录，并在 6,236 张真实拓片上训练古文字识读模型。在此基础上，设计 15 分钟古文字入门课；"
+           "线上打造可看、可听、可写、可考的互动网站与小红书小工具，借助 VR 再现“铸铭入尊”。",
+           62, TEXT, CX1 - ix0, path=F_SONG, lh=1.62)
     y = hy0 + hh + 120
 
     # ══ 口号（两侧祥云） ══
@@ -479,6 +480,8 @@ def build(key, template):
                "Multi-Task Learning Trade-offs in Vision–Language Models for Ancient Chinese OCR"),
               ("在投", G_MID, "ACL Rolling Review, Oct. 2026",
                "Does Glyph Form Date Chinese Bronze Inscriptions? Controlling for Lexicon and Medium"),
+              ("在投", G_MID, "ACL Rolling Review, Oct. 2026",
+               "When the Answer Key Is Online: Reference Retrievability and Metric Validity in Classical Chinese Poetry Evaluation"),
               ("在投", G_MID, "ICDAR 2027",
                "Learning to Read Bronze Inscriptions from Catalogue Transcriptions")]
     for status, col, venue, title in papers:
@@ -488,7 +491,7 @@ def build(key, template):
         p.text((x + stw + 20, yy + 29), venue, F_NUM, 38, G_DARK, anchor="lm")
         yy = p.para(x, yy + 78, title, 38, TEXT, colw, path=F_EN, lh=1.3) + 26
     yy += 10
-    yy = item(x, yy, 1, "识读模型", "经公开评测验证，真实拓片上单字识别 F1 0.803\n（字框和释文同时正确才算对）\n工作台自动框字，给出候选字和辞例")
+    yy = item(x, yy, 1, "技术评测", "识读与古籍理解技术经多项国际公开评测验证\n真实拓片上单字识别 F1 0.803\n（字框和释文同时正确才算对）")
     b = p.paste(A / "rec_crop.png", (x + 125, yy, x + colw, yy + 430), align="top")
     end_y = max(end_y, b[3])
 
