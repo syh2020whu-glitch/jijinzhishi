@@ -207,11 +207,16 @@ def prep_assets():
     for key, n in [("vr_carve", "03-carve"), ("vr_pour", "05-pour"), ("vr_open", "06-open"), ("vr_rise", "08-rise")]:
         raw = subprocess.run(["git", "show", f"{VR_BRANCH}:build/vr-slide/out/{n}.png"], cwd=REPO, capture_output=True, check=True).stdout
         Image.open(BytesIO(raw)).convert("RGB").crop((240, 100, 1680, 910)).resize((1080, 608), Image.LANCZOS).save(PA / f"{key}.jpg", quality=90)
-    # 论文首页：只取上半页（题目 + 摘要），作者栏已涂掉 / 本是匿名稿
-    for key, src in [("paper_lt4hala", "paper_lt4hala2026_p1_anon.png"), ("paper_arr", "paper_arr2026-10_p1.png")]:
+    # 论文首页整页：作者栏已涂掉 / 本是匿名稿（第三篇直接从投稿 PDF 渲染）
+    for key, src in [("paper_p1_published", "paper_lt4hala2026_p1_anon.png"), ("paper_p1_glyph", "paper_arr2026-10_p1.png")]:
         c = Image.open(PROOF / src).convert("RGB")
-        c = c.crop((0, int(c.height * 0.05), c.width, int(c.height * 0.50)))
-        c.resize((1000, round(1000 * c.height / c.width)), Image.LANCZOS).save(PA / f"{key}.jpg", quality=90)
+        c.resize((800, round(800 * c.height / c.width)), Image.LANCZOS).save(PA / f"{key}.jpg", quality=90)
+    import pymupdf
+    pdf = Path.home() / "Desktop" / "When the Answer Key Is Online - Reference Retrievability and Metric Validity in Classical Chinese Poetry Evaluation" / "01_paper" / "paper.pdf"
+    pix = pymupdf.open(pdf)[0].get_pixmap(dpi=150)
+    c = Image.frombytes("RGB", (pix.width, pix.height), pix.samples)
+    c.resize((800, round(800 * c.height / c.width)), Image.LANCZOS).save(PA / "paper_p1_poetry.jpg", quality=90)
+    # VR 看器页四件扫描器物 + 透视截图见 shot_vessels.py
     print("prepared", sorted(f.name for f in PA.iterdir()))
 
 
@@ -401,19 +406,26 @@ def build(key, template):
            44, TEXT, cwid, path=F_SONG, lh=1.5)
 
     # 4 沉浸体验：VR
-    cx0, cy0, cwid = cell(1, 1, "沉浸体验", "VR：化身工匠，走进何尊")
-    vw = (cwid - 30) // 2
-    vh = int(vw * 608 / 1080)
-    vr = [("vr_carve", "内范刻铭"), ("vr_pour", "合范浇铸"), ("vr_open", "脱范出器"), ("vr_rise", "入器读铭")]
-    for i, (f, lab) in enumerate(vr):
-        x = cx0 + (i % 2) * (vw + 30)
-        yy = cy0 + (i // 2) * (vh + 30)
-        p.paste(PA / f"{f}.jpg", (x, yy, x + vw, yy + vh), mode="cover")
-        p.rect((x, yy + vh - 70, x + vw, yy + vh), fill=(30, 26, 20))
-        p.text((x + 24, yy + vh - 35), f"{i + 1}  {lab}", F_TITLE, 46, PAPER, anchor="lm", bold=1)
-    p.para(cx0, cy0 + 2 * vh + 60, "手机套上纸盒眼镜，亲手在内范上反刻“宅兹中国”，浇铸、脱范后走进尊里，122 字铭文从脚下升起。",
-           44, TEXT, cwid, path=F_SONG, lh=1.5)
-    p.text((cx0, cy0 + 1110), "三维模型为明尼阿波利斯美术馆 CC0 开放扫描的西周同类器；范铸过程为示意。", F_BODY, 32, MUTED)
+    cx0, cy0, cwid = cell(1, 1, "沉浸体验", "VR：化身工匠，走进青铜器")
+    g = 24
+    qw = (cwid - 3 * g) // 4
+    for i, (f, lab) in enumerate([("zun", "尊"), ("ding", "鼎"), ("gui", "簋"), ("gu", "觚")]):
+        x = cx0 + i * (qw + g)
+        p.paste(PA / f"vessel_{f}.jpg", (x, cy0, x + qw, cy0 + qw), mode="cover")
+        p.text((x + 26, cy0 + 20), lab, F_TITLE, 64, PAPER, bold=1)
+    p.rect((cx0, cy0 + qw - 64, cx0 + cwid, cy0 + qw), fill=(30, 26, 20))
+    p.text((cx0 + 26, cy0 + qw - 32), "看器：真实三维扫描，可旋转、可用 AR 放到桌上", F_TITLE, 42, PAPER, anchor="lm", bold=1)
+    tw3 = (cwid - 2 * g) // 3
+    th3 = int(tw3 * 0.62)
+    ry = cy0 + qw + g
+    for i, (f, lab) in enumerate([("vessel_xray", "入器：器壁透明见铭文"), ("vr_carve", "铸器：亲手反刻铭文"), ("vr_rise", "读铭：铭文绕身升起")]):
+        x = cx0 + i * (tw3 + g)
+        p.paste(PA / f"{f}.jpg", (x, ry, x + tw3, ry + th3), mode="cover")
+        p.rect((x, ry + th3 - 62, x + tw3, ry + th3), fill=(30, 26, 20))
+        p.text((x + 20, ry + th3 - 31), lab, F_TITLE, 40, PAPER, anchor="lm", bold=1)
+    p.para(cx0, ry + th3 + 30, "手机套上纸盒眼镜即可体验：坐进铸铜作坊亲手刻铭、浇铸，再走进青铜器，铭文从脚下升起，注视一字即显示今译和古音（以“宅兹中国”铭文为例）。",
+           42, TEXT, cwid, path=F_SONG, lh=1.5)
+    p.text((cx0, cy0 + 1135), "三维模型为明尼阿波利斯美术馆 CC0 开放扫描的商周青铜器；范铸过程为示意。", F_BODY, 32, MUTED)
     y += 2 * chh + gy + 70
 
     # ══ 实践成果：三栏，祥云小标题 + 壹贰叁 ══
@@ -439,6 +451,23 @@ def build(key, template):
         if body:
             ny = p.para(x + 125, yy + 82, body, 40, TEXT, colw - 125, lh=1.4)
         return max(ny, yy + 100) + 20
+
+    def fan(x, y0, w, h, keys):
+        """几张论文首页扇形错落：两侧略旋转、压在中间一张下面。"""
+        ph_ = int(h * 0.86)            # 页高约占区域的 86%，留出旋转后的余量
+        pw_ = int(ph_ / 1.414)         # A4 比例
+        cxm = x + w / 2
+        spec = [(-1, 8), (1, -8), (0, 0)]   # (水平偏移方向, 旋转角)；最后画中间那张，压在上面
+        order = [keys[0], keys[2], keys[1]]
+        for (dx, ang), k in zip(spec, order):
+            pg_ = Image.open(PA / f"{k}.jpg").convert("RGBA").resize((pw_, ph_), Image.LANCZOS)
+            fr = Image.new("RGBA", (pw_ + 12, ph_ + 12), (205, 220, 200, 255))
+            fr.alpha_composite(pg_, (6, 6))
+            rot = fr.rotate(ang, expand=True, resample=Image.BICUBIC)
+            cx_ = cxm + dx * w * 0.27
+            cy_ = y0 + h / 2 + (30 if dx else 0)
+            p.shadow_box((int(cx_ - pw_ / 2), int(cy_ - ph_ / 2), int(cx_ + pw_ / 2), int(cy_ + ph_ / 2)), blur=18, offset=10, alpha=55)
+            p.im.alpha_composite(rot, (int(cx_ - rot.width / 2), int(cy_ - rot.height / 2)))
 
     def photo_or_slot(box, path, label):
         if path.exists():
@@ -472,27 +501,26 @@ def build(key, template):
     x = cols[1]
     yy = col_head(x, "研发成果")
     yy = item(x, yy, 0, "学术论文", "已发表 1 篇，在投 3 篇")
-    for i, f in enumerate(["paper_lt4hala", "paper_arr"]):
-        b = p.paste(PA / f"{f}.jpg", (x + i * (pw2 + 30), yy, x + i * (pw2 + 30) + pw2, yy + 460), align="top")
-        d.rectangle(b, outline=G_LIGHT, width=3)
-    yy = b[3] + 40
+    fan_h = 720
+    fan(x, yy, colw, fan_h, ["paper_p1_glyph", "paper_p1_published", "paper_p1_poetry"])
+    yy += fan_h + 30
     papers = [("已发表", CINNABAR, "LT4HALA 2026 @ LREC 2026",
                "Multi-Task Learning Trade-offs in Vision–Language Models for Ancient Chinese OCR"),
-              ("在投", G_MID, "ACL Rolling Review, Oct. 2026",
-               "Does Glyph Form Date Chinese Bronze Inscriptions? Controlling for Lexicon and Medium"),
-              ("在投", G_MID, "ACL Rolling Review, Oct. 2026",
-               "When the Answer Key Is Online: Reference Retrievability and Metric Validity in Classical Chinese Poetry Evaluation"),
-              ("在投", G_MID, "ICDAR 2027",
-               "Learning to Read Bronze Inscriptions from Catalogue Transcriptions")]
+              ("在投", G_MID, None, "Does Glyph Form Date Chinese Bronze Inscriptions? Controlling for Lexicon and Medium"),
+              ("在投", G_MID, None, "When the Answer Key Is Online: Reference Retrievability and Metric Validity in Classical Chinese Poetry Evaluation"),
+              ("在投", G_MID, None, "Learning to Read Bronze Inscriptions from Catalogue Transcriptions")]
     for status, col, venue, title in papers:
-        stw = font(F_BOLD, 38).getlength(status) + 36
-        p.rect((x, yy, x + stw, yy + 58), fill=col)
-        p.text((x + stw / 2, yy + 29), status, F_BOLD, 38, PAPER, anchor="mm")
-        p.text((x + stw + 20, yy + 29), venue, F_NUM, 38, G_DARK, anchor="lm")
-        yy = p.para(x, yy + 78, title, 38, TEXT, colw, path=F_EN, lh=1.3) + 26
+        stw = font(F_BOLD, 36).getlength(status) + 32
+        p.rect((x, yy + 4, x + stw, yy + 58), fill=col)
+        p.text((x + stw / 2, yy + 31), status, F_BOLD, 36, PAPER, anchor="mm")
+        if venue:
+            p.text((x + stw + 20, yy + 31), venue, F_NUM, 38, G_DARK, anchor="lm")
+            yy = p.para(x, yy + 76, title, 38, TEXT, colw, path=F_EN, lh=1.3) + 22
+        else:
+            yy = p.para(x + stw + 20, yy + 6, title, 38, TEXT, colw - stw - 20, path=F_EN, lh=1.3) + 22
     yy += 10
     yy = item(x, yy, 1, "技术评测", "识读与古籍理解技术经多项国际公开评测验证\n真实拓片上单字识别 F1 0.803\n（字框和释文同时正确才算对）")
-    b = p.paste(A / "rec_crop.png", (x + 125, yy, x + colw, yy + 430), align="top")
+    b = p.paste(A / "rec_crop.png", (x + 125, yy, x + colw, yy + 420), align="top")
     end_y = max(end_y, b[3])
 
     # 宣传成果
