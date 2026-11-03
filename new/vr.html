@@ -76,8 +76,8 @@
 
 <div id="gate">
     <h1>入尊讀銘</h1>
-    <p class="sub">化身刻銘的人 · 反刻 · 澆鑄 · 站在器裡讀</p>
-    <p class="desc">三千年前，銘文先用朱筆反寫在泥范上，再用刀刻，澆鑄後器底才是正字。這一段約三分鐘：你先在泥范上刻「宅茲中國」四個反字，銅水灌入、器壁在四周凝成，四字翻正，十二行一百二十二字從腳下升起。盯住一個字約一秒，會顯示隸定與今譯，有構擬讀音的字會念給你聽。</p>
+    <p class="sub">范鑄法七步 · 刻銘 · 澆鑄 · 站在器裡讀</p>
+    <p class="desc">坐在三千年前的鑄銅作坊裡，看一件尊怎麼從一團泥變成青銅：制模、翻范、刻銘、合范、澆鑄、脫范。其中「刻銘」要你親手做——把內范倒過來，在底面反刻「宅茲中國」。最後縮身走進鑄好的尊，十二行一百二十二字從腳下升起，盯住一個字約一秒，顯示隸定與今譯，有構擬讀音的字會念給你聽。</p>
     <div class="row" id="modes">
         <button class="btn primary" id="btnFlat" type="button">開始 · 拖動環視</button>
         <button class="btn" id="btnGyro" type="button" hidden>陀螺儀環視</button>
@@ -102,6 +102,7 @@
 <script src="./js/vendor/three/DeviceOrientationControls.js"></script>
 <script src="./js/vendor/three/StereoEffect.js"></script>
 <script src="./js/vendor/three/VRButton.js"></script>
+<script src="./js/vendor/three/GLTFLoader.js"></script>
 <script>
 (async function () {
     'use strict';
@@ -578,20 +579,19 @@
     canvas.addEventListener('pointerup', e => { if (Math.hypot(e.clientX - downX, e.clientY - downY) < 8) tapSelect(); });
     try { renderer.xr.getController(0).addEventListener('select', tapSelect); } catch (e) {}
 
-    // ---------- 第一幕：化身刻銘的人（泥范、反書、準星刻筆畫）----------
-    // 鑄前作銘：先用朱筆把字反寫在泥范（內范）上，刀刻成陽文反字，澆鑄後器內底就是陰文正字。
-    const forge = new THREE.Group(); forge.visible = false; scene.add(forge);
+    // ---------- 工坊：范鑄法七步（制模 → 翻外范 → 內范刻銘 → 合范 → 澆鑄 → 脫范 → 入器）----------
+    // 觀眾坐在工作台前，器是真實尺寸（何尊通高 38.8 cm）。不做人物，用模、范、銅液本身講工藝。
+    scene.add(new THREE.HemisphereLight(0xfff0d6, 0x2a1d12, 0.85));
+    const keyLight = new THREE.DirectionalLight(0xffe2b8, 0.9); keyLight.position.set(1.2, 2.2, 0.8); scene.add(keyLight);
+    const fireLight = new THREE.PointLight(0xff7a2a, 0.8, 7, 2); fireLight.position.set(0.7, 0.2, -3.0); scene.add(fireLight);
+
+    const forge = new THREE.Group(); forge.visible = false; scene.add(forge);   // 背景爐火
     function noiseCanvas(size, base, amp) {
         const cv = document.createElement('canvas'); cv.width = cv.height = size; const ctx = cv.getContext('2d');
         const id = ctx.createImageData(size, size);
         for (let p = 0; p < size * size; p++) { const n = (Math.random() - 0.5) * amp; id.data[p * 4] = base[0] + n; id.data[p * 4 + 1] = base[1] + n * 0.8; id.data[p * 4 + 2] = base[2] + n * 0.6; id.data[p * 4 + 3] = 255; }
         ctx.putImageData(id, 0, 0); return cv;
     }
-    const SLAB_W = 0.8, SLAB_H = 0.84;
-    const slab = new THREE.Mesh(new THREE.PlaneBufferGeometry(SLAB_W, SLAB_H), new THREE.MeshBasicMaterial({ map: new THREE.CanvasTexture(noiseCanvas(256, [124, 94, 60], 36)), transparent: true }));
-    slab.position.set(0, 0.14, -1.08); slab.rotation.x = -0.3; forge.add(slab);   // 抬高一點，免得被下方的 3D 字幕板擋住
-    const slabRim = new THREE.Mesh(new THREE.PlaneBufferGeometry(SLAB_W + 0.07, SLAB_H + 0.07), new THREE.MeshBasicMaterial({ color: 0x33241a, transparent: true }));
-    slabRim.position.z = -0.004; slab.add(slabRim);
     function radialCanvas() { const cv = document.createElement('canvas'); cv.width = cv.height = 128; const ctx = cv.getContext('2d'); const g = ctx.createRadialGradient(64, 64, 0, 64, 64, 64); g.addColorStop(0, 'rgba(255,255,255,1)'); g.addColorStop(0.4, 'rgba(255,255,255,.35)'); g.addColorStop(1, 'rgba(255,255,255,0)'); ctx.fillStyle = g; ctx.fillRect(0, 0, 128, 128); return cv; }
     const radialTex = new THREE.CanvasTexture(radialCanvas());
     const glow = new THREE.Sprite(new THREE.SpriteMaterial({ map: radialTex, color: 0xff6a14, transparent: true, opacity: 0.5, depthWrite: false, blending: THREE.AdditiveBlending }));
@@ -601,6 +601,100 @@
     const emberGeo = new THREE.BufferGeometry(); emberGeo.setAttribute('position', new THREE.BufferAttribute(emberPos, 3).setUsage(THREE.DynamicDrawUsage));
     const embers = new THREE.Points(emberGeo, new THREE.PointsMaterial({ map: radialTex, color: 0xffb24a, size: 0.035, transparent: true, opacity: 0.9, depthWrite: false, blending: THREE.AdditiveBlending }));
     forge.add(embers);
+    function forgeOpacity(v) { forge.traverse(o => { if (o.material) o.material.opacity = v * (o === glow ? 0.5 : o === embers ? 0.9 : 1); }); }
+    function embersTick() {
+        for (let i = 0; i < emberN; i++) {
+            emberPos[i * 3 + 1] += 0.004 + emberSeed[i] * 0.007;
+            emberPos[i * 3] += Math.sin(emberPos[i * 3 + 1] * 3 + emberSeed[i] * 9) * 0.0015;
+            if (emberPos[i * 3 + 1] > 2.2) emberPos[i * 3 + 1] = -1;
+        }
+        emberGeo.attributes.position.needsUpdate = true;
+    }
+
+    // 工作台：台面在眼下 0.36 m、前方 1.1 m；shop 內的 y=0 就是台面
+    const shop = new THREE.Group(); shop.position.set(0, -0.36, -1.1); shop.visible = false; scene.add(shop);
+    const K = 0.388 / 270, H = 0.388;
+    const bench = new THREE.Mesh(new THREE.BoxBufferGeometry(1.5, 0.06, 0.8), new THREE.MeshStandardMaterial({ map: new THREE.CanvasTexture(noiseCanvas(256, [62, 44, 28], 30)), roughness: 0.9 }));
+    bench.position.y = -0.03; shop.add(bench);
+    function profilePts(off, y0, y1, n) { const pts = []; for (let i = 0; i <= n; i++) { const y = y0 + (y1 - y0) * i / n; pts.push(new THREE.Vector2(sampleProfile(ZUN.body, y / K) * K + off, y)); } return pts; }
+    function lathe(off, y0, y1, phi0, phiLen, seg) { return new THREE.LatheBufferGeometry(profilePts(off, y0, y1, 40), seg || 48, phi0 || 0, phiLen == null ? Math.PI * 2 : phiLen); }
+    function disc(r, y, flip) { const m = new THREE.Mesh(new THREE.CircleBufferGeometry(r, 48)); m.rotation.x = flip ? Math.PI / 2 : -Math.PI / 2; m.position.y = y; return m; }
+    const clayTex = new THREE.CanvasTexture(noiseCanvas(256, [150, 118, 80], 40)); clayTex.wrapS = clayTex.wrapT = THREE.RepeatWrapping; clayTex.repeat.set(3, 2);
+    const matClay = () => new THREE.MeshStandardMaterial({ map: clayTex, roughness: 0.95, metalness: 0, side: THREE.DoubleSide, transparent: true });
+    const matMold = () => new THREE.MeshStandardMaterial({ map: clayTex, color: 0xbfa888, roughness: 1, side: THREE.DoubleSide, transparent: true });
+    const matMoldIn = () => new THREE.MeshStandardMaterial({ map: clayTex, color: 0x6a5035, roughness: 1, side: THREE.DoubleSide, transparent: true });
+    const matIron = () => new THREE.MeshStandardMaterial({ color: 0x2b2420, roughness: 0.6, metalness: 0.6, transparent: true });
+    const parts = {};
+    function part(name, obj, pos, rot, scl) {
+        obj.traverse(o => { if (o.isMesh) { o.material = o.material.clone(); o.material.transparent = true; } });
+        obj.position.copy(pos); obj.rotation.set(rot.x, rot.y, rot.z); obj.scale.setScalar(scl);
+        parts[name] = { obj, pos: pos.clone(), rot: rot.clone(), scl, op: 1, cur: 1 }; shop.add(obj); return obj;
+    }
+    const V = (x, y, z) => new THREE.Vector3(x, y, z);
+    function target(name, o) { const p = parts[name]; if (!p) return; if (o.pos) p.pos.copy(o.pos); if (o.rot) p.rot.copy(o.rot); if (o.scl != null) p.scl = o.scl; if (o.op != null) p.op = o.op; }
+    function snapParts() { for (const n in parts) { const p = parts[n]; p.obj.position.copy(p.pos); p.obj.rotation.set(p.rot.x, p.rot.y, p.rot.z); p.obj.scale.setScalar(p.scl); p.cur = p.op; applyOp(p); } }
+    function applyOp(p) { p.obj.visible = p.cur > 0.01; p.obj.traverse(o => { if (o.isMesh && o.material && o.userData.opMax !== 0) o.material.opacity = p.cur * (o.userData.opMax || 1); }); }
+    function partsTick(dt) {
+        const k = 1 - Math.exp(-dt * 2.6);
+        for (const n in parts) {
+            const p = parts[n], o = p.obj;
+            o.position.lerp(p.pos, k);
+            o.rotation.x += (p.rot.x - o.rotation.x) * k; o.rotation.y += (p.rot.y - o.rotation.y) * k; o.rotation.z += (p.rot.z - o.rotation.z) * k;
+            const s = o.scale.x + (p.scl - o.scale.x) * k; o.scale.setScalar(s);
+            p.cur += (p.op - p.cur) * k; applyOp(p);
+        }
+    }
+    // 泥模（制模）
+    const model = new THREE.Group(); model.add(new THREE.Mesh(lathe(0, 0, H), matClay())); model.add(disc(sampleProfile(ZUN.body, 270) * K, H).clone()); model.children[1].material = matClay();
+    part('model', model, V(0, 0, 0), V(0, 0, 0), 1);
+    // 內范：比模刮去一層（器壁厚度），底面貼刻銘的泥面
+    const core = new THREE.Group(); core.add(new THREE.Mesh(lathe(-0.012, 0.012, H + 0.002), matClay()));
+    const coreBottom = disc(sampleProfile(ZUN.body, 9) * K - 0.012, 0.012, true); coreBottom.material = matClay(); core.add(coreBottom);
+    const coreTop = disc(sampleProfile(ZUN.body, 270) * K - 0.012, H + 0.002); coreTop.material = matClay(); core.add(coreTop);
+    part('core', core, V(0, 0, 0), V(0, 0, 0), 1); parts.core.op = 0;
+    // 外范四塊：外壁 + 內壁（內壁深色，表示翻印下來的紋飾）；中縫四條在澆鑄時透出紅光
+    const outers = [], seams = [];
+    for (let i = 0; i < 4; i++) {
+        const g = new THREE.Group();
+        g.add(new THREE.Mesh(lathe(0.03, 0.006, H + 0.012, i * Math.PI / 2, Math.PI / 2), matMold()));
+        g.add(new THREE.Mesh(lathe(0.004, 0.006, H + 0.012, i * Math.PI / 2, Math.PI / 2), matMoldIn()));
+        const ring = new THREE.Mesh(new THREE.RingBufferGeometry(0.02, 0.2, 24, 1, i * Math.PI / 2, Math.PI / 2), matMold()); ring.rotation.x = -Math.PI / 2; ring.position.y = H + 0.012; ring.rotation.z = 0; g.add(ring);   // 頂面
+        outers.push(part('outer' + i, g, V(0, 0, 0), V(0, 0, 0), 1)); parts['outer' + i].op = 0;
+        const seam = new THREE.Mesh(lathe(0.034, 0.01, H + 0.01, i * Math.PI / 2 - 0.012, 0.024), new THREE.MeshBasicMaterial({ color: 0xff7a1a, transparent: true, opacity: 0, depthWrite: false }));
+        seam.userData.opMax = 0; shop.add(seam); seams.push(seam);
+    }
+    const outerDir = i => V(Math.sin(i * Math.PI / 2 + Math.PI / 4), 0, Math.cos(i * Math.PI / 2 + Math.PI / 4));
+    // 底范、頂范（帶澆口漏斗）、坩堝、銅液
+    part('base', new THREE.Mesh(new THREE.CylinderBufferGeometry(0.2, 0.2, 0.05, 48), matMold()), V(0, -0.02, 0), V(0, 0, 0), 1); parts.base.op = 0;
+    const cap = new THREE.Group();
+    cap.add(new THREE.Mesh(new THREE.CylinderBufferGeometry(0.2, 0.2, 0.04, 48), matMold()));
+    const funnel = new THREE.Mesh(new THREE.CylinderBufferGeometry(0.05, 0.014, 0.08, 24, 1, true), matMold()); funnel.position.y = 0.06; cap.add(funnel);
+    part('cap', cap, V(0, H + 0.03, 0), V(0, 0, 0), 1); parts.cap.op = 0;
+    const crucible = new THREE.Group();
+    crucible.add(new THREE.Mesh(new THREE.CylinderBufferGeometry(0.075, 0.045, 0.1, 24, 1, true), matIron()));
+    const melt = new THREE.Mesh(new THREE.CircleBufferGeometry(0.07, 24), new THREE.MeshBasicMaterial({ color: 0xffa040, transparent: true })); melt.rotation.x = -Math.PI / 2; melt.position.y = 0.045; crucible.add(melt);
+    part('crucible', crucible, V(0.34, H + 0.5, 0.04), V(0, 0, 0), 1); parts.crucible.op = 0;
+    const stream = new THREE.Mesh(new THREE.CylinderBufferGeometry(0.009, 0.006, 1, 10, 1, true), new THREE.MeshBasicMaterial({ color: 0xffb050, transparent: true, opacity: 0.95 }));
+    stream.userData.opMax = 0; stream.visible = false; shop.add(stream);
+    const streamGlow = new THREE.Sprite(new THREE.SpriteMaterial({ map: radialTex, color: 0xff8a2a, transparent: true, opacity: 0, depthWrite: false, blending: THREE.AdditiveBlending }));
+    streamGlow.position.set(0, H + 0.1, 0); streamGlow.scale.set(0.5, 0.5, 1); shop.add(streamGlow);
+    // 真掃描的尊（脫范後露出）：明尼阿波利斯美術館 CC0
+    const vessel = new THREE.Group(); part('vessel', vessel, V(0, 0, 0), V(0, 0, 0), 1); parts.vessel.op = 0;
+    let vesselMats = []; let vesselScale0 = 1;
+    new THREE.GLTFLoader().load('./assets/models/mia/zun.glb', (gltf) => {
+        const obj = gltf.scene; const box = new THREE.Box3().setFromObject(obj); const size = box.getSize(new THREE.Vector3()), c = box.getCenter(new THREE.Vector3());
+        vesselScale0 = H / size.y; obj.position.set(-c.x * vesselScale0, -box.min.y * vesselScale0, -c.z * vesselScale0); obj.scale.setScalar(vesselScale0);
+        obj.traverse(o => { if (o.isMesh) { o.material = o.material.clone(); o.material.transparent = true; o.material.side = THREE.DoubleSide; vesselMats.push(o.material); } });
+        vessel.add(obj);
+    }, undefined, (e) => console.warn('zun.glb', e));
+
+    // 刻銘：內范倒過來、拿近放大，在底面反書陰刻「宅茲中國」。slab 是內范底面的一塊，掛在 core 上
+    const SLAB_W = 0.8, SLAB_H = 0.84, CORE_BIG = 4.5;
+    const slab = new THREE.Mesh(new THREE.CircleBufferGeometry(0.46, 48), new THREE.MeshBasicMaterial({ map: new THREE.CanvasTexture(noiseCanvas(256, [124, 94, 60], 36)), transparent: true }));
+    slab.rotation.x = Math.PI / 2; slab.position.y = 0.0105; slab.scale.setScalar(1 / CORE_BIG); core.add(slab);   // 法線朝 -y：就是內范的底面
+    const slabRim = new THREE.Mesh(new THREE.RingBufferGeometry(0.45, 0.48, 48), new THREE.MeshBasicMaterial({ color: 0x33241a, transparent: true })); slabRim.position.z = 0.002; slab.add(slabRim);
+    const CORE_FLIP = { pos: V(0, 0.46, 0.36), rot: V(-2.2, 0, 0), scl: CORE_BIG };   // 倒過來、底面朝向觀眾、放大看
+    const CORE_HOME = { pos: V(0, 0, 0), rot: V(0, 0, 0), scl: 1 };
     // 要刻的四個字：宅茲中或（反書）。每字取字形畫布 22×22 格，有筆畫的格子做成小方塊；紅＝朱筆底稿，黑＝已刻
     const CARVE_IDX = INS.highlight;
     const carve = { chars: [], done: 0, total: 0, ready: false };
@@ -638,7 +732,7 @@
     canvas.addEventListener('pointermove', e => { ndc.set(e.clientX / window.innerWidth * 2 - 1, -(e.clientY / window.innerHeight) * 2 + 1); });
     const _local = new THREE.Vector3();
     function carveTick(now) {
-        if (phase !== 'carve' || !carve.ready) return;
+        if (phase !== 'carve' || !carve.ready || carve.done >= carve.chars.length) return;
         if (renderer.xr.isPresenting) renderer.xr.getCamera(camera);
         if (mode === 'flat' && !renderer.xr.isPresenting) ray.setFromCamera(ndc, camera);   // 平面：鼠標／手指所在處就是刻刀
         else { camera.getWorldPosition(_pos); camera.getWorldDirection(_dir); ray.set(_pos, _dir); }   // 陀螺儀／XR：準星就是刻刀
@@ -666,9 +760,9 @@
         ding();
         const g = ch.m.userData.c.g, r = ch.m.userData.c.r;
         const next = carve.chars.find(c => !c.done);
-        setCaption(`${g} 刻成　${carve.done} / ${carve.chars.length}`, (g === r ? '' : `「${g}」讀為「${r}」。`) + (next ? `接著刻「${next.m.userData.c.g}」。` : '四字刻畢，準備澆鑄。'));
+        setCaption(`${g} 刻成　${carve.done} / ${carve.chars.length}`, (g === r ? '' : `「${g}」讀為「${r}」。`) + (next ? `接著刻「${next.m.userData.c.g}」。` : '四字刻畢。把內范翻回來，放進底范。'));
         playChar(r);
-        if (carve.done >= carve.chars.length) setTimeout(() => { if (phase === 'carve') nextPhase(); }, 2200);
+        if (carve.done >= carve.chars.length) { target('core', CORE_HOME); core.children[0].visible = true; core.children[2].visible = true; setTimeout(() => { if (phase === 'carve') nextPhase(); }, 3200); }
     }
     function ding() {
         try {
@@ -682,60 +776,91 @@
         carve.done = 0;
         for (const ch of carve.chars) { ch.done = false; ch.n = 0; ch.carved.fill(0); for (let n = 0; n < ch.cells.length; n++) ch.im.setColorAt(n, C_INK); ch.im.instanceColor.needsUpdate = true; }
     }
-    function forgeOpacity(v) { forge.traverse(o => { if (o.material) o.material.opacity = v * (o === glow ? 0.5 : o === embers ? 0.9 : 1); }); }
-    function embersTick() {
-        for (let i = 0; i < emberN; i++) {
-            emberPos[i * 3 + 1] += 0.004 + emberSeed[i] * 0.007;
-            emberPos[i * 3] += Math.sin(emberPos[i * 3 + 1] * 3 + emberSeed[i] * 9) * 0.0015;
-            if (emberPos[i * 3 + 1] > 2.2) emberPos[i * 3 + 1] = -1;
-        }
-        emberGeo.attributes.position.needsUpdate = true;
+    // 各幕的佈局：每一幕都把所有零件的目標寫全，跳幕也不會錯位
+    function layoutShop(name) {
+        const closed = i => ({ pos: V(0, 0, 0), rot: V(0, 0, 0), scl: 1, op: 1 });
+        const apart = i => ({ pos: outerDir(i).multiplyScalar(0.3).add(V(0, 0.015, 0)), rot: V(0, 0, 0), scl: 1, op: 1 });
+        const fallen = i => { const d = outerDir(i); return { pos: d.clone().multiplyScalar(0.42).add(V(0, 0, 0)), rot: V(d.z * 0.28, 0, -d.x * 0.28), scl: 1, op: 1 }; };
+        const hide = { op: 0 };
+        const L = {
+            model: { model: { pos: V(0, 0, 0), rot: V(0, 0, 0), scl: 1, op: 1 }, core: hide, base: hide, cap: hide, crucible: hide, vessel: hide, outer: () => hide },
+            outer: { model: { op: 1 }, core: hide, base: hide, cap: hide, crucible: hide, vessel: hide, outer: apart },
+            carve: { model: hide, core: { ...CORE_FLIP, op: 1 }, base: { pos: V(0, -0.02, 0), op: 1 }, cap: hide, crucible: hide, vessel: hide, outer: () => hide },   // 外范先收到一旁，免得擋住內范底面
+            close: { model: hide, core: { ...CORE_HOME, op: 1 }, base: { pos: V(0, -0.02, 0), op: 1 }, cap: { pos: V(0, H + 0.03, 0), rot: V(0, 0, 0), scl: 1, op: 1 }, crucible: hide, vessel: hide, outer: closed },
+            pour: { model: hide, core: { ...CORE_HOME, op: 1 }, base: { op: 1 }, cap: { pos: V(0, H + 0.03, 0), op: 1 }, crucible: { pos: V(0.2, H + 0.42, 0.03), rot: V(0, 0, 1.25), scl: 1, op: 1 }, vessel: hide, outer: closed },
+            open: { model: hide, core: hide, base: { pos: V(0, -0.3, 0), op: 0 }, cap: { pos: V(0.1, H + 0.55, 0.25), rot: V(0.4, 0, -0.6), op: 0 }, crucible: { pos: V(0.34, H + 0.5, 0.04), rot: V(0, 0, 0), op: 0 }, vessel: { pos: V(0, 0, 0), rot: V(0, 0, 0), scl: 1, op: 1 }, outer: fallen },
+            enter: { model: hide, core: hide, base: hide, cap: hide, crucible: hide, vessel: { op: 1 }, outer: () => hide },
+        }[name];
+        if (!L) return;
+        for (const n of ['model', 'core', 'base', 'cap', 'crucible', 'vessel']) target(n, L[n]);
+        for (let i = 0; i < 4; i++) target('outer' + i, L.outer(i));
     }
+    const SHOP_PHASES = new Set(['model', 'outer', 'carve', 'close', 'pour', 'open', 'enter']);
 
-    // ---------- 時間軸：carve（手動）→ pour → rise → read → climax → dome ----------
+    // ---------- 時間軸：model → outer → carve（手動）→ close → pour → open → enter → rise → read → climax → dome ----------
     const clock = new THREE.Clock(); let started = false;
     function clockNow() { return clock.getElapsedTime(); }
     const PH = [
-        { name: 'carve', dur: Infinity }, { name: 'pour', dur: 9 }, { name: 'rise', dur: 20 }, { name: 'read', dur: 64 }, { name: 'climax', dur: 10 }, { name: 'dome', dur: Infinity },
+        { name: 'model', dur: 7 }, { name: 'outer', dur: 7 }, { name: 'carve', dur: Infinity }, { name: 'close', dur: 7 }, { name: 'pour', dur: 11 }, { name: 'open', dur: 9 }, { name: 'enter', dur: 8 },
+        { name: 'rise', dur: 20 }, { name: 'read', dur: 64 }, { name: 'climax', dur: 10 }, { name: 'dome', dur: Infinity },
     ];
     let phase = '', phaseIdx = -1, phaseT0 = 0, phaseEnd = Infinity, carouselPause = 0, carouselIdx = -1, climaxDone = false;
     const C_MOLTEN = new THREE.Color(0xff8a2a);
     function gazeEnabled() { return started && (phase === 'read' || phase === 'climax' || phase === 'dome'); }
+    let enterFrom = null;   // 入器：尊從工作台放大到把人包住
     function enter(idx, now) {
+        const prev = phase;
         phaseIdx = idx; phase = PH[idx].name; phaseT0 = now; phaseEnd = now + PH[idx].dur; selected = null;
-        if (phase === 'carve') {
-            forge.visible = true; forgeOpacity(1); resetCarve();
+        const inShop = SHOP_PHASES.has(phase);
+        if (inShop) {
+            shop.visible = true; forge.visible = true; forgeOpacity(1);
             cloudGroup.visible = false; floor.visible = false; insGroup.visible = false;
             world.scale.setScalar(S_INSIDE); world.position.set(0, -EYE_H, 0); world.rotation.y = 0; cloud.heat = 0; cloud.dim = 0; cloud.gscale = 1;
+            layoutShop(phase);
+            if (!SHOP_PHASES.has(prev)) snapParts();
+        }
+        if (phase === 'model') {
+            resetCarve(); climaxDone = false; carouselIdx = -1; $('end').classList.remove('on');
+            if (vessel.parent !== shop) { shop.attach(vessel); vessel.scale.setScalar(1); vessel.position.set(0, 0, 0); }
             glyphs.forEach(m => { m.visible = false; m.material.opacity = 0; m.material.color.copy(C_NORMAL); m.userData.lying = false; m.rotation.set(0, 0, 0); m.scale.setScalar(m.userData.size); });
-            climaxDone = false; carouselIdx = -1; $('end').classList.remove('on');
-            setCaption('化身刻銘的人', '三千年前，銘文先用朱筆反寫在泥范上，再用刀刻。把準星（或手指）順著紅色筆畫掃過去，就是在刻。先刻「宅」。');
+            setCaption('一　制模', '先用泥做出一件和成品一模一樣的素尊，叫「模」。紋飾在這一步刻在模上。');
+        } else if (phase === 'outer') {
+            setCaption('二　翻范', '把泥片按在模上，壓出紋飾的反印，分成四塊取下——這就是「外范」，器表將來的樣子已經反印在它內壁。');
+        } else if (phase === 'carve') {
+            resetCarve(); core.children[0].visible = false; core.children[2].visible = false;
+            setCaption('三　內范 · 刻銘', '把模刮去一層，就是「內范」，刮掉的厚度就是器壁。把內范倒過來，在底面用朱筆反寫、刀刻「宅茲中國」：把準星（或手指）順著紅字掃過去。先刻「宅」。');
+        } else if (phase === 'close') {
+            core.children[0].visible = true; core.children[2].visible = true; stream.visible = false;
+            setCaption('四　合范', '內范放回底范，四塊外范合攏，頂上封住、留一個澆口。模與范之間那一層空隙，就是將來的銅器。');
         } else if (phase === 'pour') {
-            // 銅水：一千六百九十字從頭頂灌下，凝成器壁；刻好的四字躺在腳下，反字翻成正字
-            cloudGroup.visible = true; cloud.opacity = 0.85; cloud.heat = 1; cloud.dim = 0;
-            cloudSet((i, t, r) => [(r[0] - 0.5) * 240, 420 + r[1] * 360, (r[2] - 0.5) * 240]);
-            cloudGo(shape_zun, 6.5, 2.2);
-            floor.visible = true; insGroup.visible = true;
-            cloud.gscale = 0.5;   // 站在器內看，器壁上的字要小一號
+            setCaption('五　澆鑄', '銅錫合金熔成銅液，從澆口灌進去，流滿空隙——器壁、紋飾、底面的銘文一次鑄成。然後等它冷。');
+        } else if (phase === 'open') {
+            setCaption('六　脫范', '敲開外范，掏出內范。銅尊出范，打磨之後，內底留下的就是正字、陰文的銘文。');
+        } else if (phase === 'enter') {
+            // 尊從台上放大，把人包進去；接著器壁上的一千六百九十字亮起
+            scene.attach(vessel); enterFrom = { pos: vessel.position.clone(), scl: vessel.scale.x };
             CARVE_IDX.forEach((gi) => {
-                // 四個反字立在正前方（比最終位置近四成），澆鑄時翻成正字，下一幕再退到器壁就位
-                const m = glyphs[gi]; m.visible = true; m.userData.lying = true; m.material.opacity = 1; m.material.color.copy(C_MOLTEN);
+                const m = glyphs[gi]; m.visible = false; m.userData.lying = true; m.material.opacity = 0; m.material.color.copy(C_NORMAL);
                 const t = m.userData.target, p = t.clone().multiplyScalar(0.6); p.y = t.y;
                 m.position.copy(p); m.userData.from.copy(p);
-                m.rotation.set(0, 0, 0); m.lookAt(0, t.y, 0); m.scale.set(-m.userData.size * 1.15, m.userData.size * 1.15, 1);
+                m.rotation.set(0, 0, 0); m.lookAt(0, t.y, 0); m.scale.set(m.userData.size * 1.15, m.userData.size * 1.15, 1);
             });
-            setCaption('澆鑄', '銅水灌入，器壁在你四周凝成。看正前方：你刻的是反字，鑄出來的才是正字。');
+            setCaption('七　入器', '現在，縮身走進尊裡——站在內底上，抬頭看它的器壁。');
         } else if (phase === 'rise') {
-            forge.visible = false; cloud.heat = 0; cloud.opacity = 0.42; cloud.dim = 0.8; cloud.gscale = 0.45;
+            shop.visible = false; forge.visible = false; cloudGroup.visible = true; floor.visible = true; insGroup.visible = true;
+            cloud.heat = 0; cloud.opacity = 0.42; cloud.dim = 0.8; cloud.gscale = 0.45;
+            if (!cloud.active) cloudSet(shape_zun);
+            for (const mt of vesselMats) mt.opacity = 0.22;
             glyphs.forEach(m => {
                 m.userData.lying = false; m.visible = true;
                 m.rotation.set(0, 0, 0); m.lookAt(0, m.userData.target.y, 0); m.scale.setScalar(m.userData.size); m.material.color.copy(C_NORMAL);
                 m.userData.riseAt = now + 0.6 + (m.userData.c.line - 1) * 1.1 + (m.userData.c.col - 1) * 0.09;
             });
-            setCaption('銘文翻正', '你刻的四字從腳下升起，其餘一百一十八字一併鑄出。十二行，自右向左、自上而下讀。');
+            setCaption('銘文升起', '你刻的四字從腳下升起，其餘一百一十八字一併鑄出。十二行，自右向左、自上而下讀。');
         } else if (phase === 'read') {
-            forge.visible = false; cloudGroup.visible = true; floor.visible = true; insGroup.visible = true; cloud.opacity = 0.42; cloud.heat = 0; cloud.gscale = 0.45; cloud.dim = 0.8;
+            shop.visible = false; forge.visible = false; cloudGroup.visible = true; floor.visible = true; insGroup.visible = true; cloud.opacity = 0.42; cloud.heat = 0; cloud.gscale = 0.45; cloud.dim = 0.8;
             if (!cloud.active && cloud.cur[1] > 300) cloudSet(shape_zun);   // 直接跳到這幕：器壁就位
+            if (vessel.parent === shop) vessel.visible = false;
             carouselIdx = -1; carouselPause = 0;
             // 跳幕進來時，還沒升起的字直接就位
             glyphs.forEach((m, i) => { m.visible = true; m.userData.lying = false; m.rotation.set(0, 0, 0); m.lookAt(0, m.userData.target.y, 0); if (m.userData.riseAt > now - 1.4) m.userData.riseAt = now - 1.4 + i * 0.004; });
@@ -747,6 +872,7 @@
             (async () => { for (const ch of ['宅', '茲', '中', '國']) { if (phase !== 'climax') break; await playChar(ch); } })();
         } else if (phase === 'dome') {
             glyphs.forEach(m => m.material.color.copy(C_NORMAL));
+            vessel.visible = false;
             cloud.opacity = 0.9; cloud.gscale = 1; cloud.dim = 0; cloudGo(shape_dome, 6, 2.5);
             setCaption('皆在頭頂', '一千六百九十字，商、西周、春秋、戰國，都在這裡。');
             setTimeout(() => { if (phase === 'dome') $('end').classList.add('on'); }, 7000);
@@ -757,39 +883,70 @@
         if (started) return; started = true; clock.start();
         document.body.classList.add('running'); $('gate').style.display = 'none';
         enter(0, clockNow());
-        // 從「看器 · 入器」頁接過來：vr.html?start=pour 直接澆鑄，?start=read 直接讀銘（刻字幕略過）
+        // 從「看器 · 入器」頁接過來：?start=enter 直接入器，?start=pour 從澆鑄開始，?start=read 直接讀銘
         const jump = PH.findIndex(p => p.name === Q.get('start'));
-        if (jump === 1 || jump === 3) enter(jump, clockNow());
+        if (jump > 0) enter(jump, clockNow());
     }
     function restart() { started = false; $('end').classList.remove('on'); start(); }
     $('skip').onclick = nextPhase; $('btnAgain').onclick = restart;
 
+    const ease3 = u => u < 0.5 ? 4 * u * u * u : 1 - Math.pow(-2 * u + 2, 3) / 2;
+    let lastTick = 0;
     function timelineTick(now) {
         if (!started) return;
+        const dt = Math.min(0.1, now - lastTick); lastTick = now;
         if (now >= phaseEnd && phaseIdx < PH.length - 1) enter(phaseIdx + 1, now);
         if (phase === 'dome') cloudGroup.rotation.y = (now - phaseT0) * 0.012;
         else cloudGroup.rotation.y += (0 - cloudGroup.rotation.y) * 0.05;
-        if (phase === 'carve') embersTick();
-        if (phase === 'pour') {
-            const u = Math.min(1, (now - phaseT0) / PH[1].dur);
-            forgeOpacity(Math.max(0, 1 - u * 2.4));           // 前 40% 泥范淡出
-            if (u > 0.45) forge.visible = false;
-            cloud.heat = Math.max(0, 1 - u * 1.4);             // 銅水由橙紅冷卻成金
-            cloud.dim = Math.max(0, Math.min(0.8, (u - 0.5) * 2.2));   // 冷卻後退成暗銅色器壁
-            cloud.opacity = 0.85 - 0.43 * Math.max(0, (u - 0.5) * 2);
-            const f = Math.max(0, Math.min(1, (u - 0.4) / 0.4)), e = f * f * (3 - 2 * f);
-            CARVE_IDX.forEach(gi => { const m = glyphs[gi]; m.scale.x = m.userData.size * 1.15 * (-1 + 2 * e); m.material.color.lerpColors(C_MOLTEN, C_NORMAL, e); });
+        if (SHOP_PHASES.has(phase)) { embersTick(); partsTick(dt); fireLight.intensity = 0.8 + Math.sin(now * 7) * 0.08; }
+        const u = Math.min(1, (now - phaseT0) / PH[phaseIdx].dur);
+        if (phase === 'model') {
+            // 泥在轉盤上拉起來
+            const g = ease3(Math.min(1, u * 1.3)); model.scale.set(1, Math.max(0.03, g), 1); model.rotation.y = now * 1.6 * (1 - g);
+        } else if (phase === 'outer') {
+            model.scale.set(1, 1, 1);
+        } else if (phase === 'pour') {
+            // 坩堝傾倒 → 銅液注入 → 范縫透紅 → 冷卻
+            const pourOn = u > 0.12 && u < 0.62;
+            stream.visible = pourOn;
+            if (pourOn) {
+                const lip = crucible.localToWorld(V(-0.08, 0.05, 0)); shop.worldToLocal(lip); const mouth = V(0, H + 0.11, 0);
+                stream.position.lerpVectors(lip, mouth, 0.5); stream.scale.set(1, lip.distanceTo(mouth), 1);
+                stream.lookAt(shop.localToWorld(mouth.clone())); stream.rotateX(Math.PI / 2);
+            }
+            streamGlow.material.opacity = pourOn ? 0.6 : Math.max(0, streamGlow.material.opacity - dt);
+            const heat = u < 0.6 ? Math.min(1, (u - 0.1) / 0.3) : Math.max(0, 1 - (u - 0.6) / 0.35);
+            seams.forEach(s => { s.material.opacity = Math.max(0, heat); s.material.color.setRGB(1, 0.45 + 0.4 * heat, 0.1 * heat); });
+            streamGlow.material.opacity = pourOn ? 0.7 : Math.max(0, heat * 0.4);
+            fireLight.intensity = 0.8 + heat * 1.2;
+        } else if (phase === 'open') {
+            seams.forEach(s => s.material.opacity = 0); stream.visible = false; streamGlow.material.opacity = 0;
+        } else if (phase === 'enter' && enterFrom) {
+            // 尊：台上 → 把人包住（高 8.1 m，底在腳下 1.2 m）
+            const e = ease3(u);
+            const Fs = (S_INSIDE * 270) / H;
+            vessel.position.lerpVectors(enterFrom.pos, V(0, -EYE_H, 0), e);
+            vessel.scale.setScalar(enterFrom.scl * (1 + (Fs - 1) * e));
+            for (const mt of vesselMats) mt.opacity = 1 - 0.78 * e;
+            if (u > 0.55) {   // 器壁上的字亮起、刻的四字在正前方由反翻正
+                cloudGroup.visible = true; floor.visible = true; insGroup.visible = true;
+                if (!cloud.active && cloud.cur[1] > 300) cloudSet(shape_zun);
+                const f = (u - 0.55) / 0.45, ef = f * f * (3 - 2 * f);
+                cloud.opacity = 0.42 * ef; cloud.dim = 0.8; cloud.gscale = 0.45;
+                CARVE_IDX.forEach(gi => { const m = glyphs[gi]; m.visible = true; m.material.opacity = ef; m.scale.x = m.userData.size * 1.15 * (-1 + 2 * ef); });
+            }
+            shop.visible = u < 0.6; forge.visible = u < 0.6;
         }
         // 銘文升起
         for (const m of glyphs) {
             if (!m.visible || m.userData.lying) continue;
-            const u = Math.max(0, Math.min(1, (now - m.userData.riseAt) / 1.4));
-            const e = 1 - Math.pow(1 - u, 3);
+            const uu = Math.max(0, Math.min(1, (now - m.userData.riseAt) / 1.4));
+            const e = 1 - Math.pow(1 - uu, 3);
             m.position.lerpVectors(m.userData.from, m.userData.target, e);
-            m.material.opacity = Math.min(1, u * 2);
+            m.material.opacity = Math.min(1, uu * 2);
             const want = m === gazeTarget ? 1 : 0;
             m.userData.hot += (want - m.userData.hot) * 0.2;
-            m.scale.setScalar(m.userData.size * (1 + 0.28 * m.userData.hot) * (1 + 0.35 * Math.sin(u * Math.PI)));
+            m.scale.setScalar(m.userData.size * (1 + 0.28 * m.userData.hot) * (1 + 0.35 * Math.sin(uu * Math.PI)));
         }
         // 讀銘幕：每 8 秒輪播一句今譯並點亮該句的字；注視選字後暫停輪播 10 秒
         if (phase === 'read') {

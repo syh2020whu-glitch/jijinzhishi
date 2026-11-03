@@ -269,7 +269,7 @@
             camera.lookAt(controls.target);
             if (u > 0.7) $('fade').style.opacity = String((u - 0.7) / 0.3);
             if (u < 1) requestAnimationFrame(step);
-            else setTimeout(() => { location.href = 'vr.html?start=pour'; }, 300);
+            else setTimeout(() => { location.href = 'vr.html?start=enter'; }, 300);
         })();
     };
 
