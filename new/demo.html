@@ -355,6 +355,26 @@
         #view-home.on:not(.intro):not(.tunneling) #recStart { display: block; }
         html.touring #recStart, html.recording #recStart { display: none !important; }
         #recStart:hover { color: #f4d58a; border-color: #f4d58a; }
+        /* VR 入口：右下角，手機、桌面都顯示；能力檢測在 vr.html 裡做，這裡只負責跳轉 */
+        #vrStart {
+            display: none;
+            position: absolute;
+            right: max(20px, env(safe-area-inset-right));
+            bottom: max(20px, env(safe-area-inset-bottom));
+            z-index: 50;
+            background: rgba(22, 19, 15, 0.35);
+            border: 1px solid rgba(244, 213, 138, 0.55);
+            color: #f4d58a;
+            letter-spacing: 4px;
+            cursor: pointer;
+            font-size: 13px;
+            padding: 8px 14px;
+            font-family: var(--font-serif);
+        }
+        #vrStart::before { content: '◎'; margin-right: 6px; letter-spacing: 0; }
+        #view-home.on:not(.intro):not(.tunneling) #vrStart { display: block; }
+        html.touring #vrStart, html.recording #vrStart, html.nested-demo #vrStart { display: none !important; }
+        #vrStart:hover { background: rgba(244, 213, 138, 0.16); }
         #recHud {
             display: none;
             position: fixed;
@@ -1847,6 +1867,8 @@
                 padding: 12px 16px;
             }
             .home-doors button b { letter-spacing: 6px; }
+            /* 手機：三門佔滿底部，VR 入口挪到右上角 */
+            #vrStart { top: max(12px, env(safe-area-inset-top)); bottom: auto; right: 12px; font-size: 12px; padding: 7px 10px; letter-spacing: 2px; }
             #view-learn .paper-bar {
                 grid-template-columns: 1fr;
                 justify-items: center;
@@ -1966,6 +1988,7 @@
         <button type="button" id="introSkip">跳過</button>
         <button type="button" id="tourStart">演示</button>
         <button type="button" id="recStart">錄製</button>
+        <button type="button" id="vrStart" title="戴上 Cardboard 或 VR 頭顯，站進何尊裡讀銘文">VR 觀看</button>
     </section>
     <div id="tourHud" aria-live="polite">
         <p class="tour-kicker">自動演示</p>
@@ -3104,6 +3127,8 @@
         }
         document.querySelectorAll('[data-go]').forEach(b => b.onclick = () => enterFromGalaxy(b.dataset.go));
         document.querySelectorAll('[data-home]').forEach(b => b.onclick = () => go('home'));
+        // VR 入口：獨立頁 vr.html（不嵌 iframe，WebXR / 陀螺儀權限都在頂層頁面裡拿），能力檢測與不支持時的提示在那一頁做
+        document.getElementById('vrStart').onclick = (e) => { e.stopPropagation(); location.href = 'vr.html'; };
         document.getElementById('playBackLobby').onclick = () => go('play', '', 'lobby');
         document.querySelectorAll('.paper-bar .tabs button').forEach(b => {
             b.onclick = () => {
