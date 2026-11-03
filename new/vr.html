@@ -570,14 +570,28 @@
         const c = m.userData.c; const s = sentenceOf(c.i); const ipa = ipaOf(c);
         const big = c.g === c.r ? `${c.g}` : `${c.g}（讀為「${c.r}」）`;
         const extra = subMap[c.g] ? subMap[c.g].note : (howText[m.userData.how] || '');
-        setCaption(big + (ipa ? `　*${ipa}` : ''), (s ? s.modern : '') + (extra ? `　〔${extra}〕` : ''));
+        // 這個字在銘文裡的位置 + 字形出自哪件器（站內字庫的著錄）
+        const use = subMap[c.g] ? subMap[c.g].use : c.g, meta = charIndex[use] || {};
+        const where = `第 ${c.line} 行第 ${c.col} 字`;
+        const from = meta.src ? `字形出自${meta.src}${meta.period ? '（' + meta.period + '）' : ''}` : '';
+        setCaption(big + (ipa ? `　*${ipa}` : ''), (s ? s.modern : '') + (extra ? `　〔${extra}〕` : '') + `　·　${where}` + (from ? `，${from}` : ''));
         playChar(c.r).then(ok => { if (!ok) playChar(c.g); });
     }
-    function tapSelect() { if (gazeTarget && gazeEnabled()) select(gazeTarget, clockNow()); }
+    // 點選：平面模式手指（鼠標）點到哪個字就選哪個；分屏與 XR 裡用注視的那個字
+    function tapSelect(e) {
+        if (!gazeEnabled()) return;
+        let m = gazeTarget;
+        if (e && mode === 'flat' && !renderer.xr.isPresenting) {
+            ray.setFromCamera(new THREE.Vector2(e.clientX / window.innerWidth * 2 - 1, -(e.clientY / window.innerHeight) * 2 + 1), camera);
+            const hits = ray.intersectObjects(glyphs.filter(g => g.visible), false);
+            m = hits.length ? hits[0].object : null;
+        }
+        if (m) { cooldownUntil = 0; select(m, clockNow()); }
+    }
     let downX = 0, downY = 0;
     canvas.addEventListener('pointerdown', e => { downX = e.clientX; downY = e.clientY; });
-    canvas.addEventListener('pointerup', e => { if (Math.hypot(e.clientX - downX, e.clientY - downY) < 8) tapSelect(); });
-    try { renderer.xr.getController(0).addEventListener('select', tapSelect); } catch (e) {}
+    canvas.addEventListener('pointerup', e => { if (Math.hypot(e.clientX - downX, e.clientY - downY) < 8) tapSelect(e); });
+    try { renderer.xr.getController(0).addEventListener('select', () => tapSelect()); } catch (e) {}
 
     // ---------- 工坊：范鑄法七步（制模 → 翻外范 → 內范刻銘 → 合范 → 澆鑄 → 脫范 → 入器）----------
     // 觀眾坐在工作台前，器是真實尺寸（何尊通高 38.8 cm）。不做人物，用模、范、銅液本身講工藝。
