@@ -73,12 +73,20 @@ sh.putalpha(m)
 sh.alpha_composite(pc, (pad, pad))
 sh.save(A / "postcard_shadow_light.png")
 
+# 核心场景页、更多场景页用的识图局部（截图 1920×1080）
+for name, src, box in [("story_split", "rec_case", (380, 70, 1040, 1080)),     # 拓片 + 字框
+                       ("story_match", "rec_case", (1420, 100, 1920, 1000)),  # 右栏：逐字给出今字
+                       ("assist_panel", "rec_assist", (1420, 60, 1920, 1080)),  # 释读辅助：辞例
+                       ("trace_crop", "trace", (708, 166, 1212, 670))]:  # 描红字格
+    Image.open(A / "shots" / f"{src}.png").convert("RGB").crop(box).save(A / f"{name}.png")
 
-def text_png(key, text, size, color, bold=False, max_w=None, line_gap=1.25, font=FONT_TITLE):
-    """把一段文字渲染成透明 PNG（4 倍采样），返回 (宽, 高) 英寸。PPT 里按 300dpi 放。"""
+
+def text_png(key, text, size, color, bold=False, max_w=None, line_gap=1.25, font=FONT_TITLE, track=0.0):
+    """把一段文字渲染成透明 PNG（4 倍采样），返回 (宽, 高) 英寸。track = 字间距（字号的倍数）。"""
     S = 4
     f = ImageFont.truetype(font, size * S)
-    lines = [text]
+    gap = track * size * S
+    lines = text.split("\n")
     if max_w:
         lines, cur = [], ""
         for ch in text:
@@ -90,13 +98,17 @@ def text_png(key, text, size, color, bold=False, max_w=None, line_gap=1.25, font
                 cur += ch
         lines.append(cur)
     lh = int(size * S * line_gap)
-    w = int(max(f.getlength(l) for l in lines)) + 8 * S
+    span = lambda l: f.getlength(l) + gap * max(len(l) - 1, 0)
+    w = int(max(span(l) for l in lines)) + 8 * S
     h = lh * len(lines) + 6 * S
     im = Image.new("RGBA", (w, h), (0, 0, 0, 0))
     d = ImageDraw.Draw(im)
     for i, l in enumerate(lines):
-        d.text((4 * S, 3 * S + i * lh), l, font=f, fill=color + (255,),
-               stroke_width=int(0.6 * S) if bold else 0, stroke_fill=color + (255,))
+        x = 4 * S
+        for ch in (l if gap else [l]):
+            d.text((x, 3 * S + i * lh), ch, font=f, fill=color + (255,),
+                   stroke_width=int(0.6 * S) if bold else 0, stroke_fill=color + (255,))
+            x += f.getlength(ch) + gap
     im.save(T / f"{key}.png")
     return {"w": w / S / 96, "h": h / S / 96}   # 按 96 px/in 换算成英寸
 
@@ -104,31 +116,32 @@ def text_png(key, text, size, color, bold=False, max_w=None, line_gap=1.25, font
 # 文字清单：键 → (文字, 字号 pt(96dpi 像素), 颜色, 粗, 最大宽 px)
 TEXTS = {
     "cover_sub": ("金文数字化传承与互动体验平台", 40, INK, False, None),
-    "cover_tag": ("让古文字可看、可听、可写、可考", 24, CINNABAR, False, None),
+    "cover_tag": ("让青铜铭文可观、可识、可读、可感", 24, CINNABAR, False, None),
     "end_1": ("让书写在青铜器上的文字活起来", 50, INK, True, None),
     "end_thanks": ("敬请各位老师批评指正", 34, INK, False, None),
+    "slogan": ("可观　可识　可读　可感", 30, CINNABAR, True, None),
 }
 TITLES = {
-    "t2": "项目缘起：何尊上的“中国”",
-    "t3": "政策背景与现实问题",
-    "t4": "总体思路：以字为桥",
-    "t5": "字形源流与文化内涵",
-    "t6": "古文字资料整理",
-    "t7": "识读模型训练",
-    "t8": "四个模块：看、听、写、考",
-    "t9": "在趣味互动中记住金文",
+    "t2": "读懂铭文，追溯文明之源",
+    "t3": "国家高度重视文字传承",
+    "t4": "走进博物馆，读懂青铜铭文",
+    "t5": "古文字资料整理",
+    "t6": "识读模型训练",
+    "t7": "研究与测评",
+    "t8": "一套字库，多种用途",
+    "t9": "网站演示",
     "t10": "落地应用",
 }
 SUMS = {
     "s2": "让公众尤其是青少年读懂金文，是我们做这件事的起点",
-    "s3": "古文字资料丰富，但面向公众的普及途径仍然不足",
-    "s4": "以文字为纽带，分四个环节把青铜器铭文带到公众身边",
-    "s5": "字形不断演化，字义中保存着先人对天地人伦的认识",
-    "s6": "每个字形、每张拓片都注明了出处",
-    "s7": "模型提供释读初稿，最终结论由专家审定",
-    "s8": "四个模块共用一套字库，分别面向公众、课堂和研究",
-    "s9": "通过动手操作，加深对字形的记忆",
-    "s10": "作品可在展位、手机端和课堂中使用",
+    "s3": "然而在博物馆里，多数观众仍读不懂展柜中的铭文",
+    "s4": "模型拆字、字库匹配，把铭文变成看得懂的现代汉字",
+    "s5": "每个字形、每张拓片都注明了出处",
+    "s6": "模型提供释读初稿，最终结论由专家审定",
+    "s7": "团队持续开展古文字识读研究",
+    "s8": "同一套字库，也能用来学源流、听古音、练书写、做研究",
+    "s9": "演示内容均为网站实际操作录屏",
+    "s10": "作品可在展位、手机端、课堂和海外中文教学中使用",
 }
 meta = {}
 for k, (txt, sz, col, b, mw) in TEXTS.items():
@@ -137,7 +150,16 @@ for k, txt in TITLES.items():
     meta[k] = text_png(k, txt, 38, INK, True)
 for k, txt in SUMS.items():
     meta[k] = text_png(k, txt, 22, INK, False)
-for ch in "看听写考中国古今":
+# 第 3 页大号引文：朱砂、放宽字距，讲时逐字读
+meta["quote_moe"] = text_png("quote_moe", "开展追溯甲骨文、金文、\n篆书等文字发展演变", 58, CINNABAR, True, line_gap=1.45, track=0.12)
+# 封面中山王篆书标题下的逐字释文（常用字，评委一眼能认）
+for ch in "吉金智识":
+    meta["gloss_" + ch] = text_png("gloss_" + ch, ch, 48, CINNABAR, True)
+for ch in "看听写考中国古今關雎鳩在河之洲":
     meta["big_" + ch] = text_png("big_" + ch, ch, 72, INK, True)
+# 构拟（IPA）用 Segoe UI 渲染成图片，避免放映机缺字
+IPA = {"guan": "kroːn", "ju": "sʰa", "jiu": "ku", "zai": "zlɯːʔ", "he": "ɡaːl", "zhi": "tjɯ", "zhou": "tju"}
+for k, v in IPA.items():
+    meta["ipa_" + k] = text_png("ipa_" + k, v, 30, CINNABAR, False, font="C:/Windows/Fonts/segoeuii.ttf")
 json.dump(meta, open(T / "meta.json", "w", encoding="utf8"), ensure_ascii=False, indent=1)
 print("ok", len(meta))
