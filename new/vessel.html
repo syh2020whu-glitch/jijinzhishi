@@ -114,7 +114,7 @@
     const VESSELS = {
         zun: { name: '尊', date: '西周 · 前 10 世紀', source: '明尼阿波利斯美術館藏 · CC0 三維掃描', text: '何尊同類的觚形尊。何尊銘文一百二十二字鑄在器內底——站在展櫃前看不見，只能靠展櫃上方一面鏡子。', ins: true, note: '何尊本尊尚無公開三維掃描，此處以同時代同類器示意；內底銘文按何尊十二行排。' },
         ding: { name: '鼎', date: '西周 · 前 11–10 世紀', source: '明尼阿波利斯美術館藏 · CC0 三維掃描', text: '鼎的銘文多鑄在內壁，面向器口；大克鼎二百九十字就在腹內壁。', ins: false, note: '' },
-        gui: { name: '簋', date: '西周 · 前 10 世紀', source: '明尼阿波利斯美術館藏 · CC0 三維掃描', text: '簋的銘文鑄在內底，常與同銘的鼎成組。', ins: false, note: '' },
+        gui: { name: '簋', date: '西周 · 前 10 世紀', source: '明尼阿波利斯美術館藏 · CC0 三維掃描', text: '簋的銘文鑄在內底，常與同銘的鼎成組。這件簋的內底就有銘文，記周王征伐、作器者頌揚王恩——從外面同樣看不見。', ins: false, note: '' },
         gu: { name: '觚', date: '商 · 前 12–11 世紀', source: '明尼阿波利斯美術館藏 · CC0 三維掃描', text: '觚是飲酒器，銘文往往只有一兩個族徽，鑄在圈足內壁。', ins: false, note: '' },
     };
     const ORDER = ['zun', 'ding', 'gui', 'gu'];
@@ -138,8 +138,8 @@
             const d = mv.getDimensions(); const c = mv.getBoundingBoxCenter();
             const top = c.y + d.y / 2, bottom = c.y - d.y / 2, r = Math.max(d.x, d.z) / 2;
             mv.updateHotspot({ name: 'hotspot-rim', position: `${c.x + r * 0.55}m ${top}m ${c.z}m`, normal: '0m 1m 0m' });
-            mv.updateHotspot({ name: 'hotspot-belly', position: `${c.x}m ${c.y + d.y * 0.02}m ${c.z + r * 0.95}m`, normal: '0m 0m 1m' });
-            mv.updateHotspot({ name: 'hotspot-foot', position: `${c.x - r * 0.45}m ${bottom + d.y * 0.08}m ${c.z + r * 0.6}m`, normal: '0m 0m 1m' });
+            mv.updateHotspot({ name: 'hotspot-belly', position: `${c.x}m ${c.y - d.y * 0.05}m ${c.z + r * 0.72}m`, normal: '0m 0m 1m' });
+            mv.updateHotspot({ name: 'hotspot-foot', position: `${c.x - r * 0.3}m ${bottom + d.y * 0.08}m ${c.z + r * 0.45}m`, normal: '0m 0m 1m' });
             mv.updateHotspot({ name: 'hotspot-ins', position: `${c.x}m ${bottom + d.y * 0.16}m ${c.z}m`, normal: '0m 1m 0m' });
         } catch (e) { /* 舊版 model-viewer 無此 API 時忽略 */ }
     }
@@ -229,7 +229,8 @@
     function showFallbackL1(k) { loadInto3D(k).then(() => { document.body.classList.add('three'); document.body.classList.remove('inside'); setXray(0); }); }
 
     function setXray(t) {   // 0 實體 → 1 透明
-        for (const m of vesselMeshes) { m.material.opacity = 1 - 0.88 * t; m.material.depthWrite = t < 0.3; }
+        // 透視：器壁淡出；過三成後只畫外表面、不寫深度，免得內壁疊影把銘文蓋住
+        for (const m of vesselMeshes) { m.material.opacity = 1 - 0.92 * t; m.material.depthWrite = t < 0.3; m.material.side = t < 0.3 ? THREE.DoubleSide : THREE.FrontSide; m.material.needsUpdate = true; }
         if (insPlane) insPlane.material.opacity = Math.min(1, t * 1.6);
         $('insText').textContent = t < 0.2 ? '拖動滑桿，器壁漸漸透明，內底的銘文就露出來了。' : t < 0.7 ? '器壁變薄，內底浮出一百二十二字——這就是博物館裡看不到的那一面。' : '十二行，自右向左讀。「宅茲中國」在第七行。按「沉入器內」站進去讀。';
     }
@@ -240,11 +241,12 @@
         $('xray').value = 0; setXray(0);
         // 進來後自動把透視推到 70%，同時鏡頭抬高俯視器口，讓觀眾先看見內底的銘文
         const t0 = performance.now(), p0 = camera.position.clone(), p1 = new THREE.Vector3(0, H * 1.55, H * 1.25), tg0 = controls.target.clone(), tg1 = new THREE.Vector3(0, H * 0.3, 0);
+        controls.enabled = false;
         (function step() {
             const u = Math.min(1, (performance.now() - t0) / 1800), e = u < 0.5 ? 2 * u * u : 1 - Math.pow(-2 * u + 2, 2) / 2;
             const v = Math.round(70 * e); $('xray').value = v; setXray(v / 100);
-            camera.position.lerpVectors(p0, p1, e); controls.target.lerpVectors(tg0, tg1, e); controls.update();
-            if (u < 1) requestAnimationFrame(step);
+            camera.position.lerpVectors(p0, p1, e); controls.target.lerpVectors(tg0, tg1, e); camera.lookAt(controls.target);
+            if (u < 1) requestAnimationFrame(step); else { controls.enabled = true; controls.update(); }
         })();
     }
     function leaveInside() { document.body.classList.remove('inside'); if (available[cur]) { document.body.classList.remove('three'); mv.style.visibility = ''; } else setXray(0); }
