@@ -757,6 +757,9 @@
         if (started) return; started = true; clock.start();
         document.body.classList.add('running'); $('gate').style.display = 'none';
         enter(0, clockNow());
+        // 從「看器 · 入器」頁接過來：vr.html?start=pour 直接澆鑄，?start=read 直接讀銘（刻字幕略過）
+        const jump = PH.findIndex(p => p.name === Q.get('start'));
+        if (jump === 1 || jump === 3) enter(jump, clockNow());
     }
     function restart() { started = false; $('end').classList.remove('on'); start(); }
     $('skip').onclick = nextPhase; $('btnAgain').onclick = restart;

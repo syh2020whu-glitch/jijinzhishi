@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>看器 · 入器 · 讀銘</title>
+<link rel="icon" type="image/png" href="./assets/favicon.png">
+<link rel="stylesheet" href="./assets/fonts/web/fonts.css">
+<style>
+    html, body { margin: 0; height: 100%; background: #16130f; color: #ede3cf; overflow: hidden;
+        font-family: "Noto Serif TC", "Source Han Serif TC", serif; -webkit-tap-highlight-color: transparent; }
+    #stage { position: fixed; inset: 0; }
+    model-viewer { width: 100%; height: 100%; background: radial-gradient(ellipse at 50% 70%, #2a2218 0%, #16130f 70%); --poster-color: transparent; }
+    #three { position: fixed; inset: 0; display: none; }
+    body.three #three { display: block; }
+    body.three model-viewer { visibility: hidden; }
+
+    .bar { position: fixed; left: 0; right: 0; top: 0; z-index: 10; display: flex; align-items: center; gap: 10px; padding: max(10px, env(safe-area-inset-top)) 14px 8px;
+        background: linear-gradient(rgba(22,19,15,.85), rgba(22,19,15,0)); pointer-events: none; }
+    .bar > * { pointer-events: auto; }
+    .bar a.back { color: #f4d58a; text-decoration: none; font-size: 12px; letter-spacing: .2em; border: 1px solid rgba(244,213,138,.35); padding: 7px 12px; background: rgba(22,19,15,.45); white-space: nowrap; }
+    .bar h1 { font-weight: 400; font-size: 15px; letter-spacing: .35em; margin: 0 auto; color: #f4d58a; white-space: nowrap; }
+    .tabs { display: flex; gap: 6px; }
+    .tabs button { background: rgba(22,19,15,.45); border: 1px solid rgba(244,213,138,.3); color: #ede3cf; font: 15px/1 "Noto Serif TC", serif; padding: 7px 12px; cursor: pointer; }
+    .tabs button.on { border-color: #f4d58a; color: #f4d58a; background: rgba(244,213,138,.14); }
+
+    .card { position: fixed; left: max(14px, env(safe-area-inset-left)); bottom: max(14px, env(safe-area-inset-bottom)); z-index: 10; width: min(360px, calc(100vw - 28px));
+        background: rgba(22,19,15,.72); border: 1px solid rgba(244,213,138,.25); backdrop-filter: blur(8px); padding: 14px 16px; }
+    .card h2 { font-weight: 400; margin: 0 0 4px; font-size: 24px; letter-spacing: .2em; color: #f4d58a; }
+    .card .meta { font-size: 12px; opacity: .7; line-height: 1.7; }
+    .card p { font-size: 13px; line-height: 1.8; margin: 8px 0 10px; }
+    .row { display: flex; flex-wrap: wrap; gap: 8px; }
+    .btn { background: rgba(22,19,15,.5); border: 1px solid rgba(244,213,138,.5); color: #f4d58a; padding: 10px 14px; font: 14px/1 "Noto Serif TC", serif; letter-spacing: .15em; cursor: pointer; min-height: 42px; }
+    .btn.primary { background: rgba(244,213,138,.16); border-color: #f4d58a; }
+    .btn[hidden] { display: none; }
+    .note { font-size: 11px; opacity: .6; margin-top: 8px; line-height: 1.7; }
+
+    /* 熱點 */
+    .hot { width: 14px; height: 14px; border-radius: 50%; border: 1.5px solid #f4d58a; background: rgba(244,213,138,.25); box-shadow: 0 0 10px rgba(244,213,138,.6); cursor: pointer; padding: 0; position: relative; }
+    .hot::after { content: attr(data-label); position: absolute; left: 20px; top: -6px; white-space: nowrap; font: 12px/1.6 "Noto Serif TC", serif; letter-spacing: .15em; color: #ede3cf; background: rgba(22,19,15,.7); padding: 2px 8px; border: 1px solid rgba(244,213,138,.25); opacity: 0; transition: opacity .2s; pointer-events: none; }
+    .hot:hover::after, .hot.show::after { opacity: 1; }
+    .hot.ins { width: 20px; height: 20px; animation: pulse 1.8s ease-in-out infinite; }
+    @keyframes pulse { 0%, 100% { box-shadow: 0 0 8px rgba(244,213,138,.5); } 50% { box-shadow: 0 0 22px rgba(244,213,138,1); } }
+
+    /* 入器層的控制 */
+    #inside { position: fixed; right: max(14px, env(safe-area-inset-right)); bottom: max(14px, env(safe-area-inset-bottom)); z-index: 10; width: min(300px, calc(100vw - 28px));
+        background: rgba(22,19,15,.72); border: 1px solid rgba(244,213,138,.25); backdrop-filter: blur(8px); padding: 14px 16px; display: none; }
+    body.inside #inside { display: block; }
+    body.inside .card { display: none; }
+    #inside label { display: block; font-size: 12px; letter-spacing: .2em; color: #f4d58a; margin-bottom: 6px; }
+    #xray { width: 100%; accent-color: #f4d58a; }
+    #fade { position: fixed; inset: 0; background: #000; opacity: 0; pointer-events: none; transition: opacity 1.2s; z-index: 50; }
+    #toast { position: fixed; left: 50%; top: 18%; transform: translateX(-50%); z-index: 30; background: rgba(22,19,15,.88); border: 1px solid rgba(244,213,138,.4); font-size: 13px; line-height: 1.8; padding: 10px 16px; max-width: 86vw; display: none; text-align: center; }
+    #toast.on { display: block; }
+    @media (max-width: 640px) {
+        .bar h1 { display: none; }
+        .card h2 { font-size: 20px; }
+        .card p { font-size: 12px; }
+        #inside { left: max(14px, env(safe-area-inset-left)); width: auto; }
+    }
+</style>
+</head>
+<body>
+<div id="stage">
+    <model-viewer id="mv" camera-controls auto-rotate auto-rotate-delay="1500" rotation-per-second="18deg" shadow-intensity="0.6" exposure="1.1"
+        ar ar-modes="quick-look scene-viewer webxr" ar-scale="auto" interaction-prompt="none" loading="eager" alt="青銅器三維模型">
+        <button class="hot" slot="hotspot-rim" data-label="口沿"></button>
+        <button class="hot" slot="hotspot-belly" data-label="腹 · 獸面紋"></button>
+        <button class="hot" slot="hotspot-foot" data-label="圈足"></button>
+        <button class="hot ins show" slot="hotspot-ins" data-label="銘文在這裡 · 器內底"></button>
+    </model-viewer>
+    <canvas id="three"></canvas>
+</div>
+
+<div class="bar">
+    <a class="back" href="demo.html">← 回吉金智識</a>
+    <h1>看器 · 入器 · 讀銘</h1>
+    <div class="tabs" id="tabs"></div>
+</div>
+
+<div class="card">
+    <h2 id="vName">尊</h2>
+    <div class="meta" id="vMeta"></div>
+    <p id="vText"></p>
+    <div class="row">
+        <button class="btn" id="btnAR" type="button" hidden>AR · 放到桌上</button>
+        <button class="btn primary" id="btnInside" type="button">透視 · 入器</button>
+    </div>
+    <div class="note" id="vNote"></div>
+</div>
+
+<div id="inside">
+    <label>器壁透視</label>
+    <input id="xray" type="range" min="0" max="100" value="0">
+    <p style="font-size:12px;line-height:1.7;margin:8px 0 10px;opacity:.85" id="insText">拖動滑桿，器壁漸漸透明，內底的銘文就露出來了。</p>
+    <div class="row">
+        <button class="btn" id="btnBack" type="button">← 看器</button>
+        <button class="btn primary" id="btnDive" type="button">沉入器內 · 讀銘</button>
+    </div>
+</div>
+<div id="fade"></div>
+<div id="toast"></div>
+
+<script src="./js/vendor/model-viewer/model-viewer-umd.min.js"></script>
+<script src="./js/vendor/three/three.min.js"></script>
+<script src="./js/vendor/three/OrbitControls.js"></script>
+<script src="./js/vendor/three/GLTFLoader.js"></script>
+<script>
+(async function () {
+    'use strict';
+    const $ = (id) => document.getElementById(id);
+    const Q = new URLSearchParams(location.search);
+    // 器形目錄：MIA（明尼阿波利斯美術館）CC0 三維掃描；檔案不在時退回站內輪廓生成的素器
+    const VESSELS = {
+        zun: { name: '尊', date: '西周 · 前 10 世紀', source: '明尼阿波利斯美術館藏 · CC0 三維掃描', text: '何尊同類的觚形尊。何尊銘文一百二十二字鑄在器內底——站在展櫃前看不見，只能靠展櫃上方一面鏡子。', ins: true, note: '何尊本尊尚無公開三維掃描，此處以同時代同類器示意；內底銘文按何尊十二行排。' },
+        ding: { name: '鼎', date: '西周 · 前 11–10 世紀', source: '明尼阿波利斯美術館藏 · CC0 三維掃描', text: '鼎的銘文多鑄在內壁，面向器口；大克鼎二百九十字就在腹內壁。', ins: false, note: '' },
+        gui: { name: '簋', date: '西周 · 前 10 世紀', source: '明尼阿波利斯美術館藏 · CC0 三維掃描', text: '簋的銘文鑄在內底，常與同銘的鼎成組。', ins: false, note: '' },
+        gu: { name: '觚', date: '商 · 前 12–11 世紀', source: '明尼阿波利斯美術館藏 · CC0 三維掃描', text: '觚是飲酒器，銘文往往只有一兩個族徽，鑄在圈足內壁。', ins: false, note: '' },
+    };
+    const ORDER = ['zun', 'ding', 'gui', 'gu'];
+    let cur = ORDER.includes(Q.get('v')) ? Q.get('v') : 'zun';
+    const mv = $('mv');
+    const available = {};   // name → glb 是否存在
+
+    async function exists(url) { try { const r = await fetch(url, { method: 'HEAD' }); return r.ok; } catch (e) { return false; } }
+    for (const k of ORDER) available[k] = await exists(`./assets/models/mia/${k}.glb`);
+
+    // ---------- 頁首器形切換 ----------
+    $('tabs').innerHTML = ORDER.map(k => `<button type="button" data-v="${k}">${VESSELS[k].name}</button>`).join('');
+    $('tabs').querySelectorAll('button').forEach(b => b.onclick = () => show(b.dataset.v));
+
+    function toast(msg, ms) { const t = $('toast'); t.textContent = msg; t.classList.add('on'); clearTimeout(toast.h); toast.h = setTimeout(() => t.classList.remove('on'), ms || 4000); }
+
+    // ---------- L1 看器：model-viewer ----------
+    function placeHotspots() {
+        // 按包圍盒把四個熱點放到口沿、腹、圈足、器內底
+        try {
+            const d = mv.getDimensions(); const c = mv.getBoundingBoxCenter();
+            const top = c.y + d.y / 2, bottom = c.y - d.y / 2, r = Math.max(d.x, d.z) / 2;
+            mv.updateHotspot({ name: 'hotspot-rim', position: `${c.x + r * 0.55}m ${top}m ${c.z}m`, normal: '0m 1m 0m' });
+            mv.updateHotspot({ name: 'hotspot-belly', position: `${c.x}m ${c.y + d.y * 0.02}m ${c.z + r * 0.95}m`, normal: '0m 0m 1m' });
+            mv.updateHotspot({ name: 'hotspot-foot', position: `${c.x - r * 0.45}m ${bottom + d.y * 0.08}m ${c.z + r * 0.6}m`, normal: '0m 0m 1m' });
+            mv.updateHotspot({ name: 'hotspot-ins', position: `${c.x}m ${bottom + d.y * 0.16}m ${c.z}m`, normal: '0m 1m 0m' });
+        } catch (e) { /* 舊版 model-viewer 無此 API 時忽略 */ }
+    }
+    mv.addEventListener('load', () => {
+        placeHotspots();
+        const can = !!mv.canActivateAR;
+        $('btnAR').hidden = !can;
+        if (!can) $('vNote').textContent = (VESSELS[cur].note ? VESSELS[cur].note + ' ' : '') + '此設備暫不支持 AR 放置（iPhone 請用 Safari；安卓需有 ARCore）。';
+    });
+    mv.addEventListener('error', () => toast('模型載入失敗，改用站內輪廓生成的素器。'));
+    $('btnAR').onclick = () => { try { mv.activateAR(); } catch (e) { toast('AR 啟動失敗'); } };
+    mv.querySelector('[slot=hotspot-ins]').onclick = () => enterInside();
+
+    function show(k) {
+        cur = k;
+        $('tabs').querySelectorAll('button').forEach(b => b.classList.toggle('on', b.dataset.v === k));
+        const v = VESSELS[k];
+        $('vName').textContent = v.name; $('vMeta').textContent = `${v.date} ｜ ${v.source}`; $('vText').textContent = v.text; $('vNote').textContent = v.note;
+        $('btnAR').hidden = true;
+        mv.querySelector('[slot=hotspot-ins]').style.display = v.ins ? '' : 'none';
+        if (available[k]) {
+            mv.src = `./assets/models/mia/${k}.glb`;
+            mv.iosSrc = `./assets/models/mia/${k}.usdz`;
+            mv.style.visibility = '';
+        } else {
+            // 沒有掃描檔：用站內輪廓造一個素器讓頁面能跑（不給 AR）
+            mv.src = ''; mv.style.visibility = 'hidden';
+            $('vNote').textContent = `尚未放入 assets/models/mia/${k}.glb（從 Sketchfab 下載 MIA 的 CC0 掃描後用 build/vessel/convert_models.py 轉換），先以輪廓素器示意。`;
+            showFallbackL1(k);
+        }
+        if (document.body.classList.contains('inside')) leaveInside();
+    }
+
+    // ---------- L2 入器：three.js ----------
+    const canvas = $('three');
+    const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: false });
+    renderer.setPixelRatio(Math.min(devicePixelRatio || 1, 2));
+    renderer.setSize(innerWidth, innerHeight);
+    renderer.setClearColor(0x16130f, 1);
+    renderer.outputEncoding = THREE.sRGBEncoding;
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(45, innerWidth / innerHeight, 0.01, 100);
+    const controls = new THREE.OrbitControls(camera, canvas);
+    controls.enableDamping = true; controls.dampingFactor = 0.08; controls.enablePan = false;
+    scene.add(new THREE.HemisphereLight(0xfff1d6, 0x2a2218, 0.9));
+    const key = new THREE.DirectionalLight(0xffe6b8, 1.1); key.position.set(2, 4, 3); scene.add(key);
+    const rim = new THREE.DirectionalLight(0x9ab0ff, 0.35); rim.position.set(-3, 2, -2); scene.add(rim);
+    const holder = new THREE.Group(); scene.add(holder);
+    let vesselMeshes = [], insPlane = null, H = 2, loaded = '';
+    const loader = new THREE.GLTFLoader();
+    const insTex = new THREE.TextureLoader().load('./assets/models/hezun-inscription.png'); insTex.encoding = THREE.sRGBEncoding; insTex.anisotropy = 8;
+
+    function latheVessel() {
+        // 站內何尊輪廓（與星河、vr.html 一致），y 0..270 → 米制 0..0.388（何尊通高 38.8 cm）
+        const prof = [[0, 60], [14, 54], [28, 52], [42, 58], [62, 70], [88, 76], [112, 78], [136, 74], [158, 64], [178, 58], [198, 62], [218, 74], [238, 86], [254, 95], [270, 100]];
+        const k = 0.388 / 270;
+        const pts = prof.map(([y, r]) => new THREE.Vector2(r * k, y * k));
+        const outer = new THREE.LatheBufferGeometry(pts, 96);
+        const mat = new THREE.MeshStandardMaterial({ color: 0x6a4e2a, metalness: 0.75, roughness: 0.45, side: THREE.DoubleSide, transparent: true });
+        const g = new THREE.Group();
+        g.add(new THREE.Mesh(outer, mat));
+        const foot = new THREE.Mesh(new THREE.CylinderBufferGeometry(60 * k, 60 * k, 0.02, 96), mat.clone()); foot.position.y = 0.01; g.add(foot);
+        return g;
+    }
+    function fitAndAdd(obj) {
+        holder.clear(); vesselMeshes = []; insPlane = null;
+        const box = new THREE.Box3().setFromObject(obj);
+        const size = box.getSize(new THREE.Vector3()); const c = box.getCenter(new THREE.Vector3());
+        H = 2; const s = H / size.y;
+        obj.position.sub(c).multiplyScalar(s); obj.position.y += H / 2; obj.scale.setScalar(s);   // 底在 y=0，高 2
+        holder.add(obj);
+        obj.traverse(o => { if (o.isMesh) { o.material = o.material.clone(); o.material.transparent = true; o.material.side = THREE.DoubleSide; o.material.depthWrite = true; vesselMeshes.push(o); } });
+        // 內底銘文：放在圈足之上約 16% 高處，寬度取底徑八成
+        const r = Math.min(size.x, size.z) * s / 2;
+        insPlane = new THREE.Mesh(new THREE.PlaneBufferGeometry(r * 1.15, r * 1.15), new THREE.MeshBasicMaterial({ map: insTex, transparent: true, depthWrite: false, depthTest: false, opacity: 0 }));
+        insPlane.rotation.x = -Math.PI / 2; insPlane.position.y = H * 0.16; insPlane.renderOrder = 10;   // 透視時永遠畫在器壁之上
+        holder.add(insPlane);
+        camera.position.set(0, H * 0.7, H * 2.1); controls.target.set(0, H * 0.5, 0); controls.update();
+    }
+    function loadInto3D(k) {
+        return new Promise((resolve) => {
+            if (loaded === k) return resolve();
+            if (!available[k]) { fitAndAdd(latheVessel()); loaded = k; return resolve(); }
+            loader.load(`./assets/models/mia/${k}.glb`, (gltf) => { fitAndAdd(gltf.scene); loaded = k; resolve(); }, undefined, () => { fitAndAdd(latheVessel()); loaded = k; resolve(); });
+        });
+    }
+    function showFallbackL1(k) { loadInto3D(k).then(() => { document.body.classList.add('three'); document.body.classList.remove('inside'); setXray(0); }); }
+
+    function setXray(t) {   // 0 實體 → 1 透明
+        for (const m of vesselMeshes) { m.material.opacity = 1 - 0.88 * t; m.material.depthWrite = t < 0.3; }
+        if (insPlane) insPlane.material.opacity = Math.min(1, t * 1.6);
+        $('insText').textContent = t < 0.2 ? '拖動滑桿，器壁漸漸透明，內底的銘文就露出來了。' : t < 0.7 ? '器壁變薄，內底浮出一百二十二字——這就是博物館裡看不到的那一面。' : '十二行，自右向左讀。「宅茲中國」在第七行。按「沉入器內」站進去讀。';
+    }
+    $('xray').oninput = () => setXray($('xray').value / 100);
+    async function enterInside() {
+        await loadInto3D(cur);
+        document.body.classList.add('three', 'inside');
+        $('xray').value = 0; setXray(0);
+        // 進來後自動把透視推到 70%，同時鏡頭抬高俯視器口，讓觀眾先看見內底的銘文
+        const t0 = performance.now(), p0 = camera.position.clone(), p1 = new THREE.Vector3(0, H * 1.55, H * 1.25), tg0 = controls.target.clone(), tg1 = new THREE.Vector3(0, H * 0.3, 0);
+        (function step() {
+            const u = Math.min(1, (performance.now() - t0) / 1800), e = u < 0.5 ? 2 * u * u : 1 - Math.pow(-2 * u + 2, 2) / 2;
+            const v = Math.round(70 * e); $('xray').value = v; setXray(v / 100);
+            camera.position.lerpVectors(p0, p1, e); controls.target.lerpVectors(tg0, tg1, e); controls.update();
+            if (u < 1) requestAnimationFrame(step);
+        })();
+    }
+    function leaveInside() { document.body.classList.remove('inside'); if (available[cur]) { document.body.classList.remove('three'); mv.style.visibility = ''; } else setXray(0); }
+    $('btnInside').onclick = enterInside;
+    $('btnBack').onclick = leaveInside;
+    let diving = false;
+    $('btnDive').onclick = () => {
+        if (diving) return; diving = true;
+        // 鏡頭升到口沿正上方，再沿軸沉到內底，黑場後接 vr.html 的澆鑄幕
+        controls.enabled = false;
+        const p0 = camera.position.clone(), t0 = controls.target.clone();
+        const p1 = new THREE.Vector3(0, H * 1.6, 0.001), p2 = new THREE.Vector3(0, H * 0.3, 0.001), tEnd = new THREE.Vector3(0, H * 0.16, 0);
+        const start = performance.now();
+        setXray(Math.max(0.5, $('xray').value / 100));
+        (function step() {
+            const u = Math.min(1, (performance.now() - start) / 4200);
+            const e = u < 0.5 ? 4 * u * u * u : 1 - Math.pow(-2 * u + 2, 3) / 2;
+            if (u < 0.45) { const a = e / 0.5; camera.position.lerpVectors(p0, p1, Math.min(1, a)); controls.target.lerpVectors(t0, tEnd, Math.min(1, a)); }
+            else { const b = (u - 0.45) / 0.55; camera.position.lerpVectors(p1, p2, b * b); controls.target.copy(tEnd); }
+            camera.lookAt(controls.target);
+            if (u > 0.7) $('fade').style.opacity = String((u - 0.7) / 0.3);
+            if (u < 1) requestAnimationFrame(step);
+            else setTimeout(() => { location.href = 'vr.html?start=pour'; }, 300);
+        })();
+    };
+
+    function onResize() { camera.aspect = innerWidth / innerHeight; camera.updateProjectionMatrix(); renderer.setSize(innerWidth, innerHeight); }
+    addEventListener('resize', onResize);
+    renderer.setAnimationLoop(() => { if (!document.body.classList.contains('three')) return; if (controls.enabled) controls.update(); holder.rotation.y += 0.0015; renderer.render(scene, camera); });
+
+    show(cur);
+    window.__vessel = { show, enterInside, leaveInside, setXray, available, get loaded() { return loaded; }, camera, holder, mv };
+})().catch(err => { console.error(err); document.getElementById('toast').textContent = '載入失敗：' + (err && err.message); document.getElementById('toast').classList.add('on'); });
+</script>
+</body>
+</html>

@@ -3128,7 +3128,7 @@
         document.querySelectorAll('[data-go]').forEach(b => b.onclick = () => enterFromGalaxy(b.dataset.go));
         document.querySelectorAll('[data-home]').forEach(b => b.onclick = () => go('home'));
         // VR 入口：獨立頁 vr.html（不嵌 iframe，WebXR / 陀螺儀權限都在頂層頁面裡拿），能力檢測與不支持時的提示在那一頁做
-        document.getElementById('vrStart').onclick = (e) => { e.stopPropagation(); location.href = 'vr.html'; };
+        document.getElementById('vrStart').onclick = (e) => { e.stopPropagation(); location.href = 'vessel.html'; };
         document.getElementById('playBackLobby').onclick = () => go('play', '', 'lobby');
         document.querySelectorAll('.paper-bar .tabs button').forEach(b => {
             b.onclick = () => {
