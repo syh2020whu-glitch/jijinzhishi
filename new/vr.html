@@ -82,6 +82,7 @@
         <button class="btn primary" id="btnFlat" type="button">開始 · 拖動環視</button>
         <button class="btn" id="btnGyro" type="button" hidden>陀螺儀環視</button>
         <button class="btn" id="btnStereo" type="button" hidden>Cardboard 分屏</button>
+        <button class="btn" id="btnGesture" type="button" title="用筆記本攝像頭：食指當刻刀，捏指選字，張開手掌環視">開始 · 隔空手勢</button>
     </div>
     <div class="note" id="capNote"></div>
     <a href="demo.html">← 回吉金智識</a>
@@ -103,6 +104,7 @@
 <script src="./js/vendor/three/StereoEffect.js"></script>
 <script src="./js/vendor/three/VRButton.js"></script>
 <script src="./js/vendor/three/GLTFLoader.js"></script>
+<script src="./js/gesture.js"></script>
 <script>
 (async function () {
     'use strict';
@@ -590,7 +592,7 @@
     }
     let downX = 0, downY = 0;
     canvas.addEventListener('pointerdown', e => { downX = e.clientX; downY = e.clientY; });
-    canvas.addEventListener('pointerup', e => { if (Math.hypot(e.clientX - downX, e.clientY - downY) < 8) tapSelect(e); });
+    canvas.addEventListener('pointerup', e => { if (e.pointerId !== 7 && Math.hypot(e.clientX - downX, e.clientY - downY) < 8) tapSelect(e); });
     try { renderer.xr.getController(0).addEventListener('select', () => tapSelect()); } catch (e) {}
 
     // ---------- 工坊：范鑄法七步（制模 → 翻外范 → 內范刻銘 → 合范 → 澆鑄 → 脫范 → 入器）----------
@@ -1011,6 +1013,27 @@
         document.body.classList.toggle('xr', m === 'xr');
     }
     $('btnFlat').onclick = () => { unlockAudio(); setMode('flat'); start(); };
+    // ---------- 隔空手勢（平面模式）：食指 = 刻刀／指針，捏指 = 選字，張開手掌拖 = 環視 ----------
+    let gestureDrag = null;
+    function gestureFrame(st) {
+        if (mode !== 'flat' || renderer.xr.isPresenting) return;
+        const p = st.primary;
+        if (!p) { if (gestureDrag) { canvas.dispatchEvent(new PointerEvent('pointerup', { bubbles: true, clientX: gestureDrag.x, clientY: gestureDrag.y, pointerId: 7 })); gestureDrag = null; } return; }
+        const x = p.x * innerWidth, y = p.y * innerHeight;
+        if (p.pointing || p.pinch) ndc.set(p.x * 2 - 1, -(p.y * 2 - 1));   // 食指所到之處就是刻刀
+        if (p.open) {
+            // 手掌拖動 → 餵給 OrbitControls 一段合成的拖曳
+            if (!gestureDrag) { gestureDrag = { x, y }; canvas.dispatchEvent(new PointerEvent('pointerdown', { bubbles: true, clientX: x, clientY: y, pointerId: 7, button: 0, isPrimary: true })); }
+            else { gestureDrag = { x, y }; canvas.ownerDocument.dispatchEvent(new PointerEvent('pointermove', { bubbles: true, clientX: x, clientY: y, pointerId: 7, isPrimary: true })); }
+        } else if (gestureDrag) { canvas.ownerDocument.dispatchEvent(new PointerEvent('pointerup', { bubbles: true, clientX: gestureDrag.x, clientY: gestureDrag.y, pointerId: 7, isPrimary: true })); gestureDrag = null; }
+    }
+    $('btnGesture').onclick = async () => {
+        unlockAudio();
+        const ok = await Gesture.start({ onFrame: gestureFrame, onPinch: (pt) => { if (gazeEnabled()) tapSelect({ clientX: pt.x, clientY: pt.y }); else Gesture.clickAt(pt.x, pt.y); } });
+        if (!ok) { toast(Gesture.status || '手勢沒能啟動，改用拖動'); }
+        setMode('flat'); start();
+    };
+    if (Q.has('gesture')) $('btnGesture').click();
     $('btnGyro').onclick = async () => { unlockAudio(); if (await enableGyro()) setMode('gyro'); else setMode('flat'); start(); };
     $('btnStereo').onclick = async () => {
         unlockAudio();
@@ -1076,7 +1099,7 @@
         if (stereoOn && stereo && !renderer.xr.isPresenting) stereo.render(scene, camera);
         else renderer.render(scene, camera);
     });
-    window.__vr = { start, nextPhase, setMode, enableGyro, get phase() { return phase; }, get mode() { return mode; }, get stereoOn() { return stereoOn; }, glyphs, world, camera, cloud, select, renderer, carve, finishChar, slab, ndc };
+    window.__vr = { start, nextPhase, setMode, enableGyro, get phase() { return phase; }, get mode() { return mode; }, get stereoOn() { return stereoOn; }, glyphs, world, camera, cloud, select, renderer, carve, finishChar, slab, ndc, gestureFrame };
 })().catch(err => { console.error(err); const g = document.getElementById('gate'); if (g) g.insertAdjacentHTML('beforeend', '<p class="note" style="color:#faa">載入失敗：' + (err && err.message) + '</p>'); });
 </script>
 </body>

@@ -1,0 +1,2 @@
+MediaPipe Tasks Vision 1.2.2 (Apache-2.0) https://github.com/google-ai-edge/mediapipe
+hand_landmarker.task: https://storage.googleapis.com/mediapipe-models/hand_landmarker/hand_landmarker/float16/1/hand_landmarker.task (Apache-2.0)
