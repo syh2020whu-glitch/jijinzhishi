@@ -26,9 +26,9 @@
         const fingers = [ext(8, 6), ext(12, 10), ext(16, 14), ext(20, 18)];
         const pinchD = dist(lm[4], lm[8]) / scale;
         const was = G._pinchWas[idx];
-        const pinch = was ? pinchD < 0.55 : pinchD < 0.38;   // 遲滯，免得抖
+        const pinch = was ? pinchD < 0.72 : pinchD < 0.55;   // 輕捏即觸發（實測原值要捏得很緊）；遲滯免得抖
         G._pinchWas[idx] = pinch;
-        const open = fingers.every(Boolean) && !pinch;
+        const open = fingers.every(Boolean) && !pinch && pinchD > 0.9;   // 張開手掌：四指伸直且拇指離食指夠遠
         const pointing = fingers[0] && !fingers[1] && !fingers[2] && !pinch;
         const palm = [0, 5, 9, 13, 17].reduce((a, i) => ({ x: a.x + lm[i].x / 5, y: a.y + lm[i].y / 5 }), { x: 0, y: 0 });
         // 鏡像：攝像頭是自拍視角，手往右移畫面上也往右
