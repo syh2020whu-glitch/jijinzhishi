@@ -1,12 +1,12 @@
 """决赛现场展示海报：套组委会模板（竖版 800×1800 mm），出 72 dpi jpg（2268×5102）。
 
-python build/poster/make_poster.py                  # 两个主标题方案各出一张
-python build/poster/make_poster.py --title A        # 只出方案 A
+python build/poster/make_poster.py                  # 定稿：B 版（以字为桥，连起三千年）
+python build/poster/make_poster.py --title both     # A、B 两个主标题方案各出一张
 python build/poster/make_poster.py --prep          # 重新生成 build/poster/assets/（证明材料脱敏图 + VR 截图）
 
 模板 jpg 不入库，默认读仓库根目录的“文化中国”总决赛现场展示海报设计模板.jpg（4724×10628，150 dpi）。
 版面在模板原尺寸上排，最后缩到 72 dpi。配色、字体、素材与 build/ppt 同一套。
-全稿不放本队校名、人名；文案不拿金文和其他古文字比较。
+全稿不放本队校名、人名；文案统称“古文字”，不突出金文，也不拿它和其他古文字比较。
 """
 import argparse
 import re
@@ -279,7 +279,7 @@ def build(key, template):
     p.text((tx + fh.getlength(head), cy), tail, F_BRUSH, size, G_DARK, anchor="lm", bold=2)
     p.paste(A / "seal_中.png", (int(tx + tw + 50), int(cy - seal / 2), int(tx + tw + 50 + seal), int(cy + seal / 2)))
     y += 270
-    p.text((W / 2, y), "吉金智识　金文数字化传承与互动体验平台", F_TITLE, 92, CINNABAR, anchor="ma", bold=1, spacing=8)
+    p.text((W / 2, y), "吉金智识　古文字数字化传承与互动体验平台", F_TITLE, 92, CINNABAR, anchor="ma", bold=1, spacing=8)
     y += 92 + 100
 
     # ══ 项目简介 ══
@@ -304,7 +304,7 @@ def build(key, template):
     ix0 = zb[2] + 110
     p.para(ix0, hy0 + 10,
            "吉金智识以字为桥，致力于古文字的数字化普及与传承。项目汇集 10 类来源的 58 万张古文字字形，"
-           "自建 2.5 万条金文数据库目录，并在 6,236 张真实拓片上训练古文字识读模型。在此基础上，设计 15 分钟古文字入门课；"
+           "自建 2.5 万条铭文数据库目录，并在 6,236 张真实拓片上训练古文字识读模型。在此基础上，设计 15 分钟古文字入门课；"
            "线上打造可看、可听、可写、可考的互动网站与小红书小工具，借助 VR 再现“铸铭入尊”。",
            62, TEXT, CX1 - ix0, path=F_SONG, lh=1.62)
     y = hy0 + hh + 120
@@ -361,9 +361,9 @@ def build(key, template):
 
     # 2 资料与模型：六个大数字
     cx0, cy0, cwid = cell(1, 0, "资料模型", "汇集整理资料，训练识读模型")
-    stats = [("58万", "张古文字字形图"), ("25,285", "条自建金文数据库目录"), ("6,236", "张拓片"),
-             ("61,268", "个逐字标注的字框"), ("150余种", "拓片来源著录"), ("5,930", "个金文变体"),
-             ("24.6万", "条音韵记录"), ("242", "个百家姓见于金文"), ("F1 0.803", "单字识别（公开评测）")]
+    stats = [("58万", "张古文字字形图"), ("25,285", "条自建铭文数据库目录"), ("6,236", "张拓片"),
+             ("61,268", "个逐字标注的字框"), ("150余种", "拓片来源著录"), ("5,930", "个字形变体"),
+             ("24.6万", "条音韵记录"), ("242", "个百家姓见于青铜铭文"), ("F1 0.803", "单字识别（公开评测）")]
     sw3 = (cwid - 2 * 30) // 3
     for i, (num, unit) in enumerate(stats):
         x = cx0 + (i % 3) * (sw3 + 30)
@@ -383,7 +383,7 @@ def build(key, template):
     # 3 四可体验
     cx0, cy0, cwid = cell(0, 1, "四可体验", "让古文字可看、可听、可写、可考")
     four = [("看", "认源流", "一个字怎样演变\n成今天的样子"), ("听", "听古音", "《诗经》首句\n在上古的读法"),
-            ("写", "练书写", "描红古文字，\n铸一句金文祝福"), ("考", "助研究", "框出拓片上的字，\n列出候选和辞例")]
+            ("写", "练书写", "描红古文字，\n铸一句吉语祝福"), ("考", "助研究", "框出拓片上的字，\n列出候选和辞例")]
     q = cwid / 4
     for i, (c, head, body) in enumerate(four):
         mx = cx0 + q * i + q / 2
@@ -402,7 +402,7 @@ def build(key, template):
         lw = font(F_TITLE, 56).getlength(lab) + 60
         p.rect(((x0 + x1) / 2 - lw / 2, by - 38, (x0 + x1) / 2 + lw / 2, by + 38), fill=(246, 251, 244))
         p.text(((x0 + x1) / 2, by), lab, F_TITLE, 56, col, anchor="mm", bold=1)
-    p.para(cx0, cy0 + 840, "看、听、写把金文变成可感可玩的体验；考把识读模型交到研究者手上，辅助释读整篇拓片。",
+    p.para(cx0, cy0 + 840, "看、听、写把古文字变成可感可玩的体验；考把识读模型交到研究者手上，辅助释读整篇拓片。",
            44, TEXT, cwid, path=F_SONG, lh=1.5)
 
     # 4 沉浸体验：VR
@@ -494,7 +494,7 @@ def build(key, template):
         photo_or_slot((bx0, by0, bx0 + pw2, by0 + 500), PA / f"class_{i + 1}.jpg", "课堂照片待补")
     yy += 1080
     yy = item(x, yy, 1, "海外中文教学", "参与巴黎西岱大学孔子学院 2025–2026 学年中文线上辅导")
-    yy = item(x, yy, 2, "展位体验", "输入你的姓，铸一句金文祝福，领取 PDF 明信片")
+    yy = item(x, yy, 2, "展位体验", "输入你的姓，铸一句吉语祝福，领取 PDF 明信片")
     end_y = yy
 
     # 研发成果
@@ -533,7 +533,7 @@ def build(key, template):
         b = p.paste(PA / f"{f}.png", (bx0, yy, bx0 + sw_ph, yy + int(sw_ph * 760 / 390)), mode="cover")
         d.rounded_rectangle((b[0] - 4, b[1] - 4, b[2] + 4, b[3] + 4), radius=18, outline=DARK, width=6)
     yy = b[3] + 50
-    yy = item(x, yy, 1, "文创产品", "金文姓氏明信片、器形版画卡片")
+    yy = item(x, yy, 1, "文创产品", "古文字姓氏明信片、器形版画卡片")
     pc = p.paste(A / "postcard_shadow_light.png", (x, yy, x + (colw - 30) // 2, yy + 720), align="top")
     zc = p.paste(REPO / "assets" / "posters" / "jijin-zhishi-zine-poster.png", (pc[2] + 30, yy, x + colw, yy + 720), align="top")
     d.rectangle(zc, outline=LINE, width=3)
@@ -560,7 +560,7 @@ def _split_num(s):
 
 if __name__ == "__main__":
     ap = argparse.ArgumentParser()
-    ap.add_argument("--title", choices=["A", "B", "both"], default="both", help="A：“中国”二字…  B：以字为桥…")
+    ap.add_argument("--title", choices=["A", "B", "both"], default="B", help="A：“中国”二字…  B：以字为桥…")
     ap.add_argument("--template", default=str(TEMPLATE))
     ap.add_argument("--prep", action="store_true", help="先重新生成 build/poster/assets/")
     a = ap.parse_args()
