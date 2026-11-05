@@ -341,7 +341,7 @@ def build(key, template):
     # 1 核心场景：博物馆四步
     cx0, cy0, cwid = cell(0, 0, "核心场景", "走进博物馆，读懂青铜铭文")
     sw4 = (cwid - 3 * 30) // 4
-    steps = [("拍下铭文", None), ("拆成单字", "story_split.png"), ("匹配今字", "story_match.png"), ("读懂历史", None)]
+    steps = [("拍下铭文", None), ("框出单字", "story_split.png"), ("逐字释读", "story_match.png"), ("读懂历史", None)]
     for i, (lab, img) in enumerate(steps):
         x = cx0 + i * (sw4 + 30)
         box = (x, cy0, x + sw4, cy0 + 760)
@@ -357,14 +357,14 @@ def build(key, template):
             p.para(x + 30, cy0 + 365, "我要定居在天下的中心，从这里治理百姓。", 40, TEXT, sw4 - 50, lh=1.4)
         p.dot(x + 6, cy0 + 6, 80, G_DARK, label=str(i + 1), label_size=44)
         p.text((x + sw4 / 2, cy0 + 795), lab, F_TITLE, 62, INK, anchor="ma", bold=1)
-    p.para(cx0, cy0 + 920, "观众在展柜前扫码拍下铭文，模型找出每一个字，到字库中逐字匹配，给出现代汉字，再连成句子、配上白话。",
+    p.para(cx0, cy0 + 920, "观众在展柜前拍下铭文，检测模型框出每一个字，识别模型逐字给出释文和候选字，再连成句子、配上白话。",
            44, TEXT, cwid, path=F_SONG, lh=1.5)
 
     # 2 资料与模型：六个大数字
     cx0, cy0, cwid = cell(1, 0, "资料模型", "汇集整理资料，训练识读模型")
     stats = [("58万", "张古文字字形图"), ("25,285", "条自建铭文数据库目录"), ("6,236", "张拓片"),
              ("61,268", "个逐字标注的字框"), ("150余种", "拓片来源著录"), ("5,930", "个字形变体"),
-             ("24.6万", "条音韵记录"), ("242", "个百家姓见于青铜铭文"), ("F1 0.803", "单字识别（公开评测）")]
+             ("24.6万", "条音韵记录"), ("4,114", "类古文字"), ("F1 0.803", "单字识别（公开评测）")]
     sw3 = (cwid - 2 * 30) // 3
     for i, (num, unit) in enumerate(stats):
         x = cx0 + (i % 3) * (sw3 + 30)
@@ -383,7 +383,7 @@ def build(key, template):
 
     # 3 四可体验
     cx0, cy0, cwid = cell(0, 1, "四可体验", "让古文字可看、可听、可写、可考")
-    four = [("看", "认源流", "一个字怎样演变\n成今天的样子"), ("听", "听古音", "《诗经》首句\n在上古的读法"),
+    four = [("看", "认源流", "一个字怎样演变\n成今天的样子"), ("听", "听古音", "听一个字\n三千年前的读音"),
             ("写", "练书写", "描红古文字，\n铸一句吉语祝福"), ("考", "助研究", "框出拓片上的字，\n列出候选和辞例")]
     q = cwid / 4
     for i, (c, head, body) in enumerate(four):
@@ -416,17 +416,23 @@ def build(key, template):
         p.text((x + 26, cy0 + 20), lab, F_TITLE, 64, PAPER, bold=1)
     p.rect((cx0, cy0 + qw - 64, cx0 + cwid, cy0 + qw), fill=(30, 26, 20))
     p.text((cx0 + 26, cy0 + qw - 32), "看器：真实三维扫描，可旋转、可用 AR 放到桌上", F_TITLE, 42, PAPER, anchor="lm", bold=1)
-    tw3 = (cwid - 2 * g) // 3
-    th3 = int(tw3 * 0.62)
+    th8 = int(qw * 0.52)
     ry = cy0 + qw + g
-    for i, (f, lab) in enumerate([("vessel_xray", "入器：器壁透明见铭文"), ("vr_carve", "铸器：亲手反刻铭文"), ("vr_rise", "读铭：铭文绕身升起")]):
-        x = cx0 + i * (tw3 + g)
-        p.paste(PA / f"{f}.jpg", (x, ry, x + tw3, ry + th3), mode="cover")
-        p.rect((x, ry + th3 - 62, x + tw3, ry + th3), fill=(30, 26, 20))
-        p.text((x + 20, ry + th3 - 31), lab, F_TITLE, 40, PAPER, anchor="lm", bold=1)
-    p.para(cx0, ry + th3 + 30, "手机套上纸盒眼镜即可体验：坐进铸铜作坊亲手刻铭、浇铸，再走进青铜器，铭文从脚下升起，注视一字即显示今译和古音（以“宅兹中国”铭文为例）。",
+    cast = [("vr_model", "制模"), ("vr_outer", "翻范"), ("vr_carve", "刻铭"), ("vr_close", "合范"),
+            ("vr_pour", "浇铸"), ("vr_open", "脱范"), ("vessel_xray", "入器"), ("vr_rise", "读铭")]
+    for i, (f, lab) in enumerate(cast):
+        x = cx0 + (i % 4) * (qw + g)
+        yy = ry + (i // 4) * (th8 + 20)
+        p.paste(PA / f"{f}.jpg", (x, yy, x + qw, yy + th8), mode="cover")
+        p.dot(x + 40, yy + 40, 60, G_DARK, label=str(i + 1), label_size=34)
+        p.rect((x, yy + th8 - 56, x + qw, yy + th8), fill=(30, 26, 20))
+        p.text((x + qw / 2, yy + th8 - 28), lab, F_TITLE, 42, PAPER, anchor="mm", bold=1)
+        if i % 4 < 3:
+            p.tri(x + qw + g / 2, yy + th8 / 2, 18, "right")
+    p.para(cx0, ry + 2 * th8 + 50,
+           "手机套上纸盒眼镜，坐进铸铜作坊，按范铸法亲手铸一件青铜器：用泥塑出器模，翻制外范，在内范上反刻铭文，"
+           "合范后浇注铜液，冷却后敲开外范，青铜器出范；再缩身走进器内，铭文从脚下升起，注视一字即显示今译和古音。",
            42, TEXT, cwid, path=F_SONG, lh=1.5)
-    p.text((cx0, cy0 + 1135), "三维模型为明尼阿波利斯美术馆 CC0 开放扫描的商周青铜器；范铸过程为示意。", F_BODY, 32, MUTED)
     y += 2 * chh + gy + 70
 
     # ══ 实践成果：三栏，祥云小标题 + 壹贰叁 ══
@@ -521,8 +527,28 @@ def build(key, template):
         else:
             yy = p.para(x + stw + 20, yy + 6, title, 38, TEXT, colw - stw - 20, path=F_EN, lh=1.3) + 22
     yy += 10
-    yy = item(x, yy, 1, "技术评测", "识读与古籍理解技术经多项国际公开评测验证\n真实拓片上单字识别 F1 0.803\n（字框和释文同时正确才算对）")
-    b = p.paste(A / "rec_crop.png", (x + 125, yy, x + colw, yy + 420), align="top")
+    yy = item(x, yy, 1, "技术评测", "识读与古籍理解技术经多项国际公开评测验证")
+    # 流程：拓片 → 检测 → 识别 → 释文
+    fg_ = 44
+    bw_ = (colw - 3 * fg_) / 4
+    flow = [("拓片", "整篇输入", G_LIGHT, G_DARK), ("检测", "4 模型融合", G_MID, PAPER),
+            ("识别", "7 模型集成", G_DARK, PAPER), ("释文", "专家审定", CINNABAR, PAPER)]
+    for i, (t1, t2, bg_, fc_) in enumerate(flow):
+        bx = x + i * (bw_ + fg_)
+        p.rect((bx, yy, bx + bw_, yy + 170), fill=bg_, radius=20)
+        p.text((bx + bw_ / 2, yy + 58), t1, F_TITLE, 52, fc_, anchor="mm", bold=1)
+        p.text((bx + bw_ / 2, yy + 122), t2, F_BODY, 34, fc_, anchor="mm")
+        if i < 3:
+            p.tri(bx + bw_ + fg_ / 2, yy + 85, 22, "right")
+    yy += 200
+    # 大号 F1
+    p.rect((x, yy, x + colw, yy + 250), fill=(255, 255, 255), outline=G_LIGHT, width=4, radius=20)
+    p.text((x + 50, yy + 168), "F1", F_NUM, 70, G_MID, anchor="ls")
+    p.text((x + 150, yy + 180), "0.803", F_NUM, 150, G_DARK, anchor="ls")
+    tx_ = x + 150 + font(F_NUM, 150).getlength("0.803") + 40
+    for j, l in enumerate(["真实拓片单字识别", "字框和释文同时正确才计分", "基于 DINOv3 视觉大模型"]):
+        p.text((tx_, yy + 62 + j * 58), l, F_BODY if j else F_BOLD, 36, TEXT if j else G_DARK, anchor="lm")
+    b = (x, yy, x + colw, yy + 250)
     end_y = max(end_y, b[3])
 
     # 宣传成果
