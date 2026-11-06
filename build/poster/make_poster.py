@@ -361,7 +361,7 @@ def build(key, template):
             p.para(x + 30, cy0 + 365, "我要定居在天下的中心，从这里治理百姓。", 40, TEXT, sw4 - 50, lh=1.4)
         p.dot(x + 6, cy0 + 6, 80, G_DARK, label=str(i + 1), label_size=44)
         p.text((x + sw4 / 2, cy0 + 795), lab, F_TITLE, 62, INK, anchor="ma", bold=1)
-    p.para(cx0, cy0 + 920, "观众在展柜前拍下铭文，检测模型框出每一个字，识别模型逐字给出释文和候选字，再连成句子、配上白话。",
+    p.para(cx0, cy0 + 920, "观众在展柜前拍摄铭文，检测模型定位每个单字，识别模型逐字给出释文及候选，连缀成句并附白话译文。",
            44, TEXT, cwid, path=F_SONG, lh=1.5)
 
     # 2 资料与模型：六个大数字
@@ -387,8 +387,8 @@ def build(key, template):
 
     # 3 四可体验
     cx0, cy0, cwid = cell(0, 1, "四可体验", "让古文字可看、可听、可写、可考")
-    four = [("看", "认源流", "一个字怎样演变\n成今天的样子"), ("听", "听古音", "听一个字\n三千年前的读音"),
-            ("写", "练书写", "描红古文字，\n铸一句吉语祝福"), ("考", "助研究", "框出拓片上的字，\n列出候选和辞例")]
+    four = [("看", "认源流", "梳理字形源流，\n呈现演变脉络"), ("听", "听古音", "聆听上古读音，\n依据学界构拟"),
+            ("写", "练书写", "描红书写古文字，\n集字生成吉语"), ("考", "助研究", "自动框字释读，\n提供候选与辞例")]
     q = cwid / 4
     for i, (c, head, body) in enumerate(four):
         mx = cx0 + q * i + q / 2
@@ -407,7 +407,7 @@ def build(key, template):
         lw = font(F_TITLE, 56).getlength(lab) + 60
         p.rect(((x0 + x1) / 2 - lw / 2, by - 38, (x0 + x1) / 2 + lw / 2, by + 38), fill=(246, 251, 244))
         p.text(((x0 + x1) / 2, by), lab, F_TITLE, 56, col, anchor="mm", bold=1)
-    p.para(cx0, cy0 + 840, "看、听、写把古文字变成可感可玩的体验；考把识读模型交到研究者手上，辅助释读整篇拓片。",
+    p.para(cx0, cy0 + 840, "看、听、写将古文字转化为可感知、可参与的体验；考将识读模型用于研究，辅助整篇拓片释读。",
            44, TEXT, cwid, path=F_SONG, lh=1.5)
 
     # 4 沉浸体验：VR
@@ -419,7 +419,7 @@ def build(key, template):
         p.paste(PA / f"vessel_{f}.jpg", (x, cy0, x + qw, cy0 + qw), mode="cover")
         p.text((x + 26, cy0 + 20), lab, F_TITLE, 64, PAPER, bold=1)
     p.rect((cx0, cy0 + qw - 64, cx0 + cwid, cy0 + qw), fill=(30, 26, 20))
-    p.text((cx0 + 26, cy0 + qw - 32), "看器：真实三维扫描，可旋转、可用 AR 放到桌上", F_TITLE, 42, PAPER, anchor="lm", bold=1)
+    p.text((cx0 + 26, cy0 + qw - 32), "看器：真实三维扫描，支持旋转观察与 AR 桌面展示", F_TITLE, 42, PAPER, anchor="lm", bold=1)
     th8 = int(qw * 0.52)
     ry = cy0 + qw + g
     cast = [("vr_model", "制模"), ("vr_outer", "翻范"), ("vr_carve", "刻铭"), ("vr_close", "合范"),
@@ -434,8 +434,8 @@ def build(key, template):
         if i % 4 < 3:
             p.tri(x + qw + g / 2, yy + th8 / 2, 18, "right")
     p.para(cx0, ry + 2 * th8 + 50,
-           "手机套上纸盒眼镜，坐进铸铜作坊，按范铸法亲手铸一件青铜器：用泥塑出器模，翻制外范，在内范上反刻铭文，"
-           "合范后浇注铜液，冷却后敲开外范，青铜器出范；再缩身走进器内，铭文从脚下升起，注视一字即显示今译和古音。",
+           "借助 VR 眼镜进入铸铜作坊，依范铸法亲手完成一件青铜器：塑制器模，翻制外范，于内范反刻铭文，"
+           "合范浇注铜液，冷却后脱范出器；随后进入器内，铭文环绕升起，注视单字即显示今译与上古音。",
            42, TEXT, cwid, path=F_SONG, lh=1.5)
     y += 2 * chh + gy + 70
 
@@ -502,13 +502,13 @@ def build(key, template):
     photo_or_slot((x, yy, x + colw, yy + 660), PA / "class_1.jpg", "课堂照片待补")   # 一张课堂照片
     yy += 700
     yy = item(x, yy, 1, "海外中文教学", "参与巴黎西岱大学孔子学院 2025–2026 学年中文线上辅导")
-    yy = item(x, yy, 2, "博物馆推广", "走进博物馆展厅推广，观众在展柜前用手机识读铭文；正与多家博物馆洽谈合作")
+    yy = item(x, yy, 2, "博物馆推广", "进入博物馆展厅推广，观众可在展柜前以手机识读铭文；正与多家博物馆洽谈合作")
     # 博物馆实拍：两位观众对着展柜举手机；取中间一条，留住手机和器物
     mp = Image.open(PA / "museum_promo.jpg")
     mb = p.paste(mp.crop((0, int(mp.height * 0.17), mp.width, int(mp.height * 0.83))), (x + 125, yy - 10, x + colw, yy + 560), mode="cover")
     d.rectangle(mb, outline=G_LIGHT, width=3)
     yy = mb[3] + 30
-    yy = item(x, yy, 3, "展位体验", "输入你的姓，铸一句吉语祝福，领取 PDF 明信片")
+    yy = item(x, yy, 3, "展位体验", "输入姓氏，集字生成吉语祝福，获取 PDF 明信片")
     end_y = yy
 
     # 研发成果
@@ -560,7 +560,7 @@ def build(key, template):
     # 宣传成果
     x = cols[2]
     yy = col_head(x, "推广成效")
-    yy = item(x, yy, 0, "多平台推广", "在小红书等平台上线互动小工具，挂在笔记下点开即玩；每日挑战、成绩卡一键分享，累计浏览量 1 万余次")
+    yy = item(x, yy, 0, "多平台推广", "在小红书等平台上线互动小工具，嵌入笔记即点即用；支持每日挑战与成绩卡分享，累计浏览量逾 1 万次")
     sw_ph = (colw - 2 * 24) // 3
     for i, f in enumerate(["xhs_name", "xhs_listen", "xhs_match"]):
         bx0 = x + i * (sw_ph + 24)
