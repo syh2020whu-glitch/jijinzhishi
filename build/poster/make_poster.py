@@ -499,17 +499,19 @@ def build(key, template):
     x = cols[0]
     yy = col_head(x, "互动教学")
     yy = item(x, yy, 0, "课堂教学", "辅助《古代汉语》《说文解字》等核心课程开展智慧化教学")
-    photo_or_slot((x, yy, x + colw, yy + 660), PA / "class_1.jpg", "课堂照片待补")   # 一张课堂照片
-    yy += 700
+    photo_or_slot((x, yy, x + colw, yy + 560), PA / "class_1.jpg", "课堂照片待补")   # 一张课堂照片
+    yy += 600
     yy = item(x, yy, 1, "海外中文教学", "参与巴黎西岱大学孔子学院 2025–2026 学年中文线上辅导")
+    # 孔子学院证书：已遮去姓名和校徽、裁去签名（build/ppt/assets/proof 脱敏图）
+    cb = p.paste(PA / "cert_confucius.jpg", (x + 125, yy - 10, x + colw, yy + 470), align="top")
+    d.rectangle(cb, outline=G_LIGHT, width=3)
+    yy = cb[3] + 30
     yy = item(x, yy, 2, "博物馆推广", "进入博物馆展厅推广，观众可在展柜前以手机识读铭文；正与多家博物馆洽谈合作")
     # 博物馆实拍：两位观众对着展柜举手机；取中间一条，留住手机和器物
     mp = Image.open(PA / "museum_promo.jpg")
-    mb = p.paste(mp.crop((0, int(mp.height * 0.17), mp.width, int(mp.height * 0.83))), (x + 125, yy - 10, x + colw, yy + 560), mode="cover")
+    mb = p.paste(mp.crop((0, int(mp.height * 0.17), mp.width, int(mp.height * 0.83))), (x + 125, yy - 10, x + colw, yy + 480), mode="cover")
     d.rectangle(mb, outline=G_LIGHT, width=3)
-    yy = mb[3] + 30
-    yy = item(x, yy, 3, "展位体验", "输入姓氏，集字生成吉语祝福，获取 PDF 明信片")
-    end_y = yy
+    end_y = mb[3]
 
     # 研发成果
     x = cols[1]
