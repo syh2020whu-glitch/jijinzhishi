@@ -347,7 +347,11 @@ def build(key, template):
         box = (x, cy0, x + sw4, cy0 + 760)
         p.rect(box, fill=DARK if img else PANEL2)
         if i == 0:
-            p.paste(A / "hezun_vessel.png", (x + 15, cy0 + 60, x + sw4 - 15, cy0 + 700))
+            # 博物馆实拍：观众隔着展柜举手机拍器物；横图里取以拍照者和展柜为中心的竖条
+            mus = Image.open(PA / "museum_visitors.jpg")
+            cw_ = int(mus.height * sw4 / 760)
+            mx0 = max(0, min(mus.width - cw_, 900 - cw_ // 2))
+            p.paste(mus.crop((mx0, 0, mx0 + cw_, mus.height)), box, mode="cover")
         elif img:
             p.paste(A / img, box)
         else:
