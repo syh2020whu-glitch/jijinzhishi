@@ -497,21 +497,26 @@ def build(key, template):
 
     # 教学成果
     x = cols[0]
-    yy = col_head(x, "教学成果")
-    yy = item(x, yy, 0, "课堂教学", "已在《古代汉语》《说文解字》等核心必修课程中投入使用")
+    yy = col_head(x, "互动教学")
+    yy = item(x, yy, 0, "课堂教学", "辅助《古代汉语》《说文解字》等核心课程开展智慧化教学")
     pw2 = (colw - 30) // 2
     for i in range(4):
-        bx0, by0 = x + (i % 2) * (pw2 + 30), yy + (i // 2) * 530
-        photo_or_slot((bx0, by0, bx0 + pw2, by0 + 500), PA / f"class_{i + 1}.jpg", "课堂照片待补")
-    yy += 1080
+        bx0, by0 = x + (i % 2) * (pw2 + 30), yy + (i // 2) * 450
+        photo_or_slot((bx0, by0, bx0 + pw2, by0 + 420), PA / f"class_{i + 1}.jpg", "课堂照片待补")
+    yy += 920
     yy = item(x, yy, 1, "海外中文教学", "参与巴黎西岱大学孔子学院 2025–2026 学年中文线上辅导")
-    yy = item(x, yy, 2, "博物馆合作", "正与多家博物馆洽谈合作，推动作品进入展厅")
+    yy = item(x, yy, 2, "博物馆推广", "走进博物馆展厅推广，观众在展柜前用手机识读铭文；正与多家博物馆洽谈合作")
+    # 博物馆实拍：两位观众对着展柜举手机；取中间一条，留住手机和器物
+    mp = Image.open(PA / "museum_promo.jpg")
+    mb = p.paste(mp.crop((0, int(mp.height * 0.17), mp.width, int(mp.height * 0.83))), (x + 125, yy - 10, x + colw, yy + 460), mode="cover")
+    d.rectangle(mb, outline=G_LIGHT, width=3)
+    yy = mb[3] + 30
     yy = item(x, yy, 3, "展位体验", "输入你的姓，铸一句吉语祝福，领取 PDF 明信片")
     end_y = yy
 
     # 研发成果
     x = cols[1]
-    yy = col_head(x, "研发成果")
+    yy = col_head(x, "研究进展")
     yy = item(x, yy, 0, "学术论文", "已发表 1 篇，在投 3 篇")
     fan_h = 720
     fan(x, yy, colw, fan_h, ["paper_p1_glyph", "paper_p1_published", "paper_p1_poetry"])
@@ -557,7 +562,7 @@ def build(key, template):
 
     # 宣传成果
     x = cols[2]
-    yy = col_head(x, "宣传成果")
+    yy = col_head(x, "推广成效")
     yy = item(x, yy, 0, "多平台推广", "在小红书等平台上线互动小工具，挂在笔记下点开即玩；每日挑战、成绩卡一键分享，累计浏览量 1 万余次")
     sw_ph = (colw - 2 * 24) // 3
     for i, f in enumerate(["xhs_name", "xhs_listen", "xhs_match"]):
