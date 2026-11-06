@@ -199,7 +199,7 @@ NUMS = "壹贰叁肆伍"
 
 def prep_assets():
     """从证明材料、VR 分支截图生成 build/poster/assets/。一般不用重跑，素材已入库。
-    小红书截图另见 shot_xhs.py；课堂照片放 assets/class_1.jpg 即可自动替换占位框。"""
+    小红书截图另见 shot_xhs.py；古文字课堂截图见 shot_classroom.py。"""
     import subprocess
     from io import BytesIO
     PA.mkdir(exist_ok=True)
@@ -499,7 +499,7 @@ def build(key, template):
     x = cols[0]
     yy = col_head(x, "互动教学")
     yy = item(x, yy, 0, "课堂教学", "辅助《古代汉语》《说文解字》等核心课程开展智慧化教学")
-    photo_or_slot((x, yy, x + colw, yy + 560), PA / "class_1.jpg", "课堂照片待补")   # 一张课堂照片
+    photo_or_slot((x, yy, x + colw, yy + 560), PA / "class_app.jpg", "课程页面截图待补")   # 古文字课堂小程序“闯关”页，见 shot_classroom.py
     yy += 600
     yy = item(x, yy, 1, "海外中文教学", "参与巴黎西岱大学孔子学院 2025–2026 学年中文线上辅导")
     # 孔子学院证书：已遮去姓名和校徽、裁去签名（build/ppt/assets/proof 脱敏图）
