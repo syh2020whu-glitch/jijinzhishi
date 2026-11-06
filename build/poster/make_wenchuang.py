@@ -61,21 +61,66 @@ def bookmark(ch, gloss, bg, fg_color, seal):
 
 
 def tote():
-    w, h = 820, 960
+    """丝网印刷风格（用户 2026-11-06 选定）：一个大号“吉”字单色朱砂、偏右下出血，
+    左上竖排“吉金智識”加竖线和小印，避免居中对称的模板感；米色长提手。"""
+    import random
+    w, h = 820, 1260
+    DY = 300          # 包身下移，给长提手留位置
+    rnd = random.Random(7)
     c = Image.new("RGBA", (w, h), (0, 0, 0, 0))
     d = ImageDraw.Draw(c)
-    # 提手
-    for x0 in (210, 470):
-        d.arc((x0, 0, x0 + 140, 280), 180, 360, fill=(196, 182, 152), width=34)
-    d.rounded_rectangle((40, 140, w - 40, h - 10), radius=18, fill=(233, 224, 204))
-    for y in range(150, h - 20, 6):   # 帆布纹理
-        d.line((50, y, w - 50, y), fill=(226, 216, 195), width=1)
-    v = fit(Image.open(REPO / "assets" / "vessels" / "zun.png").convert("RGBA"), 360, 440)
-    c.alpha_composite(v, ((w - v.width) // 2, 230))
-    t = Image.open(A / "title_art_ink.png").convert("RGBA")
-    t = fit(t, 560, 170)
-    c.alpha_composite(t, ((w - t.width) // 2, 700))
-    d.text((w // 2, 880), "吉 金 智 识", font=font(40), fill=CINNABAR, anchor="ma")
+    canvas = (226, 214, 190)
+    body = (60, 170 + DY, w - 60, h - 10)
+    d.rectangle(body, fill=canvas)
+    # 布纹：经纬两向细线 + 随机杂点
+    for y in range(body[1], body[3], 5):
+        d.line((body[0], y, body[2], y), fill=(219, 206, 181), width=1)
+    for x in range(body[0], body[2], 7):
+        d.line((x, body[1], x, body[3]), fill=(222, 210, 186), width=1)
+    for _ in range(2500):
+        x, y = rnd.randint(body[0], body[2] - 1), rnd.randint(body[1], body[3] - 1)
+        d.point((x, y), fill=(206, 192, 165))
+    # 包口折边与缝线
+    d.rectangle((body[0], body[1], body[2], body[1] + 46), fill=(218, 205, 179))
+    for x in range(body[0] + 10, body[2] - 10, 22):
+        d.line((x, body[1] + 54, x + 11, body[1] + 54), fill=(176, 160, 130), width=2)
+
+    # 长提手：两条织带从包口内侧伸出，顶部圆弧；接缝处方框加交叉线加固
+    strap = (205, 188, 156)
+    for xl, xr in ((170, 330), (490, 650)):
+        top = 30
+        d.line((xl, body[1] + 70, xl, top + 80), fill=strap, width=34)
+        d.line((xr, body[1] + 70, xr, top + 80), fill=strap, width=34)
+        d.arc((xl - 17, top, xr + 17, top + 200), 180, 360, fill=strap, width=34)
+        for x in (xl, xr):
+            bx0, by0, bx1, by1 = x - 17, body[1] + 8, x + 17, body[1] + 60
+            d.rectangle((bx0, by0, bx1, by1), outline=(160, 144, 114), width=2)
+            d.line((bx0, by0, bx1, by1), fill=(160, 144, 114), width=2)
+            d.line((bx0, by1, bx1, by0), fill=(160, 144, 114), width=2)
+
+    # 大“吉”：朱砂单色，丝印颗粒（随机漏白），偏右下，超出包身的部分裁掉
+    g = glyph("吉")
+    g = g.crop(g.getchannel("A").getbbox())             # 去掉字形四周留白
+    g = g.resize((round(g.width * 720 / g.height), 720), Image.LANCZOS)   # 字高 720，“口”下半被包底裁掉
+    a = g.getchannel("A")
+    grain = Image.effect_noise(g.size, 64).point(lambda v: 0 if v > 205 else 255)
+    a = Image.composite(a, Image.new("L", g.size, 0), grain)
+    red = Image.new("RGBA", g.size, CINNABAR + (255,))
+    red.putalpha(a)
+    layer = Image.new("RGBA", (w, h), (0, 0, 0, 0))
+    layer.alpha_composite(red, (340, 170 + DY + 95))     # 偏右下：字头在包口下约 95，左缘 340
+    clip = Image.new("L", (w, h), 0)
+    ImageDraw.Draw(clip).rectangle(body, fill=255)
+    layer.putalpha(Image.composite(layer.getchannel("A"), Image.new("L", (w, h), 0), clip))
+    c.alpha_composite(layer)
+
+    # 左上：竖排“吉金智識”，右侧一条竖线，下方小印
+    f = font(46)
+    for i, ch in enumerate("吉金智識"):
+        d.text((121, body[1] + 105 + i * 62), ch, font=f, fill=INK, anchor="mm")
+    d.line((161, body[1] + 81, 161, body[1] + 351), fill=INK, width=3)
+    s = fit(Image.open(A / "seal_吉.png").convert("RGBA"), 52, 52)
+    c.alpha_composite(s, (95, body[1] + 362))
     return c
 
 
